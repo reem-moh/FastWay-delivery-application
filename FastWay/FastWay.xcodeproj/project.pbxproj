@@ -11,6 +11,7 @@
 		5801097225C42241003C6BF8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5801097125C42241003C6BF8 /* ContentView.swift */; };
 		5801097425C42247003C6BF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5801097325C42247003C6BF8 /* Assets.xcassets */; };
 		5801097725C42247003C6BF8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5801097625C42247003C6BF8 /* Preview Assets.xcassets */; };
+		583262C325C776DD002A82C2 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583262C225C776DD002A82C2 /* SignView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		5801097325C42247003C6BF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5801097625C42247003C6BF8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5801097825C42247003C6BF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		583262C225C776DD002A82C2 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				5801096F25C42241003C6BF8 /* FastWayApp.swift */,
 				5801097125C42241003C6BF8 /* ContentView.swift */,
+				583262C225C776DD002A82C2 /* SignView.swift */,
 				5801097325C42247003C6BF8 /* Assets.xcassets */,
 				5801097825C42247003C6BF8 /* Info.plist */,
 				5801097525C42247003C6BF8 /* Preview Content */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583262C325C776DD002A82C2 /* SignView.swift in Sources */,
 				5801097225C42241003C6BF8 /* ContentView.swift in Sources */,
 				5801097025C42241003C6BF8 /* FastWayApp.swift in Sources */,
 			);
