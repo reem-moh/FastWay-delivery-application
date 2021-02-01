@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>537427276132-uukutvoas9vf4nhv2pefvm6on1hade2j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.537427276132-uukutvoas9vf4nhv2pefvm6on1hade2j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC7dPRSte-nbmnIMX6f4BLsZW6voaEl6Yk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>537427276132</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.SWE444.FastWay</string>
+	<key>PROJECT_ID</key>
+	<string>fastway-46858</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fastway-46858.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:537427276132:ios:19a71b1d7e259a16ea8a71</string>
+	<key>DATABASE_URL</key>
+	<string>https://fastway-46858-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
