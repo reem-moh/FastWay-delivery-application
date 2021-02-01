@@ -32,8 +32,11 @@ struct SignUPView: View {
             VStack{
                 //logo, text feilds and buttons
                 Image("FastWay")
-                    .padding(.bottom, 32.0)
-                VStack{
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 91, height: 82)
+                    .clipped()
+                VStack(alignment: .leading){
                     TextField("Name", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
@@ -60,16 +63,14 @@ struct SignUPView: View {
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
                             .padding(.horizontal, 11.0)
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text("Gender").font(.system(size: 18, weight: .medium))
-                                .foregroundColor(.primary)
-                            HStack{
-                                
-                            }
+                    VStack(alignment: .leading){
+                        Text("Gender").font(.system(size: 18, weight: .medium))
+                            .foregroundColor(.primary)
+                        HStack{
+                            
                         }
-                        Spacer()
                     }
+                    .padding(.leading)
             }
         }
     }
