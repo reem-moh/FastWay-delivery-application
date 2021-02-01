@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//Front end of the sign up page
 struct SignUPView: View {
     @State var name=""
     @State var email=""
@@ -37,27 +37,29 @@ struct SignUPView: View {
                     TextField("Name", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0)
                     
                     TextField("Email", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress)
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
                     
                     TextField("Phone Number", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0)
                     
                     SecureField("Password", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+                            .padding(.horizontal, 11.0)
                         
                     SecureField("Repeat Password", text: $name)
                         .font(.system(size: 18))
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+                            .padding(.horizontal, 11.0)
                     HStack{
                         VStack(alignment: .leading){
                             Text("Gender").font(.system(size: 18, weight: .medium))
@@ -68,7 +70,6 @@ struct SignUPView: View {
                         }
                         Spacer()
                     }
-                .padding(.horizontal, 11.0)
             }
         }
     }
