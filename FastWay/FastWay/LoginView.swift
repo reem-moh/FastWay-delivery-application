@@ -49,7 +49,7 @@ struct LoginView: View {
                             Button(action: {
                                 // What to perform
                             }) {
-                                Text("Login").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                                Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                             }
                             .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                             .padding(.top,25)

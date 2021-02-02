@@ -32,12 +32,14 @@ struct SignUPView: View {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
             }
             VStack{
+                //go back button
+               
                 //white rectangle
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 49)
             }
             VStack{
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,35)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,25)
                 VStack(alignment: .leading){
                     
                     TextField("Name", text: $name)
@@ -91,6 +93,14 @@ struct SignUPView: View {
                         }
                     }
                     
+                    //sign up button
+                    Button(action: {
+                        // What to perform
+                    }) {
+                        Text("SIGN UP").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                    }
+                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                    .padding(.top,25).offset(x: 24)
                 }
                 .padding(.bottom, 3.0)
                 
