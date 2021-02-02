@@ -8,7 +8,14 @@ import FirebaseFirestore
 
 struct ContentView: View {
     var body: some View {
-        Text("hello world")
+        ZStack{
+            //Image(uiImage: #imageLiteral(resourceName: "whiteBackground")).edgesIgnoringSafeArea(.all).offset(y:-100)
+            VStack(alignment: .center) {
+                //logo
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding()
+            }
+
+        }
     }
 }
 
