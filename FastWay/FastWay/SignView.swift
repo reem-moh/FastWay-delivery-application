@@ -7,19 +7,64 @@
 
 import SwiftUI
  
+//radio button groub (SwiftUI doesn't have it)
+//Gender
+enum Gender: String {
+    case male = "Male"
+    case female = "Female"
+}
+
+struct RadioButtonGroups: View {
+    let callback: (String) -> ()
+    
+    @State var selectedId: String = ""
+    
+    var body: some View {
+        HStack {
+            radioMaleMajority
+            radioFemaleMajority
+        }
+    }
+    
+    var radioMaleMajority: some View {
+        RadioButtonField(
+            id: Gender.male.rawValue,
+            label: Gender.male.rawValue,
+            color: Color(#colorLiteral(red: 0.53, green: 0.53, blue: 0.53, alpha: 1)),
+            textSize: 18,
+            isMarked: selectedId == Gender.male.rawValue ? true : false,
+            callback: radioGroupCallback
+        )
+    }
+    
+    var radioFemaleMajority: some View {
+        RadioButtonField(
+            id: Gender.female.rawValue,
+            label: Gender.female.rawValue,
+            color: Color(#colorLiteral(red: 0.53, green: 0.53, blue: 0.53, alpha: 1)),
+            textSize: 18,
+            isMarked: selectedId == Gender.female.rawValue ? true : false,
+            callback: radioGroupCallback
+        )
+    }
+    
+    func radioGroupCallback(id: String) {
+        selectedId = id
+        callback(id)
+    }
+}
 
 //Front end of the sign up page
 struct SignUPView: View {
+    
+    
     @State var name=""
     @State var email=""
     @State var phoneNum=""
     @State var password=""
     @State var rePassword=""
     @State var user=""
-    @State var female=false
-    @State var male=false
-    @State var courier=false
-    @State var member=false
+    @State var gender=""
     //error variables
     @State var nErr=false
     @State var eErr=false
@@ -75,17 +120,26 @@ struct SignUPView: View {
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
                             .padding(.horizontal, 11.0)
-                    VStack{
+                    VStack(alignment: .leading){
                         Text("Gender").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
                         HStack{
-                            
+                            RadioButtonGroups { selected in
+                                self.gender = selected
+                                        }
+
                         }
                     }
+                    
                 }
+                .padding(.bottom, 3.0)
+                
+            }
+            
         }
+        
     }
-}
+    
 }
 
 struct SignView_Previews: PreviewProvider {
