@@ -8,6 +8,9 @@ import SwiftUI
 struct LoginView: View {
     @State var email=""
     @State var pass=""
+    
+    @Binding var show: Bool
+    
     var body: some View {
         
         ZStack(alignment: .topTrailing) {
@@ -60,20 +63,14 @@ struct LoginView: View {
                         Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                         //Sign up Button
                             Button(action: {
-                                // What to perform
+                                self.show.toggle()
                             }) {
                                 Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.12, green: 0.46, blue: 0.8, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
                             }
                     }.offset(y: 50)
                 }
             }
-       }
+       }.navigationBarBackButtonHidden(true)
             
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }

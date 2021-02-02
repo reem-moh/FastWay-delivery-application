@@ -25,6 +25,8 @@ struct SignUPView: View {
     @State var phErr=false
     @State var pErr=false
     @State var rpErr=false
+    
+    @Binding var show: Bool
     var body: some View {
         ZStack{
             VStack{
@@ -111,12 +113,6 @@ struct SignUPView: View {
         
     }
     
-}
-
-struct SignView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUPView()
-    }
 }
 
 func checkName(name : String) -> Bool {
