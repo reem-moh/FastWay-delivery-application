@@ -78,7 +78,8 @@ struct SignUPView: View {
                         HStack{
                             RadioButtonGroups { selected in
                                 self.gender = selected
-                                        }
+                            }
+                            .padding(.trailing, 5.0)
 
                         }
                     }

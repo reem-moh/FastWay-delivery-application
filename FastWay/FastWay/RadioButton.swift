@@ -69,7 +69,7 @@ struct RadioButtonGroups: View {
     
     var body: some View {
         HStack {
-            radioMaleMajority
+            radioMaleMajority.padding(.trailing, 24.0)
             radioFemaleMajority
         }
     }
