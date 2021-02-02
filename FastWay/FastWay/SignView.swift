@@ -6,50 +6,7 @@ import SwiftUI
  
 //radio button groub (SwiftUI doesn't have it)
 //Gender
-enum Gender: String {
-    case male = "Male"
-    case female = "Female"
-}
 
-struct RadioButtonGroups: View {
-    let callback: (String) -> ()
-    
-    @State var selectedId: String = ""
-    
-    var body: some View {
-        HStack {
-            radioMaleMajority
-            radioFemaleMajority
-        }
-    }
-    
-    var radioMaleMajority: some View {
-        RadioButtonField(
-            id: Gender.male.rawValue,
-            label: Gender.male.rawValue,
-            color: Color(#colorLiteral(red: 0.53, green: 0.53, blue: 0.53, alpha: 1)),
-            textSize: 18,
-            isMarked: selectedId == Gender.male.rawValue ? true : false,
-            callback: radioGroupCallback
-        )
-    }
-    
-    var radioFemaleMajority: some View {
-        RadioButtonField(
-            id: Gender.female.rawValue,
-            label: Gender.female.rawValue,
-            color: Color(#colorLiteral(red: 0.53, green: 0.53, blue: 0.53, alpha: 1)),
-            textSize: 18,
-            isMarked: selectedId == Gender.female.rawValue ? true : false,
-            callback: radioGroupCallback
-        )
-    }
-    
-    func radioGroupCallback(id: String) {
-        selectedId = id
-        callback(id)
-    }
-}
 
 //Front end of the sign up page
 struct SignUPView: View {
@@ -72,51 +29,47 @@ struct SignUPView: View {
         ZStack{
             VStack{
                 //background image
-                Image("Rectangle 49").ignoresSafeArea()
-                Spacer()
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
             }
             VStack{
                 //white rectangle
-                Spacer(minLength: 100)
-                Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 49)
             }
             VStack{
                 //logo, text feilds and buttons
-                Image("FastWay")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 91, height: 82)
-                    .clipped()
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,35)
                 VStack(alignment: .leading){
-                    if nErr{
-                        Text("*A valid name contains more than 3 characters")
-                    }
+                    
                     TextField("Name", text: $name)
-                        .font(.system(size: 18))
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0)
+                        .font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                     
-                    TextField("Email", text: $name)
-                        .font(.system(size: 18))
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
+                    TextField("Email", text: $email)
+                        .font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                     
-                    TextField("Phone Number", text: $name)
-                        .font(.system(size: 18))
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0)
+                    TextField("Phone Number", text: $phoneNum)
+                        .font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                     
-                    SecureField("Password", text: $name)
-                        .font(.system(size: 18))
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
-                            .padding(.horizontal, 11.0)
+                    SecureField("Password", text: $password)
+                        .font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                         
-                    SecureField("Repeat Password", text: $name)
-                        .font(.system(size: 18))
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
-                            .padding(.horizontal, 11.0)
+                    SecureField("Repeat Password", text: $rePassword)
+                        .font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                   //gender
                     VStack(alignment: .leading){
                         Text("Gender").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
@@ -125,6 +78,16 @@ struct SignUPView: View {
                                 self.gender = selected
                                         }
 
+                        }
+                    }
+                   //user type
+                    VStack(alignment: .leading){
+                        Text("Type").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
+                        HStack{
+                            RadioButtonGroupT { selected in
+                                self.user = selected
+                                        }
                         }
                     }
                     
