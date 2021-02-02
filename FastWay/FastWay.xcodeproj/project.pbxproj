@@ -13,6 +13,7 @@
 		589433F325C8F62300E19E18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433F225C8F62300E19E18 /* Preview Assets.xcassets */; };
 		589433FC25C8F74100E19E18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 589433FB25C8F74100E19E18 /* GoogleService-Info.plist */; };
 		5894342A25C90DD800E19E18 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894342925C90DD800E19E18 /* SignView.swift */; };
+		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
 		F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		589433F425C8F62300E19E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		589433FB25C8F74100E19E18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5894342925C90DD800E19E18 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		589C42D525C9956E009D6B45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4A975CAC4078662B4232E56 /* Pods-FastWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.release.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.release.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
+				589C42D525C9956E009D6B45 /* LoginView.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
@@ -215,6 +218,7 @@
 			files = (
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */,
+				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

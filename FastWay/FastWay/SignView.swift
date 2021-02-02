@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
+ 
+
 //Front end of the sign up page
 struct SignUPView: View {
     @State var name=""
