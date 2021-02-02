@@ -1,9 +1,6 @@
 //
 //  FastWayApp.swift
 //  FastWay
-//
-//  Created by taif.m on 2/2/21.
-//
 
 import SwiftUI
 import Firebase
