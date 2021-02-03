@@ -6,24 +6,46 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
+//import Firebase
+//import FirebaseFirestore
 
 struct ContentView: View {
-    var body: some View {NavigationView {
-        NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) { /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Navigate")/*@END_MENU_TOKEN@*/ }
-    }
-        Text("hello")
+    @State var showSign = false
+    @State var showHomeCourier = false
+    @State var showHomeMember = false
+    
+    var body: some View {
+       AddNewOrderView()
+        NavigationView{
+            ZStack{
+                    NavigationLink(destination: DROPOFFlocationView()){
+                        Text("")
+                    }
+                    .hidden()
+                   /* NavigationLink(
+                        destination: HomeCourierView(),
+                    isActive: self.$showHomeCourier ){
+                        Text("")
+                    }
+                    .hidden()*/
+                
+     //   LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: //self.$showHomeMember )
+                
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            
+        }//end of NavigationView
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+        }
     }
 }
-
-
-    
 
 
