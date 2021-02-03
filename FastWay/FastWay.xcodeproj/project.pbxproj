@@ -10,6 +10,7 @@
 		15656DF925CA9F230095A114 /* HomeCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656DF825CA9F230095A114 /* HomeCourierView.swift */; };
 		15656DFC25CA9F2C0095A114 /* HomeMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656DFB25CA9F2C0095A114 /* HomeMemberView.swift */; };
 		15656DFF25CA9F320095A114 /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656DFE25CA9F320095A114 /* SendOrderIView.swift */; };
+		15656E0225CAA65F0095A114 /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */; };
 		4DB284EC25C98F7E00584E8C /* AddNewOrderPickUPLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB284EB25C98F7E00584E8C /* AddNewOrderPickUPLocationView.swift */; };
 		589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433EB25C8F61F00E19E18 /* FastWayApp.swift */; };
 		589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433ED25C8F61F00E19E18 /* ContentView.swift */; };
@@ -24,6 +25,7 @@
 		15656DF825CA9F230095A114 /* HomeCourierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCourierView.swift; sourceTree = "<group>"; };
 		15656DFB25CA9F2C0095A114 /* HomeMemberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMemberView.swift; sourceTree = "<group>"; };
 		15656DFE25CA9F320095A114 /* SendOrderIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
+		15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DB284EB25C98F7E00584E8C /* AddNewOrderPickUPLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderPickUPLocationView.swift; sourceTree = "<group>"; };
 		589433E825C8F61F00E19E18 /* FastWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589433EB25C8F61F00E19E18 /* FastWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastWayApp.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				15656DFE25CA9F320095A114 /* SendOrderIView.swift */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				4DB284EB25C98F7E00584E8C /* AddNewOrderPickUPLocationView.swift */,
+				15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */,
 				589433F125C8F62300E19E18 /* Preview Content */,
 			);
 			path = FastWay;
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15656E0225CAA65F0095A114 /* DROPOFFlocationView.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				15656DFF25CA9F320095A114 /* SendOrderIView.swift in Sources */,
 				15656DFC25CA9F2C0095A114 /* HomeMemberView.swift in Sources */,
