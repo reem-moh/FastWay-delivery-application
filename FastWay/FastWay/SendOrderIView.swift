@@ -51,7 +51,8 @@ struct SendOrderIView: View {
                 
             //Show Error message if the email feild empty
                 Text(nErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -35,y: -40)
+                
             TextField("Order here", text: $Orderhere)
                 .font(.system(size: 18))
             .offset(x:-100 ,y:-100).padding(110)
@@ -99,8 +100,8 @@ struct SendOrderIView: View {
 
 func SendOrder() {
     self.error = false
-    if self.Orderhere.count <= 3 {
-        self.nErr="*Details location must be more than one characters"
+    if self.Orderhere.count <= 0 {
+        self.nErr="* must be more than one characters"
         self.error = true
     }
 

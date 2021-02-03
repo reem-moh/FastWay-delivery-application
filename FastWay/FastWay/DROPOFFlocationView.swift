@@ -82,8 +82,7 @@ struct DROPOFFlocationView: View {
                         
                     //Show Error message if the email feild empty
                         Text(nErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
-                        
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 5,y: 105)
                 
                 TextField("bulding, floor, room numbers", text: $location)
                     .font(.system(size: 18))
@@ -113,8 +112,8 @@ struct DROPOFFlocationView: View {
     
     func DROPOFFlocation() {
         self.error = false
-        if self.location.count <= 3 {
-            self.nErr="*Details location must be more than one characters"
+        if self.location.count <= 0 {
+            self.nErr="* must be more than one characters"
             self.error = true
         }
 
