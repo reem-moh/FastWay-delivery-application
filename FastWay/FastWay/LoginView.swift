@@ -18,6 +18,7 @@ struct LoginView: View {
     @State var showLogin = false
     
     @Binding var showSign: Bool
+    @Binding var showHome: Bool
     
     var body: some View {
         
@@ -92,12 +93,13 @@ struct LoginView: View {
                                             self.Desc=err!.localizedDescription
                                             showLogin=true
                                         }else{
-                                            print("showlogin false")
+                                            print("login success")
                                             showLogin=false
+                                            self.showHome.toggle()
+                                            
                                         }
                                         print("success")
-                                        
-                                        
+
                                     }
                                 }else{
                                     showLogin=false

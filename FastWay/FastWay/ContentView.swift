@@ -7,21 +7,21 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showSign = false
-    @State var showReset = false
+    @State var showHome = false
     
     var body: some View {
        
         NavigationView{
             ZStack{
                     NavigationLink(
-                        destination: SignUPView(show: self.$showSign),
+                        destination: SignUPView(show: self.$showSign,showHome: self.$showHome),
                     isActive: self.$showSign ){
                         Text("")
                     }
                     .hidden()
                     
                 
-                LoginView(showSign: self.$showSign)
+                LoginView(showSign: self.$showSign,showHome: self.$showHome)
                 
             }
             .navigationBarTitle("")
