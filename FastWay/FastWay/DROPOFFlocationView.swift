@@ -27,12 +27,7 @@ struct DROPOFFlocationView: View {
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
             }
             
-         /*   VStack{
-                Text("pick up location").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center)
-            //Available in iOS 14 only
-            .textCase(.uppercase)
-            }*/
+
          
            VStack{
             
@@ -49,17 +44,7 @@ struct DROPOFFlocationView: View {
                 .position(x:188,y:280).offset(x:0 ,y:-40)
             }
             
-        /*    VStack {
-                      RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.41999998688697815)), lineWidth: 1).position(x:170,y:100)
-            }
-            .frame(width: 340, height: 54)
-            
-            VStack {
-                    RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.41999998688697815)), lineWidth: 1).position(x:170,y:200)
-            }
-            .frame(width: 340, height: 54)*/
+
             VStack(alignment: .leading){
                 
                 Image(uiImage: #imageLiteral(resourceName: "location"))
@@ -89,16 +74,6 @@ struct DROPOFFlocationView: View {
                 
                 
             }
-                /* ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                .fill(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5099999904632568)))
-
-                RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.41999998688697815)), lineWidth: 1)
-            }
-            .frame(width: 340, height: 54)*/
-        
-            
                     
                     Button(action: {
                     })   {
