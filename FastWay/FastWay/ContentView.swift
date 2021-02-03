@@ -6,23 +6,28 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @State var show = false
+    @State var showSign = false
+    @State var showReset = false
+    
     var body: some View {
        
         NavigationView{
             ZStack{
                     NavigationLink(
-                        destination: SignUPView(show: self.$show),
-                    isActive: self.$show ){
+                        destination: SignUPView(show: self.$showSign),
+                    isActive: self.$showSign ){
                         Text("")
                     }
                     .hidden()
+                    
                 
-                LoginView(show: self.$show)
+                LoginView(showSign: self.$showSign)
                 
-            }.navigationBarTitle("")
+            }
+            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            
         }//end of NavigationView
     }
 }
