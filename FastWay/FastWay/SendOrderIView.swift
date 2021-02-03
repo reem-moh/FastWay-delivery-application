@@ -14,12 +14,10 @@ struct SendOrderIView: View {
 
     
     
-    //error variables
-    @State var nErr=false
-    @State var eErr=false
-    @State var phErr=false
-    @State var pErr=false
-    @State var rpErr=false
+    @State var error = false
+    @State var nErr = ""
+    
+   
 
     var body: some View {
         
@@ -36,9 +34,8 @@ struct SendOrderIView: View {
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
             }
         VStack(){
-            if nErr{
-                Text("*A valid name contains more than 5 characters")
-            }
+            
+          
             
             
             
@@ -49,13 +46,18 @@ struct SendOrderIView: View {
             
             Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                 .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-50)
-            
+           
+            Group{
+                
+            //Show Error message if the email feild empty
+                Text(nErr).font(.custom("Roboto Regular", size: 18))
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
             TextField("Order here", text: $Orderhere)
                 .font(.system(size: 18))
             .offset(x:-100 ,y:-100).padding(110)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0).offset(x:0 ,y:-50)
             
-            
+            }
             
             
             
@@ -75,9 +77,9 @@ struct SendOrderIView: View {
             
             
             
-            
             Button(action: {
-            })   {
+                self.SendOrder()
+            })  {
                 Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
             .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
@@ -93,7 +95,16 @@ struct SendOrderIView: View {
     
     
         }
-    }}
+    }
+
+func SendOrder() {
+    self.error = false
+    if self.Orderhere.count <= 3 {
+        self.nErr="*Details location must be more than one characters"
+        self.error = true
+    }
+
+}}
 
 struct SendOrderIView_Previews: PreviewProvider {
     static var previews: some View {
