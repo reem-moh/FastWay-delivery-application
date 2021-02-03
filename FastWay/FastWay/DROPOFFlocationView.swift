@@ -11,6 +11,18 @@ struct DROPOFFlocationView: View {
     @State var name = ""
     @State var location = ""
 
+
+        // Errors
+          
+    
+    
+    
+    @State var error = false
+    @State var nErr = ""
+
+    
+    
+    
     var body: some View {
         //pick up location
                 ZStack{
@@ -62,9 +74,16 @@ struct DROPOFFlocationView: View {
                     .padding(12)
                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:90)
                 
-                
+                    
                 Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                     .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:5 ,y:100)
+                    
+                    Group{
+                        
+                    //Show Error message if the email feild empty
+                        Text(nErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                        
                 
                 TextField("bulding, floor, room numbers", text: $location)
                     .font(.system(size: 18))
@@ -72,10 +91,13 @@ struct DROPOFFlocationView: View {
                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:100)
 
                 
+                }
+                
                 
             }
                     
                     Button(action: {
+                        self.DROPOFFlocation()
                     })   {
                         Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                         }
@@ -87,10 +109,21 @@ struct DROPOFFlocationView: View {
 }
 
     }
+    
+    
+    func DROPOFFlocation() {
+        self.error = false
+        if self.location.count <= 3 {
+            self.nErr="*Details location must be more than one characters"
+            self.error = true
+        }
+
 }
+    }
 
 struct DROPOFFlocationView_Previews: PreviewProvider {
     static var previews: some View {
         DROPOFFlocationView()
     }
 }
+
