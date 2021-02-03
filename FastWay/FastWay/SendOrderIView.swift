@@ -11,6 +11,7 @@ struct SendOrderIView: View {
     @State var Orderhere=""
     @State var CashonDelivery=""
     @State var sendorder=""
+
     
     
     //error variables
@@ -39,6 +40,11 @@ struct SendOrderIView: View {
                 Text("*A valid name contains more than 5 characters")
             }
             
+            
+            
+            Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-140)
+            
          
             
             Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
@@ -46,7 +52,7 @@ struct SendOrderIView: View {
             
             TextField("Order here", text: $Orderhere)
                 .font(.system(size: 18))
-                .padding(110)
+            .offset(x:-100 ,y:-100).padding(110)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0).offset(x:0 ,y:-50)
             
             
@@ -70,11 +76,12 @@ struct SendOrderIView: View {
             
             
             
-            Button()   {
-                                    Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color( colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+            Button(action: {
+            })   {
+                Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
-                                .background(Image(uiImage:  imageLiteral(resourceName: "LogInFeild")))
-                                .padding(.top,25).offset(x: 24)
+            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                                .padding(.top,25).offset(x: 0)
             
                
               
