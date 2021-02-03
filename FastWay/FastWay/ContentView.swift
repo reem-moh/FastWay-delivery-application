@@ -3,8 +3,7 @@
 //  FastWay
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
+
 
 struct ContentView: View {
     @State var show = false
