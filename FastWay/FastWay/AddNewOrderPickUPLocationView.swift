@@ -8,6 +8,9 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+
+//Front end of the pick up location page
+
 struct AddNewOrderView: View {
 
     @State var name = ""
@@ -34,11 +37,11 @@ struct AddNewOrderView: View {
                  
                    VStack{
                     
-                    
+                    //the title of the page
                     Text("PICK UP LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:60)
                     
-                    
+                    //map image
                     Image(uiImage: #imageLiteral(resourceName: "map"))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -50,7 +53,7 @@ struct AddNewOrderView: View {
              
                     
                     VStack(alignment: .leading){
-                        
+                        //locaion image
                         Image(uiImage: #imageLiteral(resourceName: "location"))
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -66,7 +69,7 @@ struct AddNewOrderView: View {
                             .padding(12)
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:90)
                         
-                        
+                        //location details text feild
                         Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:5 ,y:100)
                         
@@ -80,8 +83,7 @@ struct AddNewOrderView: View {
                     }
                 
                     
-                    
-                            
+                    //next button
                             Button(action: {
                             })   {
                                 Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Front end of the drop off location page
 struct DROPOFFlocationView: View {
     @State var name = ""
     @State var location = ""
@@ -31,11 +32,11 @@ struct DROPOFFlocationView: View {
          
            VStack{
             
-            
+            //title of the page
             Text("DROP OFF LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                 .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:60)
             
-            
+            //map image
             Image(uiImage: #imageLiteral(resourceName: "map"))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -46,7 +47,7 @@ struct DROPOFFlocationView: View {
             
 
             VStack(alignment: .leading){
-                
+                //location image
                 Image(uiImage: #imageLiteral(resourceName: "location"))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -61,8 +62,8 @@ struct DROPOFFlocationView: View {
                     .font(.system(size: 18))
                     .padding(12)
                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:90)
-                
-                
+                    
+                //details location
                 Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                     .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:5 ,y:100)
                 
@@ -74,7 +75,7 @@ struct DROPOFFlocationView: View {
                 
                 
             }
-                    
+                    //button
                     Button(action: {
                     })   {
                         Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
