@@ -41,6 +41,8 @@ struct SignUPView: View {
     @State var gErr=""
     
     @Binding var show: Bool
+    @Binding var showHome: Bool
+    
     
     var body: some View {
         ZStack{
@@ -155,7 +157,7 @@ struct SignUPView: View {
         
     }
     func signUp() {
-        self.$error = false
+        self.error = false
         if self.name.count <= 3 {
             self.nErr="*Name must be more than 3 characters"
             self.error = true
@@ -189,6 +191,9 @@ struct SignUPView: View {
             Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
                 if err != nil {
                     self.nErr = err!.localizedDescription
+                }else{
+                    
+                    self.showHome.toggle()
                 }
                 
             }
