@@ -18,7 +18,8 @@ struct LoginView: View {
     @State var showLogin = false
     
     @Binding var showSign: Bool
-    @Binding var showHome: Bool
+    @Binding var showHomeCourier: Bool
+    @Binding var showHomeMember: Bool
     
     var body: some View {
         
@@ -95,7 +96,7 @@ struct LoginView: View {
                                         }else{
                                             print("login success")
                                             showLogin=false
-                                            self.showHome.toggle()
+                                            self.showHomeCourier.toggle()
                                             
                                         }
                                         print("success")

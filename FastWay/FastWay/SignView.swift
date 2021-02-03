@@ -41,8 +41,8 @@ struct SignUPView: View {
     @State var gErr=""
     
     @Binding var show: Bool
-    @Binding var showHome: Bool
-    
+    @Binding var showHomeCourier: Bool
+    @Binding var showHomeMember: Bool
     
     var body: some View {
         ZStack{
@@ -193,7 +193,7 @@ struct SignUPView: View {
                     self.nErr = err!.localizedDescription
                 }else{
                     
-                    self.showHome.toggle()
+                    self.showHomeCourier.toggle()
                 }
                 
             }
