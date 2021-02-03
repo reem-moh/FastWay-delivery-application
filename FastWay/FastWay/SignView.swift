@@ -192,6 +192,13 @@ struct SignUPView: View {
                 if err != nil {
                     self.nErr = err!.localizedDescription
                 }else{
+                    if user == "Courier"{
+                        //query to add courier
+                    }else{
+                        if user == "Member"{
+                            //query to add member
+                        }
+                    }
                     
                     self.showHomeCourier.toggle()
                 }
