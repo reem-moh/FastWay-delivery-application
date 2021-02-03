@@ -3,7 +3,7 @@
 //  FastWay
 
 import SwiftUI
-
+import Firebase
 //to validate the email format
 let __firstpart = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
 let __serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
@@ -155,7 +155,7 @@ struct SignUPView: View {
         
     }
     func signUp() {
-        
+        self.$error = false
         if self.name.count <= 3 {
             self.nErr="*Name must be more than 3 characters"
             self.error = true
@@ -186,7 +186,12 @@ struct SignUPView: View {
             self.error = true
         }
         if !self.error {
-            
+            Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
+                if err != nil {
+                    self.nErr = err!.localizedDescription
+                }
+                
+            }
         }
         
     }
