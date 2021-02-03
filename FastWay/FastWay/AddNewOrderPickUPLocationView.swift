@@ -2,7 +2,7 @@
 //  AddNewOrderView.swift
 //  FastWay
 //
-//  Created by Raghad AlOtaibi on 20/06/1442 AH.
+//  Created by Shahad AlOtaibi on 20/06/1442 AH.
 //
 
 import SwiftUI
