@@ -173,7 +173,7 @@ struct SignUPView: View {
             self.eErr="*Valid email is required"
             self.error = true
         }
-        if phoneNum.count != 10 {
+        if (phoneNum.count != 10) {
             self.phErr="*Phone number must be 05********"
             self.error = true
         }
