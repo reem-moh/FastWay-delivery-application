@@ -116,6 +116,8 @@ func SendOrder() {
         self.nErr="*must be more than one characters"
         self.error = true
     }
+    
+    
 
 }}
 

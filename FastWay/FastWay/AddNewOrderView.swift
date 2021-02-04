@@ -18,6 +18,8 @@ struct AddNewOrderView: View {
     
     @State var error = false
     @State var nErr = ""
+    @State var nErr1 = ""
+
     
     var body: some View {
         //pick up location
@@ -93,7 +95,7 @@ struct AddNewOrderView: View {
             
                     
                 //Show Error message if the email feild empty
-                    Text(nErr).font(.custom("Roboto Regular", size: 18))
+                    Text(nErr1).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
             
             TextField("bulding, floor, room numbers", text: $Detailslocation)
@@ -130,6 +132,12 @@ struct AddNewOrderView: View {
             self.nErr="*must be more than one characters"
             self.error = true
         }
+        
+        if self.Detailslocation.count <= 0 {
+            self.nErr1="*must be more than one characters"
+            self.error = true
+        }
+
 
 }
     
