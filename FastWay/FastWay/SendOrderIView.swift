@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 struct SendOrderIView: View {
     @State var Orderhere=""
@@ -38,14 +40,17 @@ struct SendOrderIView: View {
             }
             
             
-            VStack{
+    
                 
-                
-                Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-450)
+                VStack{
+                 
+                 
+                 Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                     .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
+                 
+                }
                 
              
-            }
             
         VStack(){
             

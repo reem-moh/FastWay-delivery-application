@@ -2,10 +2,12 @@
 //  DROPOFFlocationView.swift
 //  FastWay
 //
-//  Created by Ghaida . on 21/06/1442 AH.
+//  Created by Shahad AlOtaibi on 20/06/1442 AH.
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 struct DROPOFFlocationView: View {
     @State var name = ""

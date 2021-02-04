@@ -12,6 +12,7 @@
 		15656DFF25CA9F320095A114 /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656DFE25CA9F320095A114 /* SendOrderIView.swift */; };
 		15656E0225CAA65F0095A114 /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */; };
 		4DB284EC25C98F7E00584E8C /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB284EB25C98F7E00584E8C /* AddNewOrderView.swift */; };
+		4DDFB21425CC6274005E0944 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFB21325CC6274005E0944 /* classes.swift */; };
 		589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433EB25C8F61F00E19E18 /* FastWayApp.swift */; };
 		589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433ED25C8F61F00E19E18 /* ContentView.swift */; };
 		589433F025C8F62300E19E18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433EF25C8F62300E19E18 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		15656DFE25CA9F320095A114 /* SendOrderIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
 		15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DB284EB25C98F7E00584E8C /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
+		4DDFB21325CC6274005E0944 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		589433E825C8F61F00E19E18 /* FastWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589433EB25C8F61F00E19E18 /* FastWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastWayApp.swift; sourceTree = "<group>"; };
 		589433ED25C8F61F00E19E18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
 				15656DFB25CA9F2C0095A114 /* HomeMemberView.swift */,
+				4DDFB21325CC6274005E0944 /* classes.swift */,
 				15656DF825CA9F230095A114 /* HomeCourierView.swift */,
 				4DB284EB25C98F7E00584E8C /* AddNewOrderView.swift */,
 				15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */,
@@ -235,6 +238,7 @@
 				589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */,
 				15656DF925CA9F230095A114 /* HomeCourierView.swift in Sources */,
 				4DB284EC25C98F7E00584E8C /* AddNewOrderView.swift in Sources */,
+				4DDFB21425CC6274005E0944 /* classes.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
