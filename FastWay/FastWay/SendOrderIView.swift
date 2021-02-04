@@ -97,6 +97,10 @@ struct SendOrderIView: View {
                 
             Button(action: {
                 self.SendOrder()
+                if (order.setOrderDetails(orderDetails:Orderhere)){
+                    print("order details saved")
+                }
+
             })  {
                 Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
@@ -120,6 +124,9 @@ func SendOrder() {
     if self.Orderhere.count <= 0 {
         self.nErr="*must be more than one characters"
         self.error = true
+        if order.addOrder(){
+            print("order added")
+        }
     }
     
     

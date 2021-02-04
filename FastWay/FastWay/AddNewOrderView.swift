@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+var order = Order()
 struct AddNewOrderView: View {
 
     @State var name = ""
@@ -42,7 +43,7 @@ struct AddNewOrderView: View {
        VStack{
         
         
-        Text("DROP OFF LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+        Text("PICK UP LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }
@@ -111,6 +112,9 @@ struct AddNewOrderView: View {
             Group{
                 Button(action: {
                     self.PICKUPlocation()
+                    if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpDetails: Detailslocation)){
+                        print("pick up saved")
+                    }
                 })   {
                     Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                     }
@@ -147,3 +151,8 @@ struct AddNewOrderView_Previews: PreviewProvider {
     }
 }
 }
+
+
+
+/*if order.addOrder(){
+    print("added")}*/

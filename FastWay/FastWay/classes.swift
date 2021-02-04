@@ -93,21 +93,26 @@ class Order{
         self.orderDetails =  ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: String,pickUpDetails:String){
+    func setpickUPAndpickUpDetails(pickUP: String,pickUpDetails:String)-> Bool{
         self.pickUP=pickUP
         self.pickUpDetails=pickUpDetails
+        return true
     }
     
-    func setDropOffAndDropOffDetails(dropOff: String,dropOffDetails:String){
+    func setDropOffAndDropOffDetails(dropOff: String,dropOffDetails:String)-> Bool{
         self.dropOff=dropOff
         self.dropOffDetails=dropOffDetails
+        return true
+
     }
     
-    func setOrderDetails(orderDetails: String){
+    func setOrderDetails(orderDetails: String)-> Bool{
         self.orderDetails=orderDetails
+        return true
+
     }
     
-    func addOrder(courier: Courier) -> Bool {
+    func addOrder() -> Bool {
         var flag = true
         //need to change the id
         let doc = db.collection("Order").document("5fj6srOHetO5QJLjZcEG")
