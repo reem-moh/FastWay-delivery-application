@@ -5,6 +5,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 
 struct LoginView: View {
     @State var email=""
@@ -42,7 +43,7 @@ struct LoginView: View {
                         
                         //Reset
                         if resetShow{
-                            Text(self.descReset).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)))
+                            Text(self.descReset).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
                                 .offset(x: -5, y: 30)
                         }
                        
@@ -86,7 +87,7 @@ struct LoginView: View {
         
                                 }) {
                                     
-                                    Text("Forget password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
+                                    Text("Forget password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                                     
                                 }
                             }.padding(.top,-20)
@@ -106,15 +107,31 @@ struct LoginView: View {
                                             self.desc=err!.localizedDescription
                                             ErrorShow=true
                                         }else{
+                                            
                                             print("login success")
                                             ErrorShow=false
-                                            let signedUser = Auth.auth().currentUser
-                                            self.showHomeCourier.toggle()
-                                           // if let signedUser = signedUser {
-                                               // let id = signedUser.uid
                                             
-                                           // }
-                                            
+                                            let loginUser = Auth.auth().currentUser
+                                        
+                                            if let loginUser = loginUser {
+                                                
+                                                let id = loginUser.uid
+                                                print(id)
+                                                //take the document from the database
+                                                let docRef = db.collection("Member").document(id)
+                                                
+                                                //check if the id inside member doc
+                                                docRef.getDocument { (document, error) in
+                                                    if let document = document, document.exists {
+                                                        print("Member")
+                                                        self.showHomeMember.toggle()
+                                                    } else {
+                                                        print("Courier")
+                                                        self.showHomeCourier.toggle()
+                                                    }
+                                                }
+                                            }
+ 
                                         }
                                         print("success")
 
@@ -138,7 +155,7 @@ struct LoginView: View {
                             Button(action: {
                                     self.showSign.toggle()
                                 }) {
-                                    Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
+                                    Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
                             }
                         }//end Group
                     

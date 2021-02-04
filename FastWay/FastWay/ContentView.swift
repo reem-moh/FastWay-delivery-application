@@ -26,6 +26,12 @@ struct ContentView: View {
                     Text("")
                 }
                 .hidden()
+                NavigationLink(
+                    destination: HomeMemberView(),
+                    isActive: self.$showHomeMember ){
+                    Text("")
+                }
+                .hidden()
                 
                 
                 LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember )
