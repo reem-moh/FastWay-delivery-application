@@ -65,7 +65,7 @@ struct LoginView: View {
                         Group {
                             //Show Error message if the pass feild empty
                             if showErrorMessagePass {
-                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)))
+                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                                     .offset(x: -60, y: 30)
                             }
                             
