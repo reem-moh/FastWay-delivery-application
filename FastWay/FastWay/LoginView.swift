@@ -39,11 +39,13 @@ struct LoginView: View {
                             Text(self.desc).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                 .offset(x: -5, y: 30)
                         }
+                        
                         //Reset
                         if resetShow{
                             Text(self.descReset).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)))
                                 .offset(x: -5, y: 30)
                         }
+                       
                         //Email Group
                         Group {
                             //Show Error message if the email feild empty
@@ -92,8 +94,10 @@ struct LoginView: View {
                         
                         //Log in Button
                             Button(action: {
+                                
                                 self.verifyEmptyEmail()
                                 self.verifyEmptyPass()
+                                
                                 //check if the email and passowrd in the firebase
                                 if(!showErrorMessageEmail && !showErrorMessagePass){
                                     self.email = self.email.lowercased()
@@ -104,7 +108,12 @@ struct LoginView: View {
                                         }else{
                                             print("login success")
                                             ErrorShow=false
+                                            let signedUser = Auth.auth().currentUser
                                             self.showHomeCourier.toggle()
+                                           // if let signedUser = signedUser {
+                                               // let id = signedUser.uid
+                                            
+                                           // }
                                             
                                         }
                                         print("success")
@@ -132,6 +141,7 @@ struct LoginView: View {
                                     Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
                             }
                         }//end Group
+                    
                     }.offset(y: 50)
                 }
             }
