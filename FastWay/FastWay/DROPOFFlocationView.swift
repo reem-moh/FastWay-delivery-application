@@ -64,7 +64,7 @@ struct DROPOFFlocationView: View {
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 25, height: 25)
                          .clipped()
-                         .offset(x:20 ,y:490)
+                         .offset(x:330 ,y:490)
                 
                 Group{
                     
