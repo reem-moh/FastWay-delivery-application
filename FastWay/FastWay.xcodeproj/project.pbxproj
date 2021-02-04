@@ -15,6 +15,7 @@
 		5894342A25C90DD800E19E18 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894342925C90DD800E19E18 /* SignView.swift */; };
 		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
 		589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D925C9B2B6009D6B45 /* RadioButton.swift */; };
+		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
 		C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C26EB125CABEA500505716 /* HomeCourierView.swift */; };
 		F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		5894342925C90DD800E19E18 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
 		589C42D525C9956E009D6B45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		589C42D925C9B2B6009D6B45 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		589C42FB25CBA651009D6B45 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2C26EB125CABEA500505716 /* HomeCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCourierView.swift; sourceTree = "<group>"; };
@@ -81,12 +83,13 @@
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
+				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				589433F125C8F62300E19E18 /* Preview Content */,
 				589C42D925C9B2B6009D6B45 /* RadioButton.swift */,
-				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
+				589C42FB25CBA651009D6B45 /* classes.swift */,
 			);
 			path = FastWay;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				589C42FC25CBA651009D6B45 /* classes.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,

@@ -4,6 +4,7 @@
 
 import SwiftUI
 import Firebase
+
 //to validate the email format
 let __firstpart = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
 let __serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
@@ -52,7 +53,7 @@ struct SignUPView: View {
             }
             VStack{
                 //go back button
-               
+                
                 //white rectangle
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 10)
             }
@@ -63,9 +64,9 @@ struct SignUPView: View {
                 ScrollView{
                     VStack(alignment: .leading){
                         Group {
-                        Text(nErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
-                        
+                            Text(nErr).font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            
                             TextField("Name", text: $name)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -89,7 +90,7 @@ struct SignUPView: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
-                         
+                            
                             Text(self.pErr).font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
@@ -108,7 +109,7 @@ struct SignUPView: View {
                             .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
-                       //gender
+                        //gender
                         VStack(alignment: .leading){
                             
                             Text(self.gErr).font(.custom("Roboto Regular", size: 18))
@@ -121,10 +122,10 @@ struct SignUPView: View {
                                     self.gender = selected
                                 }
                                 .padding(.trailing, 5.0)
-
+                                
                             }
                         }
-                       //user type
+                        //user type
                         VStack(alignment: .leading){
                             
                             Text(self.uErr).font(.custom("Roboto Regular", size: 18))
@@ -135,7 +136,7 @@ struct SignUPView: View {
                             HStack{
                                 RadioButtonGroupT { selected in
                                     self.user = selected
-                                            }
+                                }
                             }
                         }
                         
@@ -147,7 +148,7 @@ struct SignUPView: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24)
-                }.padding(.bottom, 60)
+                    }.padding(.bottom, 60)
                 }
                 .padding(.bottom, 3.0)
                 
@@ -188,15 +189,22 @@ struct SignUPView: View {
             self.error = true
         }
         if !self.error {
+            self.email = self.email.lowercased()
             Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
                 if err != nil {
                     self.nErr = err!.localizedDescription
                 }else{
                     if user == "Courier"{
-                        //query to add courier
+                        let courier = Courier(name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                        if courier.addCourier(courier: courier) {
+                            print("added")
+                        }
                     }else{
                         if user == "Member"{
-                            //query to add member
+                            let member = Member(name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                            if member.addMember(member: member) {
+                                print("added")
+                            }
                         }
                     }
                     
