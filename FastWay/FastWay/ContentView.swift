@@ -11,22 +11,22 @@ struct ContentView: View {
     @State var showHomeMember = false
     
     var body: some View {
-       
+        
         NavigationView{
             ZStack{
-                    NavigationLink(
-                        destination: SignUPView(show: self.$showSign,showHomeCourier: self.$showHomeCourier,showHomeMember: self.$showHomeMember ),
+                NavigationLink(
+                    destination: SignUPView(show: self.$showSign,showHomeCourier: self.$showHomeCourier,showHomeMember: self.$showHomeMember ),
                     isActive: self.$showSign ){
-                        Text("")
-                    }
-                    .hidden()
-                    NavigationLink(
-                        destination: HomeCourierView(),
+                    Text("")
+                }
+                .hidden()
+                NavigationLink(
+                    destination: HomeCourierView(),
                     isActive: self.$showHomeCourier ){
-                        Text("")
-                    }
-                    .hidden()
-                    
+                    Text("")
+                }
+                .hidden()
+                
                 
                 LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember )
                 
@@ -48,6 +48,6 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
-    
+
 
 
