@@ -9,13 +9,14 @@ import Firebase
 struct LoginView: View {
     @State var email=""
     @State var pass=""
-    @State var Desc=""
-    
+    @State var desc=""
+    @State var descReset=""
     
     // Errors
     @State var showErrorMessageEmail = false
     @State var showErrorMessagePass = false
-    @State var showLogin = false
+    @State var ErrorShow = false
+    @State var resetShow = false
     
     @Binding var showSign: Bool
     @Binding var showHomeCourier: Bool
@@ -34,11 +35,15 @@ struct LoginView: View {
                         Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,35)
                         
                         //Error in auth
-                        if showLogin{
-                            Text(self.Desc).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                        if ErrorShow{
+                            Text(self.desc).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                 .offset(x: -5, y: 30)
                         }
-                        
+                        //Reset
+                        if resetShow{
+                            Text(self.descReset).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)))
+                                .offset(x: -5, y: 30)
+                        }
                         //Email Group
                         Group {
                             //Show Error message if the email feild empty
@@ -73,7 +78,10 @@ struct LoginView: View {
                             HStack{
                             
                                 Button(action: {
+                                    
                                     self.verifyEmptyEmail()
+                                    self.reset()
+        
                                 }) {
                                     
                                     Text("Forget password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.12, green: 0.46, blue: 0.8, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
@@ -91,11 +99,11 @@ struct LoginView: View {
                                     
                                     Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
                                         if err != nil{
-                                            self.Desc=err!.localizedDescription
-                                            showLogin=true
+                                            self.desc=err!.localizedDescription
+                                            ErrorShow=true
                                         }else{
                                             print("login success")
-                                            showLogin=false
+                                            ErrorShow=false
                                             self.showHomeCourier.toggle()
                                             
                                         }
@@ -103,7 +111,7 @@ struct LoginView: View {
 
                                     }
                                 }else{
-                                    showLogin=false
+                                    ErrorShow=false
                                 }
                             }) {
                                 
@@ -114,7 +122,7 @@ struct LoginView: View {
                         
                         //SignUp Group
                         Group {
-                           // Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
+                           Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
                             
                             Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                             
@@ -138,6 +146,7 @@ struct LoginView: View {
                   self.showErrorMessageEmail = false
                             }
     }
+    
     func verifyEmptyPass(){
         if self.pass.isEmpty {
                                 self.showErrorMessagePass = true
@@ -146,5 +155,25 @@ struct LoginView: View {
         }
     }
     
-    
+    func reset(){
+        if !showErrorMessageEmail {
+            Auth.auth().sendPasswordReset(withEmail: self.email) { (err) in
+                
+                if err != nil {
+                    self.desc=err!.localizedDescription
+                    ErrorShow=true
+                }else{
+                    print("success")
+                    self.descReset="Password reset link has been sent successfully"
+                    resetShow=true
+                    self.desc=""
+                    ErrorShow=false
+                }
+            }
+        }else{
+            self.desc=""
+        }
+        
+    }
+
 }
