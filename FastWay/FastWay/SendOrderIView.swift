@@ -40,12 +40,12 @@ struct SendOrderIView: View {
             
             
             Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-140)
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-135)
             
          
             
             Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-50)
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-30)
            
             Group{
                 
