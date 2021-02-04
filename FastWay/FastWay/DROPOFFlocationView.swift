@@ -10,6 +10,8 @@ import SwiftUI
 struct DROPOFFlocationView: View {
     @State var name = ""
     @State var location = ""
+    @State var Detailslocation = ""
+
 
 
         // Errors
@@ -100,7 +102,7 @@ struct DROPOFFlocationView: View {
                         Text(nErr).font(.custom("Roboto Regular", size: 18))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
                 
-                TextField("bulding, floor, room numbers", text: $location)
+                TextField("bulding, floor, room numbers", text: $Detailslocation)
                     .font(.system(size: 18))
                     .padding(12)
                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
@@ -110,7 +112,7 @@ struct DROPOFFlocationView: View {
                 
                 
             
-                    
+                Group{
                     Button(action: {
                         self.DROPOFFlocation()
                     })   {
@@ -119,6 +121,7 @@ struct DROPOFFlocationView: View {
                     .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                     .padding(.top,25).offset(x: 25,y:-130)
                     
+                }
                 }
         
 }

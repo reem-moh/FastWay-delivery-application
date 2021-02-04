@@ -12,7 +12,8 @@ struct AddNewOrderView: View {
 
     @State var name = ""
     @State var location = ""
-    
+    @State var Detailslocation = ""
+
     
     
     @State var error = false
@@ -59,7 +60,7 @@ struct AddNewOrderView: View {
                      .clipped()
                      .offset(x:20 ,y:490)
             
-            Group{
+            
                 
                 Image(uiImage: #imageLiteral(resourceName: "map"))
                     .resizable()
@@ -69,7 +70,7 @@ struct AddNewOrderView: View {
                     .position(x:188,y:280).offset(x:0 ,y:-10)
                 
                 
-   
+            Group{
             
          
                 
@@ -81,10 +82,10 @@ struct AddNewOrderView: View {
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
-            }
             
             
-            Group{
+            
+           
                 
             Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                 .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-165)
@@ -95,17 +96,17 @@ struct AddNewOrderView: View {
                     Text(nErr).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
             
-            TextField("bulding, floor, room numbers", text: $location)
+            TextField("bulding, floor, room numbers", text: $Detailslocation)
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
 
             
-            }
             
+        }
             
         
-                
+            Group{
                 Button(action: {
                     self.PICKUPlocation()
                 })   {
@@ -115,6 +116,7 @@ struct AddNewOrderView: View {
                 .padding(.top,25).offset(x: 25,y:-130)
                 
             }
+        }
     
 }
     
