@@ -93,7 +93,7 @@ struct LoginView: View {
                         }
                         
                         //Log in Button
-                            Button(action: {
+                            Button( action: {
                                 self.verifyEmptyEmail()
                                 self.verifyEmptyPass()
                                 //check if the email and passowrd in the firebase
@@ -148,6 +148,7 @@ struct LoginView: View {
                         Group {
 
                            Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
+
 
                             Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                             
