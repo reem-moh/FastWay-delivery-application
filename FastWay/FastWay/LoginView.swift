@@ -83,7 +83,7 @@ struct LoginView: View {
                                     
                                     self.verifyEmptyEmail()
                                     self.reset()
-        
+                                    
                                 }) {
                                     
                                     Text("Forget password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.12, green: 0.46, blue: 0.8, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
@@ -93,112 +93,112 @@ struct LoginView: View {
                         }
                         
                         //Log in Button
-                            Button(action: {
-                                self.verifyEmptyEmail()
-                                self.verifyEmptyPass()
-                                //check if the email and passowrd in the firebase
-                                if(!showErrorMessageEmail && !showErrorMessagePass){
-                                    
-                                    Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
-                                        if err != nil{
-                                            self.desc=err!.localizedDescription
-                                            ErrorShow=true
-                                        }else{
-                                            print("login success")
-                                            ErrorShow=false
-                                            self.showHomeCourier.toggle()
-                                            
-                                        }
-                                        print("success")
-
-                                    }
-                                }else{
-                                    ErrorShow=false
-
-                        Button(action: {
+                        Button( action: {
                             self.verifyEmptyEmail()
                             self.verifyEmptyPass()
                             //check if the email and passowrd in the firebase
                             if(!showErrorMessageEmail && !showErrorMessagePass){
-                                self.email = self.email.lowercased()
+                                
                                 Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
                                     if err != nil{
-                                        self.Desc=err!.localizedDescription
-                                        showLogin=true
+                                        self.desc=err!.localizedDescription
+                                        ErrorShow=true
                                     }else{
                                         print("login success")
-                                        showLogin=false
+                                        ErrorShow=false
                                         self.showHomeCourier.toggle()
                                         
                                     }
                                     print("success")
-        
+                                    
                                 }
                             }else{
-                                showLogin=false
-                            }
-                        }) {
-                            
-                            Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                                ErrorShow=false
+                                
+                                Button(action: {
+                                    self.verifyEmptyEmail()
+                                    self.verifyEmptyPass()
+                                    //check if the email and passowrd in the firebase
+                                    if(!showErrorMessageEmail && !showErrorMessagePass){
+                                        self.email = self.email.lowercased()
+                                        Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
+                                            if err != nil{
+                                                self.Desc=err!.localizedDescription
+                                                showLogin=true
+                                            }else{
+                                                print("login success")
+                                                showLogin=false
+                                                self.showHomeCourier.toggle()
+                                                
+                                            }
+                                            print("success")
+                                            
+                                        }
+                                    }else{
+                                        showLogin=false
+                                    }
+                                }) {
+                                    
+                                    Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                                }
+                                .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                                .padding(.top,25)
+                                
+                                //SignUp Group
+                                Group {
+                                    
+                                    Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
+                                    
+                                    Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
+                                    
+                                    //Sign up Button
+                                    Button(action: {
+                                        self.showSign.toggle()
+                                    }) {
+                                        Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.12, green: 0.46, blue: 0.8, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
+                                    }
+                                }//end Group
+                            }.offset(y : 50)
                         }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25)
-                        
-                        //SignUp Group
-                        Group {
-
-                           Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
-
-                            Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
-                            
-                            //Sign up Button
-                            Button(action: {
-                                self.showSign.toggle()
-                            }) {
-                                Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.12, green: 0.46, blue: 0.8, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
-                            }
-                        }//end Group
-                    }.offset(y: 50)
-                }
-            }
-        }.navigationBarBackButtonHidden(true)
-        
-    }
-    func verifyEmptyEmail(){
-        if self.email.isEmpty {
-            self.showErrorMessageEmail = true
-        } else {
-            self.showErrorMessageEmail = false
-        }
-    }
-    
-    func verifyEmptyPass(){
-        if self.pass.isEmpty {
-            self.showErrorMessagePass = true
-        } else {
-            self.showErrorMessagePass = false
-        }
-    }
-    
-    func reset(){
-        if !showErrorMessageEmail {
-            Auth.auth().sendPasswordReset(withEmail: self.email) { (err) in
+                        }
+                }.navigationBarBackButtonHidden(true)
                 
-                if err != nil {
-                    self.desc=err!.localizedDescription
-                    ErrorShow=true
-                }else{
-                    print("success")
-                    self.descReset="Password reset link has been sent successfully"
-                    resetShow=true
-                    self.desc=""
-                    ErrorShow=false
+            }
+            func verifyEmptyEmail(){
+                if self.email.isEmpty {
+                    self.showErrorMessageEmail = true
+                } else {
+                    self.showErrorMessageEmail = false
                 }
             }
-        }else{
-            self.desc=""
+            
+            func verifyEmptyPass(){
+                if self.pass.isEmpty {
+                    self.showErrorMessagePass = true
+                } else {
+                    self.showErrorMessagePass = false
+                }
+            }
+            
+            func reset(){
+                if !showErrorMessageEmail {
+                    Auth.auth().sendPasswordReset(withEmail: self.email) { (err) in
+                        
+                        if err != nil {
+                            self.desc=err!.localizedDescription
+                            ErrorShow=true
+                        }else{
+                            print("success")
+                            self.descReset="Password reset link has been sent successfully"
+                            resetShow=true
+                            self.desc=""
+                            ErrorShow=false
+                        }
+                    }
+                }else{
+                    self.desc=""
+                }
+                
+            }
+            
         }
-        
-    }
-
-}
