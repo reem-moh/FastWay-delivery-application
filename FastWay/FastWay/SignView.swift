@@ -189,24 +189,34 @@ struct SignUPView: View {
             self.error = true
         }
         if !self.error {
+            //conert to lowercase before saving to DB
             self.email = self.email.lowercased()
             Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
+                
                 if err != nil {
                     self.nErr = err!.localizedDescription
+               
                 }else{
-                    if user == "Courier"{
-                        let courier = Courier(name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
-                        if courier.addCourier(courier: courier) {
-                            print("added")
-                        }
-                    }else{
-                        if user == "Member"{
-                            let member = Member(name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
-                            if member.addMember(member: member) {
+                    let signedUser = Auth.auth().currentUser
+                    
+                    if let signedUser = signedUser {
+                        let id = signedUser.uid
+                        
+                        if user == "Courier"{
+                            let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                            if courier.addCourier(courier: courier) {
                                 print("added")
+                            }
+                        }else{
+                            if user == "Member"{
+                                let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                                if member.addMember(member: member) {
+                                    print("added")
+                                }
                             }
                         }
                     }
+                    
                     
                     self.showHomeCourier.toggle()
                 }

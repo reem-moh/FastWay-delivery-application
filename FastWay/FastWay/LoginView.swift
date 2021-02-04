@@ -88,7 +88,7 @@ struct LoginView: View {
                             self.verifyEmptyPass()
                             //check if the email and passowrd in the firebase
                             if(!showErrorMessageEmail && !showErrorMessagePass){
-                                
+                                self.email = self.email.lowercased()
                                 Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
                                     if err != nil{
                                         self.Desc=err!.localizedDescription

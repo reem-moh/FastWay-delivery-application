@@ -19,8 +19,8 @@ class Member {
     var phoneNo: String
     var gender: String
     
-    init(name: String, email: String, pass: String, phN: String, gen: String) {
-        self.id = ""
+    init(id: String, name: String, email: String, pass: String, phN: String, gen: String) {
+        self.id = id
         self.name = name
         self.email = email
         self.password = pass
@@ -29,9 +29,8 @@ class Member {
     }
     
     func addMember(member: Member) -> Bool {
-        let doc = db.collection("Member").document()
+        let doc = db.collection("Member").document(id)
         var flag = true
-        self.id = doc.documentID
         doc.setData(["ID":self.id, "Name":self.name, "Gender":self.gender, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
             
             if error != nil {
@@ -54,8 +53,8 @@ class Courier {
     var phoneNo: String
     var gender: String
     
-    init(name: String, email: String, pass: String, phN: String, gen: String) {
-        self.id = ""
+    init(id: String,name: String, email: String, pass: String, phN: String, gen: String) {
+        self.id = id
         self.name = name
         self.email = email
         self.password = pass
@@ -64,9 +63,8 @@ class Courier {
     }
     
     func addCourier(courier: Courier) -> Bool {
-        let doc = db.collection("Courier").document()
+        let doc = db.collection("Courier").document(id)
         var flag = true
-        self.id = doc.documentID
         doc.setData(["ID":self.id, "Name":self.name, "Gender":self.gender, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
             
             if error != nil {
