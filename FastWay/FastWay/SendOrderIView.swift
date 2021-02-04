@@ -23,31 +23,40 @@ struct SendOrderIView: View {
         
       
         ZStack{
+            
+            
             VStack{
                 //background image
                 Image("Rectangle 49").ignoresSafeArea()
                 Spacer()
             }
+            
             VStack{
                 //white rectangle
                 Spacer(minLength: 100)
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
             }
+            
+            
+            VStack{
+                
+                
+                Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-450)
+                
+             
+            }
+            
         VStack(){
             
           
             
-            
-            
-            Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-135)
-            
-         
-            
-            Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-30)
-           
+        
             Group{
+            Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-35)
+           
+         
                 
             //Show Error message if the email feild empty
                 Text(nErr).font(.custom("Roboto Regular", size: 18))
@@ -62,7 +71,8 @@ struct SendOrderIView: View {
             
             
             
-            
+            Group{
+                
             Text("Payment method").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                 .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-110 ,y:-35)
             
@@ -75,18 +85,20 @@ struct SendOrderIView: View {
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-60)
             
             
+            }
             
-            
-            
+           
+            Group{
+                
             Button(action: {
                 self.SendOrder()
             })  {
                 Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
             .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                                .padding(.top,25).offset(x: 0)
+            .padding(.top,25).offset(x: 0, y:10)
             
-               
+            }
               
             
        
@@ -101,7 +113,7 @@ struct SendOrderIView: View {
 func SendOrder() {
     self.error = false
     if self.Orderhere.count <= 0 {
-        self.nErr="* must be more than one characters"
+        self.nErr="*must be more than one characters"
         self.error = true
     }
 

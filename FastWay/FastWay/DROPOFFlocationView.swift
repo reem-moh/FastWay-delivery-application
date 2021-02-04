@@ -45,55 +45,71 @@ struct DROPOFFlocationView: View {
             
             
             Text("DROP OFF LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:60)
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
             
+           }
+                    
             
-            Image(uiImage: #imageLiteral(resourceName: "map"))
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 360, height: 292)
-                .clipped()
-                .position(x:188,y:280).offset(x:0 ,y:-40)
-            }
+           
             
 
             VStack(alignment: .leading){
                 
-                Image(uiImage: #imageLiteral(resourceName: "location"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 25, height: 25)
-                    .clipped()
-                    .offset(x:18 ,y:163)
+               
                 
-                Text("2890,KSU,7579-12372 RIYADH").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:36 ,y:133)
+                     Image(uiImage: #imageLiteral(resourceName: "location"))
+                         .resizable()
+                         .aspectRatio(contentMode: .fill)
+                         .frame(width: 25, height: 25)
+                         .clipped()
+                         .offset(x:20 ,y:490)
                 
+                Group{
+                    
+                    Image(uiImage: #imageLiteral(resourceName: "map"))
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 360, height: 292)
+                        .clipped()
+                        .position(x:188,y:280).offset(x:0 ,y:-10)
+                    
+                    
+       
+                
+             
+                    
+                //Show Error message if the email feild empty
+                    Text(nErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
+                    
                 TextField("", text: $location)
                     .font(.system(size: 18))
                     .padding(12)
-                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:90)
+                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
+                }
                 
+                
+                Group{
                     
                 Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:5 ,y:100)
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-165)
                     
-                    Group{
+                
                         
                     //Show Error message if the email feild empty
                         Text(nErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 5,y: 105)
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
                 
                 TextField("bulding, floor, room numbers", text: $location)
                     .font(.system(size: 18))
                     .padding(12)
-                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:100)
+                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
 
                 
                 }
                 
                 
-            }
+            
                     
                     Button(action: {
                         self.DROPOFFlocation()
@@ -101,9 +117,9 @@ struct DROPOFFlocationView: View {
                         Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                         }
                     .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                    .padding(.top,25).offset(x: 0,y:250)
+                    .padding(.top,25).offset(x: 25,y:-130)
                     
-                       
+                }
         
 }
 
@@ -113,7 +129,7 @@ struct DROPOFFlocationView: View {
     func DROPOFFlocation() {
         self.error = false
         if self.location.count <= 0 {
-            self.nErr="* must be more than one characters"
+            self.nErr="*must be more than one characters"
             self.error = true
         }
 
