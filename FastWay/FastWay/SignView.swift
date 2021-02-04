@@ -200,7 +200,7 @@ struct SignUPView: View {
                 
                 if err != nil {
                     self.nErr = err!.localizedDescription
-               
+                    
                 }else{
                     let signedUser = Auth.auth().currentUser
                     
@@ -210,7 +210,7 @@ struct SignUPView: View {
                         if user == "Courier"{
                             let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                             if courier.addCourier(courier: courier) {
-                                print("added")
+                                self.showHomeCourier.toggle()
                             }
                         }else{
                             if user == "Member"{
@@ -222,8 +222,6 @@ struct SignUPView: View {
                         }
                     }
                     
-                    
-                    self.showHomeCourier.toggle()
                 }
                 
             }
