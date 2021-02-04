@@ -53,8 +53,8 @@ struct LoginView: View {
                             }
                             
                             //Email feild
-                            TextField("Email", text: $email)
-                                .font(.custom("Roboto Regular", size: 18))
+                            TextField("Email", text: $email).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                .font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 25).padding(.horizontal, 16)
                         }
@@ -63,14 +63,14 @@ struct LoginView: View {
                         Group {
                             //Show Error message if the pass feild empty
                             if showErrorMessagePass {
-                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)))
                                                     .offset(x: -60, y: 30)
                             }
                             
                             //password feild
-                            SecureField("Password", text: $pass)
+                            SecureField("Password", text: $pass).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor( Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .foregroundColor( Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 25).padding(.horizontal, 16)
                             
@@ -96,7 +96,7 @@ struct LoginView: View {
                                 self.verifyEmptyPass()
                                 //check if the email and passowrd in the firebase
                                 if(!showErrorMessageEmail && !showErrorMessagePass){
-                                    
+                                    self.email = self.email.lowercased()
                                     Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
                                         if err != nil{
                                             self.desc=err!.localizedDescription
