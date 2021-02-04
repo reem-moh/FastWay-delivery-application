@@ -146,12 +146,9 @@ struct LoginView: View {
                         
                         //SignUp Group
                         Group {
-<<<<<<< HEAD
+
                            Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
-=======
-                            // Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
->>>>>>> bd5422f60a8e71f0828dcc67b26132e73ef0ee2c
-                            
+
                             Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                             
                             //Sign up Button
