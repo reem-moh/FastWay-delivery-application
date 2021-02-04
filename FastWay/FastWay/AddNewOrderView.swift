@@ -58,7 +58,7 @@ struct AddNewOrderView: View {
                      .aspectRatio(contentMode: .fill)
                      .frame(width: 25, height: 25)
                      .clipped()
-                     .offset(x:330 ,y:490)
+                     .offset(x:15 ,y:490)
             
             
                 
@@ -80,7 +80,7 @@ struct AddNewOrderView: View {
                 
             TextField("", text: $location)
                 .font(.system(size: 18))
-                .padding(12)
+                .offset(x:20 ,y:-5).padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
             
             
