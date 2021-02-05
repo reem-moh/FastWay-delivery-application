@@ -28,8 +28,11 @@ struct LoginView: View {
         ZStack(alignment: .topTrailing) {
             GeometryReader{_ in
                 Image(uiImage:  #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                
                 ZStack{
+                    
                     Image(uiImage:  #imageLiteral(resourceName: "Rectangle 48")).offset(y: 100)
+                    
                     VStack(alignment: .center) {
                         
                         //logo

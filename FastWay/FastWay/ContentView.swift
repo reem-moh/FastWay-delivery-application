@@ -3,12 +3,15 @@
 //  FastWay
 
 import SwiftUI
-
+import Firebase
+import FirebaseFirestore
 
 struct ContentView: View {
     @State var showSign = false
     @State var showHomeCourier = false
     @State var showHomeMember = false
+    @State var check = false
+    
     
     var body: some View {
         
@@ -39,8 +42,16 @@ struct ContentView: View {
                 }
                 .hidden()
                 
-                //The firstPage
-                LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember )
+                let signedUser = Auth.auth().currentUser
+                
+                if signedUser != nil {
+                    ContentViewHome()
+                }else {
+                    //The firstPage
+                    LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember ).navigationTitle("LogIn")
+                }
+                
+   
                 
             }
             .navigationBarTitle("")

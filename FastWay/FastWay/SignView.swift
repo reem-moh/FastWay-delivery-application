@@ -57,6 +57,10 @@ struct SignUPView: View {
                 //background image
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
             }
+            //VStack for navg
+            VStack{
+                
+            }
             VStack{
                 //go back button
                 

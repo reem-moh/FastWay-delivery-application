@@ -10,14 +10,14 @@ import Firebase
 import FirebaseFirestore
 
 struct ViewProfile: View {
-    @State var name="m"
-    @State var email="m"
-    @State var phoneNum="m"
-    @State var password="m"
-    @State var newPassword="m"
-    @State var reNewPassword="m"
-    @State var user="m"
-    @State var gender="m"
+    @State var name=""
+    @State var email=""
+    @State var phoneNum=""
+    @State var password=""
+    @State var newPassword=""
+    @State var reNewPassword=""
+    @State var user=""
+    @State var gender=""
     
    /* @Binding var showHomeCourier: Bool
     @Binding var showHomeMember: Bool
@@ -183,6 +183,7 @@ struct ViewProfile: View {
                             } catch let signOutError {
                               print ("Error signing out: %@", signOutError)
                             }
+                            print("what")
                             
                         }) {
                             Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)

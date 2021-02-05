@@ -17,6 +17,7 @@
 		589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D925C9B2B6009D6B45 /* RadioButton.swift */; };
 		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
 		58E7DF9625CD51D00040F66F /* ViewProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7DF9525CD51D00040F66F /* ViewProfile.swift */; };
+		C2859D3425CDF72900970F16 /* ContentViewHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2859D3325CDF72900970F16 /* ContentViewHome.swift */; };
 		C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C26EB125CABEA500505716 /* HomeCourierView.swift */; };
 		C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */; };
 		F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
@@ -37,6 +38,7 @@
 		58E7DF9525CD51D00040F66F /* ViewProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfile.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2859D3325CDF72900970F16 /* ContentViewHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewHome.swift; sourceTree = "<group>"; };
 		C2C26EB125CABEA500505716 /* HomeCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCourierView.swift; sourceTree = "<group>"; };
 		C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMemberView.swift; sourceTree = "<group>"; };
 		F4A975CAC4078662B4232E56 /* Pods-FastWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.release.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			children = (
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
+				C2859D3325CDF72900970F16 /* ContentViewHome.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
 				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
@@ -240,6 +243,7 @@
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 				58E7DF9625CD51D00040F66F /* ViewProfile.swift in Sources */,
+				C2859D3425CDF72900970F16 /* ContentViewHome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
