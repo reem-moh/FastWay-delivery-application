@@ -185,7 +185,7 @@ struct ViewProfile: View {
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24)
             
-                    }//.padding(.bottom, 60) //VStack
+                    }.padding(.bottom, 60) //VStack
                     
                 }
               //  .padding(.bottom, 3.0) //scrollview
