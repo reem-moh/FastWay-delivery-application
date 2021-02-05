@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 let db = Firestore.firestore()
 
+
+
 class Member {
     var id: String
     var name: String
