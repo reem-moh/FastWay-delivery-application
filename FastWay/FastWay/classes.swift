@@ -19,6 +19,15 @@ class Member {
     var phoneNo: String
     var gender: String
     
+    init() {
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.password = ""
+        self.phoneNo = ""
+        self.gender = ""
+    }
+    
     init(id: String, name: String, email: String, pass: String, phN: String, gen: String) {
         self.id = id
         self.name = name
@@ -41,6 +50,18 @@ class Member {
         return flag
     }
     
+    //retrieve from database
+    /*func getMember(id: String) -> Member {
+        var member : Member = Member()
+        let doc = db.collection("Member").document(id).getDocument { (doc, error) in
+            if error == nil {
+                if doc != nil && doc!.exists {
+                    member = doc!.data()
+                }
+            }
+        }
+        return member
+    }*/
     
 }
 
