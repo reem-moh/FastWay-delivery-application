@@ -10,23 +10,22 @@ import Firebase
 import FirebaseFirestore
 
 struct ViewProfile: View {
-    @State var name=""
-    @State var email=""
-    @State var phoneNum=""
-    @State var password=""
-    @State var newPassword=""
-    @State var reNewPassword=""
-    @State var user=""
-    @State var gender=""
+    @State var name="m"
+    @State var email="m"
+    @State var phoneNum="m"
+    @State var password="m"
+    @State var newPassword="m"
+    @State var reNewPassword="m"
+    @State var user="m"
+    @State var gender="m"
     
-    /*@Binding var showHomeCourier: Bool
+   /* @Binding var showHomeCourier: Bool
     @Binding var showHomeMember: Bool
     @Binding var showCurrentCourier: Bool
     @Binding var showCurrentMember: Bool
-     @Binding var showLogInView: Bool*/
+    @Binding var showLogInView: Bool*/
     
     var body: some View {
-        
         ZStack{
           
         //background
@@ -74,13 +73,13 @@ struct ViewProfile: View {
                     }) {
                         Text("Done").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
                     }
-                    
                     Spacer()
                 }
                 
                 ScrollView{
                     
                     VStack(alignment: .leading){
+                        
                         Group {
                             
                             Text("").font(.custom("Roboto Regular", size: 18))
@@ -178,12 +177,13 @@ struct ViewProfile: View {
                         
                         //logout button
                         Button(action: {
-                            let signout=Auth.auth()
+                            let auth=Auth.auth()
                             do {
-                              try signout.signOut()
-                            } catch let signOutError as NSError {
+                              try auth.signOut()
+                            } catch let signOutError {
                               print ("Error signing out: %@", signOutError)
                             }
+                            
                         }) {
                             Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                         }
@@ -215,7 +215,7 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        //self.showHomeMember.toggle()
+                                      //  self.showHomeMember.toggle()
                                     } else {
                                         print("Courier")
                                        // self.showHomeCourier.toggle()
@@ -247,7 +247,7 @@ struct ViewProfile: View {
                                         //self.showHomeMember.toggle()
                                     } else {
                                         print("Courier")
-                                       // self.showHomeCourier.toggle()
+                                       //self.showHomeCourier.toggle()
                                     }
                                 }
                             }
@@ -258,6 +258,7 @@ struct ViewProfile: View {
                         .background(Image(uiImage: #imageLiteral(resourceName: "cart")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
                         Spacer()
                         Spacer()
+                        
                         //profile button
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
@@ -294,8 +295,4 @@ struct ViewProfile: View {
     } //body
 } //struct
 
-struct ViewProfile_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewProfile()
-    }
-}
+

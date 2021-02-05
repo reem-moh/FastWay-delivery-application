@@ -14,18 +14,24 @@ struct ContentView: View {
         
         NavigationView{
             ZStack{
+                
+                //SignUP
                 NavigationLink(
                     destination: SignUPView(show: self.$showSign,showHomeCourier: self.$showHomeCourier,showHomeMember: self.$showHomeMember ),
                     isActive: self.$showSign ){
                     Text("")
                 }
                 .hidden()
-                NavigationLink(
+                
+                //HomeCourier view
+               NavigationLink(
                     destination: HomeCourierView(),
                     isActive: self.$showHomeCourier ){
                     Text("")
                 }
                 .hidden()
+                
+                //HomeMember view
                 NavigationLink(
                     destination: HomeMemberView(),
                     isActive: self.$showHomeMember ){
@@ -33,13 +39,14 @@ struct ContentView: View {
                 }
                 .hidden()
                 
-                
+                //The firstPage
                 LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember )
                 
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            
             
         }//end of NavigationView
     }

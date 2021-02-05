@@ -12,7 +12,6 @@ struct HomeCourierView: View {
         Text("Courier")
     }
 }
-
 struct HomeCourierView_Previews: PreviewProvider {
     static var previews: some View {
         HomeCourierView()

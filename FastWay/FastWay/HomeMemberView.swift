@@ -9,7 +9,10 @@ import SwiftUI
 
 struct HomeMemberView: View {
     var body: some View {
+        
         Text("Member")
+        
+        
     }
 }
 
@@ -18,3 +21,4 @@ struct HomeMemberView_Previews: PreviewProvider {
         HomeMemberView()
     }
 }
+
