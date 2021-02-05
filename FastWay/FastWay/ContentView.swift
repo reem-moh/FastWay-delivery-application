@@ -16,6 +16,7 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView{
+            
             ZStack{
                 
                 //SignUP
@@ -42,6 +43,7 @@ struct ContentView: View {
                 }
                 .hidden()
                 
+                
                 let signedUser = Auth.auth().currentUser
                 
                 if signedUser != nil {
@@ -61,11 +63,23 @@ struct ContentView: View {
             
         }//end of NavigationView
     }
-}
+    
+    func tryLogout(){
+        let auth=Auth.auth()
+        do {
+          try auth.signOut()
+        } catch let signOutError {
+          print ("Error signing out: %@", signOutError)
+        }
+        print("what")
+
+    }
+}//end ContentView
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
+            
             ContentView()
         }
     }
