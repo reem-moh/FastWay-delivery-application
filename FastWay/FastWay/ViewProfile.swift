@@ -12,12 +12,12 @@ struct ViewProfile: View {
     @State var email=""
     @State var phoneNum=""
    /* @State var password=""
-    @State var rePassword=""
+    @State var rePassword=""*/
     @State var user=""
-    @State var gender=""*/
+    @State var gender=""
     
-    // @Binding var showHomeCourier: Bool
-    //  @Binding var showHomeMember: Bool
+    @Binding var showHomeCourier: Bool
+    @Binding var showHomeMember: Bool
     
     var body: some View {
         
@@ -28,7 +28,7 @@ struct ViewProfile: View {
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
          
             VStack{
-                Image(systemName: "person").font(.system(size: 56.0)).padding(.bottom,0).offset(y: 25)
+                Image(systemName: "person").font(.system(size: 56.0)).padding(.bottom,50).offset(y: 45)
                 ScrollView{
                     
                     VStack(alignment: .leading){
@@ -63,7 +63,37 @@ struct ViewProfile: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
-                           
+                            
+                            VStack(alignment: .leading){
+                                
+                                Text("").font(.custom("Roboto Regular", size: 18))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
+                                
+                                Text("Gender").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
+                                HStack{
+                                    RadioButtonGroups { selected in
+                                        self.gender = selected
+                                    }
+                                    .padding(.trailing, 5.0)
+                                    
+                                }
+                            }
+                            //user type
+                            VStack(alignment: .leading){
+                                
+                                Text("").font(.custom("Roboto Regular", size: 18))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
+                                
+                                Text("Type").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
+                                HStack{
+                                    RadioButtonGroupT { selected in
+                                        self.user = selected
+                                    }
+                                }
+                            }
+                            
                         }
                         
                         //save button
@@ -83,15 +113,30 @@ struct ViewProfile: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24)
-                    }.padding(.bottom, 60)
+            
+                    }//.padding(.bottom, 60)
+                    
                 }
-                .padding(.bottom, 3.0)
-                
+              //  .padding(.bottom, 3.0)
+                ZStack {
+                    Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    HStack{
+                        Spacer()
+                        Image(uiImage: #imageLiteral(resourceName: "home")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        Spacer()
+                        Spacer()
+                        Image(uiImage: #imageLiteral(resourceName: "cart")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        Spacer()
+                        Spacer()
+                        Image(uiImage: #imageLiteral(resourceName: "user")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        Spacer()
+                    }
+                }
             }
             
-        }
-    }
-}
+        } //vstack 1
+    } //zstack
+} //view
 
 struct ViewProfile_Previews: PreviewProvider {
     static var previews: some View {
