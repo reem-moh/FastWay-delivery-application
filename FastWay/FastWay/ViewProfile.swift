@@ -294,5 +294,10 @@ struct ViewProfile: View {
         } //zstack
     } //body
 } //struct
+struct ViewProfile_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewProfile()
+    }
+}
 
 
