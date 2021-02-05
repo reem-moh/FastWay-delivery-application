@@ -14,6 +14,12 @@ extension String {
     func isEmail() -> Bool {
         return __emailPredicate.evaluate(with: self)
     }
+    
+    var isNumeric: Bool {
+            guard self.count > 0 else { return false }
+            let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+            return Set(self).isSubset(of: nums)
+        }
 }
 extension UITextField {
     func isEmail() -> Bool {
@@ -173,7 +179,7 @@ struct SignUPView: View {
             self.eErr="*Valid email is required"
             self.error = true
         }
-        if (phoneNum.count != 10) {
+        if (self.phoneNum.count != 10) || !(self.phoneNum.isNumeric){
             self.phErr="*Phone number must be 05********"
             self.error = true
         }
