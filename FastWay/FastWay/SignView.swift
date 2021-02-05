@@ -218,7 +218,7 @@ struct SignUPView: View {
                             if user == "Member"{
                                 let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                                 if member.addMember(member: member) {
-                                    print("added")
+                                    self.showHomeMember.toggle()
                                 }else{
                                     nErr = "An error occurred please try again"
                                 }
