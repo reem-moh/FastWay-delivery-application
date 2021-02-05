@@ -164,7 +164,7 @@ struct SignUPView: View {
     }
     func signUp() {
         self.error = false
-        if self.name.count <= 3 {
+        if self.name.count < 3 {
             self.nErr="*Name must be more than 3 characters"
             self.error = true
         }
@@ -194,7 +194,7 @@ struct SignUPView: View {
             self.error = true
         }
         if !self.error {
-            //conert to lowercase before saving to DB
+            //convert to lowercase before saving to DB
             self.email = self.email.lowercased()
             Auth.auth().createUser(withEmail: self.email, password: self.password) { (res, err) in
                 
@@ -211,12 +211,16 @@ struct SignUPView: View {
                             let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                             if courier.addCourier(courier: courier) {
                                 self.showHomeCourier.toggle()
+                            }else{
+                                nErr = "An error occurred please try again"
                             }
                         }else{
                             if user == "Member"{
                                 let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                                 if member.addMember(member: member) {
                                     print("added")
+                                }else{
+                                    nErr = "An error occurred please try again"
                                 }
                             }
                         }
