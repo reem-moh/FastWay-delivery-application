@@ -19,7 +19,10 @@ struct SendOrderIView: View {
     @State var error = false
     @State var nErr = ""
     
-   
+    @Binding var showDropOff: Bool
+   @Binding var showHomeMember: Bool
+
+    
 
     var body: some View {
         
@@ -56,16 +59,19 @@ struct SendOrderIView: View {
             
           
             
-        
+            
+            
             Group{
             Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-35)
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-50)
            
-         
                 
-            //Show Error message if the email feild empty
-                Text(nErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -35,y: -40)
+                       if error{
+                   //Show Error message if the email feild empty
+                       Text(nErr).font(.custom("Roboto Regular", size: 18))
+                           .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -35,y: -50)
+                       }
+                
                 
             TextField("Order here", text: $Orderhere)
                 .font(.system(size: 18))
@@ -97,10 +103,14 @@ struct SendOrderIView: View {
                 
             Button(action: {
                 self.SendOrder()
+                
+                if !error {
                 if (order.setOrderDetails(orderDetails:Orderhere)){
                     print("order details saved")
                 }
+                self.showHomeMember.toggle()
 
+                }
             })  {
                 Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
@@ -119,11 +129,17 @@ struct SendOrderIView: View {
         }
     }
 
+    
+    
 func SendOrder() {
-    self.error = false
-    if self.Orderhere.count <= 0 {
-        self.nErr="*must be more than one characters"
-        self.error = true
+  
+        
+        self.error = false
+        if self.Orderhere.count <= 0 {
+            self.nErr="*must be more than one characters"
+            self.error = true
+        }
+        
         if order.addOrder(){
             print("order added")
         }
@@ -131,10 +147,6 @@ func SendOrder() {
     
     
 
-}}
-
-struct SendOrderIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SendOrderIView()
-    }
 }
+
+

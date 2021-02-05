@@ -21,10 +21,13 @@ struct DROPOFFlocationView: View {
     
     
     
-    @State var error = false
+    @State var errorlocation = false
+    @State var errorDetailslocation = false
     @State var nErr = ""
     @State var nErr1 = ""
 
+   @Binding var showPickup: Bool
+   @Binding var showSendOrder: Bool
 
     
     
@@ -61,50 +64,68 @@ struct DROPOFFlocationView: View {
 
             VStack(alignment: .leading){
                 
+                
+                
+                Image(uiImage: #imageLiteral(resourceName: "map"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 360, height: 292)
+                    .clipped()
+                    .position(x:188,y:280).offset(x:0 ,y:-5)
+                
+                
+           
                
+           
+        
+               
+                
+            //Show Error message if the email feild empty
+                if errorlocation{
+                Text(nErr).font(.custom("Roboto Regular", size: 18))
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -150)  }
+            
+            
+            Group{
+                
+                
+                
                 
                      Image(uiImage: #imageLiteral(resourceName: "location"))
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 25, height: 25)
                          .clipped()
-                         .offset(x:15 ,y:490)
-                
-                Group{
-                    
-                    Image(uiImage: #imageLiteral(resourceName: "map"))
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 360, height: 292)
-                        .clipped()
-                        .position(x:188,y:280).offset(x:0 ,y:-10)
-                    
-                    
-       
-                
-             
-                    
-                //Show Error message if the email feild empty
-                    Text(nErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
-                    
-                TextField("", text: $location)
-                    .font(.system(size: 18))
-                    .offset(x:20 ,y:-5).padding(12)
-                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
-                }
+                         .offset(x:15 ,y:-150)
                 
                 
+                
+            TextField("", text: $location)
+                .font(.system(size: 18))
+                .offset(x:20 ,y:-5).padding(12)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-190)
+            
+            
+            }
+            
+            
+               
+            
+            
                 Group{
                     
                 Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-165)
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-175)
                     
                 
-                        
-                    //Show Error message if the email feild empty
-                        Text(nErr1).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -170)
+                    
+                    
+                        if errorDetailslocation {
+                        //Show Error message if the email feild empty
+                            Text(nErr1).font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -175)
+                        }
+                }
                 
                 TextField("bulding, floor, room numbers", text: $Detailslocation)
                     .font(.system(size: 18))
@@ -112,48 +133,65 @@ struct DROPOFFlocationView: View {
                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
 
                 
-                }
-                
-                
             
-                Group{
-                    Button(action: {
-                        self.DROPOFFlocation()
-                        if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffDetails: Detailslocation)){
-                            print("drop off saved")
-                        }
-                    })   {
-                        Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
-                                        }
-                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                    .padding(.top,25).offset(x: 25,y:-130)
-                    
-                }
-                }
+           
+       
+           
+       
+           Group{
+               Button(action: {
+                   
+                   self.DROPOFFlocation()
+
+                   if (!errorlocation && !errorDetailslocation) {
+                       
+                    if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffDetails: Detailslocation)){
+                                                print("drop off saved")
+                                                self.showSendOrder.toggle()
+
+                       }
+                       
+                       else
+                       {
+                           print("drop off  not saved")
+
+                       }
+                   
+                   }
+               
+               })   {
+                   Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                                   }
+               .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+               .padding(.top,25).offset(x: 25,y:-130)
+               
+           }
+       }
         
 }
 
     }
+    
     
     
     func DROPOFFlocation() {
-        self.error = false
+        
+        self.errorlocation = false
+    
         if self.location.count <= 0 {
             self.nErr="*must be more than one characters"
-            self.error = true
+            self.errorlocation = true
+            
         }
         
+        self.errorDetailslocation = false
         if self.Detailslocation.count <= 0 {
             self.nErr1="*must be more than one characters"
-            self.error = true
+            self.errorDetailslocation = true
         }
 
+
 }
     }
 
-struct DROPOFFlocationView_Previews: PreviewProvider {
-    static var previews: some View {
-        DROPOFFlocationView()
-    }
-}
 

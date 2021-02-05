@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct HomeMemberView: View {
+    
+    
+    @Binding var showSendOrder: Bool
+        @Binding var showPickup: Bool
+    
+    
+
+      //  @Binding var pro: Bool
+    
     var body: some View {
         ZStack{
                  VStack{
@@ -28,27 +37,51 @@ struct HomeMemberView: View {
                 Spacer(minLength: 100)
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
             }
+            
+            
                  VStack{
-                     /* transparent-log-out-icon-5d6b36311cbea9 2 */
+                    /* transparent-log-out-icon-5d6b36311cbea9 2 */
 
-                  
+                 
 
-                     
-                   
-                     
-                     //logo, text feilds and buttons
-                     Image("addNewOrder")
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 300, height: 180)
-                         .clipped().offset(x:0 ,y:30)
-                     
+                    
+                   Button(action: {
+                      self.showPickup.toggle()
+                       
+                   }) {
+                    
+                    //logo, text feilds and buttons
+                    Image("addNewOrder")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 300, height: 180)
+                        .clipped().offset(x:0 ,y:30)
+                   }
+                
+                    
+                    
+                    
+                    
+                    
+                   Button(action: {
+                      self.showPickup.toggle()
+                       
+                   }) {
                      Image("current")
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 180)
                          .clipped().offset(x:0 ,y:50)
                      
+                   }
+                    
+                    
+                    
+                    
+                   Button(action: {
+                      self.showPickup.toggle()
+                       
+                   }) {
                      
                      Image("History")
                          .resizable()
@@ -56,7 +89,10 @@ struct HomeMemberView: View {
                          .frame(width: 300, height: 180)
                          .clipped() .offset(x:0 ,y:65)
                      
-                     
+                   }
+                    
+                    
+                 
                      HStack(){
                          
                         
@@ -81,16 +117,11 @@ struct HomeMemberView: View {
                             .clipped() .offset(x:40 ,y:84)
                          
                      }
+                 }
                  
              }
                  
          }
      }
-     }
+     
 
-
-struct HomeMemberView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeMemberView()
-    }
-}

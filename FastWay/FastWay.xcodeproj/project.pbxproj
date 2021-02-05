@@ -85,8 +85,8 @@
 			children = (
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
-				15656DFB25CA9F2C0095A114 /* HomeMemberView.swift */,
 				4DDFB21325CC6274005E0944 /* classes.swift */,
+				15656DFB25CA9F2C0095A114 /* HomeMemberView.swift */,
 				15656DF825CA9F230095A114 /* HomeCourierView.swift */,
 				4DB284EB25C98F7E00584E8C /* AddNewOrderView.swift */,
 				15656E0125CAA65F0095A114 /* DROPOFFlocationView.swift */,
