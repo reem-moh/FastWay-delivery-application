@@ -22,7 +22,8 @@ struct ViewProfile: View {
     /*@Binding var showHomeCourier: Bool
     @Binding var showHomeMember: Bool
     @Binding var showCurrentCourier: Bool
-    @Binding var showCurrentMember: Bool*/
+    @Binding var showCurrentMember: Bool
+     @Binding var showLogInView: Bool*/
     
     var body: some View {
         
@@ -177,8 +178,12 @@ struct ViewProfile: View {
                         
                         //logout button
                         Button(action: {
-                            
-                            //action here
+                            let signout=Auth.auth()
+                            do {
+                              try signout.signOut()
+                            } catch let signOutError as NSError {
+                              print ("Error signing out: %@", signOutError)
+                            }
                         }) {
                             Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                         }
