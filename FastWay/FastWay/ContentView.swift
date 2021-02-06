@@ -44,27 +44,26 @@ struct ContentView: View {
                 .hidden()
                 
                 
-                let signedUser = Auth.auth().currentUser
+                //let signedUser = Auth.auth().currentUser
                 
-                if signedUser != nil {
-                    ContentViewHome()
-                }else {
+                //if signedUser != nil {
+                //    ContentViewHome()
+                //}else {
                     //The firstPage
-                    LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember ).navigationTitle("LogIn")
-                }
+                LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember ).navigationTitle("LogIn").accentColor(.black)
+               // }
                 
-   
+               
                 
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             
-            
         }//end of NavigationView
     }
     
-    func tryLogout(){
+    /*func tryLogout(){
         let auth=Auth.auth()
         do {
           try auth.signOut()
@@ -73,7 +72,7 @@ struct ContentView: View {
         }
         print("what")
 
-    }
+    }*/
 }//end ContentView
 
 struct ContentView_Previews: PreviewProvider {

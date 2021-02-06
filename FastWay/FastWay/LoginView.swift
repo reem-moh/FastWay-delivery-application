@@ -25,7 +25,8 @@ struct LoginView: View {
     
     var body: some View {
         
-        ZStack(alignment: .topTrailing) {
+        ZStack{
+            
             GeometryReader{_ in
                 Image(uiImage:  #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                 
@@ -165,7 +166,8 @@ struct LoginView: View {
                     }.offset(y: 50)
                 }
             }
-       }.navigationBarBackButtonHidden(true)
+
+        }
             
     }
     func verifyEmptyEmail(){
