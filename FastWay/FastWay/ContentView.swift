@@ -1,27 +1,90 @@
 //
 //  ContentView.swift
 //  FastWay
-//
-//  Created by taif.m on 2/2/21.
-//
 
 import SwiftUI
 import Firebase
 import FirebaseFirestore
 
 struct ContentView: View {
+    @State var showSign = false
+    @State var showHomeCourier = false
+    @State var showHomeMember = false
+    @State var check = false
+    
+    
     var body: some View {
-        Text("hello")
+        
+        NavigationView{
+            
+            ZStack{
+                
+                //SignUP
+                NavigationLink(
+                    destination: SignUPView(show: self.$showSign,showHomeCourier: self.$showHomeCourier,showHomeMember: self.$showHomeMember ),
+                    isActive: self.$showSign ){
+                    Text("")
+                }
+                .hidden()
+                
+                //HomeCourier view
+               NavigationLink(
+                    destination: HomeCourierView(),
+                    isActive: self.$showHomeCourier ){
+                    Text("")
+                }
+                .hidden()
+                
+                //HomeMember view
+                NavigationLink(
+                    destination: HomeMemberView(),
+                    isActive: self.$showHomeMember ){
+                    Text("")
+                }
+                .hidden()
+                
+                
+                //let signedUser = Auth.auth().currentUser
+                
+                //if signedUser != nil {
+                //    ContentViewHome()
+                //}else {
+                    //The firstPage
+                LoginView(showSign: self.$showSign,showHomeCourier: self.$showHomeCourier, showHomeMember: self.$showHomeMember ).navigationTitle("LogIn").accentColor(.black)
+               // }
+                
+               
+                
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            
+        }//end of NavigationView
     }
-}
+    
+    /*func tryLogout(){
+        let auth=Auth.auth()
+        do {
+          try auth.signOut()
+        } catch let signOutError {
+          print ("Error signing out: %@", signOutError)
+        }
+        print("what")
+
+    }*/
+}//end ContentView
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            
+            ContentView()
+        }
     }
 }
 
 
-    
+
 
 
