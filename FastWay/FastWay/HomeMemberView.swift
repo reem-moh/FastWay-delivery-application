@@ -10,12 +10,7 @@ import SwiftUI
 struct HomeMemberView: View {
     
     
-    @Binding var showSendOrder: Bool
-        @Binding var showPickup: Bool
-    
-    
-
-      //  @Binding var pro: Bool
+    @StateObject var viewRouter: ViewRouter
     
     var body: some View {
         ZStack{
@@ -46,7 +41,7 @@ struct HomeMemberView: View {
 
                     
                    Button(action: {
-                      self.showPickup.toggle()
+                    viewRouter.currentPage = .AddNewOrder
                        
                    }) {
                     
@@ -64,7 +59,7 @@ struct HomeMemberView: View {
                     
                     
                    Button(action: {
-                      self.showPickup.toggle()
+                    viewRouter.currentPage = .CurrentOrder
                        
                    }) {
                      Image("current")
@@ -79,7 +74,7 @@ struct HomeMemberView: View {
                     
                     
                    Button(action: {
-                      self.showPickup.toggle()
+                    viewRouter.currentPage = .HistoryView
                        
                    }) {
                      
@@ -125,3 +120,10 @@ struct HomeMemberView: View {
      }
      
 
+struct HomeMemberView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            HomeMemberView(viewRouter: ViewRouter())
+        }
+    }
+}

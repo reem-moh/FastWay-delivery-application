@@ -23,6 +23,8 @@ struct ViewProfile: View {
     @State var member = Member()
     @State var courier = Courier()
     
+    @StateObject var viewRouter: ViewRouter
+    
    /* if self.member.getMember() {
     self.name = member.name
     self.email = member.email
@@ -75,10 +77,10 @@ struct ViewProfile: View {
                             docRef.getDocument { (document, error) in
                                 if let document = document, document.exists {
                                     print("Member")
-                                    //self.showHomeMember.toggle()
+                                    viewRouter.currentPage = .HomePageC
                                 } else {
                                     print("Courier")
-                                    //self.showHomeCourier.toggle()
+                                    viewRouter.currentPage = .HomePageM
                                 }
                             }
                         }
@@ -203,6 +205,7 @@ struct ViewProfile: View {
                             let auth=Auth.auth()
                             do {
                                 try auth.signOut()
+                                viewRouter.currentPage = .LogIn
                             } catch let signOutError {
                                 print ("Error signing out: %@", signOutError)
                             }
@@ -239,10 +242,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        //  self.showHomeMember.toggle()
+                                        viewRouter.currentPage = .HomePageM
                                     } else {
                                         print("Courier")
-                                        // self.showHomeCourier.toggle()
+                                        viewRouter.currentPage = .HomePageC
                                     }
                                 }
                             }
@@ -253,6 +256,7 @@ struct ViewProfile: View {
                         .background(Image(uiImage: #imageLiteral(resourceName: "home")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
                         Spacer()
                         Spacer()
+                        
                         //current button
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
@@ -268,10 +272,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        //self.showHomeMember.toggle()
+                                        viewRouter.currentPage = .HomePageM
                                     } else {
                                         print("Courier")
-                                        //self.showHomeCourier.toggle()
+                                        viewRouter.currentPage = .HomePageC
                                     }
                                 }
                             }
@@ -298,10 +302,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        //self.showHomeMember.toggle()
+                                        viewRouter.currentPage = .HomePageM
                                     } else {
                                         print("Courier")
-                                        // self.showHomeCourier.toggle()
+                                        viewRouter.currentPage = .HomePageC
                                     }
                                 }
                             }
@@ -320,8 +324,6 @@ struct ViewProfile: View {
 } //struct
 struct ViewProfile_Previews: PreviewProvider {
     static var previews: some View {
-        ViewProfile()
+        ViewProfile(viewRouter: ViewRouter())
     }
 }
-
-

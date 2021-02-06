@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeCourierView: View {
+    
+    @StateObject var viewRouter: ViewRouter
+    
     var body: some View {
         ZStack{
                  VStack{
@@ -90,6 +93,8 @@ struct HomeCourierView: View {
 
 struct HomeCourierView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCourierView()
+        Group {
+            HomeCourierView(viewRouter: ViewRouter())
+        }
     }
 }

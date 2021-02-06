@@ -14,23 +14,14 @@ struct DROPOFFlocationView: View {
     @State var location = ""
     @State var Detailslocation = ""
 
-
-
         // Errors
-          
-    
-    
-    
     @State var errorlocation = false
     @State var errorDetailslocation = false
     @State var nErr = ""
     @State var nErr1 = ""
-
-   @Binding var showPickup: Bool
-   @Binding var showSendOrder: Bool
-
     
-    
+    //Navg bar
+    @StateObject var viewRouter: ViewRouter
     
     var body: some View {
         //pick up location
@@ -147,7 +138,7 @@ struct DROPOFFlocationView: View {
                        
                     if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffDetails: Detailslocation)){
                                                 print("drop off saved")
-                                                self.showSendOrder.toggle()
+                                                viewRouter.currentPage = .SendOrder
 
                        }
                        

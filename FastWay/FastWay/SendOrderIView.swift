@@ -19,9 +19,8 @@ struct SendOrderIView: View {
     @State var error = false
     @State var nErr = ""
     
-    @Binding var showDropOff: Bool
-   @Binding var showHomeMember: Bool
-
+    //Navg bar
+    @StateObject var viewRouter: ViewRouter
     
 
     var body: some View {
@@ -108,7 +107,7 @@ struct SendOrderIView: View {
                 if (order.setOrderDetails(orderDetails:Orderhere)){
                     print("order details saved")
                 }
-                self.showHomeMember.toggle()
+                    viewRouter.currentPage = .HomePageM
 
                 }
             })  {
@@ -147,6 +146,14 @@ func SendOrder() {
     
     
 
+}
+
+struct SendOrderIView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            SendOrderIView(viewRouter: ViewRouter())
+        }
+    }
 }
 
 

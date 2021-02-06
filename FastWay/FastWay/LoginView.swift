@@ -18,10 +18,9 @@ struct LoginView: View {
     @State var showErrorMessagePass = false
     @State var ErrorShow = false
     @State var resetShow = false
-    
-    @Binding var showSign: Bool
-    @Binding var showHomeCourier: Bool
-    @Binding var showHomeMember: Bool
+
+    //Navg bar
+    @StateObject var viewRouter: ViewRouter
     
     var body: some View {
         
@@ -128,10 +127,10 @@ struct LoginView: View {
                                                 docRef.getDocument { (document, error) in
                                                     if let document = document, document.exists {
                                                         print("Member")
-                                                        self.showHomeMember.toggle()
+                                                        viewRouter.currentPage = .HomePageM
                                                     } else {
                                                         print("Courier")
-                                                        self.showHomeCourier.toggle()
+                                                        viewRouter.currentPage = .HomePageC
                                                     }
                                                 }
                                             }
@@ -157,7 +156,7 @@ struct LoginView: View {
                             
                             //Sign up Button
                             Button(action: {
-                                    self.showSign.toggle()
+                                viewRouter.currentPage = .SignUp
                                 }) {
                                     Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
                             }
@@ -206,5 +205,16 @@ struct LoginView: View {
         }
         
     }
+    
+    
 
 }
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            LoginView(viewRouter: ViewRouter())
+        }
+    }
+}
+

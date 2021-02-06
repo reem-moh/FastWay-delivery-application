@@ -22,8 +22,7 @@ struct AddNewOrderView: View {
     @State var nErr = ""
     @State var nErr1 = ""
     
-    @Binding var showHomeMember: Bool
-    @Binding var showDropOff: Bool
+    @StateObject var viewRouter: ViewRouter
 
 
     var body: some View {
@@ -139,7 +138,7 @@ struct AddNewOrderView: View {
                         
                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpDetails: Detailslocation)){
                             print("pick up saved")
-                            self.showDropOff.toggle()
+                            viewRouter.currentPage = .DROPOFFlocation
 
                         }
                         
@@ -192,3 +191,11 @@ struct AddNewOrderView: View {
 
 /*if order.addOrder(){
     print("added")}*/
+
+struct AddNewOrderView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            AddNewOrderView(viewRouter: ViewRouter())
+        }
+    }
+}

@@ -47,9 +47,8 @@ struct SignUPView: View {
     @State var uErr=""
     @State var gErr=""
     
-    @Binding var show: Bool
-    @Binding var showHomeCourier: Bool
-    @Binding var showHomeMember: Bool
+    //Navg bar
+    @StateObject var viewRouter: ViewRouter
     
     var body: some View {
         ZStack{
@@ -220,7 +219,7 @@ struct SignUPView: View {
                         if user == "Courier"{
                             let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                             if courier.addCourier(courier: courier) {
-                                self.showHomeCourier.toggle()
+                                viewRouter.currentPage = .HomePageC
                             }else{
                                 nErr = "An error occurred please try again"
                             }
@@ -228,7 +227,7 @@ struct SignUPView: View {
                             if user == "Member"{
                                 let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
                                 if member.addMember(member: member) {
-                                    self.showHomeMember.toggle()
+                                    viewRouter.currentPage = .HomePageM
                                 }else{
                                     nErr = "An error occurred please try again"
                                 }
@@ -247,3 +246,10 @@ struct SignUPView: View {
 
 
 
+struct SignUPView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            SignUPView(viewRouter: ViewRouter())
+        }
+    }
+}
