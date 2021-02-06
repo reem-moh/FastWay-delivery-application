@@ -100,14 +100,14 @@
 			isa = PBXGroup;
 			children = (
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
-				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
-				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
 				C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */,
 				58E7DF9525CD51D00040F66F /* ViewProfile.swift */,
 				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
+				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
+				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				589C42D925C9B2B6009D6B45 /* RadioButton.swift */,
 				589C42FB25CBA651009D6B45 /* classes.swift */,
 				C2A006D625CF24C60010C126 /* ViewRouter.swift */,

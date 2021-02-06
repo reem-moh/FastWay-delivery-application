@@ -52,6 +52,21 @@ struct SendOrderIView: View {
                  
                 }
                 
+            
+        VStack{
+            //arrow_back image
+            
+           Button(action: {
+            viewRouter.currentPage = .DROPOFFlocation
+           }) {
+             Image("arrow_back")
+                 .resizable()
+                 .aspectRatio(contentMode: .fill)
+                 .frame(width: 30, height: 30)
+               .clipped().offset(x:-165 ,y:-360)
+           }        }
+        
+              
              
             
         VStack(){
@@ -155,5 +170,3 @@ struct SendOrderIView_Previews: PreviewProvider {
         }
     }
 }
-
-

@@ -29,6 +29,11 @@ struct AddNewOrderView: View {
         //pick up location
         ZStack{
         
+            
+            
+            
+            
+            
         VStack{
             //background image
             Image("Rectangle 49").ignoresSafeArea()
@@ -50,6 +55,25 @@ struct AddNewOrderView: View {
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }
+            
+            
+            
+            
+            
+        VStack{
+            //arrow_back image
+            
+           Button(action: {
+            viewRouter.currentPage = .HomePageM
+               
+           }) {
+             Image("arrow_back")
+                 .resizable()
+                 .aspectRatio(contentMode: .fill)
+                 .frame(width: 30, height: 30)
+               .clipped().offset(x:-165 ,y:-360)
+           }        }
+        
                 
         
        

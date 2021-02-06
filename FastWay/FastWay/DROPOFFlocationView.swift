@@ -50,7 +50,22 @@ struct DROPOFFlocationView: View {
            }
                     
             
-           
+                    
+                VStack{
+                    //arrow_back image
+                    
+                   Button(action: {
+                    viewRouter.currentPage = .AddNewOrder
+
+                   }) {
+                     Image("arrow_back")
+                         .resizable()
+                         .aspectRatio(contentMode: .fill)
+                         .frame(width: 30, height: 30)
+                       .clipped().offset(x:-165 ,y:-360)
+                   }        }
+                
+                      
             
 
             VStack(alignment: .leading){
@@ -185,4 +200,10 @@ struct DROPOFFlocationView: View {
 }
     }
 
-
+struct DROPOFFlocationView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            DROPOFFlocationView(viewRouter: ViewRouter())
+        }
+    }
+}
