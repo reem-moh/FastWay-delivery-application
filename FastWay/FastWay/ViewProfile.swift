@@ -19,19 +19,41 @@ struct ViewProfile: View {
     @State var user=""
     @State var gender=""
     
-   /* @Binding var showHomeCourier: Bool
-    @Binding var showHomeMember: Bool
-    @Binding var showCurrentCourier: Bool
-    @Binding var showCurrentMember: Bool
-    @Binding var showLogInView: Bool*/
+    //get data from DB
+    @State var member = Member()
+    @State var courier = Courier()
+    
+   /* if self.member.getMember() {
+    self.name = member.name
+    self.email = member.email
+    self.phoneNum = member.phoneNo
+    self.password = member.password
+    self.user = "Member"
+    self.gender = member.gender
+    } else {
+    if self.courier.getCourier(){
+    self.name = member.name
+    self.email = member.email
+    self.phoneNum = member.phoneNo
+    self.password = member.password
+    self.user = "Courier"
+    self.gender = member.gender
+    }
+    }*/
+    
+    /* @Binding var showHomeCourier: Bool
+     @Binding var showHomeMember: Bool
+     @Binding var showCurrentCourier: Bool
+     @Binding var showCurrentMember: Bool
+     @Binding var showLogInView: Bool*/
     
     var body: some View {
         ZStack{
-          
-        //background
+            
+            //background
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
-         
+            
             VStack{
                 
                 //Cancel and Done button
@@ -40,7 +62,7 @@ struct ViewProfile: View {
                     //Cancel button
                     Button(action: {
                         let loginUser = Auth.auth().currentUser
-                    
+                        
                         if let loginUser = loginUser {
                             
                             let id = loginUser.uid
@@ -85,7 +107,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("Name", text: $name)
+                            TextField(self.name, text: $name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -95,7 +117,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("Email", text: $email)
+                            TextField(self.email, text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -105,7 +127,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("Phone Number", text: $phoneNum)
+                            TextField(self.phoneNum, text: $phoneNum)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -116,9 +138,9 @@ struct ViewProfile: View {
                             Group {
                                 Text("").font(.custom("Roboto Regular", size: 18))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
-                            
-                            
-                                SecureField("Password", text: $password)
+                                
+                                
+                                SecureField("Current Password", text: $password)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: 18))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -132,7 +154,7 @@ struct ViewProfile: View {
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                                 //reNew pass
-                                SecureField("Repeate new Password", text: $reNewPassword)
+                                SecureField("Repeat New Password", text: $reNewPassword)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: 18))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -179,9 +201,9 @@ struct ViewProfile: View {
                         Button(action: {
                             let auth=Auth.auth()
                             do {
-                              try auth.signOut()
+                                try auth.signOut()
                             } catch let signOutError {
-                              print ("Error signing out: %@", signOutError)
+                                print ("Error signing out: %@", signOutError)
                             }
                             print("what")
                             
@@ -190,11 +212,11 @@ struct ViewProfile: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24)
-            
+                        
                     }.padding(.bottom, 60) //VStack
                     
                 }
-              //  .padding(.bottom, 3.0) //scrollview
+                 //scrollview
                 
                 //main bar
                 ZStack {
@@ -204,7 +226,7 @@ struct ViewProfile: View {
                         //Home button
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
-                        
+                            
                             if let loginUser = loginUser {
                                 
                                 let id = loginUser.uid
@@ -216,10 +238,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                      //  self.showHomeMember.toggle()
+                                        //  self.showHomeMember.toggle()
                                     } else {
                                         print("Courier")
-                                       // self.showHomeCourier.toggle()
+                                        // self.showHomeCourier.toggle()
                                     }
                                 }
                             }
@@ -233,7 +255,7 @@ struct ViewProfile: View {
                         //current button
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
-                        
+                            
                             if let loginUser = loginUser {
                                 
                                 let id = loginUser.uid
@@ -248,7 +270,7 @@ struct ViewProfile: View {
                                         //self.showHomeMember.toggle()
                                     } else {
                                         print("Courier")
-                                       //self.showHomeCourier.toggle()
+                                        //self.showHomeCourier.toggle()
                                     }
                                 }
                             }
@@ -263,7 +285,7 @@ struct ViewProfile: View {
                         //profile button
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
-                        
+                            
                             if let loginUser = loginUser {
                                 
                                 let id = loginUser.uid
@@ -278,7 +300,7 @@ struct ViewProfile: View {
                                         //self.showHomeMember.toggle()
                                     } else {
                                         print("Courier")
-                                       // self.showHomeCourier.toggle()
+                                        // self.showHomeCourier.toggle()
                                     }
                                 }
                             }

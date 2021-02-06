@@ -21,14 +21,14 @@ class Member {
     var phoneNo: String
     var gender: String
     
-  /*  init() {
+    init() {
         self.id = ""
         self.name = ""
         self.email = ""
         self.password = ""
         self.phoneNo = ""
         self.gender = ""
-    }*/
+    }
     
     init(id: String, name: String, email: String, pass: String, phN: String, gen: String) {
         self.id = id
@@ -88,6 +88,16 @@ class Courier {
     var phoneNo: String
     var gender: String
     
+    
+    init() {
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.password = ""
+        self.phoneNo = ""
+        self.gender = ""
+    }
+    
     init(id: String,name: String, email: String, pass: String, phN: String, gen: String) {
         self.id = id
         self.name = name
@@ -110,6 +120,7 @@ class Courier {
         return flag
     }
     
+    //retrieve from database if no error return true and data will be assigned to variables
     func getCourier(id: String) -> Bool {
         var  flag = true
         
