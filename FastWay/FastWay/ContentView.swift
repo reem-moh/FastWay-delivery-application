@@ -28,20 +28,20 @@ struct ContentView: View {
                 .hidden()
                 
                 //HomeCourier view
-               NavigationLink(
+               /*NavigationLink(
                     destination: HomeCourierView(),
                     isActive: self.$showHomeCourier ){
                     Text("")
                 }
-                .hidden()
+                .hidden()*/
                 
                 //HomeMember view
-                NavigationLink(
+                /*NavigationLink(
                     destination: HomeMemberView(),
                     isActive: self.$showHomeMember ){
                     Text("")
                 }
-                .hidden()
+                .hidden()*/
                 
                 
                 //let signedUser = Auth.auth().currentUser
