@@ -21,14 +21,14 @@ class Member {
     var phoneNo: String
     var gender: String
     
-    init() {
+  /*  init() {
         self.id = ""
         self.name = ""
         self.email = ""
         self.password = ""
         self.phoneNo = ""
         self.gender = ""
-    }
+    }*/
     
     init(id: String, name: String, email: String, pass: String, phN: String, gen: String) {
         self.id = id
@@ -52,19 +52,31 @@ class Member {
         return flag
     }
     
-    //retrieve from database
-    /*func getMember(id: String) -> Member {
-        var member : Member = Member()
-        let doc = db.collection("Member").document(id).getDocument { (doc, error) in
-            if error == nil {
-                if doc != nil && doc!.exists {
-                    member = doc!.data()
-                }
+    //retrieve from database if no error return true and data will be assigned to variables
+    func getMember(id: String) -> Bool {
+        var  flag = true
+        
+        db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                flag = false
+                return
             }
-        }
-        return member
-    }*/
-    
+            guard let data = doc.data() else {
+                    flag = false
+                    return
+                  }
+            //assign values from db to variables
+            self.id = id
+            self.name = data["Name"] as? String ?? ""
+            self.email = data["Email"] as? String ?? ""
+            self.password = data["Password"] as? String ?? ""
+            self.phoneNo = data["PhoneNo"] as? String ?? ""
+            self.gender = data["Gender"] as? String ?? ""
+            
+        } //listener
+        return flag
+    } //function
+        
 }
 
 
@@ -98,5 +110,27 @@ class Courier {
         return flag
     }
     
-    
+    func getCourier(id: String) -> Bool {
+        var  flag = true
+        
+        db.collection("Courier").document(id).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                flag = false
+                return
+            }
+            guard let data = doc.data() else {
+                    flag = false
+                    return
+                  }
+            //assign values from db to variables
+            self.id = id
+            self.name = data["Name"] as? String ?? ""
+            self.email = data["Email"] as? String ?? ""
+            self.password = data["Password"] as? String ?? ""
+            self.phoneNo = data["PhoneNo"] as? String ?? ""
+            self.gender = data["Gender"] as? String ?? ""
+            
+        } //listener
+        return flag
+    } //function
 }
