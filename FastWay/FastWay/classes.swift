@@ -145,3 +145,68 @@ class Courier {
         return flag
     } //function
 }
+
+
+
+class Order{
+    var pickUP: String
+    var pickUpDetails: String
+    var dropOff: String
+    var dropOffDetails: String
+    var orderDetails: String
+    
+    init(){
+        self.pickUP =  ""
+        self.pickUpDetails =  ""
+        self.dropOff =  ""
+        self.dropOffDetails =  ""
+        self.orderDetails =  ""
+    }
+    
+    func setpickUPAndpickUpDetails(pickUP: String,pickUpDetails:String)-> Bool{
+        self.pickUP=pickUP
+        self.pickUpDetails=pickUpDetails
+        return true
+    }
+    
+    func setDropOffAndDropOffDetails(dropOff: String,dropOffDetails:String)-> Bool{
+        self.dropOff=dropOff
+        self.dropOffDetails=dropOffDetails
+        return true
+
+    }
+    
+    func setOrderDetails(orderDetails: String)-> Bool{
+        self.orderDetails=orderDetails
+        return true
+
+    }
+    
+    func addOrder() -> Bool {
+        var flag = true
+        //need to change the id
+        let doc = db.collection("Order").document("5fj6srOHetO5QJLjZcEG")
+        
+        if pickUP.isEmpty{
+            flag =  false
+        }else if pickUpDetails.isEmpty{
+            flag =  false
+        }else if dropOff.isEmpty{
+            flag =  false
+        }else if dropOffDetails.isEmpty{
+            flag =  false
+        }else if orderDetails.isEmpty{
+            flag =  false
+        }
+        
+        doc.setData(["PickUp":self.pickUP, "PickUpDetails":self.pickUpDetails, "DropOff":self.dropOff, "DropOffDetails": self.dropOffDetails, "OrderDetails": self.orderDetails]) { (error) in
+            
+            if error != nil {
+                flag = false
+            }
+        }
+        
+        return flag
+    }
+
+}

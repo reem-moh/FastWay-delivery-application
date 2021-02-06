@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
+		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
+		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
 		589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433EB25C8F61F00E19E18 /* FastWayApp.swift */; };
 		589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433ED25C8F61F00E19E18 /* ContentView.swift */; };
 		589433F025C8F62300E19E18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433EF25C8F62300E19E18 /* Assets.xcassets */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
+		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
+		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
 		589433E825C8F61F00E19E18 /* FastWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589433EB25C8F61F00E19E18 /* FastWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastWayApp.swift; sourceTree = "<group>"; };
 		589433ED25C8F61F00E19E18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,14 +93,17 @@
 			children = (
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				589433ED25C8F61F00E19E18 /* ContentView.swift */,
+				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				C2859D3325CDF72900970F16 /* ContentViewHome.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
+				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
 				C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */,
 				58E7DF9525CD51D00040F66F /* ViewProfile.swift */,
 				589C42D925C9B2B6009D6B45 /* RadioButton.swift */,
 				589C42FB25CBA651009D6B45 /* classes.swift */,
+				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
@@ -237,12 +246,15 @@
 				589C42FC25CBA651009D6B45 /* classes.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				589433EE25C8F61F00E19E18 /* ContentView.swift in Sources */,
+				4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */,
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,
+				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 				58E7DF9625CD51D00040F66F /* ViewProfile.swift in Sources */,
+				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
 				C2859D3425CDF72900970F16 /* ContentViewHome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
