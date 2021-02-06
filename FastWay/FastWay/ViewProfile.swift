@@ -31,6 +31,7 @@ struct ViewProfile: View {
     self.user = "Member"
     self.gender = member.gender
     } else {
+     
     if self.courier.getCourier(){
     self.name = member.name
     self.email = member.email
