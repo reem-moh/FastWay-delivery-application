@@ -199,7 +199,7 @@ struct SignUPView: View {
         self.error = false
         
         self.nErr=""
-        @self.eErr=""
+        self.eErr=""
         self.pErr=""
         self.rpErr=""
         self.phErr=""
