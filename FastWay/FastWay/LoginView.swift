@@ -36,7 +36,7 @@ struct LoginView: View {
                     VStack(alignment: .center) {
                         
                         //logo
-                        Image(uiImage:  #imageLiteral(resourceName: "FastWaylogo")).padding(.bottom,35)
+                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,35)
                         
                         //Error in auth
                         if ErrorShow{
