@@ -197,6 +197,15 @@ struct SignUPView: View {
     }
     func signUp() {
         self.error = false
+        
+        self.nErr=""
+        @self.eErr=""
+        self.pErr=""
+        self.rpErr=""
+        self.phErr=""
+        self.uErr=""
+        self.gErr=""
+        
         if self.name.count < 3 {
             self.nErr="*Name must be more than 3 characters"
             self.error = true
