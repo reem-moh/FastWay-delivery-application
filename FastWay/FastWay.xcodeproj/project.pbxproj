@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D95167E25D09C91002D6087 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D95167D25D09C91002D6087 /* SwiftUIView.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D95167D25D09C91002D6087 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				5894342925C90DD800E19E18 /* SignView.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
 				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
+				4D95167D25D09C91002D6087 /* SwiftUIView.swift */,
 				C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */,
 				58E7DF9525CD51D00040F66F /* ViewProfile.swift */,
 				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
@@ -267,6 +270,7 @@
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,
 				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
+				4D95167E25D09C91002D6087 /* SwiftUIView.swift in Sources */,
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
