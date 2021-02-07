@@ -104,41 +104,7 @@ struct LoginView: View {
                                 
                                 //check if the email and passowrd in the firebase
                                 if(!showErrorMessageEmail && !showErrorMessagePass){
-                                    self.email = self.email.lowercased()
-                                    Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
-                                        if err != nil{
-                                            self.desc=err!.localizedDescription
-                                            ErrorShow=true
-                                        }else{
-                                            
-                                            print("login success")
-                                            ErrorShow=false
-                                            
-                                            let loginUser = Auth.auth().currentUser
-                                        
-                                            if let loginUser = loginUser {
-                                                
-                                                let id = loginUser.uid
-                                                print(id)
-                                                //take the document from the database
-                                                let docRef = db.collection("Member").document(id)
-                                                
-                                                //check if the id inside member doc
-                                                docRef.getDocument { (document, error) in
-                                                    if let document = document, document.exists {
-                                                        print("Member")
-                                                        viewRouter.currentPage = .HomePageM
-                                                    } else {
-                                                        print("Courier")
-                                                        viewRouter.currentPage = .HomePageC
-                                                    }
-                                                }
-                                            }
- 
-                                        }
-                                        print("success")
-
-                                    }
+                                    login()
                                 }else{
                                     ErrorShow=false
                                 }
@@ -206,7 +172,49 @@ struct LoginView: View {
         
     }
     
-    
+    func login(){
+        self.email = self.email.lowercased()
+        Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
+            if err != nil{
+                self.desc=err!.localizedDescription
+                ErrorShow=true
+            }else{
+                
+                print("login success")
+                ErrorShow=false
+                
+                let loginUser = Auth.auth().currentUser
+            
+                if let loginUser = loginUser {
+                    
+                    let id = loginUser.uid
+                    print(id)
+                    //change userDefault + add id
+                    UserDefaults.standard.setIsLoggedIn(value: true)
+                    UserDefaults.standard.setUserId(Id: id)
+                    
+                    //take the document from the database
+                    let docRef = db.collection("Member").document(id)
+                    
+                    //check if the id inside member doc
+                    docRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            print("Member")
+                            UserDefaults.standard.setUserType(Type: "M")
+                            viewRouter.currentPage = .HomePageM
+                        } else {
+                            print("Courier")
+                            UserDefaults.standard.setUserType(Type: "C")
+                            viewRouter.currentPage = .HomePageC
+                        }
+                    }
+                }//end loginuser
+
+            }//end if statment
+            print("there is no error")
+
+        }
+    }
 
 }
 

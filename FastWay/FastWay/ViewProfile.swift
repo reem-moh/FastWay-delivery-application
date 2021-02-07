@@ -203,14 +203,8 @@ struct ViewProfile: View {
                         
                         //logout button
                         Button(action: {
-                            let auth=Auth.auth()
-                            do {
-                                try auth.signOut()
-                                viewRouter.currentPage = .LogIn
-                            } catch let signOutError {
-                                print ("Error signing out: %@", signOutError)
-                            }
-                            print("succes Loggout")
+                            
+                            logout()
                             
                         }) {
                             Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
@@ -327,6 +321,22 @@ struct ViewProfile: View {
             
         } //zstack
     } //body
+    
+    func logout(){
+        let auth=Auth.auth()
+        do {
+            try auth.signOut()
+            
+            UserDefaults.standard.setIsLoggedIn(value: false)
+            UserDefaults.standard.setUserId(Id: "")
+            UserDefaults.standard.setUserType(Type: "")
+            
+            viewRouter.currentPage = .LogIn
+        } catch let signOutError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("succes Loggout")
+    }
 } //struct
 struct ViewProfile_Previews: PreviewProvider {
     static var previews: some View {
