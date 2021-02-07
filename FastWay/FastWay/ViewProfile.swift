@@ -17,7 +17,7 @@ struct ViewProfile: View {
     @State var newPassword=""
     @State var reNewPassword=""
     @State var user=""
-    @State var gender=""
+   // @State var gender=""
     
     //get data from DB
     @State var member = Member()
@@ -31,7 +31,7 @@ struct ViewProfile: View {
     self.phoneNum = member.phoneNo
     self.password = member.password
     self.user = "Member"
-    self.gender = member.gender
+    //self.gender = member.gender
     } else {
      
     if self.courier.getCourier(){
@@ -40,7 +40,7 @@ struct ViewProfile: View {
     self.phoneNum = member.phoneNo
     self.password = member.password
     self.user = "Courier"
-    self.gender = member.gender
+    //self.gender = member.gender
     }
     }*/
     

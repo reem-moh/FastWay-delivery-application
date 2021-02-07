@@ -45,7 +45,7 @@ struct SignUPView: View {
     @State var rpErr=""
     @State var phErr=""
     @State var uErr=""
-    @State var gErr=""
+   // @State var gErr=""
     
     //Navg bar
     @StateObject var viewRouter: ViewRouter
@@ -204,7 +204,7 @@ struct SignUPView: View {
         self.rpErr=""
         self.phErr=""
         self.uErr=""
-        self.gErr=""
+       // self.gErr=""
         
         if self.name.count < 3 {
             self.nErr="*Name must be more than 3 characters"
@@ -251,7 +251,7 @@ struct SignUPView: View {
                         let id = signedUser.uid
                         
                         if user == "Courier"{
-                            let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                            let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
                             if courier.addCourier(courier: courier) {
                                 viewRouter.currentPage = .HomePageC
                             }else{
@@ -259,7 +259,7 @@ struct SignUPView: View {
                             }
                         }else{
                             if user == "Member"{
-                                let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum, gen: self.gender)
+                                let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
                                 if member.addMember(member: member) {
                                     viewRouter.currentPage = .HomePageM
                                 }else{

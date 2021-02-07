@@ -73,7 +73,7 @@ class Member {
     var email: String
     var password: String
     var phoneNo: String
-    var gender: String
+    //var gender: String
     
     init() {
         self.id = ""
@@ -81,22 +81,22 @@ class Member {
         self.email = ""
         self.password = ""
         self.phoneNo = ""
-        self.gender = ""
+       // self.gender = ""
     }
     
-    init(id: String, name: String, email: String, pass: String, phN: String, gen: String) {
+    init(id: String, name: String, email: String, pass: String, phN: String) {
         self.id = id
         self.name = name
         self.email = email
         self.password = pass
         self.phoneNo = phN
-        self.gender = gen
+       // self.gender = gen
     }
     
     func addMember(member: Member) -> Bool {
         let doc = db.collection("Member").document(id)
         var flag = true
-        doc.setData(["ID":self.id, "Name":self.name, "Gender":self.gender, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
+        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
             
             if error != nil {
                 flag = false
@@ -125,7 +125,7 @@ class Member {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-            self.gender = data["Gender"] as? String ?? ""
+           // self.gender = data["Gender"] as? String ?? ""
             
         } //listener
         return flag
@@ -140,7 +140,7 @@ class Courier {
     var email: String
     var password: String
     var phoneNo: String
-    var gender: String
+   // var gender: String
     
     
     init() {
@@ -149,22 +149,22 @@ class Courier {
         self.email = ""
         self.password = ""
         self.phoneNo = ""
-        self.gender = ""
+       // self.gender = ""
     }
     
-    init(id: String,name: String, email: String, pass: String, phN: String, gen: String) {
+    init(id: String,name: String, email: String, pass: String, phN: String) {
         self.id = id
         self.name = name
         self.email = email
         self.password = pass
         self.phoneNo = phN
-        self.gender = gen
+       // self.gender = gen
     }
     
     func addCourier(courier: Courier) -> Bool {
         let doc = db.collection("Courier").document(id)
         var flag = true
-        doc.setData(["ID":self.id, "Name":self.name, "Gender":self.gender, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
+        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
             
             if error != nil {
                 flag = false
@@ -193,7 +193,7 @@ class Courier {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-            self.gender = data["Gender"] as? String ?? ""
+            //self.gender = data["Gender"] as? String ?? ""
             
         } //listener
         return flag
