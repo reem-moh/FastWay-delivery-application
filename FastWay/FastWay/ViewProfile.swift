@@ -167,7 +167,7 @@ struct ViewProfile: View {
                             }
                             
                             //Gender
-                            VStack(alignment: .leading){
+                           /* VStack(alignment: .leading){
                                 
                                 Text("").font(.custom("Roboto Regular", size: 18))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
@@ -181,9 +181,10 @@ struct ViewProfile: View {
                                     .padding(.trailing, 5.0)
                                     
                                 }
-                            }
+                            }*/
                             
                             //user type
+                            /*
                             VStack(alignment: .leading){
                                 
                                 Text("").font(.custom("Roboto Regular", size: 18))
@@ -196,7 +197,7 @@ struct ViewProfile: View {
                                         self.user = selected
                                     }
                                 }
-                            }
+                            }*/
                             
                         }//end group
                         
@@ -224,11 +225,13 @@ struct ViewProfile: View {
                 
                 //main bar
                 ZStack {
-                    Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                    HStack{
-                        Spacer()
+                        
+                        Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(.all)
+                        HStack{
+                            Spacer()
                         //Home button
                         Button(action: {
+                            
                             let loginUser = Auth.auth().currentUser
                             
                             if let loginUser = loginUser {
@@ -242,10 +245,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        viewRouter.currentPage = .HomePageM
+                                        viewRouter.currentPage = .HomePageC
                                     } else {
                                         print("Courier")
-                                        viewRouter.currentPage = .HomePageC
+                                        viewRouter.currentPage = .HomePageM
                                     }
                                 }
                             }
@@ -261,6 +264,8 @@ struct ViewProfile: View {
                         Button(action: {
                             let loginUser = Auth.auth().currentUser
                             
+                            viewRouter.currentPage = .CurrentOrder
+                            
                             if let loginUser = loginUser {
                                 
                                 let id = loginUser.uid
@@ -272,10 +277,10 @@ struct ViewProfile: View {
                                 docRef.getDocument { (document, error) in
                                     if let document = document, document.exists {
                                         print("Member")
-                                        viewRouter.currentPage = .HomePageM
+                                        viewRouter.currentPage = .CurrentOrder
                                     } else {
                                         print("Courier")
-                                        viewRouter.currentPage = .HomePageC
+                                        viewRouter.currentPage = .CurrentOrder
                                     }
                                 }
                             }
@@ -283,7 +288,7 @@ struct ViewProfile: View {
                         }) {
                             Text("")
                         }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "cart")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
+                        .background(Image(uiImage: #imageLiteral(resourceName: "cart")).frame(width:100,height:80).offset(y: 10))
                         Spacer()
                         Spacer()
                         
@@ -315,8 +320,9 @@ struct ViewProfile: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "user")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
                         Spacer()
-                    }
-                }
+                            
+                        }//end HStack
+                }//ende ZStack mainBar
             }//vstack
             
         } //zstack

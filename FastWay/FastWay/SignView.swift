@@ -148,7 +148,7 @@ struct SignUPView: View {
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                         //gender
-                        VStack(alignment: .leading){
+                       /* VStack(alignment: .leading){
                             
                             Text(self.gErr).font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
@@ -162,7 +162,7 @@ struct SignUPView: View {
                                 .padding(.trailing, 5.0)
                                 
                             }
-                        }
+                        }*/
                         //user type
                         VStack(alignment: .leading){
                             
@@ -227,10 +227,11 @@ struct SignUPView: View {
             self.rpErr="*Password mismatch"
             self.error = true
         }
+        /*
         if self.gender == ""{
             self.gErr="*Gender must be specified"
             self.error = true
-        }
+        }*/
         if self.user == ""{
             self.uErr="*This field is mandatory"
             self.error = true
