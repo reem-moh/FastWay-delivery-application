@@ -36,6 +36,24 @@ struct SendOrderIView: View {
             }
             
             VStack{
+                
+                
+                
+           
+                //arrow_back image
+                
+               Button(action: {
+                viewRouter.currentPage = .DROPOFFlocation
+
+               }) {
+                 Image("arrow_back")
+                     .resizable()
+                     .aspectRatio(contentMode: .fill)
+                     .frame(width: 30, height: 30)
+                   .clipped()
+               }.position(x:30 ,y:70)
+            
+                
                 //white rectangle
                 Spacer(minLength: 100)
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
@@ -52,21 +70,7 @@ struct SendOrderIView: View {
                  
                 }
                 
-            
-        VStack{
-            //arrow_back image
-            
-           Button(action: {
-            viewRouter.currentPage = .DROPOFFlocation
-           }) {
-             Image("arrow_back")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(width: 30, height: 30)
-               .clipped().offset(x:-165 ,y:-360)
-           }        }
-        
-              
+       
              
             
         VStack(){

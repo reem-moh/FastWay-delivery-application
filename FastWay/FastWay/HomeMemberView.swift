@@ -27,7 +27,7 @@ struct HomeMemberView: View {
                 Image("Rectangle 49").ignoresSafeArea()
                 Spacer()
             }
-
+      
             
             VStack{
                 //white rectangle
@@ -36,6 +36,8 @@ struct HomeMemberView: View {
             }
             
 
+            VStack{
+            
                  VStack{
                     /* transparent-log-out-icon-5d6b36311cbea9 2 */
 
@@ -44,7 +46,6 @@ struct HomeMemberView: View {
                     
                    Button(action: {
                     viewRouter.currentPage = .AddNewOrder
-                       
                    }) {
                     
                     //logo, text feilds and buttons
@@ -52,7 +53,7 @@ struct HomeMemberView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 300, height: 180)
-                        .clipped().offset(x:0 ,y:60)
+                        .clipped()
                    }
                 
                     
@@ -68,7 +69,7 @@ struct HomeMemberView: View {
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 180)
-                         .clipped().offset(x:0 ,y:70)
+                         .clipped()
                      
                    }
                     
@@ -84,77 +85,66 @@ struct HomeMemberView: View {
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 180)
-                         .clipped() .offset(x:0 ,y:80)
+                         .clipped()
                      
                    }
+                  
                     
                     
+                 }.position(x:180 ,y:450)
                  
-                     HStack(){
-                         
-                        
-                     
-                        
-                       Button(action: {
-                        viewRouter.currentPage = .AddNewOrder
-                           
-                       }) {
-                        
-                        //logo, text feilds and buttons
-                        Image("home")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
-                            .clipped().offset(x:-50 ,y:84)
-                       }
+                HStack(){
                     
-                        
-                        
-                        
-                        /*
-                       Button(action: {
-                        viewRouter.currentPage = .HomePageM
-                           
-                       }) {
-                         Image("home")
-                             .resizable()
-                             .aspectRatio(contentMode: .fill)
-                             .frame(width: 30, height: 30)
-                           .clipped().offset(x:-50 ,y:84)
-                       }
-                        */
-                        
-                       Button(action: {
-                        viewRouter.currentPage = .HistoryView
-                           
-                       }) {
-                         
-                         Image("cart")
-                             .resizable()
-                             .aspectRatio(contentMode: .fill)
-                             .frame(width: 35, height: 35)
-                             .clipped().offset(x:20 ,y:84)
-                       }
-                        
-        
-                        
-                       Button(action: {
-                        viewRouter.currentPage = .ViewProfile
-                           
-                       }) {
-                         Image("user")
-                             .resizable()
-                             .aspectRatio(contentMode: .fill)
-                             .frame(width: 90, height: 90)
-                            .clipped() .offset(x:80 ,y:84)
-                       }
-                     }
+                   
+                   
+                  Button(action: {
+                   viewRouter.currentPage = .HomePageM
+                      
+                  }) {
+                    Image("home")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 30, height: 30)
+                      .clipped()
+                  }
+                   Spacer()
+                   
+                  Button(action: {
+                   viewRouter.currentPage = .HistoryView
+                      
+                  }) {
+                    
+                    Image("cart")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 35, height: 35)
+                        .clipped()
+                  }
+                   
+                    Spacer()
+
+                   
+                  Button(action: {
+                   viewRouter.currentPage = .ViewProfile
+                      
+                  }) {
+                    Image("user")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 90, height: 90)
+                       .clipped()
+                  }
+                }.position(x:200 ,y:360)
+            
+         
+            
+            }
+                
                  }
                  
              }
                  
          }
-     }
      
 
 struct HomeMemberView_Previews: PreviewProvider {

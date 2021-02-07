@@ -59,12 +59,36 @@ struct SignUPView: View {
             //VStack for navg
             VStack{
                 
+               
             }
+            
+            
+            
+            
             VStack{
                 //go back button
-                
+                    
+                    
+                /*
+                    //arrow_back image
+                    
+                   Button(action: {
+                    viewRouter.currentPage = .
+                       
+                   }) {
+                     Image("arrow_back")
+                         .resizable()
+                         .aspectRatio(contentMode: .fill)
+                         .frame(width: 30, height: 30)
+                       .clipped().offset(x:-160 ,y:10)
+                           }
+                */
+ 
+ 
                 //white rectangle
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 10)
+                
+                
             }
             VStack{
                 //logo, text feilds and buttons

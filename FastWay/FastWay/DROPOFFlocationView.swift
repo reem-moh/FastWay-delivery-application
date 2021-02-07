@@ -33,12 +33,29 @@ struct DROPOFFlocationView: View {
                 Spacer()
             }
             
-            VStack{
-                //white rectangle
-                Spacer(minLength: 100)
-                Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-            }
-            
+                    VStack{
+                        
+                        
+                        
+                   
+                        //arrow_back image
+                        
+                       Button(action: {
+                        viewRouter.currentPage = .AddNewOrder
+
+                       }) {
+                         Image("arrow_back")
+                             .resizable()
+                             .aspectRatio(contentMode: .fill)
+                             .frame(width: 30, height: 30)
+                           .clipped()
+                       }.position(x:30 ,y:70)
+                    
+                        
+                        //white rectangle
+                        Spacer(minLength: 100)
+                        Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                    }
 
          
            VStack{
@@ -50,22 +67,7 @@ struct DROPOFFlocationView: View {
            }
                     
             
-                    
-                VStack{
-                    //arrow_back image
-                    
-                   Button(action: {
-                    viewRouter.currentPage = .AddNewOrder
-
-                   }) {
-                     Image("arrow_back")
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 30, height: 30)
-                       .clipped().offset(x:-165 ,y:-360)
-                   }        }
-                
-                      
+          
             
 
             VStack(alignment: .leading){
@@ -77,7 +79,7 @@ struct DROPOFFlocationView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 360, height: 292)
                     .clipped()
-                    .position(x:188,y:280).offset(x:0 ,y:-5)
+                    .position(x:188,y:280).offset(x:0 ,y:5)
                 
                 
            
