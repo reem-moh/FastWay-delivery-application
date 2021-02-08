@@ -20,8 +20,8 @@ struct ViewProfile: View {
     // @State var gender=""
     
     //get data from DB
-    @State var member = Member()
-    @State var courier = Courier()
+   // @State var member
+   // @State var courier
     
     @StateObject var viewRouter: ViewRouter
     
@@ -83,7 +83,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField(self.email, text: $email)
+                            TextField("\(self.email)", text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -129,8 +129,6 @@ struct ViewProfile: View {
                                 
                             }
                             
-                        }.onAppear {
-                            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
                         }//end group
                         
                         //logout button
@@ -188,6 +186,8 @@ struct ViewProfile: View {
                 }//ende ZStack mainBar
             }//vstack
             
+        }.onAppear {
+            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
         }//zstack
     } //body
     
@@ -209,20 +209,24 @@ struct ViewProfile: View {
     }
     
     func getInfo(id: String, type: String) -> Void{
+        let member = Member()
+        let courier = Courier()
+        print(UserDefaults.standard.getUderId())
         if type == "M"{
-            if self.member.getMember(id: id) {
+            if member.getMember(id: id) {
                 self.name = member.name
                 self.email = member.email
                 self.phoneNum = member.phoneNo
                 self.password = member.password
                 self.user = "Member"
-            }else {
+            }
+            else {
                 if type == "C"{
-                    if self.courier.getCourier(id: id){
-                        self.name = member.name
-                        self.email = member.email
-                        self.phoneNum = member.phoneNo
-                        self.password = member.password
+                    if courier.getCourier(id: id){
+                        self.name = courier.name
+                        self.email = courier.email
+                        self.phoneNum = courier.phoneNo
+                        self.password = courier.password
                         self.user = "Courier"
                     }
                 }
