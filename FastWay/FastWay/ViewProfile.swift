@@ -101,7 +101,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField(self.email, text: $email)
+                            TextField("\(self.email)", text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -147,8 +147,6 @@ struct ViewProfile: View {
                                 
                             }
                             
-                        }.onAppear {
-                            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
                         }//end group
                         
                         //logout button
@@ -269,6 +267,8 @@ struct ViewProfile: View {
                 }//ende ZStack mainBar
             }//vstack
             
+        }.onAppear {
+            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
         }//zstack
     } //body
     
