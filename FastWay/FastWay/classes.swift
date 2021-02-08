@@ -52,16 +52,16 @@ class Member {
     }
     
     //retrieve from database if no error return true and data will be assigned to variables
-    func getMember(id: String) -> Bool {
-        var  flag = true
+    func getMember(id: String) {
+        
         
         db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
             guard let doc = querySnapshot else{
-                flag = false
+                print("no member document")
                 return
             }
             guard let data = doc.data() else {
-                flag = false
+                print("no member data")
                 return
             }
             //assign values from db to variables
@@ -70,10 +70,8 @@ class Member {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-            // self.gender = data["Gender"] as? String ?? ""
             
         } //listener
-        return flag
     } //function
     
 }
@@ -120,16 +118,15 @@ class Courier {
     }
     
     //retrieve from database if no error return true and data will be assigned to variables
-    func getCourier(id: String) -> Bool {
-        var  flag = true
+    func getCourier(id: String){
         
         db.collection("Courier").document(id).addSnapshotListener { (querySnapshot, error) in
             guard let doc = querySnapshot else{
-                flag = false
+                print("no courier document")
                 return
             }
             guard let data = doc.data() else {
-                flag = false
+                print("no courier data")
                 return
             }
             //assign values from db to variables
@@ -138,10 +135,9 @@ class Courier {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-            //self.gender = data["Gender"] as? String ?? ""
+            
             
         } //listener
-        return flag
     } //function
 }
 

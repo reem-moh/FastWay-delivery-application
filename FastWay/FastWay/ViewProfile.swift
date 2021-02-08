@@ -10,27 +10,19 @@ import Firebase
 import FirebaseFirestore
 
 struct ViewProfile: View {
-    @State var name=""
-    @State var email=""
-    @State var phoneNum=""
-    @State var password=""
-    @State var newPassword=""
-    @State var reNewPassword=""
-    @State var user=""
-    // @State var gender=""
+    @State var name = ""
+    @State var email = ""
+    @State var phoneNum = ""
+    @State var password = ""
+    @State var newPassword = ""
+    @State var reNewPassword = ""
     
-    //get data from DB
-   // @State var member
-   // @State var courier
     
     @StateObject var viewRouter: ViewRouter
     
-    /* @Binding var showHomeCourier: Bool
-     @Binding var showHomeMember: Bool
-     @Binding var showCurrentCourier: Bool
-     @Binding var showCurrentMember: Bool
-     @Binding var showLogInView: Bool*/
-    
+    @State var member = Member()
+    @State var courier = Courier()
+
     var body: some View {
         ZStack{
             
@@ -144,6 +136,22 @@ struct ViewProfile: View {
                         
                     }.padding(.bottom, 60) //VStack
                     
+                }.onAppear(){
+                    if (UserDefaults.standard.getUderType() == "M"){
+                        print("view M")
+                        self.member.getMember(id: UserDefaults.standard.getUderId())
+                        self.name = self.member.name
+                        self.email = self.member.email
+                        self.phoneNum = self.member.phoneNo
+                    }else{
+                        if (UserDefaults.standard.getUderType() == "C"){
+                            print("view C")
+                            self.courier.getCourier(id: UserDefaults.standard.getUderId())
+                            self.name = self.courier.name
+                            self.email = self.courier.email
+                            self.phoneNum = self.courier.phoneNo
+                        }
+                    }
                 }
                 //scrollview
                 
@@ -186,8 +194,6 @@ struct ViewProfile: View {
                 }//ende ZStack mainBar
             }//vstack
             
-        }.onAppear {
-            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
         }//zstack
     } //body
     
@@ -208,31 +214,6 @@ struct ViewProfile: View {
         print("succes Loggout")
     }
     
-    func getInfo(id: String, type: String) -> Void{
-        let member = Member()
-        let courier = Courier()
-        print(UserDefaults.standard.getUderId())
-        if type == "M"{
-            if member.getMember(id: id) {
-                self.name = member.name
-                self.email = member.email
-                self.phoneNum = member.phoneNo
-                self.password = member.password
-                self.user = "Member"
-            }
-            else {
-                if type == "C"{
-                    if courier.getCourier(id: id){
-                        self.name = courier.name
-                        self.email = courier.email
-                        self.phoneNum = courier.phoneNo
-                        self.password = courier.password
-                        self.user = "Courier"
-                    }
-                }
-            }
-        }
-    }
     
     func returnHomePage(){
         //check if user loggedin
