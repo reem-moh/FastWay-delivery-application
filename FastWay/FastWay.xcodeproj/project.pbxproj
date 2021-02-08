@@ -13,6 +13,8 @@
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
 		5886863125D17C6D00C15A0D /* ViewMemberProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886863025D17C6D00C15A0D /* ViewMemberProfile.swift */; };
 		5886863525D17F6B00C15A0D /* ViewCourierProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886863425D17F6B00C15A0D /* ViewCourierProfile.swift */; };
+		5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886863825D1AD4500C15A0D /* TabBarMenu.swift */; };
+		5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886863C25D1B43C00C15A0D /* AboutUs.swift */; };
 		589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433EB25C8F61F00E19E18 /* FastWayApp.swift */; };
 		589433F025C8F62300E19E18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433EF25C8F62300E19E18 /* Assets.xcassets */; };
 		589433F325C8F62300E19E18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433F225C8F62300E19E18 /* Preview Assets.xcassets */; };
@@ -21,7 +23,6 @@
 		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
 		589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D925C9B2B6009D6B45 /* RadioButton.swift */; };
 		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
-		58E7DF9625CD51D00040F66F /* ViewProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7DF9525CD51D00040F66F /* ViewProfile.swift */; };
 		C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C268D59725D07EF7006183AB /* UserDefaults.swift */; };
 		C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006C125CF1F1A0010C126 /* MotherView.swift */; };
 		C2A006C625CF1F590010C126 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006C525CF1F590010C126 /* Helper.swift */; };
@@ -41,6 +42,8 @@
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
 		5886863025D17C6D00C15A0D /* ViewMemberProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMemberProfile.swift; sourceTree = "<group>"; };
 		5886863425D17F6B00C15A0D /* ViewCourierProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCourierProfile.swift; sourceTree = "<group>"; };
+		5886863825D1AD4500C15A0D /* TabBarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarMenu.swift; sourceTree = "<group>"; };
+		5886863C25D1B43C00C15A0D /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
 		589433E825C8F61F00E19E18 /* FastWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589433EB25C8F61F00E19E18 /* FastWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastWayApp.swift; sourceTree = "<group>"; };
 		589433EF25C8F62300E19E18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,7 +54,6 @@
 		589C42D525C9956E009D6B45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		589C42D925C9B2B6009D6B45 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		589C42FB25CBA651009D6B45 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
-		58E7DF9525CD51D00040F66F /* ViewProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfile.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C268D59725D07EF7006183AB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -113,11 +115,12 @@
 				C2A006D625CF24C60010C126 /* ViewRouter.swift */,
 				C268D59725D07EF7006183AB /* UserDefaults.swift */,
 				589C42FB25CBA651009D6B45 /* classes.swift */,
+				5886863825D1AD4500C15A0D /* TabBarMenu.swift */,
 				4D95167D25D09C91002D6087 /* SwiftUIView.swift */,
 				589C42D925C9B2B6009D6B45 /* RadioButton.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
-				58E7DF9525CD51D00040F66F /* ViewProfile.swift */,
+				5886863C25D1B43C00C15A0D /* AboutUs.swift */,
 				C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */,
 				5886863025D17C6D00C15A0D /* ViewMemberProfile.swift */,
 				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
@@ -270,7 +273,9 @@
 				589C42FC25CBA651009D6B45 /* classes.swift in Sources */,
 				C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */,
 				5886863525D17F6B00C15A0D /* ViewCourierProfile.swift in Sources */,
+				5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */,
 				5886863125D17C6D00C15A0D /* ViewMemberProfile.swift in Sources */,
+				5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */,
@@ -285,7 +290,6 @@
 				C2A006CA25CF22680010C126 /* CurrentOrderView.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
-				58E7DF9625CD51D00040F66F /* ViewProfile.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
 				C2A006CE25CF229A0010C126 /* HistoryView.swift in Sources */,
 			);

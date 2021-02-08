@@ -126,7 +126,7 @@ struct HomeCourierView: View {
                     
                     
                     Button(action: {
-                        viewRouter.currentPage = .ViewProfile
+                        viewRouter.currentPage = .ViewProfileC
                         
                     }) {
                         Image("user")

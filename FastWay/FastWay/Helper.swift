@@ -15,9 +15,12 @@ enum Page{
     case AddNewOrder
     case DROPOFFlocation
     case SendOrder
-    case ViewProfile
+    case ViewProfileM
+    case ViewProfileC
+    case AboutUs
     case CurrentOrder
     case HistoryView
     case DeliverOrder
+    
     
 }

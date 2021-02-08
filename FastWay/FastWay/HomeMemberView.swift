@@ -125,7 +125,7 @@ struct HomeMemberView: View {
 
                    
                   Button(action: {
-                   viewRouter.currentPage = .ViewProfile
+                   viewRouter.currentPage = .ViewProfileM
                       
                   }) {
                     Image("user")

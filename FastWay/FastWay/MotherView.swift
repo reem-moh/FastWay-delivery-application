@@ -38,14 +38,18 @@ struct MotherView: View {
                     DROPOFFlocationView(viewRouter : viewRouter)
                 case .SendOrder :
                     SendOrderIView(viewRouter : viewRouter)
-                case .ViewProfile :
-                    ViewProfile(viewRouter : viewRouter)
+                case .ViewProfileM :
+                    ViewMemberProfile(viewRouter : viewRouter)
                 case .CurrentOrder :
                     CurrentOrderView(viewRouter : viewRouter)
                 case .HistoryView :
                     HistoryView(viewRouter : viewRouter)
                 case .DeliverOrder :
                     DeliverOrderView(viewRouter : viewRouter)
+            case .ViewProfileC:
+                ViewCourierProfile(viewRouter: viewRouter)
+            case .AboutUs:
+                AboutUs(viewRouter: viewRouter)//
             }
        // }.onAppear(perform: getUser)
        
