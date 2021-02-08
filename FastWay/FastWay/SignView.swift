@@ -86,13 +86,13 @@ struct SignUPView: View {
                 
                 
                 //white rectangle
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 10)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 40)
                 
                 
             }
             VStack{
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,0).offset(y: 15)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,30).offset(y: 45)
                 
                 ScrollView{
                     VStack(alignment: .leading){
