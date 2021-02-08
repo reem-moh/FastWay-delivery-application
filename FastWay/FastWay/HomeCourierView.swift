@@ -11,137 +11,127 @@ struct HomeCourierView: View {
     
     
     @StateObject var viewRouter: ViewRouter
-    
+    let abuotPage: Page = .AboutUs
+
     var body: some View {
         ZStack{
-            VStack{
-                //background image
-                Image("Rectangle 49").ignoresSafeArea()
-                Spacer()
+         
+            
+            
+            
+            ZStack{
                 
+                //background
+              Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+              Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 25)
                 
-            }
+                GeometryReader { geometry in
+                   // if UserDefaults.standard.getUderType() == "M"{
+                    
+                    
+                    Image("FASTWAY 1").frame(width: -50, height: -50)
+                        .offset(x:180 ,y:130).position(x: 10, y: -45)
+                               
+                                 
+                                
+                        VStack {
+                            
+                            Spacer()
+                            
+                              
+                                  
+                            Spacer()
+                           HStack {
+                               TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                               ZStack {
+                                    Circle()
+                                        .foregroundColor(.white)
+                                        .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                        .shadow(radius: 4)
+                                   VStack {
+                                       Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                           .resizable()
+                                           .aspectRatio(contentMode: .fit)
+                                           .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+                                   }.padding(.horizontal, 14).onTapGesture {
+                                                    viewRouter.currentPage = abuotPage
+                                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
+                                }.offset(y: -geometry.size.height/8/2)
+                               TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                            }
+                                .frame(width: geometry.size.width, height: geometry.size.height/8)
+                                .background(Color("TabBarBackground").shadow(radius: 2))
+                        }
+                   // }
+                    
+                 }
+                
+            }.edgesIgnoringSafeArea(.all)//zstack
             
-            VStack{
-                //background image
-                Image("Rectangle 49").ignoresSafeArea()
-                Spacer()
-            }
-            
-            
-            VStack{
-                //white rectangle
-                Spacer(minLength: 100)
-                Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-            }
-            
-            
-            VStack{
                 
                 VStack{
-                    /* transparent-log-out-icon-5d6b36311cbea9 2 */
-                    
-                    
-                    
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .AddNewOrder
-                    }) {
-                        
-                        //logo, text feilds and buttons
-                        Image("addNewOrder")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 300, height: 180)
-                            .clipped()
-                    }
-                    
-                    
-                    
-                    
-                    
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .CurrentOrder
-                        
-                    }) {
-                        Image("current")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 300, height: 180)
-                            .clipped()
-                        
-                    }
-                    
-                    
-                    
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .HistoryView
-                        
-                    }) {
-                        
-                        Image("HistoryCourier")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 300, height: 180)
-                            .clipped()
-                        
-                    }
-                    
-                    
-                    
-                }.position(x:180 ,y:450)
+                  /*      transparent-log-out-icon-5d6b36311cbea9 2
+
+                   */
+
+                                  
+                                 Button(action: {
+                                  viewRouter.currentPage = .AddNewOrder
+                                 }) {
+                                  
+                                  //logo, text feilds and buttons
+                                  Image("addNewOrder")
+                                      .resizable()
+                                      .aspectRatio(contentMode: .fill)
+                                      .frame(width: 300, height: 180)
+                                      .clipped()
+                                 }
+                              
+                                  
+                                  
+                                  
+                                  
+                                  
+                                 Button(action: {
+                                  viewRouter.currentPage = .CurrentOrder
+                                     
+                                 }) {
+                                   Image("current")
+                                       .resizable()
+                                       .aspectRatio(contentMode: .fill)
+                                       .frame(width: 300, height: 180)
+                                       .clipped()
+                                   
+                                 }
+                                  
+                                  
+                                  
+                                  
+                                 Button(action: {
+                                  viewRouter.currentPage = .HistoryView
+                                     
+                                 }) {
+                                   
+                                   Image("History")
+                                       .resizable()
+                                       .aspectRatio(contentMode: .fill)
+                                       .frame(width: 300, height: 180)
+                                       .clipped()
+                                   
+                                 }
+                                
+                                  
+                                  
+                               }.position(x:189 ,y:370)
+
                 
                 
-                HStack(){
-                    
-                    
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .HomePageC
-                        
-                    }) {
-                        Image("home")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
-                            .clipped()
-                    }
-                    Spacer()
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .HistoryView
-                        
-                    }) {
-                        
-                        Image("cart")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 35, height: 35)
-                            .clipped()
-                    }
-                    
-                    Spacer()
-                    
-                    
-                    Button(action: {
-                        viewRouter.currentPage = .ViewProfileC
-                        
-                    }) {
-                        Image("user")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 90, height: 90)
-                            .clipped()
-                    }
-                }.position(x:200 ,y:360)
                 
                 
                 
             }
             
-        }
+        
         
     }
     
