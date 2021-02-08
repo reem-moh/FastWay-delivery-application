@@ -153,7 +153,7 @@ struct DROPOFFlocationView: View {
 
                    if (!errorlocation && !errorDetailslocation) {
                        
-                    if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffDetails: Detailslocation)){
+                 /*   if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffDetails: Detailslocation)){
                                                 print("drop off saved")
                                                 viewRouter.currentPage = .SendOrder
 
@@ -163,7 +163,7 @@ struct DROPOFFlocationView: View {
                        {
                            print("drop off  not saved")
 
-                       }
+                       }*/
                    
                    }
                
