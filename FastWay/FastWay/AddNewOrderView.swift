@@ -168,7 +168,7 @@ struct AddNewOrderView: View {
 
                     if (!errorlocation && !errorDetailslocation) {
                         
-                        if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpDetails: Detailslocation)){
+                       /* if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpDetails: Detailslocation)){
                             print("pick up saved")
                             viewRouter.currentPage = .DROPOFFlocation
 
@@ -178,7 +178,7 @@ struct AddNewOrderView: View {
                         {
                             print("pick up  not saved")
 
-                        }
+                        }*/
                     
                     }
                 
