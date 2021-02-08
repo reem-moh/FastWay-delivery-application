@@ -1,15 +1,15 @@
 //
-//  ViewProfile.swift
+//  ViewMemberProfile.swift
 //  FastWay
 //
-//  Created by taif.m on 2/5/21.
+//  Created by taif.m on 2/8/21.
 //
 
 import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct ViewProfile: View {
+struct ViewMemberProfile: View {
     @State var name = ""
     @State var email = ""
     @State var phoneNum = ""
@@ -75,7 +75,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("\(self.email)", text: $email)
+                            TextField("\(self.member.email)", text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -85,7 +85,7 @@ struct ViewProfile: View {
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("\(self.phoneNum)", text: $phoneNum)
+                            TextField("\(self.member.phoneNo)", text: $phoneNum)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -137,22 +137,12 @@ struct ViewProfile: View {
                     }.padding(.bottom, 60) //VStack
                     
                 }.onAppear(){
-                    if (UserDefaults.standard.getUderType() == "M"){
+                    
                         print("view M")
                         self.member.getMember(id: UserDefaults.standard.getUderId())
-                        self.name = self.member.name
-                        self.email = self.member.email
-                        self.phoneNum = self.member.phoneNo
-                    }else{
-                        if (UserDefaults.standard.getUderType() == "C"){
-                            print("view C")
-                            self.courier.getCourier(id: UserDefaults.standard.getUderId())
-                            self.name = self.courier.name
-                            self.email = self.courier.email
-                            self.phoneNum = self.courier.phoneNo
-                        }
-                    }
-                }
+                        
+             }
+            
                 //scrollview
                 
                 //main bar
@@ -219,28 +209,28 @@ struct ViewProfile: View {
         //check if user loggedin
         if UserDefaults.standard.isLoggedIn(){
             //know the type of the user
-            if UserDefaults.standard.getUderType() == "M"{
+           // if UserDefaults.standard.getUderType() == "M"{
                 
                 viewRouter.currentPage = .HomePageM
                 
-            }else if UserDefaults.standard.getUderType() == "C"{
+           // }else if UserDefaults.standard.getUderType() == "C"{
                 
-                viewRouter.currentPage = .HomePageC
+              //  viewRouter.currentPage = .HomePageC
                 
-            }else {
-                print("either type")
-                print(UserDefaults.standard.getUderType())
-            }//end if else type
+           // }else {
+              //  print("either type")
+              //  print(UserDefaults.standard.getUderType())
+           // }//end if else type
             
         }//end if logged in
     }
+}
     
     
-    
-}//struct
 
-struct ViewProfile_Previews: PreviewProvider {
+
+struct ViewMemberProfile_Previews: PreviewProvider {
     static var previews: some View {
-        ViewProfile(viewRouter: ViewRouter())
+        ViewMemberProfile(viewRouter: ViewRouter())
     }
 }

@@ -70,7 +70,7 @@ class Member {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-            
+            print("got member data + \(self.name)")
         } //listener
     } //function
     
