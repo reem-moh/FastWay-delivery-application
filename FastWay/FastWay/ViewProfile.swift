@@ -17,32 +17,13 @@ struct ViewProfile: View {
     @State var newPassword=""
     @State var reNewPassword=""
     @State var user=""
-   // @State var gender=""
+    // @State var gender=""
     
     //get data from DB
     @State var member = Member()
     @State var courier = Courier()
     
     @StateObject var viewRouter: ViewRouter
-    
-   /* if self.member.getMember() {
-    self.name = member.name
-    self.email = member.email
-    self.phoneNum = member.phoneNo
-    self.password = member.password
-    self.user = "Member"
-    //self.gender = member.gender
-    } else {
-     
-    if self.courier.getCourier(){
-    self.name = member.name
-    self.email = member.email
-    self.phoneNum = member.phoneNo
-    self.password = member.password
-    self.user = "Courier"
-    //self.gender = member.gender
-    }
-    }*/
     
     /* @Binding var showHomeCourier: Bool
      @Binding var showHomeMember: Bool
@@ -166,39 +147,8 @@ struct ViewProfile: View {
                                 
                             }
                             
-                            //Gender
-                           /* VStack(alignment: .leading){
-                                
-                                Text("").font(.custom("Roboto Regular", size: 18))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
-                                
-                                Text("Gender").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
-                                HStack{
-                                    RadioButtonGroups { selected in
-                                        self.gender = selected
-                                    }
-                                    .padding(.trailing, 5.0)
-                                    
-                                }
-                            }*/
-                            
-                            //user type
-                            /*
-                            VStack(alignment: .leading){
-                                
-                                Text("").font(.custom("Roboto Regular", size: 18))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
-                                
-                                Text("Type").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
-                                HStack{
-                                    RadioButtonGroupT { selected in
-                                        self.user = selected
-                                    }
-                                }
-                            }*/
-                            
+                        }.onAppear {
+                            getInfo(id: UserDefaults.standard.getUderId(), type: UserDefaults.standard.getUderType())
                         }//end group
                         
                         //logout button
@@ -215,14 +165,14 @@ struct ViewProfile: View {
                     }.padding(.bottom, 60) //VStack
                     
                 }
-                 //scrollview
+                //scrollview
                 
                 //main bar
                 ZStack {
-                        
-                        Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(.all)
-                        HStack{
-                            Spacer()
+                    
+                    Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(.all)
+                    HStack{
+                        Spacer()
                         //Home button
                         Button(action: {
                             
@@ -314,13 +264,14 @@ struct ViewProfile: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "user")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
                         Spacer()
-                            
-                        }//end HStack
+                        
+                    }//end HStack
                 }//ende ZStack mainBar
             }//vstack
             
-        } //zstack
+        }//zstack
     } //body
+    
     
     func logout(){
         let auth=Auth.auth()
@@ -337,7 +288,31 @@ struct ViewProfile: View {
         }
         print("succes Loggout")
     }
-} //struct
+    
+    func getInfo(id: String, type: String) -> Void{
+        if type == "M"{
+            if self.member.getMember(id: id) {
+                self.name = member.name
+                self.email = member.email
+                self.phoneNum = member.phoneNo
+                self.password = member.password
+                self.user = "Member"
+            }else {
+                if type == "C"{
+                    if self.courier.getCourier(id: id){
+                        self.name = member.name
+                        self.email = member.email
+                        self.phoneNum = member.phoneNo
+                        self.password = member.password
+                        self.user = "Courier"
+                    }
+                }
+            }
+        }
+    }
+    
+}//struct
+
 struct ViewProfile_Previews: PreviewProvider {
     static var previews: some View {
         ViewProfile(viewRouter: ViewRouter())

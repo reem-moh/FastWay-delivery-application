@@ -16,10 +16,10 @@ extension String {
     }
     
     var isNumeric: Bool {
-            guard self.count > 0 else { return false }
-            let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-            return Set(self).isSubset(of: nums)
-        }
+        guard self.count > 0 else { return false }
+        let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        return Set(self).isSubset(of: nums)
+    }
 }
 extension UITextField {
     func isEmail() -> Bool {
@@ -36,7 +36,7 @@ struct SignUPView: View {
     @State var password=""
     @State var rePassword=""
     @State var user=""
-    @State var gender=""
+    //@State var gender=""
     //error variables
     @State var error = false
     @State var nErr=""
@@ -45,7 +45,7 @@ struct SignUPView: View {
     @State var rpErr=""
     @State var phErr=""
     @State var uErr=""
-   // @State var gErr=""
+    // @State var gErr=""
     
     //Navg bar
     @StateObject var viewRouter: ViewRouter
@@ -57,34 +57,34 @@ struct SignUPView: View {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
             }
             //VStack for navg
-            VStack{
-                
-               
-            }
+            // VStack{
+            
+            
+            // }
             
             
             
             
             VStack{
                 //go back button
+                
+                
+                
+                //arrow_back image
+                
+                Button(action: {
+                    viewRouter.currentPage = .LogIn
                     
-                    
-                /*
-                    //arrow_back image
-                    
-                   Button(action: {
-                    viewRouter.currentPage = .
-                       
-                   }) {
-                     Image("arrow_back")
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 30, height: 30)
-                       .clipped().offset(x:-160 ,y:10)
-                           }
-                */
- 
- 
+                }) {
+                    Image("arrow_back")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 30, height: 30)
+                        .clipped().offset(x:-160 ,y:10)
+                }
+                
+                
+                
                 //white rectangle
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 10)
                 
@@ -147,23 +147,7 @@ struct SignUPView: View {
                             .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
-                        //gender
-                       /* VStack(alignment: .leading){
-                            
-                            Text(self.gErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
-                            
-                            Text("Gender").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
-                            HStack{
-                                RadioButtonGroups { selected in
-                                    self.gender = selected
-                                }
-                                .padding(.trailing, 5.0)
-                                
-                            }
-                        }*/
-                        //user type
+                        
                         VStack(alignment: .leading){
                             
                             Text(self.uErr).font(.custom("Roboto Regular", size: 18))
@@ -204,7 +188,7 @@ struct SignUPView: View {
         self.rpErr=""
         self.phErr=""
         self.uErr=""
-       // self.gErr=""
+        // self.gErr=""
         
         if self.name.count < 3 {
             self.nErr="*Name must be more than 3 characters"
@@ -228,10 +212,10 @@ struct SignUPView: View {
             self.error = true
         }
         /*
-        if self.gender == ""{
-            self.gErr="*Gender must be specified"
-            self.error = true
-        }*/
+         if self.gender == ""{
+         self.gErr="*Gender must be specified"
+         self.error = true
+         }*/
         if self.user == ""{
             self.uErr="*This field is mandatory"
             self.error = true
@@ -253,6 +237,10 @@ struct SignUPView: View {
                         if user == "Courier"{
                             let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
                             if courier.addCourier(courier: courier) {
+                                print("Courier")
+                                UserDefaults.standard.setIsLoggedIn(value: true)
+                                UserDefaults.standard.setUserId(Id: id)
+                                UserDefaults.standard.setUserType(Type: "C")
                                 viewRouter.currentPage = .HomePageC
                             }else{
                                 nErr = "An error occurred please try again"
@@ -261,6 +249,10 @@ struct SignUPView: View {
                             if user == "Member"{
                                 let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
                                 if member.addMember(member: member) {
+                                    print("Member")
+                                    UserDefaults.standard.setIsLoggedIn(value: true)
+                                    UserDefaults.standard.setUserId(Id: id)
+                                    UserDefaults.standard.setUserType(Type: "M")
                                     viewRouter.currentPage = .HomePageM
                                 }else{
                                     nErr = "An error occurred please try again"

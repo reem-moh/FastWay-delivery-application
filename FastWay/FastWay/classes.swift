@@ -26,7 +26,7 @@ class Member {
         self.email = ""
         self.password = ""
         self.phoneNo = ""
-       // self.gender = ""
+        // self.gender = ""
     }
     
     init(id: String, name: String, email: String, pass: String, phN: String) {
@@ -35,7 +35,7 @@ class Member {
         self.email = email
         self.password = pass
         self.phoneNo = phN
-       // self.gender = gen
+        // self.gender = gen
     }
     
     func addMember(member: Member) -> Bool {
@@ -61,21 +61,21 @@ class Member {
                 return
             }
             guard let data = doc.data() else {
-                    flag = false
-                    return
-                  }
+                flag = false
+                return
+            }
             //assign values from db to variables
             self.id = id
             self.name = data["Name"] as? String ?? ""
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
-           // self.gender = data["Gender"] as? String ?? ""
+            // self.gender = data["Gender"] as? String ?? ""
             
         } //listener
         return flag
     } //function
-        
+    
 }
 
 
@@ -85,7 +85,7 @@ class Courier {
     var email: String
     var password: String
     var phoneNo: String
-   // var gender: String
+    // var gender: String
     
     
     init() {
@@ -94,7 +94,7 @@ class Courier {
         self.email = ""
         self.password = ""
         self.phoneNo = ""
-       // self.gender = ""
+        // self.gender = ""
     }
     
     init(id: String,name: String, email: String, pass: String, phN: String) {
@@ -103,7 +103,7 @@ class Courier {
         self.email = email
         self.password = pass
         self.phoneNo = phN
-       // self.gender = gen
+        // self.gender = gen
     }
     
     func addCourier(courier: Courier) -> Bool {
@@ -129,9 +129,9 @@ class Courier {
                 return
             }
             guard let data = doc.data() else {
-                    flag = false
-                    return
-                  }
+                flag = false
+                return
+            }
             //assign values from db to variables
             self.id = id
             self.name = data["Name"] as? String ?? ""
@@ -172,13 +172,13 @@ class Order{
         self.dropOff=dropOff
         self.dropOffDetails=dropOffDetails
         return true
-
+        
     }
     
     func setOrderDetails(orderDetails: String)-> Bool{
         self.orderDetails=orderDetails
         return true
-
+        
     }
     
     func addOrder() -> Bool {
@@ -207,5 +207,5 @@ class Order{
         
         return flag
     }
-
+    
 }
