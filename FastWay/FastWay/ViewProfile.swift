@@ -20,8 +20,8 @@ struct ViewProfile: View {
     // @State var gender=""
     
     //get data from DB
-    @State var member = Member()
-    @State var courier = Courier()
+   // @State var member
+   // @State var courier
     
     @StateObject var viewRouter: ViewRouter
     
@@ -290,20 +290,23 @@ struct ViewProfile: View {
     }
     
     func getInfo(id: String, type: String) -> Void{
+        var member = Member()
+        var courier = Courier()
         if type == "M"{
-            if self.member.getMember(id: id) {
+            if member.getMember(id: id) {
                 self.name = member.name
                 self.email = member.email
                 self.phoneNum = member.phoneNo
                 self.password = member.password
                 self.user = "Member"
-            }else {
+            }
+            else {
                 if type == "C"{
-                    if self.courier.getCourier(id: id){
-                        self.name = member.name
-                        self.email = member.email
-                        self.phoneNum = member.phoneNo
-                        self.password = member.password
+                    if courier.getCourier(id: id){
+                        self.name = courier.name
+                        self.email = courier.email
+                        self.phoneNum = courier.phoneNo
+                        self.password = courier.password
                         self.user = "Courier"
                     }
                 }
