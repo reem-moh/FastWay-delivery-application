@@ -145,56 +145,105 @@ class Courier {
 
 class Order{
     var pickUP: String
-    var pickUpDetails: String
+    var pickUpBulding: Int
+    var pickUpFloor: Int
+    var pickUpRoom: Int
     var dropOff: String
-    var dropOffDetails: String
+    var dropOffBulding: Int
+    var dropOffFloor: Int
+    var dropOffRoom: Int
     var orderDetails: String
     
     init(){
         self.pickUP =  ""
-        self.pickUpDetails =  ""
+        self.pickUpBulding = 0
+        self.pickUpFloor = 0
+        self.pickUpRoom = 0
         self.dropOff =  ""
-        self.dropOffDetails =  ""
+        self.dropOffBulding = 0
+        self.dropOffFloor = 0
+        self.dropOffRoom = 0
         self.orderDetails =  ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: String,pickUpDetails:String)-> Bool{
-        self.pickUP=pickUP
-        self.pickUpDetails=pickUpDetails
-        return true
+    func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: Int   )-> Bool{
+        self.pickUP = pickUP
+        self.pickUpBulding = pickUpBulding
+        self.pickUpFloor = pickUpFloor
+        self.pickUpRoom = pickUpRoom
+        var flag = false
+        if pickUP != ""
+        {
+            if pickUpBulding != 0
+            {
+                if pickUpFloor != 0
+                {
+                    if pickUpRoom != 0
+                    {
+                        flag = true
+                        
+                    }
+                }
+            }
+        }
+        else {
+            
+            flag = false
+        }
+        
+        return flag
     }
     
-    func setDropOffAndDropOffDetails(dropOff: String,dropOffDetails:String)-> Bool{
-        self.dropOff=dropOff
-        self.dropOffDetails=dropOffDetails
-        return true
-        
+    func setDropOffAndDropOffDetails(dropOff: String, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: Int   )-> Bool{
+        self.dropOff = dropOff
+        self.dropOffBulding = dropOffBulding
+        self.dropOffFloor = dropOffFloor
+        self.dropOffRoom = dropOffRoom
+        var flag = false
+        if pickUP != ""
+        {
+            if pickUpBulding != 0
+            {
+                if pickUpFloor != 0
+                {
+                    if pickUpRoom != 0
+                    {
+                        flag = true
+
+                    }
+                }
+            }
+        }
+        else {
+            
+            flag = false
+        }
+        return flag
     }
     
     func setOrderDetails(orderDetails: String)-> Bool{
         self.orderDetails=orderDetails
-        return true
+        var flag = false
+        if orderDetails != ""
+        {
+            flag = true
+        }else
         
+        {
+            flag = false
+
+        }
+        
+        return flag
     }
+    
     
     func addOrder() -> Bool {
         var flag = true
         //need to change the id
         let doc = db.collection("Order").document("5fj6srOHetO5QJLjZcEG")
         
-        if pickUP.isEmpty{
-            flag =  false
-        }else if pickUpDetails.isEmpty{
-            flag =  false
-        }else if dropOff.isEmpty{
-            flag =  false
-        }else if dropOffDetails.isEmpty{
-            flag =  false
-        }else if orderDetails.isEmpty{
-            flag =  false
-        }
-        
-        doc.setData(["PickUp":self.pickUP, "PickUpDetails":self.pickUpDetails, "DropOff":self.dropOff, "DropOffDetails": self.dropOffDetails, "OrderDetails": self.orderDetails]) { (error) in
+        doc.setData(["PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails ]) { (error) in
             
             if error != nil {
                 flag = false

@@ -151,10 +151,10 @@ struct AddNewOrderView: View {
                     }
             }
             
-            TextField("bulding, floor, room numbers", text: $Detailslocation)
+         /*   TextField("bulding, floor, room numbers", text: $Detailslocation)
                 .font(.system(size: 18))
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)*/
 
             
             
@@ -204,6 +204,8 @@ struct AddNewOrderView: View {
                         self.expand.toggle()
                     }
                     if expand {
+                        
+                        Group {
                         //1
                         Button(action: {
                             self.expand.toggle()
@@ -259,7 +261,200 @@ struct AddNewOrderView: View {
                         {
                             Text("12 Nursing").padding(10)
                         }.foregroundColor(.black)
-
+                            
+                            //8
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //9
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //10
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                        }
+                        
+                        Group {
+                        //1
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("5 Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //2
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("6 Computer and Information Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //3
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("8 Pharmacy").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //4
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("9 Medicine").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //5
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("10 Dentistry").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //6
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("11 Applied Medical Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //7
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("12 Nursing").padding(10)
+                        }.foregroundColor(.black)
+                            
+                            //8
+                        Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //9
+                        Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //10
+                        Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                        }
+                        
+                        Group {
+                        //1
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("5 Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //2
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("6 Computer and Information Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //3
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("8 Pharmacy").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //4
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("9 Medicine").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //5
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("10 Dentistry").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //6
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("11 Applied Medical Sciences").padding(10)
+                        }.foregroundColor(.black)
+                        
+                        //7
+                        Button(action: {
+                            self.expand.toggle()
+                        })
+                        {
+                            Text("12 Nursing").padding(10)
+                        }.foregroundColor(.black)
+                            
+                            //8
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //9
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //10
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                            
+                        }
+                        
+                        
                         
                     }
                 }
