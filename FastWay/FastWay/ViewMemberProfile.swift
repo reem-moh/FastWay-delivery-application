@@ -19,16 +19,61 @@ struct ViewMemberProfile: View {
     
     
     @StateObject var viewRouter: ViewRouter
-    
+    let abuotPage: Page = .AboutUs
+
     @State var member = Member()
     @State var courier = Courier()
 
     var body: some View {
         ZStack{
             
-            //background
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+            
+            
+            ZStack{
+                
+                //background
+              Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+              Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+                
+                GeometryReader { geometry in
+                   // if UserDefaults.standard.getUderType() == "M"{
+                    
+                    
+                                 
+                                
+                        VStack {
+                            
+                            Spacer()
+                            
+                              
+                                  
+                            Spacer()
+                           HStack {
+                               TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                               ZStack {
+                                    Circle()
+                                        .foregroundColor(.white)
+                                        .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                        .shadow(radius: 4)
+                                   VStack {
+                                       Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                           .resizable()
+                                           .aspectRatio(contentMode: .fit)
+                                           .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+                                   }.padding(.horizontal, 14).onTapGesture {
+                                                    viewRouter.currentPage = abuotPage
+                                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
+                                }.offset(y: -geometry.size.height/8/2)
+                               TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                            }
+                                .frame(width: geometry.size.width, height: geometry.size.height/8)
+                                .background(Color("TabBarBackground").shadow(radius: 2))
+                        }
+                   // }
+                    
+                 }
+                
+            }.edgesIgnoringSafeArea(.all)//zstack
             
             VStack{
                 
@@ -145,43 +190,7 @@ struct ViewMemberProfile: View {
             
                 //scrollview
                 
-                //main bar
-                ZStack {
-                    
-                    Image(uiImage: #imageLiteral(resourceName: "Mainbar")).offset(y: 16).edgesIgnoringSafeArea(.all)
-                    HStack{
-                        Spacer()
-                        //Home button
-                        Button(action: {
-                            returnHomePage()
-                        }) {
-                            Text("")
-                        }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "home")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
-                        Spacer()
-                        Spacer()
-                        
-                        //current button
-                        Button(action: {
-                            viewRouter.currentPage = .CurrentOrder
-                        }) {
-                            Text("")
-                        }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "cart")).frame(width:100,height:80).offset(y: 10))
-                        Spacer()
-                        Spacer()
-                        
-                        //profile button
-                        Button(action: {
-                            
-                        }) {
-                            Text("")
-                        }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "user")).offset(y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/))
-                        Spacer()
-                        
-                    }//end HStack
-                }//ende ZStack mainBar
+                
             }//vstack
             
         }//zstack

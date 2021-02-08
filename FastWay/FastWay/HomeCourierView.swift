@@ -112,7 +112,7 @@ struct HomeCourierView: View {
                                      
                                  }) {
                                    
-                                   Image("History")
+                                   Image("HistoryCourier")
                                        .resizable()
                                        .aspectRatio(contentMode: .fill)
                                        .frame(width: 300, height: 180)
