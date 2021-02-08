@@ -292,6 +292,7 @@ struct ViewProfile: View {
     func getInfo(id: String, type: String) -> Void{
         let member = Member()
         let courier = Courier()
+        print(UserDefaults.standard.getUderId())
         if type == "M"{
             if member.getMember(id: id) {
                 self.name = member.name
