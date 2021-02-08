@@ -105,13 +105,12 @@ struct SendOrderIView: View {
             Text("Payment method").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
                 .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-110 ,y:-35)
             
-            Text("Cash on Delivery").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-105 ,y:-20)
+        
             
-            TextField("", text: $CashonDelivery)
+                Text("Cash on Delivery").frame(width: 330, height: 30)
                 .font(.system(size: 18))
-                .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-60)
+                .padding(12).offset(x:-100 ,y:0)
+                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)) .keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-40)
             
             
             }
