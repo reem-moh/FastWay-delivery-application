@@ -20,7 +20,7 @@ struct AboutUs: View {
                // if UserDefaults.standard.getUderType() == "M"{
                     VStack {
                         Spacer()
-                        Text("Home")
+                        Text("About us")
                         Spacer()
                        HStack {
                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
