@@ -290,8 +290,8 @@ struct ViewProfile: View {
     }
     
     func getInfo(id: String, type: String) -> Void{
-        var member = Member()
-        var courier = Courier()
+        let member = Member()
+        let courier = Courier()
         if type == "M"{
             if member.getMember(id: id) {
                 self.name = member.name
