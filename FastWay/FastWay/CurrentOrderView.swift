@@ -10,43 +10,48 @@ import SwiftUI
 struct CurrentOrderView: View {
     
     @StateObject var viewRouter: ViewRouter
-    
+    let abuotPage: Page = .AboutUs
+
     var body: some View {
         
         
-          ZStack{
-              
-              
-              VStack{
-                  //background image
-                  Image("Rectangle 49").ignoresSafeArea()
-                  Spacer()
-              }
-        VStack{
+        ZStack{
             
+            //background
+          Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+          Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+            GeometryReader { geometry in
+               // if UserDefaults.standard.getUderType() == "M"{
+                    VStack {
+                        Spacer()
+                        Text("Hello,Current Order View!")
+                        Spacer()
+                       HStack {
+                           TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                           ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                    .shadow(radius: 4)
+                               VStack {
+                                   Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                       .resizable()
+                                       .aspectRatio(contentMode: .fit)
+                                       .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+                               }.padding(.horizontal, 14).onTapGesture {
+                                                viewRouter.currentPage = abuotPage
+                                            }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
+                            }.offset(y: -geometry.size.height/8/2)
+                           TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                        }
+                            .frame(width: geometry.size.width, height: geometry.size.height/8)
+                            .background(Color("TabBarBackground").shadow(radius: 2))
+                    }
+               // }
+                
+             }
             
-            
-       
-            //arrow_back image
-            
-           Button(action: {
-            viewRouter.currentPage = .HomePageM
-               
-           }) {
-             Image("arrow_back")
-                 .resizable()
-                 .aspectRatio(contentMode: .fill)
-                 .frame(width: 30, height: 30)
-               .clipped()
-           }.position(x:30 ,y:70)
-        
-            
-            //white rectangle
-            Spacer(minLength: 100)
-            Image("Rectangle 48").resizable().aspectRatio(contentMode: .fill)
-        }
-        Text("Hello, CurrentOrderView!")
-    }
+        }.edgesIgnoringSafeArea(.all)//zstack
     }}
 
 struct CurrentOrderView_Previews: PreviewProvider {
