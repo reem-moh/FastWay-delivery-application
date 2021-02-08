@@ -72,7 +72,7 @@ struct SignUPView: View {
                 
                 //arrow_back image
                 
-                Button(action: {
+               /* Button(action: {
                     viewRouter.currentPage = .LogIn
                     
                 }) {
@@ -80,8 +80,8 @@ struct SignUPView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 30, height: 30)
-                        .clipped().offset(x:-160 ,y:10)
-                }
+                        .clipped()//.offset(x:-160 ,y:10)
+                }*/
                 
                 
                 
