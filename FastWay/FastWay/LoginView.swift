@@ -36,7 +36,7 @@ struct LoginView: View {
                     VStack(alignment: .center) {
                         
                         //logo
-                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,35)
+                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,25)
                         
                         //Error in auth
                         if ErrorShow{
@@ -135,6 +135,7 @@ struct LoginView: View {
         }
         
     }
+    
     func verifyEmptyEmail(){
         if self.email.isEmpty {
             self.showErrorMessageEmail = true
@@ -189,6 +190,7 @@ struct LoginView: View {
                     
                     let id = loginUser.uid
                     print(id)
+                    
                     //change userDefault + add id
                     UserDefaults.standard.setIsLoggedIn(value: true)
                     UserDefaults.standard.setUserId(Id: id)
@@ -211,7 +213,7 @@ struct LoginView: View {
                 }//end loginuser
                 
             }//end if statment
-            print("there is no error")
+            
             
         }
     }

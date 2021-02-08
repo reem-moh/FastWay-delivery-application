@@ -26,19 +26,25 @@ extension UserDefaults {
     }
     
     func getUderId() -> String{
-        return UserDefaultsKeys.id.rawValue
+        print("inside user defualts getUserId:" )
+        print(UserDefaults.standard.string(forKey: "id") ?? "")
+        return UserDefaults.standard.string(forKey: "id") ?? ""
     }
     
     func setUserId(Id : String){
         set(Id, forKey: UserDefaultsKeys.id.rawValue)
+        synchronize()
     }
     
     func getUderType() -> String{
-        return UserDefaultsKeys.type.rawValue
+        print("inside user defualts getUserType:" )
+        print(UserDefaults.standard.string(forKey: "type") ?? "")
+        return UserDefaults.standard.string(forKey: "type") ?? ""
     }
     
     func setUserType(Type : String){
         set(Type, forKey: UserDefaultsKeys.type.rawValue)
+        synchronize()
     }
     
 }

@@ -45,26 +45,7 @@ struct ViewProfile: View {
                     Spacer()
                     //Cancel button
                     Button(action: {
-                        let loginUser = Auth.auth().currentUser
-                        
-                        if let loginUser = loginUser {
-                            
-                            let id = loginUser.uid
-                            print(id)
-                            //take the document from the database
-                            let docRef = db.collection("Member").document(id)
-                            
-                            //check if the id inside member doc
-                            docRef.getDocument { (document, error) in
-                                if let document = document, document.exists {
-                                    print("Member")
-                                    viewRouter.currentPage = .HomePageC
-                                } else {
-                                    print("Courier")
-                                    viewRouter.currentPage = .HomePageM
-                                }
-                            }
-                        }
+                        returnHomePage()
                     }) {
                         Text("Cancel").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
                     }
@@ -73,6 +54,7 @@ struct ViewProfile: View {
                     Image(systemName: "person").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
                     Spacer()
                     Spacer()
+                    
                     //save button
                     Button(action: {
                         //action here
@@ -175,28 +157,7 @@ struct ViewProfile: View {
                         Spacer()
                         //Home button
                         Button(action: {
-                            
-                            let loginUser = Auth.auth().currentUser
-                            
-                            if let loginUser = loginUser {
-                                
-                                let id = loginUser.uid
-                                print(id)
-                                //take the document from the database
-                                let docRef = db.collection("Member").document(id)
-                                
-                                //check if the id inside member doc
-                                docRef.getDocument { (document, error) in
-                                    if let document = document, document.exists {
-                                        print("Member")
-                                        viewRouter.currentPage = .HomePageC
-                                    } else {
-                                        print("Courier")
-                                        viewRouter.currentPage = .HomePageM
-                                    }
-                                }
-                            }
-                            
+                            returnHomePage()
                         }) {
                             Text("")
                         }
@@ -206,29 +167,7 @@ struct ViewProfile: View {
                         
                         //current button
                         Button(action: {
-                            let loginUser = Auth.auth().currentUser
-                            
                             viewRouter.currentPage = .CurrentOrder
-                            
-                            if let loginUser = loginUser {
-                                
-                                let id = loginUser.uid
-                                print(id)
-                                //take the document from the database
-                                let docRef = db.collection("Member").document(id)
-                                
-                                //check if the id inside member doc
-                                docRef.getDocument { (document, error) in
-                                    if let document = document, document.exists {
-                                        print("Member")
-                                        viewRouter.currentPage = .CurrentOrder
-                                    } else {
-                                        print("Courier")
-                                        viewRouter.currentPage = .CurrentOrder
-                                    }
-                                }
-                            }
-                            
                         }) {
                             Text("")
                         }
@@ -238,26 +177,6 @@ struct ViewProfile: View {
                         
                         //profile button
                         Button(action: {
-                            let loginUser = Auth.auth().currentUser
-                            
-                            if let loginUser = loginUser {
-                                
-                                let id = loginUser.uid
-                                print(id)
-                                //take the document from the database
-                                let docRef = db.collection("Member").document(id)
-                                
-                                //check if the id inside member doc
-                                docRef.getDocument { (document, error) in
-                                    if let document = document, document.exists {
-                                        print("Member")
-                                        viewRouter.currentPage = .HomePageM
-                                    } else {
-                                        print("Courier")
-                                        viewRouter.currentPage = .HomePageC
-                                    }
-                                }
-                            }
                             
                         }) {
                             Text("")
@@ -310,6 +229,28 @@ struct ViewProfile: View {
             }
         }
     }
+    
+    func returnHomePage(){
+        //check if user loggedin
+        if UserDefaults.standard.isLoggedIn(){
+            //know the type of the user
+            if UserDefaults.standard.getUderType() == "M"{
+                
+                viewRouter.currentPage = .HomePageM
+                
+            }else if UserDefaults.standard.getUderType() == "C"{
+                
+                viewRouter.currentPage = .HomePageC
+                
+            }else {
+                print("either type")
+                print(UserDefaults.standard.getUderType())
+            }//end if else type
+            
+        }//end if logged in
+    }
+    
+    
     
 }//struct
 
