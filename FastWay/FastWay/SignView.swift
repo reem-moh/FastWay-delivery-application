@@ -12,6 +12,7 @@ let __firstpart = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
 let __serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
 let __emailRegex = __firstpart + "@" + __serverpart + "[A-Za-z]{2,8}"
 let __emailPredicate = NSPredicate(format: "SELF MATCHES %@", __emailRegex)
+
 extension String {
     func isEmail() -> Bool {
         return __emailPredicate.evaluate(with: self)
@@ -23,6 +24,7 @@ extension String {
         return Set(self).isSubset(of: nums)
     }
 }
+
 extension UITextField {
     func isEmail() -> Bool {
         return self.text!.isEmail()
@@ -54,40 +56,30 @@ struct SignUPView: View {
     
     var body: some View {
         ZStack{
-            VStack{
+            
                 //background image
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            }
-            
-            VStack{
-                //go back button
-                
-                
-                
-                //arrow_back image
-                
-               /* Button(action: {
-                    viewRouter.currentPage = .LogIn
-                    
-                }) {
-                    Image("arrow_back")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 30, height: 30)
-                        .clipped()//.offset(x:-160 ,y:10)
-                }*/
-                
-                
-                
                 //white rectangle
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 40)
-                
-                
-            }
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 50)
+            
+                VStack{
+                    //go back button
+                    //arrow_back image
+                       Button(action: {
+                        viewRouter.currentPage = .LogIn
+                           
+                       }) {
+                         Image("arrow_back")
+                             .resizable()
+                             .aspectRatio(contentMode: .fill)
+                             .frame(width: 30, height: 30)
+                           .clipped()
+                       }.position(x:30 ,y:20).padding(1.0)
+                }
             VStack{
                 
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,30).offset(y: 45)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,30).offset(y: 60)
                 
                 ScrollView{
                     VStack(alignment: .leading){

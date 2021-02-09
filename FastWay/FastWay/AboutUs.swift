@@ -21,8 +21,8 @@ struct AboutUs: View {
                 ScrollView{
                     VStack(alignment: .leading){
                         
-                        Text("As some members of the university have tight schedules, waiting in queues wastes their valuable time. The application fastway helps them by providing a delivery service within the university and a part-time job for anyone who has some free time to put into use. The user can order things to be delivered to him/her or to send things to other places such as the library, office, pharmacy, and shop.").font(.custom("Roboto Regular", size: 18))
-                            .padding(EdgeInsets.init(top: 250, leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 0,y: 0).padding(.horizontal, 16)
+                        Text("As some members of the university have tight schedules, waiting in queues wastes their valuable time. The application fastway helps them by providing a delivery service within the university and a part-time job for anyone who has some free time to put into use. The user can order things to be delivered to him/her or to send things to other places such as the library, office, pharmacy, and shop.").font(.custom("Roboto Regular", size: 25))
+                            .padding(EdgeInsets.init(top: 200, leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 0,y: 0).padding(.horizontal, 16)
                         
                     }.padding(.bottom, 60) //VStack
                 }//scrollview
