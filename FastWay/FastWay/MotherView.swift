@@ -10,19 +10,9 @@ import SwiftUI
 struct MotherView: View {
     
     @StateObject var viewRouter: ViewRouter
-   // @State var member: Member
-    //@EnvironmentObject var session: SessionStore
-    
+
     var body: some View {
-        
-        //Group {
-            
-            /*if (session.session != nil) {
-                    viewRouter.currentPage = .HomePageM
-            } else {
-                viewRouter.currentPage = .LogIn
-            }*/
-           
+
             switch viewRouter.currentPage {
                 case .LogIn :
                     LoginView(viewRouter : viewRouter)
@@ -46,19 +36,14 @@ struct MotherView: View {
                     HistoryView(viewRouter : viewRouter)
                 case .DeliverOrder :
                     DeliverOrderView(viewRouter : viewRouter)
-            case .ViewProfileC:
-                ViewCourierProfile(viewRouter: viewRouter)
-            case .AboutUs:
-                AboutUs(viewRouter: viewRouter)//
+                case .ViewProfileC:
+                    ViewCourierProfile(viewRouter: viewRouter)
+                case .AboutUs:
+                    AboutUs(viewRouter: viewRouter)//
             }
-       // }.onAppear(perform: getUser)
        
     }
     
-    
-    /*func getUser(){
-        session.listen()
-    }*/
 }
 
 struct MotherView_Previews: PreviewProvider {
