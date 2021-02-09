@@ -67,18 +67,26 @@ struct ViewCourierProfile: View {
                         
                         Group {
                             
+                            //name field
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
-                            TextField("\(self.courier.name)", text: $name)
+                            Text("name:").font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
+                            
+                            TextField("xx \(name)", text: $courier.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             
+                            //email field
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            
+                            Text("email:").font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
                             TextField("\(self.courier.email)", text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -86,9 +94,14 @@ struct ViewCourierProfile: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                            //print("email \((self.member.email))")
                             
+                            //phone field
                             Text("").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            
+                            Text("phone number:").font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
                             TextField("\(self.courier.phoneNo)", text: $phoneNum)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -96,13 +109,16 @@ struct ViewCourierProfile: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                            //print("Phone number \(self.member.phoneNo)")
                             
                             //Password
                             Group {
+                                Text("Change the Password").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                                    .multilineTextAlignment(.center).offset(x: 18,y: 10).padding(.bottom,-20)
+                                
+                                //current password
                                 Text("").font(.custom("Roboto Regular", size: 18))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
-                                
-                                
                                 SecureField("Current Password", text: $password)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: 18))
@@ -124,31 +140,34 @@ struct ViewCourierProfile: View {
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                                 
-                            }
+                            }// end group password
                             
-                        }//end group
+                        }//end group field
                         
                         //logout button
                         Button(action: {
-                            
                             logout()
-                            
                         }) {
                             Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: 24)
+                        .padding(.top,25).offset(x: 24).padding(.bottom,100)
                         
                     }.padding(.bottom, 60) //VStack
                     
                 }.onAppear(){
                     
-                        print("view M")
-                        self.courier.getCourier(id: UserDefaults.standard.getUderId())
+                        print("view C")
+                    self.courier.getCourier(id: UserDefaults.standard.getUderId())
+                        name = self.courier.name
+                        email = self.courier.email
+                        phoneNum = self.courier.phoneNo
+                        print("----------")
+                        print("inside class View")
+                        printdata()
+                        print("----------")
                         
-             }
-            
-                //scrollview
+                }//scrollview
                 
            
             }//vstack
@@ -226,6 +245,12 @@ struct ViewCourierProfile: View {
            // }//end if else type
             
         }//end if logged in
+    }
+    
+    func printdata(){
+        print("email \(self.courier.email)")
+        print("name \((self.courier.name))")
+        print("Phone number \(self.courier.phoneNo)")
     }
 }
 

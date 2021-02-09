@@ -19,10 +19,8 @@ struct ViewMemberProfile: View {
     
     
     @StateObject var viewRouter: ViewRouter
-    //let abuotPage: Page = .AboutUs
 
     @State var member = Member()
-   // @State var courier = Courier()
 
     var body: some View {
         ZStack{
@@ -36,7 +34,7 @@ struct ViewMemberProfile: View {
                 
                 
                 
-            }//.edgesIgnoringSafeArea(.all)//zstack
+            }
             
             VStack{
                 //Cancel and Done button
@@ -44,7 +42,6 @@ struct ViewMemberProfile: View {
                     Spacer()
                     //Cancel button
                     Button(action: {
-                        printdata()
                         returnHomePage()
                     }) {
                         Text("Cancel").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
@@ -77,7 +74,7 @@ struct ViewMemberProfile: View {
                             Text("name:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("xx \(name)", text: $name)
+                            TextField(" \(member.name)", text: $member.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -91,7 +88,7 @@ struct ViewMemberProfile: View {
                             Text("email:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.member.email)", text: $email)
+                            TextField("\(member.email)", text: $member.email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -106,7 +103,7 @@ struct ViewMemberProfile: View {
                             Text("phone number:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.member.phoneNo)", text: $phoneNum)
+                            TextField("\(member.phoneNo)", text: $member.phoneNo)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -165,7 +162,10 @@ struct ViewMemberProfile: View {
                         name = self.member.name
                         email = self.member.email
                         phoneNum = self.member.phoneNo
-                        print("name inside view: " + name + self.member.name)
+                        print("----------")
+                        print("inside class View")
+                        printdata()
+                        print("----------")
                         
                 }//scrollview
 

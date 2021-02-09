@@ -16,8 +16,9 @@ class Member {
     var id: String
     var name: String
     var email: String
-    var password: String
     var phoneNo: String
+    var password: String
+    
     //var gender: String
     
     init() {
@@ -70,10 +71,13 @@ class Member {
             self.email = data["Email"] as? String ?? ""
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
+            
+            print("----------")
             print("inside class Member")
-            print("got member data + \(self.name)")
-            print("got member data + \(self.email)")
-            print("got member data + \(self.phoneNo)")
+            print("got member data  \(self.name)")
+            print("got member data  \(self.email)")
+            print("got member data  \(self.phoneNo)")
+            print("----------")
         } //listener
     } //function
     
@@ -84,8 +88,8 @@ class Courier {
     var id: String
     var name: String
     var email: String
-    var password: String
     var phoneNo: String
+    var password: String
     // var gender: String
     
     
@@ -139,6 +143,12 @@ class Courier {
             self.password = data["Password"] as? String ?? ""
             self.phoneNo = data["PhoneNo"] as? String ?? ""
             
+            print("----------")
+            print("inside class Courier")
+            print("got Courier data  \(self.name)")
+            print("got Courier data  \(self.email)")
+            print("got Courier data  \(self.phoneNo)")
+            print("----------")
             
         } //listener
     } //function
