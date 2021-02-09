@@ -77,7 +77,7 @@ struct DROPOFFlocationView: View {
      
        VStack{
     
-        Text("PICK UP LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+        Text("DROP OFF LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }//END VStack
@@ -119,9 +119,8 @@ struct DROPOFFlocationView: View {
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
             
                }
-            
                 
-                
+          
                 
                 
         
@@ -342,10 +341,10 @@ struct DROPOFFlocationView: View {
                 
                 
                 //room numbers
-           TextField(" room numbers , more details...", text: $roomPick)
+            TextField("room numbers , more details...", text: $roomPick)
                 .font(.system(size: 18))
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14)
                 
                 
                 
@@ -391,14 +390,14 @@ struct DROPOFFlocationView: View {
                 //Show Error message if the location feild empty
                     if errorlocation{
                     Text(lErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -40,y:-5) }
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -60,y:-5) }
                 
                 
                 
             //Show Error message if no bulding selected
                     if errorBuldingPick {
                         Text(bErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -100,y:70)
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:70)
                     }
                 
                 
@@ -407,7 +406,7 @@ struct DROPOFFlocationView: View {
             //Show Error message if no floor selected
     if errorFloorPick {
         Text(fErr).font(.custom("Roboto Regular", size: 18))
-            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -110,y:140)
+            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:140)
     }
                 
            
@@ -415,7 +414,7 @@ struct DROPOFFlocationView: View {
                 if errorRoomPick {
                 //Show Error message if the room feild empty
                     Text(rErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -70,y:210)
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -75,y:210)
                 }
                 
                 
@@ -439,14 +438,14 @@ struct DROPOFFlocationView: View {
        self.errorlocation = false
     
         if self.location.count <= 0 {
-         self.lErr="*must be more than one characters"
+         self.lErr="*must  enter drop off location "
             self.errorlocation = true
         }
         
          self.errorRoomPick = false
         
            if self.roomPick.count == 0 {
-               self.rErr="*must enter a room number"
+               self.rErr="*must enter  more details"
                self.errorRoomPick = true
          }
          
