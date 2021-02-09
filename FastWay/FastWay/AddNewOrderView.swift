@@ -14,14 +14,10 @@ struct AddNewOrderView: View {
     @State var name = ""
     @State var location = ""
     @State var buldingPick = 0
-    @State var floorPick = 0
+    @State var floorPick = -1
     @State var roomPick = ""
     
-    //REMOVER IT
-    @State var Detailslocation = ""
-
-
-    
+        
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -118,7 +114,7 @@ struct AddNewOrderView: View {
             //Show Error message if the location feild empty
                 if errorlocation{
                 Text(lErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 240)  }
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 225)  }
             
             
             Group{
@@ -151,27 +147,34 @@ struct AddNewOrderView: View {
            
             Group{
                 
-                Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:330)
+                Text("room number").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:340)
                 
                 if errorRoomPick {
-                //Show Error message if the email feild empty
-                    Text(lErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 355)
+                //Show Error message if the room feild empty
+                    Text(rErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 345)
                 }
                 
             
-           TextField(" room numbers , more details...", text: $Detailslocation)
+           TextField(" room numbers , more details...", text: $roomPick)
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:350)
             }
             
-                
+            //drop down menu for buldings
+            Group {
+                if errorBuldingPick {
+                //Show Error message if no bulding selected
+                    Text(bErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 80)
+                }
                VStack() {
+       
                     VStack(spacing: 30){
+
                         HStack() {
-                            //  Text("$buldingNum").fontWeight(.bold) ?????
                             Text("Bulding").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -125 ,y: 0 ).multilineTextAlignment(.leading).frame(width: 295, height: 6)
                             Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
@@ -185,7 +188,7 @@ struct AddNewOrderView: View {
                             //1
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 0
+                                buldingPick = 5
                             })
                             {
                                 Text("5 Sciences").padding(10)
@@ -194,7 +197,7 @@ struct AddNewOrderView: View {
                             //2
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 6
+                                buldingPick = 6
                             })
                             {
                                 Text("6 Computer and Information Sciences").padding(10)
@@ -203,7 +206,7 @@ struct AddNewOrderView: View {
                             //3
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 8
+                                buldingPick = 8
                             })
                             {
                                 Text("8 Pharmacy").padding(10)
@@ -212,7 +215,7 @@ struct AddNewOrderView: View {
                             //4
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 9
+                                buldingPick = 9
 
                             })
                             {
@@ -222,7 +225,7 @@ struct AddNewOrderView: View {
                             //5
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 10
+                                buldingPick = 10
 
                             })
                             {
@@ -233,7 +236,7 @@ struct AddNewOrderView: View {
                             //6
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 11
+                                buldingPick = 11
 
                             })
                             {
@@ -243,7 +246,7 @@ struct AddNewOrderView: View {
                             //7
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 12
+                                buldingPick = 12
 
                             })
                             {
@@ -253,7 +256,7 @@ struct AddNewOrderView: View {
                                 //8
                                 Button(action: {
                                     self.expand.toggle()
-                                    buldingNum = 12
+                                    buldingPick = 12
 
                                 })
                                 {
@@ -263,7 +266,7 @@ struct AddNewOrderView: View {
                                 //9
                                 Button(action: {
                                     self.expand.toggle()
-                                    buldingNum = 12
+                                    buldingPick = 12
 
                                 })
                                 {
@@ -273,7 +276,7 @@ struct AddNewOrderView: View {
                                 //10
                                 Button(action: {
                                     self.expand.toggle()
-                                    buldingNum = 12
+                                    buldingPick = 12
 
                                 })
                                 {
@@ -286,7 +289,7 @@ struct AddNewOrderView: View {
                             //1
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 12
+                                buldingPick = 12
 
                             })
                             {
@@ -296,7 +299,7 @@ struct AddNewOrderView: View {
                             //2
                             Button(action: {
                                 self.expand.toggle()
-                                buldingNum = 12
+                                buldingPick = 12
 
                             })
                             {
@@ -309,10 +312,28 @@ struct AddNewOrderView: View {
                             }
                             }
                         }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 150)
+                    
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 100)
                 }
+                }//end Group bulding
                 
-                
+            
+            
+            
+     
+            
+
+            
+            
+            
+                //drop down menu for floors
+            Group {
+
+                if errorFloorPick {
+                //Show Error message if no floor selected
+                    Text(fErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).position(x: 0 ,y: 20)
+                }
                 VStack() {
                     VStack(spacing: 30){
                         HStack() {
@@ -327,6 +348,7 @@ struct AddNewOrderView: View {
                             //1
                             Button(action: {
                                 self.expandFloor.toggle()
+                                floorPick = 0
                             })
                             {
                                 Text("0").padding(10)
@@ -335,6 +357,7 @@ struct AddNewOrderView: View {
                             //2
                             Button(action: {
                                 self.expandFloor.toggle()
+                                floorPick = 1
                             })
                             {
                                 Text("1").padding(10)
@@ -343,14 +366,16 @@ struct AddNewOrderView: View {
                             //3
                             Button(action: {
                                 self.expandFloor.toggle()
+                                floorPick = 2
                             })
                             {
                                 Text("2").padding(10)
                             }.foregroundColor(.black)
                             
                             //4
-                            Button(action: {
+                                Button(action: {
                                 self.expandFloor.toggle()
+                                floorPick = 3
                             })
                             {
                                 Text("3").padding(10)
@@ -361,17 +386,20 @@ struct AddNewOrderView: View {
                     }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: -20)
                     
                 }
-                
+            }
            
-        }
+             }//end  VStack(alignment: .leading)
             
         
+            
+            
+            
             Group{
                 Button(action: {
                     
                     self.PICKUPlocation()
 
-                    if (!errorlocation && !errorRoomPick && !errorBuldingPick) {
+                    if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
                          if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
@@ -420,16 +448,25 @@ struct AddNewOrderView: View {
         }
         
          self.errorRoomPick = false
-           if self.roomPick.count <= 0 {
-               self.rErr="*must be more than one characters"
+        
+           if self.roomPick.count == 0 {
+               self.rErr="*must enter a room number"
                self.errorRoomPick = true
          }
          
          self.errorBuldingPick = false
-         if buldingPick == 0 {
-             self.bErr="*must select bulfing"
-             self.errorRoomPick = true
+        
+        if self.buldingPick == 0 {
+             self.bErr="*must select bulding"
+             self.errorBuldingPick = true
          }
+        
+        self.errorFloorPick = false
+        
+        if self.floorPick == -1 {
+            self.fErr="*must select floor"
+            self.errorFloorPick = true
+        }
          
 }
     
