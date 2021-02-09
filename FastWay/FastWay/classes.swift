@@ -12,37 +12,33 @@ import Combine
 
 let db = Firestore.firestore()
 
-class Member {
+class Member: ObservableObject {
+    
     var id: String
     var name: String
     var email: String
     var phoneNo: String
-    var password: String
-    
-    //var gender: String
-    
+   
+    @Published var member = M(id: "", name: "", email: "", phoneNo: "")
+   
     init() {
         self.id = ""
         self.name = ""
         self.email = ""
-        self.password = ""
         self.phoneNo = ""
-        // self.gender = ""
     }
     
-    init(id: String, name: String, email: String, pass: String, phN: String) {
+    init(id: String, name: String, email: String, phN: String) {
         self.id = id
         self.name = name
         self.email = email
-        self.password = pass
         self.phoneNo = phN
-        // self.gender = gen
     }
     
     func addMember(member: Member) -> Bool {
         let doc = db.collection("Member").document(id)
         var flag = true
-        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
+        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email]) { (error) in
             
             if error != nil {
                 flag = false
@@ -52,8 +48,8 @@ class Member {
         return flag
     }
     
-    //retrieve from database if no error return true and data will be assigned to variables
-    func getMember(id: String) {
+    //retrieve from database
+    func getMember(id: String){
         
         
         db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
@@ -66,55 +62,57 @@ class Member {
                 return
             }
             //assign values from db to variables
-            self.id = id
-            self.name = data["Name"] as? String ?? ""
-            self.email = data["Email"] as? String ?? ""
-            self.password = data["Password"] as? String ?? ""
-            self.phoneNo = data["PhoneNo"] as? String ?? ""
+            self.member.id = id
+            self.member.name = data["Name"] as? String ?? ""
+            self.member.email = data["Email"] as? String ?? ""
+            self.member.phoneNo = data["PhoneNo"] as? String ?? ""
             
             print("----------")
             print("inside class Member")
-            print("got member data  \(self.name)")
-            print("got member data  \(self.email)")
-            print("got member data  \(self.phoneNo)")
+            print("got member data  \(self.member.name)")
+            print("got member data  \(self.member.email)")
+            print("got member data  \(self.member.phoneNo)")
             print("----------")
         } //listener
+       
     } //function
     
 }
 
-
-class Courier {
+//member/courier struct
+struct M: Identifiable {
     var id: String
     var name: String
     var email: String
     var phoneNo: String
-    var password: String
-    // var gender: String
-    
+}
+
+
+class Courier: ObservableObject {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+    @Published var courier = M(id: "", name: "", email: "", phoneNo: "")
     
     init() {
         self.id = ""
         self.name = ""
         self.email = ""
-        self.password = ""
         self.phoneNo = ""
-        // self.gender = ""
     }
     
-    init(id: String,name: String, email: String, pass: String, phN: String) {
+    init(id: String,name: String, email: String, phN: String) {
         self.id = id
         self.name = name
         self.email = email
-        self.password = pass
         self.phoneNo = phN
-        // self.gender = gen
     }
     
     func addCourier(courier: Courier) -> Bool {
         let doc = db.collection("Courier").document(id)
         var flag = true
-        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email, "Password": self.password]) { (error) in
+        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email]) { (error) in
             
             if error != nil {
                 flag = false
@@ -124,7 +122,7 @@ class Courier {
         return flag
     }
     
-    //retrieve from database if no error return true and data will be assigned to variables
+    //retrieve from database 
     func getCourier(id: String){
         
         db.collection("Courier").document(id).addSnapshotListener { (querySnapshot, error) in
@@ -137,17 +135,16 @@ class Courier {
                 return
             }
             //assign values from db to variables
-            self.id = id
-            self.name = data["Name"] as? String ?? ""
-            self.email = data["Email"] as? String ?? ""
-            self.password = data["Password"] as? String ?? ""
-            self.phoneNo = data["PhoneNo"] as? String ?? ""
+            self.courier.id = id
+            self.courier.name = data["Name"] as? String ?? ""
+            self.courier.email = data["Email"] as? String ?? ""
+            self.courier.phoneNo = data["PhoneNo"] as? String ?? ""
             
             print("----------")
             print("inside class Courier")
-            print("got Courier data  \(self.name)")
-            print("got Courier data  \(self.email)")
-            print("got Courier data  \(self.phoneNo)")
+            print("got Courier data  \(self.courier.name)")
+            print("got Courier data  \(self.courier.email)")
+            print("got Courier data  \(self.courier.phoneNo)")
             print("----------")
             
         } //listener

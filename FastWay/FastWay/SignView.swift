@@ -236,7 +236,7 @@ struct SignUPView: View {
                         let id = signedUser.uid
                         
                         if user == "Courier"{
-                            let courier = Courier(id: id,name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
+                            let courier = Courier(id: id,name: self.name, email: self.email, phN: self.phoneNum)
                             if courier.addCourier(courier: courier) {
                                 print("Courier")
                                 UserDefaults.standard.setIsLoggedIn(value: true)
@@ -248,7 +248,7 @@ struct SignUPView: View {
                             }
                         }else{
                             if user == "Member"{
-                                let member = Member(id: id, name: self.name, email: self.email, pass: self.password, phN: self.phoneNum)
+                                let member = Member(id: id, name: self.name, email: self.email, phN: self.phoneNum)
                                 if member.addMember(member: member) {
                                     print("Member")
                                     UserDefaults.standard.setIsLoggedIn(value: true)

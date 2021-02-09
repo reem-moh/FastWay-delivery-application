@@ -10,6 +10,8 @@ import Firebase
 import FirebaseFirestore
 
 struct ViewMemberProfile: View {
+    @ObservedObject var member = Member()
+    
     @State var name = ""
     @State var email = ""
     @State var phoneNum = ""
@@ -19,20 +21,24 @@ struct ViewMemberProfile: View {
     
     
     @StateObject var viewRouter: ViewRouter
-
-    @State var member = Member()
-
+    
+    
     var body: some View {
         ZStack{
-
+            
             //Background+BarMenue
             ZStack{
                 
                 //background
-              Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-              Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
                 
                 
+                
+            }.onAppear(){
+                
+                self.member.getMember(id: UserDefaults.standard.getUderId())
+                print("view M")
                 
             }
             
@@ -74,7 +80,7 @@ struct ViewMemberProfile: View {
                             Text("name:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField(" \(member.name)", text: $member.name)
+                            TextField(" \(self.member.member.name)", text: $name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -88,7 +94,7 @@ struct ViewMemberProfile: View {
                             Text("email:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(member.email)", text: $member.email)
+                            TextField("\(self.member.member.email)", text: $email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -103,7 +109,7 @@ struct ViewMemberProfile: View {
                             Text("phone number:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(member.phoneNo)", text: $member.phoneNo)
+                            TextField("\(self.member.member.phoneNo)", text: $phoneNum)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
@@ -155,54 +161,42 @@ struct ViewMemberProfile: View {
                         
                     }.padding(.bottom, 60) //VStack
                     
-                }.onAppear(){
-                    
-                        print("view M")
-                        self.member.getMember(id: UserDefaults.standard.getUderId())
-                        name = self.member.name
-                        email = self.member.email
-                        phoneNum = self.member.phoneNo
-                        print("----------")
-                        print("inside class View")
-                        printdata()
-                        print("----------")
-                        
                 }//scrollview
-
+                
             }//vstack
             
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
-                        VStack {
-                           Spacer()
-                           Spacer()
-                           Spacer()
-                           HStack {
-                                //Home icon
-                               TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                               ZStack {
-                                    //about us icon
-                                    Circle()
-                                        .foregroundColor(.white)
-                                        .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                        .shadow(radius: 4)
-                                   VStack {
-                                       Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                           .resizable()
-                                           .aspectRatio(contentMode: .fit)
-                                           .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                   }.padding(.horizontal, 14).onTapGesture {
+                    VStack {
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        HStack {
+                            //Home icon
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                            ZStack {
+                                //about us icon
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                    .shadow(radius: 4)
+                                VStack {
+                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+                                }.padding(.horizontal, 14).onTapGesture {
                                     viewRouter.currentPage = .AboutUs
-                                   }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                                }.offset(y: -geometry.size.height/8/2)
-                                //Profile icon
-                               TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
-                            }
-                                .frame(width: geometry.size.width, height: geometry.size.height/8)
-                                .background(Color("TabBarBackground").shadow(radius: 2))
+                                }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
+                            }.offset(y: -geometry.size.height/8/2)
+                            //Profile icon
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
                         }
-                 }
+                        .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        .background(Color("TabBarBackground").shadow(radius: 2))
+                    }
+                }
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//zstack
@@ -229,20 +223,7 @@ struct ViewMemberProfile: View {
     func returnHomePage(){
         //check if user loggedin
         if UserDefaults.standard.isLoggedIn(){
-            //know the type of the user
-           // if UserDefaults.standard.getUderType() == "M"{
-                
-                viewRouter.currentPage = .HomePageM
-                
-           // }else if UserDefaults.standard.getUderType() == "C"{
-                
-              //  viewRouter.currentPage = .HomePageC
-                
-           // }else {
-              //  print("either type")
-              //  print(UserDefaults.standard.getUderType())
-           // }//end if else type
-            
+            viewRouter.currentPage = .HomePageM
         }//end if logged in
     }
     
@@ -252,8 +233,8 @@ struct ViewMemberProfile: View {
         print("Phone number \(self.member.phoneNo)")
     }
 }
-    
-    
+
+
 
 
 struct ViewMemberProfile_Previews: PreviewProvider {
