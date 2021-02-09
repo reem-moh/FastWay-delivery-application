@@ -13,7 +13,13 @@ struct AddNewOrderView: View {
 
     @State var name = ""
     @State var location = ""
+    @State var buldingPick = 0
+    @State var floorPick = 0
+    @State var roomPick = ""
+    
+    //REMOVER IT
     @State var Detailslocation = ""
+
 
     
     
@@ -25,7 +31,9 @@ struct AddNewOrderView: View {
     @StateObject var viewRouter: ViewRouter
 
     //for drop down menu
+    @State var expandFloor = false
     @State var expand = false
+    @State var buldingNum = 0
     
     var body: some View {
         
@@ -120,14 +128,14 @@ struct AddNewOrderView: View {
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 25, height: 25)
                          .clipped()
-                         .offset(x:15 ,y:-150)
+                         .offset(x:15 ,y:250)
                 
                 
                 
             TextField("", text: $location)
                 .font(.system(size: 18))
                 .offset(x:20 ,y:-5).padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-190)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:205)
             
             
             }
@@ -139,7 +147,7 @@ struct AddNewOrderView: View {
             Group{
                 
             Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-175)
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:340)
                 
             
                 
@@ -151,13 +159,434 @@ struct AddNewOrderView: View {
                     }
             }
             
-         /*   TextField("bulding, floor, room numbers", text: $Detailslocation)
+           TextField("bulding, floor, room numbers", text: $Detailslocation)
                 .font(.system(size: 18))
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-180)*/
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:350)
 
             
-            
+            Group{
+                
+              /*  VStack() {
+                    VStack(spacing: 30){
+                        HStack() {
+                            //  Text("$buldingNum").fontWeight(.bold) ?????
+                            Text("Bulding").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -125 ,y: 0 ).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                        }.onTapGesture {
+                            self.expand.toggle()
+                        }
+                        if expand {
+                            Group {
+                            ScrollView {
+                            Group {
+                            //1
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 0
+                            })
+                            {
+                                Text("5 Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //2
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 6
+                            })
+                            {
+                                Text("6 Computer and Information Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //3
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 8
+                            })
+                            {
+                                Text("8 Pharmacy").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //4
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 9
+
+                            })
+                            {
+                                Text("9 Medicine").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //5
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 10
+
+                            })
+                            {
+                                Text("10 Dentistry").padding(10)
+                            }.foregroundColor(.black)
+                                
+                            
+                            //6
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 11
+
+                            })
+                            {
+                                Text("11 Applied Medical Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //7
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                                
+                                //8
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //9
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //10
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                            }
+                                
+                            Group {
+                            //1
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("5 Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //2
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("6 Computer and Information Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //3
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("8 Pharmacy").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //4
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("9 Medicine").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //5
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("10 Dentistry").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //6
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("11 Applied Medical Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //7
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                                
+                                //8
+                            Button(action: {
+                                    self.expand.toggle()
+                                buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //9
+                            Button(action: {
+                                    self.expand.toggle()
+                                buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //10
+                            Button(action: {
+                                    self.expand.toggle()
+                                buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                            }
+                            
+                            Group {
+                            //1
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("5 Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //2
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("6 Computer and Information Sciences").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //3
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("8 Pharmacy").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //4
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("9 Medicine").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //5
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("10 Dentistry").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //6
+                                VStack(alignment: .center) {
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("11 Applied Medical Sciences").padding(10)
+                            }.foregroundColor(.black)
+                                }
+                            //7
+                            Button(action: {
+                                self.expand.toggle()
+                                buldingNum = 12
+
+                            })
+                            {
+                                Text("12 Nursing").padding(10)
+                            }.foregroundColor(.black)
+                                
+                                //8
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //9
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                
+                                //10
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingNum = 12
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(10)
+                                }.foregroundColor(.black)
+                                                                                                 }
+                            }
+                            }
+                        }
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185,y: 150)
+                }*/
+                
+                
+                VStack() {
+                    VStack(spacing: 30){
+                        HStack() {
+                            Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
+                            Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                        }.onTapGesture {
+                            self.expandFloor.toggle()
+                        }
+                        if expandFloor {
+                            //1
+                            Button(action: {
+                                self.expandFloor.toggle()
+                            })
+                            {
+                                Text("0").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //2
+                            Button(action: {
+                                self.expandFloor.toggle()
+                            })
+                            {
+                                Text("1").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //3
+                            Button(action: {
+                                self.expandFloor.toggle()
+                            })
+                            {
+                                Text("2").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //4
+                            Button(action: {
+                                self.expandFloor.toggle()
+                            })
+                            {
+                                Text("3").padding(10)
+                            }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+
+                        }
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 150)
+                    
+                }
+
+                
+                
+                VStack() {
+                    VStack(spacing: 30){
+                        HStack() {
+                            Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
+                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                        }.onTapGesture {
+                            self.expand.toggle()
+                        }
+                        if expand {
+                            //1
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("0").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //2
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("1").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //3
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("2").padding(10)
+                            }.foregroundColor(.black)
+                            
+                            //4
+                            Button(action: {
+                                self.expand.toggle()
+                            })
+                            {
+                                Text("3").padding(10)
+                            }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+
+                        }
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 3)
+                    
+                }
+                
+            }
         
             
         
@@ -168,17 +597,18 @@ struct AddNewOrderView: View {
 
                     if (!errorlocation && !errorDetailslocation) {
                         
-                       /* if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpDetails: Detailslocation)){
+                       
+                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
                             print("pick up saved")
                             viewRouter.currentPage = .DROPOFFlocation
 
                         }
-                        
+  
                         else
                         {
                             print("pick up  not saved")
 
-                        }*/
+                        }
                     
                     }
                 
@@ -186,7 +616,7 @@ struct AddNewOrderView: View {
                     Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                .padding(.top,25).offset(x: 25,y:-130)
+                .padding(.top,25).offset(x: 25,y:-70)
                 
             }
             
@@ -195,270 +625,7 @@ struct AddNewOrderView: View {
             
             
         }
-            VStack() {
-                VStack(spacing: 30){
-                    HStack() {
-                        Text("Bulding").fontWeight(.bold)
-                        Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
-                    }.onTapGesture {
-                        self.expand.toggle()
-                    }
-                    if expand {
-                        
-                        Group {
-                        //1
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("5 Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //2
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("6 Computer and Information Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //3
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("8 Pharmacy").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //4
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("9 Medicine").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //5
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("10 Dentistry").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //6
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("11 Applied Medical Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //7
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("12 Nursing").padding(10)
-                        }.foregroundColor(.black)
-                            
-                            //8
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //9
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //10
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                        }
-                        
-                        Group {
-                        //1
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("5 Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //2
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("6 Computer and Information Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //3
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("8 Pharmacy").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //4
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("9 Medicine").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //5
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("10 Dentistry").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //6
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("11 Applied Medical Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //7
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("12 Nursing").padding(10)
-                        }.foregroundColor(.black)
-                            
-                            //8
-                        Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //9
-                        Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //10
-                        Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                        }
-                        
-                        Group {
-                        //1
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("5 Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //2
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("6 Computer and Information Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //3
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("8 Pharmacy").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //4
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("9 Medicine").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //5
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("10 Dentistry").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //6
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("11 Applied Medical Sciences").padding(10)
-                        }.foregroundColor(.black)
-                        
-                        //7
-                        Button(action: {
-                            self.expand.toggle()
-                        })
-                        {
-                            Text("12 Nursing").padding(10)
-                        }.foregroundColor(.black)
-                            
-                            //8
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //9
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //10
-                            Button(action: {
-                                self.expand.toggle()
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                            
-                        }
-                        
-                        
-                        
-                    }
-                }
-            }.position(x:60 ,y: 600)
+            
 
     
 }
@@ -482,6 +649,7 @@ struct AddNewOrderView: View {
             self.nErr1="*must be more than one characters"
             self.errorDetailslocation = true
         }
+        
 
 
 }

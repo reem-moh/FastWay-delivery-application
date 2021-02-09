@@ -18,6 +18,98 @@
             endingLineNumber = "44"
             landmarkName = "SignUPView"
             landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - b260de9db69bedd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of FastWay.SignUPView.pErr : Swift.String"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - 73df0014cc71cf2c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.pErr.getter : Swift.String"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "207">
+               </Location>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - 1d70565565675f18"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.pErr.setter : Swift.String"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - 52ac4f6ee0815583"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.pErr.modify : Swift.String"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - ad0f4e7ad8629918"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.pErr.modify : Swift.String with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "EDE2DDF3-82A1-4228-966B-DCB32CD5F76E - ffdec2cdde8d5060"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.$pErr.getter : SwiftUI.Binding&lt;Swift.String&gt;"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "238">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -34,22 +126,53 @@
             endingLineNumber = "50"
             landmarkName = "SignUPView"
             landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7CCFAF77-00C6-4ABB-A78D-8E8E0736374C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FastWay/AddNewOrderView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "body"
-            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0598E0D6-B85D-45BB-9027-A3AAE647F047 - 8784439d454652d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of FastWay.SignUPView.viewRouter : FastWay.ViewRouter"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  uuid = "0598E0D6-B85D-45BB-9027-A3AAE647F047 - c09e96fd2fd9273f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.viewRouter.getter : FastWay.ViewRouter"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "0598E0D6-B85D-45BB-9027-A3AAE647F047 - 6e3d5fba35c6bc77"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastWay.SignUPView.$viewRouter.getter : SwiftUI.ObservedObject&lt;FastWay.ViewRouter&gt;.Wrapper"
+                  moduleName = "FastWay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raghad_alotaibi/Desktop/SWE444_Project/FastWay/FastWay/SignView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

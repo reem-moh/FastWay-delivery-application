@@ -150,26 +150,26 @@ class Order{
     var pickUP: String
     var pickUpBulding: Int
     var pickUpFloor: Int
-    var pickUpRoom: Int
+    var pickUpRoom: String
     var dropOff: String
     var dropOffBulding: Int
     var dropOffFloor: Int
-    var dropOffRoom: Int
+    var dropOffRoom: String
     var orderDetails: String
     
     init(){
         self.pickUP =  ""
         self.pickUpBulding = 0
         self.pickUpFloor = 0
-        self.pickUpRoom = 0
+        self.pickUpRoom = ""
         self.dropOff =  ""
         self.dropOffBulding = 0
         self.dropOffFloor = 0
-        self.dropOffRoom = 0
+        self.dropOffRoom = ""
         self.orderDetails =  ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: Int   )-> Bool{
+    func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
         self.pickUP = pickUP
         self.pickUpBulding = pickUpBulding
         self.pickUpFloor = pickUpFloor
@@ -181,7 +181,7 @@ class Order{
             {
                 if pickUpFloor != 0
                 {
-                    if pickUpRoom != 0
+                    if pickUpRoom != ""
                     {
                         flag = true
                         
@@ -197,7 +197,7 @@ class Order{
         return flag
     }
     
-    func setDropOffAndDropOffDetails(dropOff: String, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: Int   )-> Bool{
+    func setDropOffAndDropOffDetails(dropOff: String, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: String   )-> Bool{
         self.dropOff = dropOff
         self.dropOffBulding = dropOffBulding
         self.dropOffFloor = dropOffFloor
@@ -209,7 +209,7 @@ class Order{
             {
                 if pickUpFloor != 0
                 {
-                    if pickUpRoom != 0
+                    if pickUpRoom != ""
                     {
                         flag = true
 
@@ -244,7 +244,8 @@ class Order{
     func addOrder() -> Bool {
         var flag = true
         //need to change the id
-        let doc = db.collection("Order").document("5fj6srOHetO5QJLjZcEG")
+        let id = UserDefaults.standard.getUderId()
+        let doc = db.collection("Order").document(id)
         
         doc.setData(["PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails ]) { (error) in
             
