@@ -86,6 +86,12 @@ struct M: Identifiable {
     var email: String
     var phoneNo: String
 }
+struct C: Identifiable {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+}
 
 
 class Courier: ObservableObject {
@@ -93,7 +99,7 @@ class Courier: ObservableObject {
     var name: String
     var email: String
     var phoneNo: String
-    @Published var courier = M(id: "", name: "", email: "", phoneNo: "")
+    @Published var courier = C(id: "", name: "", email: "", phoneNo: "")
     
     init() {
         self.id = ""
