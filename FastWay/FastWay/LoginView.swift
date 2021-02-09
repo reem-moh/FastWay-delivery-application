@@ -1,15 +1,17 @@
 //
 //  LoginView.swift
 //  FastWay
-
+//
+//  Created by Reem on 2/8/21.
+//
 
 import SwiftUI
 import Firebase
 import FirebaseFirestore
 
 struct LoginView: View {
-    @State var email=""
-    @State var pass=""
+    @State var email="reem989@gmail.com"
+    @State var pass="12345678"
     @State var desc=""
     @State var descReset=""
     
@@ -36,7 +38,7 @@ struct LoginView: View {
                     VStack(alignment: .center) {
                         
                         //logo
-                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,25)
+                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,5)
                         
                         //Error in auth
                         if ErrorShow{

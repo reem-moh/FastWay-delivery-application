@@ -1,7 +1,9 @@
 //
 //  SignView.swift
 //  FastWay
-
+//
+//  Created by taif.m on 2/8/21.
+//
 import SwiftUI
 import Firebase
 

@@ -30,7 +30,7 @@ struct HomeMemberView: View {
                    // if UserDefaults.standard.getUderType() == "M"{
                     
                     
-                    Image("FASTWAY 1").frame(width: -50, height: -50)
+                    Image("FASTWAY1").frame(width: -50, height: -50)
                         .offset(x:180 ,y:130).position(x: 10, y: -45)
                                
                                  
