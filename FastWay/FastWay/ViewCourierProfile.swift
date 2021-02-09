@@ -53,7 +53,9 @@ struct ViewCourierProfile: View {
                     }
                     Spacer()
                     Spacer()
-                    Image(systemName: "person").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
+                    
+                    Image("profileC").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
+                    
                     Spacer()
                     Spacer()
                     

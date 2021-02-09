@@ -54,7 +54,8 @@ struct ViewMemberProfile: View {
                     }
                     Spacer()
                     Spacer()
-                    Image(systemName: "person").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
+                    
+                    Image("profileM").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
                     Spacer()
                     Spacer()
                     
