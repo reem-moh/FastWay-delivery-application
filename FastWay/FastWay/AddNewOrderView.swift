@@ -115,7 +115,7 @@ struct AddNewOrderView: View {
             //Show Error message if the email feild empty
                 if errorlocation{
                 Text(nErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -150)  }
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 240)  }
             
             
             Group{
@@ -144,28 +144,24 @@ struct AddNewOrderView: View {
             
             
            
+        
+           
             Group{
                 
-            Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:340)
+           
                 
+                if errorDetailslocation {
+                //Show Error message if the email feild empty
+                    Text(nErr1).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 355)
+                }
             
-                
-                
-                    if errorDetailslocation {
-                    //Show Error message if the email feild empty
-                        Text(nErr1).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: -175)
-                    }
-            }
-            
-           TextField("bulding, floor, room numbers", text: $Detailslocation)
+           TextField(" room numbers , more details...", text: $Detailslocation)
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:350)
-
+            }
             
-            Group{
                 
               /*  VStack() {
                     VStack(spacing: 30){
@@ -492,10 +488,9 @@ struct AddNewOrderView: View {
                 }*/
                 
                 
-                VStack() {
                     VStack(spacing: 30){
                         HStack() {
-                            Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
+                            Text("Bliding").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
                             Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expandFloor.toggle()
@@ -534,9 +529,9 @@ struct AddNewOrderView: View {
                             }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
 
                         }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 150)
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 180)
                     
-                }
+                
 
                 
                 
@@ -582,12 +577,12 @@ struct AddNewOrderView: View {
                             }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
 
                         }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 3)
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 30)
                     
                 }
                 
-            }
-        
+           
+        }
             
         
             Group{
