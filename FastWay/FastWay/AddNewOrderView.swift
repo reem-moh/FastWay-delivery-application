@@ -619,13 +619,13 @@ struct AddNewOrderView: View {
             
             
             
-        }
+        }//end ZStack
             
 
     
-}
+}//end body
     
-    }
+    
         
     
     
@@ -647,7 +647,7 @@ struct AddNewOrderView: View {
         
 
 
-}
+    }//end PickUpLocation
     
 
 }
