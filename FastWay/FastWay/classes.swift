@@ -171,11 +171,11 @@ class Order{
     init(){
         self.pickUP =  ""
         self.pickUpBulding = 0
-        self.pickUpFloor = 0
+        self.pickUpFloor = -1
         self.pickUpRoom = ""
         self.dropOff =  ""
         self.dropOffBulding = 0
-        self.dropOffFloor = 0
+        self.dropOffFloor = -1
         self.dropOffRoom = ""
         self.orderDetails =  ""
     }
@@ -186,19 +186,9 @@ class Order{
         self.pickUpFloor = pickUpFloor
         self.pickUpRoom = pickUpRoom
         var flag = false
-        if pickUP != ""
+        if (pickUP != "" && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
         {
-            if pickUpBulding != 0
-            {
-                if pickUpFloor != 0
-                {
-                    if pickUpRoom != ""
-                    {
-                        flag = true
-                        
-                    }
-                }
-            }
+            flag = true
         }
         else {
             
@@ -214,21 +204,11 @@ class Order{
         self.dropOffFloor = dropOffFloor
         self.dropOffRoom = dropOffRoom
         var flag = false
-        if pickUP != ""
-        {
-            if pickUpBulding != 0
-            {
-                if pickUpFloor != 0
-                {
-                    if pickUpRoom != ""
-                    {
-                        flag = true
-
-                    }
-                }
-            }
-        }
-        else {
+    if (dropOff != "" && dropOffBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
+    {
+        flag = true
+    }
+          else {
             
             flag = false
         }
