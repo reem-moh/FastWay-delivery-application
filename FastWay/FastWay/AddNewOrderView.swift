@@ -24,9 +24,13 @@ struct AddNewOrderView: View {
     
     
     @State var errorlocation = false
-    @State var errorDetailslocation = false
-    @State var nErr = ""
-    @State var nErr1 = ""
+    @State var errorBuldingPick = false
+     @State var errorFloorPick = false
+     @State var errorRoomPick = false
+    @State var lErr = ""
+    @State var bErr = ""
+    @State var fErr = ""
+    @State var rErr = ""
     
     @StateObject var viewRouter: ViewRouter
 
@@ -111,9 +115,9 @@ struct AddNewOrderView: View {
             
          
                 
-            //Show Error message if the email feild empty
+            //Show Error message if the location feild empty
                 if errorlocation{
-                Text(nErr).font(.custom("Roboto Regular", size: 18))
+                Text(lErr).font(.custom("Roboto Regular", size: 18))
                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 240)  }
             
             
@@ -127,14 +131,14 @@ struct AddNewOrderView: View {
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 25, height: 25)
                          .clipped()
-                         .offset(x:15 ,y:250)
+                         .offset(x:15 ,y:235)
                 
                 
                 
             TextField("", text: $location)
                 .font(.system(size: 18))
                 .offset(x:20 ,y:-5).padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:205)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:190)
             
             
             }
@@ -147,13 +151,15 @@ struct AddNewOrderView: View {
            
             Group{
                 
-           
+                Text("Details location").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:330)
                 
-                if errorDetailslocation {
+                if errorRoomPick {
                 //Show Error message if the email feild empty
-                    Text(nErr1).font(.custom("Roboto Regular", size: 18))
+                    Text(lErr).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 10,y: 355)
                 }
+                
             
            TextField(" room numbers , more details...", text: $Detailslocation)
                 .font(.system(size: 18))
@@ -162,7 +168,7 @@ struct AddNewOrderView: View {
             }
             
                 
-              /*  VStack() {
+               VStack() {
                     VStack(spacing: 30){
                         HStack() {
                             //  Text("$buldingNum").fontWeight(.bold) ?????
@@ -170,8 +176,9 @@ struct AddNewOrderView: View {
                             Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expand.toggle()
+                            self.expandFloor = false
                         }
-                        if expand {
+                        if (expand && !expandFloor) {
                             Group {
                             ScrollView {
                             Group {
@@ -295,257 +302,31 @@ struct AddNewOrderView: View {
                             {
                                 Text("6 Computer and Information Sciences").padding(10)
                             }.foregroundColor(.black)
-                            
-                            //3
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("8 Pharmacy").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //4
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("9 Medicine").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //5
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("10 Dentistry").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //6
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("11 Applied Medical Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //7
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                                
-                                //8
-                            Button(action: {
-                                    self.expand.toggle()
-                                buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //9
-                            Button(action: {
-                                    self.expand.toggle()
-                                buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //10
-                            Button(action: {
-                                    self.expand.toggle()
-                                buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
                                 
                             }
                             
-                            Group {
-                            //1
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("5 Sciences").padding(10)
-                            }.foregroundColor(.black)
                             
-                            //2
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("6 Computer and Information Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //3
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("8 Pharmacy").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //4
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("9 Medicine").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //5
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("10 Dentistry").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //6
-                                VStack(alignment: .center) {
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("11 Applied Medical Sciences").padding(10)
-                            }.foregroundColor(.black)
-                                }
-                            //7
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingNum = 12
-
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                                
-                                //8
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //9
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //10
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingNum = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                                                                                 }
                             }
                             }
                         }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185,y: 150)
-                }*/
-                
-                
-                    VStack(spacing: 30){
-                        HStack() {
-                            Text("Bliding").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
-                            Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
-                        }.onTapGesture {
-                            self.expandFloor.toggle()
-                        }
-                        if expandFloor {
-                            //1
-                            Button(action: {
-                                self.expandFloor.toggle()
-                            })
-                            {
-                                Text("0").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //2
-                            Button(action: {
-                                self.expandFloor.toggle()
-                            })
-                            {
-                                Text("1").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //3
-                            Button(action: {
-                                self.expandFloor.toggle()
-                            })
-                            {
-                                Text("2").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //4
-                            Button(action: {
-                                self.expandFloor.toggle()
-                            })
-                            {
-                                Text("3").padding(10)
-                            }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
-
-                        }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 180)
-                    
-                
-
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 150)
+                }
                 
                 
                 VStack() {
                     VStack(spacing: 30){
                         HStack() {
                             Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
-                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                            Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
-                            self.expand.toggle()
+                            self.expandFloor.toggle()
+                            self.expand = false
                         }
-                        if expand {
+                        if (expandFloor && !expand) {
+                            ScrollView {
                             //1
                             Button(action: {
-                                self.expand.toggle()
+                                self.expandFloor.toggle()
                             })
                             {
                                 Text("0").padding(10)
@@ -553,7 +334,7 @@ struct AddNewOrderView: View {
                             
                             //2
                             Button(action: {
-                                self.expand.toggle()
+                                self.expandFloor.toggle()
                             })
                             {
                                 Text("1").padding(10)
@@ -561,7 +342,7 @@ struct AddNewOrderView: View {
                             
                             //3
                             Button(action: {
-                                self.expand.toggle()
+                                self.expandFloor.toggle()
                             })
                             {
                                 Text("2").padding(10)
@@ -569,14 +350,15 @@ struct AddNewOrderView: View {
                             
                             //4
                             Button(action: {
-                                self.expand.toggle()
+                                self.expandFloor.toggle()
                             })
                             {
                                 Text("3").padding(10)
-                            }.foregroundColor(.black).background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
+                            }.foregroundColor(.black)
 
                         }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: 30)
+                    }
+                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2).position(x:185 ,y: -20)
                     
                 }
                 
@@ -587,10 +369,10 @@ struct AddNewOrderView: View {
             Group{
                 Button(action: {
                     
-                   // self.PICKUPlocation()
+                    self.PICKUPlocation()
 
-                    if (!errorlocation && !errorDetailslocation) {
-                        
+                    if (!errorlocation && !errorRoomPick && !errorBuldingPick) {
+
                        
                          if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
                             print("pick up saved")
@@ -610,7 +392,7 @@ struct AddNewOrderView: View {
                     Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                .padding(.top,25).offset(x: 25,y:-70)
+                .padding(.top,25).offset(x: 0,y:350)
                 
             }
             
@@ -624,30 +406,34 @@ struct AddNewOrderView: View {
     
 }
     
-    }
+    
         
     
     
     func PICKUPlocation() {
         
-       /* self.errorlocation = false
+       self.errorlocation = false
     
         if self.location.count <= 0 {
-            self.nErr="*must be more than one characters"
+         self.lErr="*must be more than one characters"
             self.errorlocation = true
-            
         }
         
-        self.errorDetailslocation = false
-        if self.Detailslocation.count <= 0 {
-            self.nErr1="*must be more than one characters"
-         */
-        
-
-
+         self.errorRoomPick = false
+           if self.roomPick.count <= 0 {
+               self.rErr="*must be more than one characters"
+               self.errorRoomPick = true
+         }
+         
+         self.errorBuldingPick = false
+         if buldingPick == 0 {
+             self.bErr="*must select bulfing"
+             self.errorRoomPick = true
+         }
+         
 }
     
-
+}
 
 
 
