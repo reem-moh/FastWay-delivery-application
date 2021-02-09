@@ -15,14 +15,14 @@ struct AboutUs: View {
             
             //background
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 100)
             
             VStack{
                 ScrollView{
                     VStack(alignment: .leading){
                         
-                        Text("SwiftUI’s TextField view is similar to UITextField, although it looks a little different by default and relies very heavily on binding to state.To create one, you should pass in a placeholder to use inside the text field, plus the state value it should bind to. For example, this creates a TextField` bound to a local string, then places a text view below it that shows the text field’s output as you type:").font(.custom("Roboto Regular", size: 18))
-                            .padding(EdgeInsets.init(top: 250, leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 0, y: 0).padding(.horizontal, 16)
+                        Text("As some members of the university have tight schedules, waiting in queues wastes their valuable time. The application fastway helps them by providing a delivery service within the university and a part-time job for anyone who has some free time to put into use. The user can order things to be delivered to him/her or to send things to other places such as the library, office, pharmacy, and shop.").font(.custom("Roboto Regular", size: 18))
+                            .padding(EdgeInsets.init(top: 250, leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 0,y: 0).padding(.horizontal, 16)
                         
                     }.padding(.bottom, 60) //VStack
                 }//scrollview
