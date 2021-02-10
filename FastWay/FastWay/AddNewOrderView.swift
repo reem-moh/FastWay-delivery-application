@@ -45,7 +45,8 @@ struct AddNewOrderView: View {
             
             
             
-            
+            ZStack{
+
             
         VStack{
             //background image
@@ -93,43 +94,55 @@ struct AddNewOrderView: View {
                     .frame(width: 360, height: 292)
                     .clipped()
                    
-                }.offset(x:0 ,y:-170)
+                }.offset(x:0 ,y:-175)
             
+            }
             
-            
-            
-            
-            VStack(spacing: 30){
+            VStack(spacing: 10){
 
-                
-                
-                
-               //LOCATION
-               Group {
-                
-                     Image(uiImage: #imageLiteral(resourceName: "location"))
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 25, height: 25)
-                         .clipped()
-                         .offset(x:-160 ,y:65)
-                
-                
-            TextField("", text: $location)
-                .font(.system(size: 18))
-                .offset(x:20 ,y:-5).padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
             
-               }
+            //LOCATION
+            VStack(spacing: -10){
+                
+                
+                     
+                 //Show Error message if the location feild empty
+                     if errorlocation{
+                     Text(lErr).font(.custom("Roboto Regular", size: 18))
+                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -60,y:5) }
+             
+                  Image(uiImage: #imageLiteral(resourceName: "location"))
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 25, height: 25)
+                      .clipped()
+                      .offset(x:-160 ,y:30)
+             
+             
+         TextField("", text: $location)
+             .font(.system(size: 18))
+             .offset(x:20 ,y:-5).padding(12)
+             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
+         
+           
+            }//.offset(x:0 ,y:5)
+            
+            
+            
+
+            
+            // Bulding
+            VStack(spacing: -10){
             
                 
-                
-                
-                
-        
-                // Bulding
-               VStack() {
-       
+            
+        //Show Error message if no bulding selected
+                if errorBuldingPick {
+                    Text(bErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:-10)
+                }
+            
+            
                 
                     VStack(spacing: 30){
                  
@@ -269,24 +282,36 @@ struct AddNewOrderView: View {
                             }
                             
                             
-                            }
+                            }.frame(width: 300, height: 50)
                             }
                         }
                     
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2)
-            
+                    }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                
+               
+              //  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                
                
-               
-               
-               }// END Bulding
+               }//.offset(x:0 ,y:20)// END Bulding
                 
             
                 
                 
+             
                 
                 
                     //Floor
+            VStack(spacing: -10){
+                
+                
+                //Show Error message if no floor selected
+        if errorFloorPick {
+            Text(fErr).font(.custom("Roboto Regular", size: 18))
+                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:-10)
+        }
+                    
+            
+
                     VStack(spacing: 30){
                         HStack() {
                             Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
@@ -333,15 +358,25 @@ struct AddNewOrderView: View {
                                 Text("3").padding(10)
                             }.foregroundColor(.black)
 
-                        }
+                            }.frame(width: 300, height: 50)
                     }
-                    }.padding().background(LinearGradient(gradient: .init(colors: [ .white, .white]), startPoint: .top, endPoint: .bottom)).cornerRadius(8).shadow(color: .gray, radius: 2)
+                    }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                
+                
                     
-               //END Floor
+        }//.offset(x:0 ,y:173)//END Floor
             
-              
+       
                 
                 
+            VStack(spacing: -10){
+
+               //Show Error message if the ROOM feild empty
+                    if errorRoomPick {
+                        Text(rErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -75,y:-10)
+                    }
+                    
                 
                 //room numbers
             TextField("room numbers , more details...", text: $roomPick)
@@ -349,9 +384,12 @@ struct AddNewOrderView: View {
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14)
                 
+        }//.offset(x:0 ,y:235)
                 
-                
-                
+          
+            
+            VStack(spacing: -10){
+
                 //NEXT
                 Button(action: {
                     
@@ -383,52 +421,30 @@ struct AddNewOrderView: View {
                 
                 
                 
-            }.offset(x: 0,y:150) //END VStack(spacing: 30)
+            }//.offset(x: 0,y:274)  //END NEXT
+
             
+           
+  
             
+   
+        
             
+            }.offset(x: 0,y:170)
+
+
 
                 
-            //Show Error message if the location feild empty
-                if errorlocation{
-                Text(lErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -60,y:-5) }
+        
             
-            
-            
-        //Show Error message if no bulding selected
-                if errorBuldingPick {
-                    Text(bErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:70)
-                }
-            
-            
-            
+        }//END ZStack
 
-        //Show Error message if no floor selected
-if errorFloorPick {
-    Text(fErr).font(.custom("Roboto Regular", size: 18))
-        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:140)
-}
-            
-       
-        //Show Error message if the ROOM feild empty
-            if errorRoomPick {
-            //Show Error message if the room feild empty
-                Text(rErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -75,y:210)
-            }
-            
+                
+                
             
             
         
-                
-                
             
-            
-            
-            
-        }//END ZStack
             
 
     
