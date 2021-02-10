@@ -358,8 +358,7 @@ struct AddNewOrderView: View {
                                 Text("3").padding(10)
                             }.foregroundColor(.black)
 
-                            }.frame(width: 300, height: 50)
-                    }
+                            }.frame(width: 300, height: 50)                    }
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                 
                 
