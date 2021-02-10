@@ -93,6 +93,22 @@ struct C: Identifiable {
     var phoneNo: String
 }
 
+//order struct
+struct OrderDetails: Identifiable {
+    var id: String
+    var pickUP: String
+    var pickUpBulding: Int
+    var pickUpFloor: Int
+    var pickUpRoom: String
+    var dropOff: String
+    var dropOffBulding: Int
+    var dropOffFloor: Int
+    var dropOffRoom: String
+    var orderDetails: String
+    // to identify whether it is added to cart...
+    var isAdded: Bool = false
+}
+
 
 class Courier: ObservableObject {
     var id: String
@@ -252,3 +268,5 @@ class Order{
     }
     
 }
+
+
