@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MotherView: View {
-    
+    @StateObject var homeModel = CarouselViewModel()
     @StateObject var viewRouter: ViewRouter
 
     var body: some View {
@@ -35,7 +35,7 @@ struct MotherView: View {
                 case .HistoryView :
                     HistoryView(viewRouter : viewRouter)
                 case .DeliverOrder :
-                    DeliverOrderView(viewRouter : viewRouter)
+                    DeliverOrderView(viewRouter : viewRouter) .environmentObject(homeModel)
                 case .ViewProfileC:
                     ViewCourierProfile(viewRouter: viewRouter)
                 case .AboutUs:

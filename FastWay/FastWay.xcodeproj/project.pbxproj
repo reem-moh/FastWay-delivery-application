@@ -24,6 +24,7 @@
 		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
 		589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D925C9B2B6009D6B45 /* RadioButton.swift */; };
 		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
+		C24354B525D431B90033B69F /* cardCourier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24354B425D431B90033B69F /* cardCourier.swift */; };
 		C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C268D59725D07EF7006183AB /* UserDefaults.swift */; };
 		C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006C125CF1F1A0010C126 /* MotherView.swift */; };
 		C2A006C625CF1F590010C126 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006C525CF1F590010C126 /* Helper.swift */; };
@@ -58,6 +59,7 @@
 		589C42FB25CBA651009D6B45 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24354B425D431B90033B69F /* cardCourier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardCourier.swift; sourceTree = "<group>"; };
 		C268D59725D07EF7006183AB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C2A006C125CF1F1A0010C126 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotherView.swift; sourceTree = "<group>"; };
 		C2A006C525CF1F590010C126 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				589433F125C8F62300E19E18 /* Preview Content */,
+				C24354B425D431B90033B69F /* cardCourier.swift */,
 			);
 			path = FastWay;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
 				C2A006CE25CF229A0010C126 /* HistoryView.swift in Sources */,
+				C24354B525D431B90033B69F /* cardCourier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
