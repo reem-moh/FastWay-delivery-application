@@ -14,39 +14,41 @@ struct DeliverOrderView: View {
     var body: some View {
         ZStack{
             
-            //background
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            //DeliverOrderView
-            Text("View New Order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .multilineTextAlignment(.center).position(x:0 ,y:0).padding().offset(x:170,y:20)
-            //white rectangle
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 70).edgesIgnoringSafeArea(.bottom)
-            
-            VStack{
-                //go back button
-                //arrow_back image
-                   Button(action: {
-                    viewRouter.currentPage = .HomePageC
-                   }) {
-                     Image("arrow_back")
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 30, height: 30)
-                       .clipped()
-                   }.position(x:30 ,y:30).padding(1.0)
+            GeometryReader{ geometry in
+                //background
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                //DeliverOrderView
+                Text("View New Order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .multilineTextAlignment(.center).position(x:170 ,y:30).padding()//.offset(x:170,y:20)
+                //white rectangle
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 70).edgesIgnoringSafeArea(.bottom)
                 
-            }
-            
-            VStack{
-                ScrollView{
-                    VStack(alignment: .leading){
-                        
-                        Text("As some members of the university have tight schedules, waiting in queues wastes their valuable time. The application fastway helps them by providing a delivery service within the university and a part-time job for anyone who has some free time to put into use. The user can order things to be delivered to him/her or to send things to other places such as the library, office, pharmacy, and shop.").font(.custom("Roboto Regular", size: 25))
-                            .padding(EdgeInsets.init(top: 200, leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 0,y: 0).padding(.horizontal, 16)
-                        
-                    }.padding(.bottom, 60) //VStack
-                }//scrollview
-            }
+                VStack{
+                    //go back button
+                    //arrow_back image
+                       Button(action: {
+                        viewRouter.currentPage = .HomePageC
+                       }) {
+                         Image("arrow_back")
+                             .resizable()
+                             .aspectRatio(contentMode: .fill)
+                             .frame(width: 30, height: 30)
+                           .clipped()
+                       }.position(x:30 ,y:30).padding(1.0)
+                    
+                }
+                
+                VStack{
+                    ScrollView{
+                        VStack(alignment: .leading){
+                            
+                            
+                            
+                        }.padding(.bottom, 60) //VStack
+                    }//scrollview
+                }
+            }.edgesIgnoringSafeArea(.all)
+           
             
             //bar menue
             ZStack{
