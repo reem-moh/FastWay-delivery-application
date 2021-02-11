@@ -73,7 +73,7 @@ class Member: ObservableObject {
             print("got member data  \(self.member.email)")
             print("got member data  \(self.member.phoneNo)")
             print("----------")
-            return
+            
         } //listener
        
     } //function
@@ -169,7 +169,7 @@ class Courier: ObservableObject {
             print("got Courier data  \(self.courier.email)")
             print("got Courier data  \(self.courier.phoneNo)")
             print("----------")
-            return
+            
         } //listener
     } //function
 }
