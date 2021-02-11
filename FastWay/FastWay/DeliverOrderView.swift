@@ -39,8 +39,10 @@ struct DeliverOrderView: View {
                 // Carousel....
                 Spacer()
                 ZStack{
+                    //call method calculate the number of orders
+                    //add this method in class model
                     
-                    ForEach(model.cards.indices.reversed(),id: \.self){index in
+                    ForEach(model.cards.lazy.indices.reversed(),id: \.self){index in
                         
                         HStack {
                             
@@ -144,6 +146,7 @@ struct DeliverOrderView: View {
             
             model.cards[index].offset = value.translation.width
         }
+        
     }
     
     func onEnd(value: DragGesture.Value,index: Int){

@@ -277,7 +277,7 @@ class Order: ObservableObject{
                 print("No order documents")
                 return
             }
-            self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 let data = queryDocumentSnapshot.data()
                 let uid = data["MemberID"] as? String ?? ""
                 let pickup = data["PickUp"] as? String ?? ""

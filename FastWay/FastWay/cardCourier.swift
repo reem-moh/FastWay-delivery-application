@@ -180,12 +180,11 @@ class CarouselViewModel: ObservableObject {
     
 
   @Published var cards = [
-
     Card(cardColor: Color("CardColor1"),title: ""),
     Card(cardColor: Color("CardColor2"),title: ""),
     Card(cardColor: Color("CardColor3"),title: ""),
-    Card(cardColor: Color("CardColor4"), title: "Brush up on hygine."),
-    Card(cardColor: Color("CardColor5"), title: "Neurobics for your mind."),
+    Card(cardColor: Color("CardColor4"), title: ""),
+    Card(cardColor: Color("CardColor5"), title: ""),
     ]
     
     @Published var swipedCard = 0
@@ -194,18 +193,20 @@ class CarouselViewModel: ObservableObject {
     
     @Published var showCard = false
     @Published var selectedCard = Card(cardColor: .clear, title: "")
-    
     @Published var showContent = false
-    
-    var content = "Humans have long used cognitive enhancement methods to expand the proficiency and range of the various mental activities that they engage in, including writing to store and retrieve information, and computers that allow them to perform myriad activities that are now commonplace in the internet age. Neuroenhancement describes the use of neuroscience-based techniques for enhancing cognitive function by acting directly on the human brain and nervous system, altering its properties to increase performance. Cognitive neuroscience has now reached the point where it may begin to put theory derived from years of experimentation into practice. This special issue includes 16 articles that employ or examine a variety of neuroenhancement methods currently being developed to increase cognition in healthy people and in patients with neurological or psychiatric illness.This includes transcranial electromagnetic stimulation methods, such as transcranial direct current stimulation (tDCS) and transcranial magnetic stimulation (TMS), along with deep brain stimulation, neurofeedback, behavioral training techniques, and these and other techniques in conjunction with neuroimaging."
     
     func getTitle(Id: String) -> String{
         return "gg";
     }
     
     func getOrderDetails() -> String{
-        return content;
+        return "hfgbg";
     }
+    
+    func setOrder(){
+        
+    }
+    
     
 }
 
@@ -215,6 +216,5 @@ struct Card: Identifiable {
     var cardColor: Color
     var offset: CGFloat = 0
     var title: String
+    var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", isAdded: false)
 }
-
-

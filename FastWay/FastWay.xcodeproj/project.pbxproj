@@ -136,11 +136,11 @@
 				5886863025D17C6D00C15A0D /* ViewMemberProfile.swift */,
 				C2A006D125CF22B20010C126 /* DeliverOrderView.swift */,
 				4D4D6D1925D340E500ED59C1 /* googleMap.swift */,
+				C24354B425D431B90033B69F /* cardCourier.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				589433F125C8F62300E19E18 /* Preview Content */,
-				C24354B425D431B90033B69F /* cardCourier.swift */,
 			);
 			path = FastWay;
 			sourceTree = "<group>";
