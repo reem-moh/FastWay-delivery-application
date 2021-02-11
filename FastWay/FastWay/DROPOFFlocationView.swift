@@ -39,7 +39,7 @@ struct DROPOFFlocationView: View {
         
         
         
-        //pick up location
+        //drop off location
         ZStack{
         
             
@@ -525,3 +525,4 @@ struct DROPOFFlocationView_Previews: PreviewProvider {
         }
     }
 }
+

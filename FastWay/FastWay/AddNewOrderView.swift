@@ -518,6 +518,9 @@ struct AddNewOrderView: View {
 
 
 
+
+
+
 /*if order.addOrder(){
     print("added")}*/
 
@@ -528,3 +531,4 @@ struct AddNewOrderView_Previews: PreviewProvider {
         }
     }
 }
+
