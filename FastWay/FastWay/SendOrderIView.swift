@@ -128,6 +128,9 @@ struct SendOrderIView: View {
                     viewRouter.currentPage = .HomePageM
 
                 }
+                if order.addOrder(){
+                    print("order added")
+                }
             })  {
                 Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
                                 }
@@ -157,9 +160,7 @@ func SendOrder() {
             self.error = true
         }
         
-        if order.addOrder(){
-            print("order added")
-        }
+
     }
     
     
