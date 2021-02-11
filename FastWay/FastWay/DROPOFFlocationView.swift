@@ -421,8 +421,8 @@ struct DROPOFFlocationView: View {
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
-                       
-                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
+     
+                         if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffBulding: buldingPick, dropOffFloor: floorPick, dropOffRoom: roomPick)){
                             print("drop off saved")
                             viewRouter.currentPage = .SendOrder
 
