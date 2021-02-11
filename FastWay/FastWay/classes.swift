@@ -73,6 +73,7 @@ class Member: ObservableObject {
             print("got member data  \(self.member.email)")
             print("got member data  \(self.member.phoneNo)")
             print("----------")
+            return
         } //listener
        
     } //function
@@ -106,7 +107,7 @@ struct OrderDetails: Identifiable {
     var dropOffRoom: String
     var orderDetails: String
     // to identify whether it is added to cart...
-    var isAdded: Bool = false
+    var isAdded: Bool
 }
 
 
@@ -168,7 +169,7 @@ class Courier: ObservableObject {
             print("got Courier data  \(self.courier.email)")
             print("got Courier data  \(self.courier.phoneNo)")
             print("----------")
-            
+            return
         } //listener
     } //function
 }
@@ -176,7 +177,9 @@ class Courier: ObservableObject {
 
 
 
-class Order{
+class Order: ObservableObject{
+    @Published var orders = [OrderDetails]()
+    
     var pickUP: String
     var pickUpBulding: Int
     var pickUpFloor: Int
@@ -255,9 +258,9 @@ class Order{
         var flag = true
         //need to change the id
         let id = UserDefaults.standard.getUderId()
-        let doc = db.collection("Order").document(id)
+        let doc = db.collection("Order").document()
         
-        doc.setData(["PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails ]) { (error) in
+        doc.setData(["MemberID": id,"PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false" ]) { (error) in
             
             if error != nil {
                 flag = false
@@ -266,6 +269,34 @@ class Order{
         
         return flag
     }
+    
+    //get data from DB
+    func getOrder() {
+        db.collection("Order").addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No order documents")
+                return
+            }
+            self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                let data = queryDocumentSnapshot.data()
+                let uid = data["MemberID"] as? String ?? ""
+                let pickup = data["PickUp"] as? String ?? ""
+                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                let dropoff = data["DropOff"] as? String ?? ""
+                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                let dropoffRoom = data["dropOfRoom"] as? String ?? ""
+                let orderDetails = data["orderDetails"] as? String ?? ""
+                let assigned = data["Assigned"] as? Bool ?? false
+                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned)
+            })
+        }
+    }
+    
     
 }
 
