@@ -16,7 +16,9 @@ struct AddNewOrderView: View {
     @State var buldingPick = 0
     @State var floorPick = -1
     @State var roomPick = ""
-    
+    @State var Bulding = "Bulding"
+    @State var Floor = "Floor"
+
         
     
     @State var errorlocation = false
@@ -91,10 +93,10 @@ struct AddNewOrderView: View {
                 Image(uiImage: #imageLiteral(resourceName: "map"))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 292)
+                    .frame(width: 360, height: 280)
                     .clipped()
                    
-                }.offset(x:0 ,y:-175)
+                }.offset(x:0 ,y:-180)
             
             }
             
@@ -116,7 +118,7 @@ struct AddNewOrderView: View {
                       .aspectRatio(contentMode: .fill)
                       .frame(width: 25, height: 25)
                       .clipped()
-                      .offset(x:-160 ,y:30)
+                      .offset(x:-160 ,y:23)
              
              
          TextField("", text: $location)
@@ -130,242 +132,267 @@ struct AddNewOrderView: View {
             
             
 
-            
-            // Bulding
-            VStack(spacing: -10){
-            
                 
-            
-        //Show Error message if no bulding selected
-                if errorBuldingPick {
-                    Text(bErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:-10)
-                }
-            
-            
+                // Bulding
+                VStack(spacing: 0){
                 
-                    VStack(spacing: 30){
-                 
-
-                        HStack() {
-                            Text("Bulding").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -125 ,y: 0 ).multilineTextAlignment(.leading).frame(width: 295, height: 6)
-                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
-                        }.onTapGesture {
-                            self.expand.toggle()
-                            self.expandFloor = false
-                        }
-                        if (expand && !expandFloor) {
-                            Group {
-                            ScrollView {
-                            Group {
-                            //1
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 5
-                            })
-                            {
-                                Text("5 Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //2
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 6
-                            })
-                            {
-                                Text("6 Computer and Information Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //3
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 8
-                            })
-                            {
-                                Text("8 Pharmacy").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //4
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 9
-
-                            })
-                            {
-                                Text("9 Medicine").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //5
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 10
-
-                            })
-                            {
-                                Text("10 Dentistry").padding(10)
-                            }.foregroundColor(.black)
-                                
-                            
-                            //6
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 11
-
-                            })
-                            {
-                                Text("11 Applied Medical Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //7
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 12
-
-                            })
-                            {
-                                Text("12 Nursing").padding(10)
-                            }.foregroundColor(.black)
-                                
-                                //8
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //9
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                                //10
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(10)
-                                }.foregroundColor(.black)
-                                
-                            }
-                                
-                            Group {
-                            //1
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 12
-
-                            })
-                            {
-                                Text("5 Sciences").padding(10)
-                            }.foregroundColor(.black)
-                            
-                            //2
-                            Button(action: {
-                                self.expand.toggle()
-                                buldingPick = 12
-
-                            })
-                            {
-                                Text("6 Computer and Information Sciences").padding(10)
-                            }.foregroundColor(.black)
-                                
-                            }
-                            
-                            
-                            }.frame(width: 300, height: 50)
-                            }
-                        }
                     
-                    }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                 
-               
-              //  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-               
-               
-               }//.offset(x:0 ,y:20)// END Bulding
+            //Show Error message if no bulding selected
+                    if errorBuldingPick {
+                        Text(bErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:0)
+                    }
                 
-            
+                
+                    
+                        VStack(spacing: 0){
+                     
+
+                            HStack() {
+                                Text(Bulding).font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                            }.onTapGesture {
+                                self.expand.toggle()
+                                self.expandFloor = false
+                            }
+                            if (expand && !expandFloor) {
+                                Group {
+                                ScrollView {
+                                Group {
+                                //1
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 5
+                                    Bulding="5 Sciences"
+                                })
+                                {
+                                    Text("5 Sciences").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //2
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 6
+                                    Bulding="6 Computer and Information Sciences"
+
+                                })
+                                {
+                                    Text("6 Computer and Information Sciences").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //3
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 8
+                                    Bulding="8 Pharmacy"
+
+                                })
+                                {
+                                    Text("8 Pharmacy").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //4
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 9
+                                    Bulding="9 Medicine"
+
+                                })
+                                {
+                                    Text("9 Medicine").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //5
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 10
+                                    Bulding="10 Dentistry"
+
+                                })
+                                {
+                                    Text("10 Dentistry").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                
+                                //6
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 11
+                                    Bulding="11 Applied Medical Sciences"
+
+                                })
+                                {
+                                    Text("11 Applied Medical Sciences").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //7
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 12
+                                    Bulding="12 Nursing"
+
+                                })
+                                {
+                                    Text("12 Nursing").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    //8
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        buldingPick = 12
+                                        Bulding="12 Nursing"
+
+                                    })
+                                    {
+                                        Text("12 Nursing").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    //9
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        buldingPick = 12
+                                        Bulding="12 Nursing"
+
+                                    })
+                                    {
+                                        Text("12 Nursing").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    //10
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        buldingPick = 12
+                                        Bulding="12 Nursing"
+
+                                    })
+                                    {
+                                        Text("12 Nursing").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                }
+                                    
+                                Group {
+                                //1
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 12
+                                    Bulding="5 Sciences"
+
+                                })
+                                {
+                                    Text("5 Sciences").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                //2
+                                Button(action: {
+                                    self.expand.toggle()
+                                    buldingPick = 12
+                                    Bulding="6 Computer and Information Sciences"
+
+                                })
+                                {
+                                    Text("6 Computer and Information Sciences").padding(5)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                                    
+                                }
+                                
+                                
+                                }.frame(width: 300, height: 70)
+                                }.offset(x: -5, y: 10.0)
+                            }
+                        
+                        }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                    
+                   
+                  //  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                   
+                   
+                   }//.offset(x:0 ,y:20)// END Bulding
+                    
+                
+                    
                 
                 
              
                 
                 
                     //Floor
-            VStack(spacing: -10){
+            VStack(spacing: 0){
                 
                 
                 //Show Error message if no floor selected
         if errorFloorPick {
             Text(fErr).font(.custom("Roboto Regular", size: 18))
-                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:-10)
+                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:0)
         }
                     
             
 
-                    VStack(spacing: 30){
+                    VStack(spacing: 0){
                         HStack() {
-                            Text("Floor").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).offset(x: -134 ,y: 0 ).multilineTextAlignment(.center).frame(width: 295, height: 6)
+                            Text(Floor).font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.center).frame(width: 295, height: 6)
                             Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expandFloor.toggle()
                             self.expand = false
                         }
                         if (expandFloor && !expand) {
+                            Group{
                             ScrollView {
                             //1
                             Button(action: {
                                 self.expandFloor.toggle()
                                 floorPick = 0
+                                Floor="0"
                             })
                             {
-                                Text("0").padding(10)
-                            }.foregroundColor(.black)
-                            
+                                Text("0").padding(3)
+                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
                             //2
                             Button(action: {
                                 self.expandFloor.toggle()
                                 floorPick = 1
+                                Floor="1"
+
                             })
                             {
-                                Text("1").padding(10)
-                            }.foregroundColor(.black)
-                            
+                                Text("1").padding(3)
+                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
                             //3
                             Button(action: {
                                 self.expandFloor.toggle()
                                 floorPick = 2
+                                Floor="2"
+
                             })
                             {
-                                Text("2").padding(10)
-                            }.foregroundColor(.black)
-                            
+                                Text("2").padding(3)
+                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
                             //4
                                 Button(action: {
                                 self.expandFloor.toggle()
                                 floorPick = 3
+                                    Floor="3"
+
                             })
                             {
-                                Text("3").padding(10)
-                            }.foregroundColor(.black)
+                                Text("3").padding(3)
+                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).frame(width: 297, height: 30)
 
-                            }.frame(width: 300, height: 50)
-                    }
+                            }.frame(width: 300, height:  70)
+                    }.offset(x: -10, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        }
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
-                
                 
                     
         }//.offset(x:0 ,y:173)//END Floor
             
+       
+           
        
                 
                 
@@ -421,7 +448,7 @@ struct AddNewOrderView: View {
                 
                 
                 
-            }//.offset(x: 0,y:274)  //END NEXT
+            }//.offset(x: 0,y:65)  //END NEXT
 
             
            
@@ -430,7 +457,7 @@ struct AddNewOrderView: View {
    
         
             
-            }.offset(x: 0,y:170)
+            }.offset(x: 0,y:160)
 
 
 
