@@ -35,11 +35,9 @@ struct ViewMemberProfile: View {
                 
                 
                 
-            }.onAppear(){
-                
+            }.onAppear {
                 self.member.getMember(id: UserDefaults.standard.getUderId())
                 print("view M")
-                
             }
             
             VStack{

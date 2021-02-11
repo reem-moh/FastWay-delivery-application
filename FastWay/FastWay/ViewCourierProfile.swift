@@ -33,11 +33,10 @@ struct ViewCourierProfile: View {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
                 
-            }.onAppear(){
-                
+            }.onAppear {
                 self.courier.getCourier(id: UserDefaults.standard.getUderId())
                 print("view C")
-                
+
             }
             
             VStack{
