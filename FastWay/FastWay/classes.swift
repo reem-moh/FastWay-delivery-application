@@ -20,12 +20,13 @@ class Member: ObservableObject {
     var phoneNo: String
    
     @Published var member = M(id: "", name: "", email: "", phoneNo: "")
-   
+    //initialize from DB
     init() {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
+        self.getMember(id: UserDefaults.standard.getUderId())
     }
     
     init(id: String, name: String, email: String, phN: String) {
@@ -117,12 +118,13 @@ class Courier: ObservableObject {
     var email: String
     var phoneNo: String
     @Published var courier = C(id: "", name: "", email: "", phoneNo: "")
-    
+    //initialize from DB
     init() {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
+        self.getCourier(id: UserDefaults.standard.getUderId())
     }
     
     init(id: String,name: String, email: String, phN: String) {

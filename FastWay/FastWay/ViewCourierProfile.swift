@@ -11,9 +11,9 @@ import FirebaseFirestore
 
 struct ViewCourierProfile: View {
     @ObservedObject var courier = Courier()
-    @State var name = ""
+    /*@State var name = ""
     @State var email = ""
-    @State var phoneNum = ""
+    @State var phoneNum = ""*/
     @State var password = ""
     @State var newPassword = ""
     @State var reNewPassword = ""
@@ -33,11 +33,11 @@ struct ViewCourierProfile: View {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
                 
-            }.onAppear {
+            }/*.onAppear {
                 self.courier.getCourier(id: UserDefaults.standard.getUderId())
                 print("view C")
 
-            }
+            }*/
             
             VStack{
                 
@@ -80,7 +80,7 @@ struct ViewCourierProfile: View {
                             Text("name:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.name)", text: $name)
+                            TextField("\(self.courier.courier.name)", text: $courier.courier.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -94,7 +94,7 @@ struct ViewCourierProfile: View {
                             Text("email:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.email)", text: $email)
+                            TextField("\(self.courier.courier.email)", text: $courier.courier.email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -109,7 +109,7 @@ struct ViewCourierProfile: View {
                             Text("phone number:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.phoneNo)", text: $phoneNum)
+                            TextField("\(self.courier.courier.phoneNo)", text: $courier.courier.phoneNo)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
