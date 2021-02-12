@@ -25,7 +25,7 @@ struct CardView: View {
                 .matchedGeometryEffect(id: "Date-\(card.id)", in: animation)
             
             HStack { //title
-                Text("\(model.cards[0].title)")
+                Text("lll")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
@@ -178,23 +178,23 @@ struct DetailView: View {
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
-    init(){
-        getCards()
-    }
+    @ObservedObject var order = Order()
     
     //orders array here
     //initialize the cards array with orders array
-  @Published var cards = [
-    Card(cardColor: Color("CardColor1"),title: "No offer yet"),
-    ]
+    @Published var cards: [Card] = [Card( cardColor: Color("CardColor1")),]
     
     @Published var swipedCard = 0
     
     // Detail Content....
-    
     @Published var showCard = false
-    @Published var selectedCard = Card(cardColor: .clear, title: "")
+    @Published var selectedCard = Card(cardColor: .clear)
     @Published var showContent = false
+    
+    init(){
+        getCards()
+        order.getOrder()
+    }
     
     func getTitle(Id: String) -> String{
         return "gg";
@@ -210,11 +210,17 @@ class CarouselViewModel: ObservableObject {
     
     func getCards(){
         
-        //here call class order to return data
-        cards=[Card(cardColor: Color("CardColor2"),title: "order 1"),
-               Card(cardColor: Color("CardColor3"),title: "2"),
-               Card(cardColor: Color("CardColor4"), title: "3"),
-               Card(cardColor: Color("CardColor5"), title: "4"),]
+        
+        if order.orders.isEmpty{
+            print("there is no order")
+        }//else {
+            //var x =0
+            for index in order.orders {
+                print("inside loop")
+                cards.append(contentsOf: [ Card( cardColor: Color("CardColor1"), orderD : index )])
+            }
+       // }
+        
     }
     
 }
@@ -224,7 +230,6 @@ struct Card: Identifiable {
     var id = UUID().uuidString //takes the order id instead?
     var cardColor: Color
     var offset: CGFloat = 0
-    var title: String
     //order object passed from the cards array
-   // var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", isAdded: false)
+    var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", isAdded: false)
 }

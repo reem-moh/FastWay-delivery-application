@@ -180,7 +180,7 @@ class Courier: ObservableObject {
 
 
 class Order: ObservableObject{
-    @Published var orders = [OrderDetails]()
+    @Published var orders: [OrderDetails]=[]
     
     var pickUP: String
     var pickUpBulding: Int
