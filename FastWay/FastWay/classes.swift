@@ -81,37 +81,6 @@ class Member: ObservableObject {
     
 }
 
-//member/courier struct
-struct M: Identifiable {
-    var id: String
-    var name: String
-    var email: String
-    var phoneNo: String
-}
-struct C: Identifiable {
-    var id: String
-    var name: String
-    var email: String
-    var phoneNo: String
-}
-
-//order struct
-struct OrderDetails: Identifiable {
-    var id: String
-    var pickUP: String
-    var pickUpBulding: Int
-    var pickUpFloor: Int
-    var pickUpRoom: String
-    var dropOff: String
-    var dropOffBulding: Int
-    var dropOffFloor: Int
-    var dropOffRoom: String
-    var orderDetails: String
-    // to identify whether it is added to cart...
-    var isAdded: Bool
-}
-
-
 class Courier: ObservableObject {
     var id: String
     var name: String
@@ -147,7 +116,7 @@ class Courier: ObservableObject {
         return flag
     }
     
-    //retrieve from database 
+    //retrieve from database
     func getCourier(id: String){
         
         db.collection("Courier").document(id).addSnapshotListener { (querySnapshot, error) in
@@ -175,12 +144,39 @@ class Courier: ObservableObject {
         } //listener
     } //function
 }
+//member/courier struct
+struct M: Identifiable {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+}
+struct C: Identifiable {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+}
 
-
-
+//order struct
+struct OrderDetails: Identifiable {
+    var id: String
+    var pickUP: String
+    var pickUpBulding: Int
+    var pickUpFloor: Int
+    var pickUpRoom: String
+    var dropOff: String
+    var dropOffBulding: Int
+    var dropOffFloor: Int
+    var dropOffRoom: String
+    var orderDetails: String
+    // to identify whether it is added to cart...
+    var isAdded: Bool
+}
 
 class Order: ObservableObject{
-    @Published var orders: [OrderDetails] = []
+    
+    @Published var orders: [OrderDetails] = []//[OrderDetails(id: "1", pickUP: "1", pickUpBulding: 1, pickUpFloor: 1, pickUpRoom: "1", dropOff: "1", dropOffBulding: 1, dropOffFloor: 1, dropOffRoom: "1", orderDetails: "1", isAdded: false),]
     
     var pickUP: String
     var pickUpBulding: Int
@@ -255,7 +251,6 @@ class Order: ObservableObject{
         return flag
     }
     
-    
     func addOrder() -> Bool {
         var flag = true
         //need to change the id
@@ -273,14 +268,14 @@ class Order: ObservableObject{
     }
     
     //get data from DB
-    func getOrder() {
+    func getOrder() -> Bool{
        // var temp: [OrderDetails] = []
         db.collection("Order").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
-                /*self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 let data = queryDocumentSnapshot.data()
                 let uid = data["MemberID"] as? String ?? ""
                 let pickup = data["PickUp"] as? String ?? ""
@@ -296,8 +291,9 @@ class Order: ObservableObject{
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned)
-            })*/
+            })/*
             for doc in documents {
+                print("inside getorder print doc from firebase :\n \(doc.documentID) => \(doc.data())")
                 let data = doc.data()
                 let uid = data["MemberID"] as? String ?? ""
                 let pickup = data["PickUp"] as? String ?? ""
@@ -307,18 +303,58 @@ class Order: ObservableObject{
                 let dropoff = data["DropOff"] as? String ?? ""
                 let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
                 let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                let dropoffRoom = data["dropOfRoom"] as? String ?? ""
+                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
-                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                //print("order :\(uid) \n Pick up :\(pickup) \n Dropoff: \(dropoff) \n assigned: \(assigned)")
                 self.orders.append(OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned))
                 print("temp \(self.orders.count)")
-            }
+            }*/
             print("temp3 \(self.orders.count)")
             self.test(arr: self.orders)
+            
         }
-        
+        print("print inside array orders in class order")
+        if(orders.count > 0){
+              print("\(self.orders[0])")
+        }
+        return true
     }
+    
+    
+    /*func getOrder(){
+        db.collection("Order").whereField("Assigned", isEqualTo: "false")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("inside getorder print doc from firebase :\n \(document.documentID) => \(document.data())")
+                        let data = document.data()
+                        var uid = data["MemberID"] as? String ?? ""
+                        var pickup = data["PickUp"] as? String ?? ""
+                        var pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                        var pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                        var pickupRoom = data["pickUpRoom"] as? String ?? ""
+                        var dropoff = data["DropOff"] as? String ?? ""
+                        var dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                        var dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                        var dropoffRoom = data["dropOfRoom"] as? String ?? ""
+                        var orderDetails = data["orderDetails"] as? String ?? ""
+                        var assigned = data["Assigned"] as? Bool ?? false
+                        self.orders.append(OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned))
+                        print("inside for loop ")
+                        print(self.orders.count)
+                    }
+                }
+                print("print inside array orders in class order")
+                    print("\(self.orders[0])")
+                
+                
+        }//end calling firebase
+        
+    }//end method
+    */
     
     func test(arr: [OrderDetails]) {
         self.orders = arr

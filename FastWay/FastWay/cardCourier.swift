@@ -14,6 +14,7 @@ struct CardView: View {
     var animation: Namespace.ID
     var body: some View {
         
+        
         VStack{
             
             Text("Monday 28 December")
@@ -25,7 +26,7 @@ struct CardView: View {
                 .matchedGeometryEffect(id: "Date-\(card.id)", in: animation)
             
             HStack { //title
-                Text("lll")
+                Text("\(card.orderD.id)")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
@@ -64,7 +65,7 @@ struct CardView: View {
                 model.selectedCard = card
                 model.showCard.toggle() //change the value of showCard to true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     
                     withAnimation(.easeIn){
                         
@@ -112,7 +113,7 @@ struct DetailView: View {
                     
                     if model.showContent{
                         
-                        Text(model.getOrderDetails())
+                        Text(model.getOrderDetails(Id:model.selectedCard.id))
                             .fontWeight(.semibold)
                             .foregroundColor(.gray)
                             .padding()
@@ -178,11 +179,12 @@ struct DetailView: View {
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
-    @ObservedObject var order: Order
+    @ObservedObject var order = Order()
+    
     
     //orders array here
     //initialize the cards array with orders array
-    @Published var cards: [Card] = [Card( cardColor: Color("CardColor1")),]
+    @Published var cards: [Card] = []//[Card( cardColor: Color("CardColor1")),]
     
     @Published var swipedCard = 0
     
@@ -190,13 +192,16 @@ class CarouselViewModel: ObservableObject {
     @Published var showCard = false
     @Published var selectedCard = Card(cardColor: .clear)
     @Published var showContent = false
+    @Published var checkEndGeyOrder = false
     
     init(){
-        //order.getOrder()
-        order = Order()
+        
         order.getOrder()
-        print("oreders \(order.orders.count)")
-        getCards()
+        //if (checkEndGeyOrder){
+            print("oreders \(order.orders.count)")
+            getCards()
+       // }
+        
         
     }
     
@@ -204,8 +209,15 @@ class CarouselViewModel: ObservableObject {
         return "gg";
     }
     
-    func getOrderDetails() -> String{
-        return "hfgbg";
+    func getOrderDetails(Id: String) -> String{
+        let order1 = cards[0].orderD
+        let id = "ID: \(order1.id)"
+        let pick = "Pick: \(order1.pickUP)"
+        _ = "drop: \(order1.dropOff)"
+        _ = "is added: \(order1.isAdded)"
+        let all=id+"\n"+pick+"\n"
+        return all;
+        //return "";
     }
     
     func setOrder(){
@@ -214,15 +226,16 @@ class CarouselViewModel: ObservableObject {
     
     func getCards(){
         
-        
+        print("\(order.orders.count)")
         if order.orders.isEmpty{
             print("there is no order")
         }//else {
             //var x =0
-            for index in order.orders {
+        for index in order.orders {
                 print("inside loop")
                 cards.append(contentsOf: [ Card( cardColor: Color("CardColor1"), orderD : index )])
             }
+            
        // }
         
     }

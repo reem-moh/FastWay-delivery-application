@@ -32,6 +32,9 @@ struct DeliverOrderView: View {
                     
                 }.edgesIgnoringSafeArea(.all)
                
+            }.onAppear(){
+                model.order.getOrder()
+                model.getCards()
             }
             
             VStack{
