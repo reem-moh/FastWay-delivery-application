@@ -170,6 +170,7 @@ struct OrderDetails: Identifiable {
     var dropOffFloor: Int
     var dropOffRoom: String
     var orderDetails: String
+    var memberId : String
     // to identify whether it is added to cart...
     var isAdded: Bool
 }
@@ -268,14 +269,15 @@ class Order: ObservableObject{
     }
     
     //get data from DB
-    func getOrder() -> Bool{
+    func getOrder() {
        // var temp: [OrderDetails] = []
-        db.collection("Order").addSnapshotListener { (querySnapshot, error) in
+        db.collection("Order").whereField("Assigned", isEqualTo: "false").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
                 self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                    print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = data["MemberID"] as? String ?? ""
                 let pickup = data["PickUp"] as? String ?? ""
@@ -285,12 +287,13 @@ class Order: ObservableObject{
                 let dropoff = data["DropOff"] as? String ?? ""
                 let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
                 let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                let dropoffRoom = data["dropOfRoom"] as? String ?? ""
+                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
+                let MemberID = data["MemberID"] as? String ?? ""
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned)
+                    return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned)
             })/*
             for doc in documents {
                 print("inside getorder print doc from firebase :\n \(doc.documentID) => \(doc.data())")
@@ -311,14 +314,13 @@ class Order: ObservableObject{
                 print("temp \(self.orders.count)")
             }*/
             print("temp3 \(self.orders.count)")
-            self.test(arr: self.orders)
+            
             
         }
         print("print inside array orders in class order")
         if(orders.count > 0){
               print("\(self.orders[0])")
         }
-        return true
     }
     
     
@@ -356,9 +358,20 @@ class Order: ObservableObject{
     }//end method
     */
     
-    func test(arr: [OrderDetails]) {
-        self.orders = arr
-        print("temp2 \(self.orders.count)")
+    func getMemberName(Id: String) ->String{
+        var name=""
+        let docRef = db.collection("Member").document(Id)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("Inside if statment")
+                let data = document.data()
+                name = data?["Name"] as? String ?? ""
+                print("\(name)")
+            }
+            print("Inside Document")
+        }
+        print("Inside get member name: \(name)")
+        return name
     }
     
 }
