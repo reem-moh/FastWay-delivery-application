@@ -25,7 +25,7 @@ struct CardView: View {
                 .matchedGeometryEffect(id: "Date-\(card.id)", in: animation)
             
             HStack { //title
-                Text("order 1")
+                Text("\(model.cards[0].title)")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
@@ -178,14 +178,14 @@ struct DetailView: View {
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
+    init(){
+        getCards()
+    }
+    
     //orders array here
     //initialize the cards array with orders array
   @Published var cards = [
-    Card(cardColor: Color("CardColor1"),title: ""),
-    Card(cardColor: Color("CardColor2"),title: ""),
-    Card(cardColor: Color("CardColor3"),title: ""),
-    Card(cardColor: Color("CardColor4"), title: ""),
-    Card(cardColor: Color("CardColor5"), title: ""),
+    Card(cardColor: Color("CardColor1"),title: "No offer yet"),
     ]
     
     @Published var swipedCard = 0
@@ -208,6 +208,14 @@ class CarouselViewModel: ObservableObject {
         
     }
     
+    func getCards(){
+        
+        //here call class order to return data
+        cards=[Card(cardColor: Color("CardColor2"),title: "order 1"),
+               Card(cardColor: Color("CardColor3"),title: "2"),
+               Card(cardColor: Color("CardColor4"), title: "3"),
+               Card(cardColor: Color("CardColor5"), title: "4"),]
+    }
     
 }
 
