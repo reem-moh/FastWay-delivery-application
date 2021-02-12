@@ -24,7 +24,7 @@ struct CardView: View {
                 .padding(.top,10)
                 .matchedGeometryEffect(id: "Date-\(card.id)", in: animation)
             
-            HStack {
+            HStack { //title
                 Text("order 1")
                     .font(.title)
                     .fontWeight(.bold)
@@ -35,7 +35,7 @@ struct CardView: View {
                 
                 Spacer(minLength: 0)
             }
-            
+            //preview of order details
             Spacer(minLength: 0)
             
             HStack{
@@ -62,7 +62,7 @@ struct CardView: View {
             withAnimation(.spring()){
                 
                 model.selectedCard = card
-                model.showCard.toggle()
+                model.showCard.toggle() //change the value of showCard to true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     
@@ -178,7 +178,8 @@ struct DetailView: View {
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
-
+    //orders array here
+    //initialize the cards array with orders array
   @Published var cards = [
     Card(cardColor: Color("CardColor1"),title: ""),
     Card(cardColor: Color("CardColor2"),title: ""),
@@ -212,9 +213,10 @@ class CarouselViewModel: ObservableObject {
 
 struct Card: Identifiable {
     
-    var id = UUID().uuidString
+    var id = UUID().uuidString //takes the order id instead?
     var cardColor: Color
     var offset: CGFloat = 0
     var title: String
-    var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", isAdded: false)
+    //order object passed from the cards array
+   // var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", isAdded: false)
 }
