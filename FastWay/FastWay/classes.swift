@@ -180,7 +180,7 @@ class Courier: ObservableObject {
 
 
 class Order: ObservableObject{
-    @Published var orders: [OrderDetails]=[]
+    @Published var orders: [OrderDetails] = []
     
     var pickUP: String
     var pickUpBulding: Int
@@ -274,12 +274,13 @@ class Order: ObservableObject{
     
     //get data from DB
     func getOrder() {
+       // var temp: [OrderDetails] = []
         db.collection("Order").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
-                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                /*self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 let data = queryDocumentSnapshot.data()
                 let uid = data["MemberID"] as? String ?? ""
                 let pickup = data["PickUp"] as? String ?? ""
@@ -295,10 +296,34 @@ class Order: ObservableObject{
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned)
-            })
+            })*/
+            for doc in documents {
+                let data = doc.data()
+                let uid = data["MemberID"] as? String ?? ""
+                let pickup = data["PickUp"] as? String ?? ""
+                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                let dropoff = data["DropOff"] as? String ?? ""
+                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                let dropoffRoom = data["dropOfRoom"] as? String ?? ""
+                let orderDetails = data["orderDetails"] as? String ?? ""
+                let assigned = data["Assigned"] as? Bool ?? false
+                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                self.orders.append(OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned))
+                print("temp \(self.orders.count)")
+            }
+            print("temp3 \(self.orders.count)")
+            self.test(arr: self.orders)
         }
+        
     }
     
+    func test(arr: [OrderDetails]) {
+        self.orders = arr
+        print("temp2 \(self.orders.count)")
+    }
     
 }
 

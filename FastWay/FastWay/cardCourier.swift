@@ -178,7 +178,7 @@ struct DetailView: View {
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
-    @ObservedObject var order = Order()
+    @ObservedObject var order: Order
     
     //orders array here
     //initialize the cards array with orders array
@@ -192,8 +192,12 @@ class CarouselViewModel: ObservableObject {
     @Published var showContent = false
     
     init(){
-        getCards()
+        //order.getOrder()
+        order = Order()
         order.getOrder()
+        print("oreders \(order.orders.count)")
+        getCards()
+        
     }
     
     func getTitle(Id: String) -> String{
