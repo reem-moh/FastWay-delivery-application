@@ -21,12 +21,12 @@ class Member: ObservableObject {
    
     @Published var member = M(id: "", name: "", email: "", phoneNo: "")
     //initialize from DB
-    init() {
+    init(id : String = UserDefaults.standard.getUderId()) {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
-        self.getMember(id: UserDefaults.standard.getUderId())
+        self.getMember(id: id)
     }
     
     init(id: String, name: String, email: String, phN: String) {
@@ -188,6 +188,7 @@ class Order: ObservableObject{
     var dropOffFloor: Int
     var dropOffRoom: String
     var orderDetails: String
+    var memberId: String
     var memberName: String
     
     init(){
@@ -200,6 +201,7 @@ class Order: ObservableObject{
         self.dropOffFloor = -1
         self.dropOffRoom = ""
         self.orderDetails =  ""
+        self.memberId = ""
         self.memberName = ""
     }
     
@@ -279,9 +281,9 @@ class Order: ObservableObject{
                 return
             }
                 self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                    print(queryDocumentSnapshot.data())
+                print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
-                let uid = data["MemberID"] as? String ?? ""
+                let uid = queryDocumentSnapshot.documentID
                 let pickup = data["PickUp"] as? String ?? ""
                 let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
                 let pickupFloor = data["pickUpFloor"] as? Int ?? 0
@@ -296,90 +298,13 @@ class Order: ObservableObject{
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 
                     return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned)
-            })/*
-            for doc in documents {
-                print("inside getorder print doc from firebase :\n \(doc.documentID) => \(doc.data())")
-                let data = doc.data()
-                let uid = data["MemberID"] as? String ?? ""
-                let pickup = data["PickUp"] as? String ?? ""
-                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
-                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
-                let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                let dropoff = data["DropOff"] as? String ?? ""
-                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
-                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
-                let orderDetails = data["orderDetails"] as? String ?? ""
-                let assigned = data["Assigned"] as? Bool ?? false
-                //print("order :\(uid) \n Pick up :\(pickup) \n Dropoff: \(dropoff) \n assigned: \(assigned)")
-                self.orders.append(OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned))
-                print("temp \(self.orders.count)")
-            }*/
-            print("temp3 \(self.orders.count)")
+            })
             
             
-        }
-        print("print inside array orders in class order")
-        if(orders.count > 0){
-              print("\(self.orders[0])")
         }
     }
     
-    
-    /*func getOrder(){
-        db.collection("Order").whereField("Assigned", isEqualTo: "false")
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        print("inside getorder print doc from firebase :\n \(document.documentID) => \(document.data())")
-                        let data = document.data()
-                        var uid = data["MemberID"] as? String ?? ""
-                        var pickup = data["PickUp"] as? String ?? ""
-                        var pickupBuilding = data["pickUpBulding"] as? Int ?? 0
-                        var pickupFloor = data["pickUpFloor"] as? Int ?? 0
-                        var pickupRoom = data["pickUpRoom"] as? String ?? ""
-                        var dropoff = data["DropOff"] as? String ?? ""
-                        var dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
-                        var dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                        var dropoffRoom = data["dropOfRoom"] as? String ?? ""
-                        var orderDetails = data["orderDetails"] as? String ?? ""
-                        var assigned = data["Assigned"] as? Bool ?? false
-                        self.orders.append(OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, isAdded: assigned))
-                        print("inside for loop ")
-                        print(self.orders.count)
-                    }
-                }
-                print("print inside array orders in class order")
-                    print("\(self.orders[0])")
-                
-                
-        }//end calling firebase
-        
-    }//end method
-    */
-    
     func getMemberName(Id: String) ->String{
-        /*
-        var name=""
-        db.collection("Member").whereField("Name", isEqualTo: "\(Id)")
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        print("inside getorder print doc from firebase :\n \(document.documentID) => \(document.data())")
-                        let data = document.data()
-                        name = data["Name"] as? String ?? ""
-                        print("\(name)")
-                        break
-                    }
-                }
-            }
-        print("Inside get member name: \(name)")
-        return name
-        */
         let docRef = db.collection("Member").document(Id)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
