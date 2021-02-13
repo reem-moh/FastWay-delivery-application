@@ -79,7 +79,7 @@ struct SignUPView: View {
             VStack{
                 
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,30).offset(y: 60)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,40).offset(y: 60)
                 
                 ScrollView{
                     VStack(alignment: .leading){
@@ -88,7 +88,9 @@ struct SignUPView: View {
                             
                             //error for name
                             Text(nErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .padding(.trailing)
+                                .offset(x: 12,y: 10)
                             //name field
                             TextField("Name", text: $name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
