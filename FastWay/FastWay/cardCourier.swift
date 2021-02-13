@@ -101,7 +101,7 @@ struct DetailView: View {
                     
                     HStack {
                         Text("\(model.selectedCard.memberName)")
-                            .font(.title)
+                            .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)
                             .frame(width: 250, alignment: .leading)
@@ -141,66 +141,28 @@ struct DetailView: View {
                                 if (expand && !expandOffer) {
                                     Group {
                                     ScrollView {
-                                        
-                                    Group {
-                                        ForEach((1...20), id: \.self) {
-                                            Text("\($0)…")
-                                            
-                                            /*Button(action: {
-                                                self.expand.toggle()
-                                                offer = $0
-                                                offerList="\($0) SAR"
-                                            })
-                                            {
-                                                Text("\($0) SAR").padding(5)
-                                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))*/
-                                            
-                                        }
+                                                                               
+                                            ForEach((1...20), id: \.self) { i in
+                                               
+                                                Button(action: {
+                                                    self.expand.toggle()
+                                                    offer = i
+                                                    offerList="\(i) SAR"
+                                                })
+                                                {
+                                                    Text("\(i) SAR").padding(5)
+                                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                                                
+                                            }
                                     
-                                    
-
-                                    //2
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        offer = 10
-                                        offerList="10 SAR"
-
-                                    })
-                                    {
-                                        Text("10 SAR").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    //3
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        offer = 15
-                                        offerList="15 SAR"
-
-                                    })
-                                    {
-                                        Text("15 SAR").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    //4
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        offer = 20
-                                        offerList="20 SAR"
-
-                                    })
-                                    {
-                                        Text("20 SAR").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    
-                                    }//end group
                                     
                                     }.frame(width: 300, height: 70)
                                     }.offset(x: -5, y: 10.0)
                                 }
                             
                             }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
-                            //add Order button
+                            
+                            //make an offer button
                             Button(action: {
                                 //
                             }) {
