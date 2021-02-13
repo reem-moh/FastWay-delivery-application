@@ -151,13 +151,13 @@ struct DetailView: View {
                                                 })
                                                 {
                                                     Text("\(i) SAR").padding(5)
-                                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).frame(width: 297, height: 30)
                                                 
                                             }
                                     
                                     
                                     }.frame(width: 300, height: 70)
-                                    }.offset(x: -5, y: 10.0)
+                                    }.offset(x: -15, y: 10.0)
                                 }
                             
                             }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
