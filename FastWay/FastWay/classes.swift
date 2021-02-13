@@ -9,6 +9,8 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import Combine
+import MapKit
+import CoreLocation
 
 let db = Firestore.firestore()
 
@@ -268,5 +270,35 @@ class Order{
     }
     
 }
+/*
+class MapViewModel1: ObservableObject{
+    
+    @Published var MapView = MKMapView()
+    
+    @Published var region = MKCoordinateRegion?.self
+    
+    @Published var premissionDenied = false
+    
+    @Published var mapType = .standard
+    
+    @Published var searchText = ""
+    
+    @Published var places: [Place] = []
+    
+    func updateMapType{
+        if mapType == .standard{
+            mapType = .hybrid
+        }
 
+    }
+    
+    
+}
+
+
+struct Place : Identifiable
+{
+    var id = UUID().uuidString
+    var placemark: CLPlacemark
+}*/
 
