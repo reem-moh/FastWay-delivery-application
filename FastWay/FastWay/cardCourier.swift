@@ -97,7 +97,7 @@ struct DetailView: View {
                         .matchedGeometryEffect(id: "Date-\(model.selectedCard.id)", in: animation)
                     
                     HStack {
-                        Text("Order 1")
+                        Text("\(model.getMemberName(Id: model.selectedCard.orderD.memberId))")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)
@@ -181,7 +181,6 @@ class CarouselViewModel: ObservableObject {
     
     @ObservedObject var order = Order()
     
-    
     //orders array here
     //initialize the cards array with orders array
     @Published var cards: [Card] = []//[Card( cardColor: Color("CardColor1")),]
@@ -194,12 +193,9 @@ class CarouselViewModel: ObservableObject {
     @Published var showContent = false
     
     init(){
-        
         order.getOrder()
-        print("oreders \(order.orders.count)")
+        print("number of oreders inside init: \(order.orders.count)")
         getCards()
-        
-        
     }
     
     func getMemberName(Id: String) -> String {
@@ -208,19 +204,25 @@ class CarouselViewModel: ObservableObject {
     }
     
     func getOrderDetails(c: Card) -> String{
-        //let dropOff = c.orderD.dropOff
+        //dropOff
         let dropOffB = c.orderD.dropOffBulding
         let dropOffF = c.orderD.dropOffFloor
         let dropOffR = c.orderD.dropOffRoom
         let orderDetails = c.orderD.orderDetails
-        //let pickUP = c.orderD.pickUP
+        //pickUp
         let pickUPB = c.orderD.pickUpBulding
         let pickUPF = c.orderD.pickUpFloor
         let pickUPR = c.orderD.pickUpRoom
         
-        let all="OrderDetails: \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
+        let all="OrderDetails: \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
         return all;
-        //return "";
+    }
+    
+    func getMap(c: Card) -> String{
+        let dropOff = c.orderD.dropOff
+        let pickUP = c.orderD.pickUP
+        let all = "" + dropOff + "" + pickUP
+        return all
     }
     
     func setOrderOffer(){
@@ -229,7 +231,7 @@ class CarouselViewModel: ObservableObject {
     
     func getCards(){
         
-        print("\(order.orders.count)")
+        print("number of cards inside getCards: \(order.orders.count)")
         if order.orders.isEmpty{
             print("there is no order")
         }

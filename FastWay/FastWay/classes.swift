@@ -188,6 +188,7 @@ class Order: ObservableObject{
     var dropOffFloor: Int
     var dropOffRoom: String
     var orderDetails: String
+    var memberName: String
     
     init(){
         self.pickUP =  ""
@@ -199,6 +200,7 @@ class Order: ObservableObject{
         self.dropOffFloor = -1
         self.dropOffRoom = ""
         self.orderDetails =  ""
+        self.memberName = ""
     }
     
     func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
@@ -359,19 +361,38 @@ class Order: ObservableObject{
     */
     
     func getMemberName(Id: String) ->String{
+        /*
         var name=""
+        db.collection("Member").whereField("Name", isEqualTo: "\(Id)")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("inside getorder print doc from firebase :\n \(document.documentID) => \(document.data())")
+                        let data = document.data()
+                        name = data["Name"] as? String ?? ""
+                        print("\(name)")
+                        break
+                    }
+                }
+            }
+        print("Inside get member name: \(name)")
+        return name
+        */
         let docRef = db.collection("Member").document(Id)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
+                print("inside getMemberName print doc from firebase :\n \(document.documentID) => \(String(describing: document.data()))")
                 print("Inside if statment")
                 let data = document.data()
-                name = data?["Name"] as? String ?? ""
-                print("\(name)")
+                self.memberName = data?["Name"] as? String ?? ""
+                print("\(self.memberName)")
             }
             print("Inside Document")
         }
-        print("Inside get member name: \(name)")
-        return name
+        print("Inside get member name: \(self.memberName)")
+        return self.memberName
     }
     
 }
