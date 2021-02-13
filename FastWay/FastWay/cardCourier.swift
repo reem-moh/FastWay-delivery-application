@@ -17,17 +17,19 @@ struct CardView: View {
         
         VStack{
             
-            /*Text("Monday 28 December")
-                .font(.caption)
-                .foregroundColor(Color.black.opacity(0.85))
-                .frame(maxWidth: .infinity,alignment: .leading)
-                .padding()
-                .padding(.top,10)
-                .matchedGeometryEffect(id: "Date-\(card.id)", in: animation)*/
-            
             HStack { //title
                 
-                Text("\(model.getMemberName(Id: card.orderD.memberId)) \n\n \(model.getOrderDetails(c:card))")
+                Text("\(card.memberName) \n\n \(model.getOrderDetails(c:card))")
+                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
+                    .padding()
+                    .animation(.easeIn)
+                    .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
+                Spacer(minLength: 0)
+                
+                //Map
+                Text("")
                     .fontWeight(.semibold)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
@@ -63,6 +65,7 @@ struct CardView: View {
             withAnimation(.spring()){
                 
                 model.selectedCard = card
+                model.selectedCard.cardColor = Color(.white)
                 model.showCard.toggle() //change the value of showCard to true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -70,6 +73,7 @@ struct CardView: View {
                     withAnimation(.easeIn){
                         
                         model.showContent = true
+                        
                     }
                 }
             }
@@ -81,23 +85,22 @@ struct CardView: View {
 struct DetailView: View {
     @EnvironmentObject var model: CarouselViewModel
     var animation: Namespace.ID
+    
+    //for drop down menu
+    @State var expandOffer = false
+    @State var expand = false
+    @State var offer = 0
+    @State var offerList : String = ""
+    
     var body: some View {
         
         ZStack {
-            ScrollView{
+            
                 //content
                 VStack{
                     
-                    Text("Monday 28 December")
-                        .font(.caption)
-                        .foregroundColor(Color.black.opacity(0.85))
-                        .frame(maxWidth: .infinity,alignment: .leading)
-                        .padding()
-                        .padding(.top,10)
-                        .matchedGeometryEffect(id: "Date-\(model.selectedCard.id)", in: animation)
-                    
                     HStack {
-                        Text("\(model.getMemberName(Id: model.selectedCard.orderD.memberId))")
+                        Text("\(model.selectedCard.memberName)")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)
@@ -113,38 +116,131 @@ struct DetailView: View {
                     
                     if model.showContent{
                         
-                        Text(model.getOrderDetails(c:model.selectedCard))
-                            .fontWeight(.semibold)
-                            .foregroundColor(.gray)
-                            .padding()
-                            .animation(.easeIn)
-                    }
+                        ScrollView{
+                            Image(uiImage: #imageLiteral(resourceName: "map"))
+                                .padding()
+                                .animation(.easeIn)
+                            
+                            Text(model.getOrderDetails(c:model.selectedCard))
+                                .fontWeight(.semibold)
+                                .foregroundColor(.gray)
+                                .padding()
+                                .padding(.trailing)
+                                .animation(.easeIn)
+                            
+                            VStack(spacing: 0){
+                         
+
+                                HStack() {
+                                    Text("Offer").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                    Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                                }.onTapGesture {
+                                    self.expand.toggle()
+                                    self.expandOffer = false
+                                }
+                                if (expand && !expandOffer) {
+                                    Group {
+                                    ScrollView {
+                                        
+                                    Group {
+                                        ForEach((1...20), id: \.self) {
+                                            Text("\($0)…")
+                                            
+                                            /*Button(action: {
+                                                self.expand.toggle()
+                                                offer = $0
+                                                offerList="\($0) SAR"
+                                            })
+                                            {
+                                                Text("\($0) SAR").padding(5)
+                                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))*/
+                                            
+                                        }
+                                    
+                                    
+
+                                    //2
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        offer = 10
+                                        offerList="10 SAR"
+
+                                    })
+                                    {
+                                        Text("10 SAR").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    //3
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        offer = 15
+                                        offerList="15 SAR"
+
+                                    })
+                                    {
+                                        Text("15 SAR").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    //4
+                                    Button(action: {
+                                        self.expand.toggle()
+                                        offer = 20
+                                        offerList="20 SAR"
+
+                                    })
+                                    {
+                                        Text("20 SAR").padding(5)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+
+                                    
+                                    }//end group
+                                    
+                                    }.frame(width: 300, height: 70)
+                                    }.offset(x: -5, y: 10.0)
+                                }
+                            
+                            }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                            //add Order button
+                            Button(action: {
+                                //
+                            }) {
+                                Text("Make an Offer").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
+                            }
+                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                            .padding(.top,25).offset(x: 0).padding(.bottom,50)
+                            
+                            // CLose Button..
+                            VStack{
+                                
+                                if model.showContent{
+                                    
+                                    Button(action: CloseView, label: {
+                                        
+                                        Image(systemName: "arrow.down")
+                                            .font(.system(size: 20, weight: .semibold))
+                                            .foregroundColor(.blue)
+                                            .padding()
+                                            .background(Color.white.opacity(0.6))
+                                            .clipShape(Circle())
+                                            .padding(5)
+                                            .background(Color.white.opacity(0.7))
+                                            .clipShape(Circle())
+                                            .shadow(radius: 3)
+                                    })
+                                    .padding(.bottom)
+                                }
+                                
+                                
+                            }.padding(.bottom,100)
+                            
+                        }//end scroll
+                        
+                        
+                    }// end show content
                     
                     Spacer(minLength: 0)
                     
-                    // CLose Button..
-                    VStack{
-                        
-                        if model.showContent{
-                            
-                            Button(action: CloseView, label: {
-                                
-                                Image(systemName: "arrow.down")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.blue)
-                                    .padding()
-                                    .background(Color.white.opacity(0.6))
-                                    .clipShape(Circle())
-                                    .padding(5)
-                                    .background(Color.white.opacity(0.7))
-                                    .clipShape(Circle())
-                                    .shadow(radius: 3)
-                            })
-                            .padding(.bottom)
-                        }
-                        
-                        
-                    }
+                   
                     
                 }
                 .frame(maxWidth: .infinity, maxHeight: 630)
@@ -156,7 +252,7 @@ struct DetailView: View {
                         .ignoresSafeArea(.all, edges: .bottom)
                 )
                 
-            }
+            
         }
     }
     
@@ -180,6 +276,7 @@ struct DetailView: View {
 class CarouselViewModel: ObservableObject {
     
     @ObservedObject var order = Order()
+    @ObservedObject var member: Member
     
     //orders array here
     //initialize the cards array with orders array
@@ -189,18 +286,21 @@ class CarouselViewModel: ObservableObject {
     
     // Detail Content....
     @Published var showCard = false
-    @Published var selectedCard = Card(cardColor: .clear)
+    @Published var selectedCard = Card(cardColor: .clear, memberName: "")
     @Published var showContent = false
     
     init(){
+        member = Member()
         order.getOrder()
         print("number of oreders inside init: \(order.orders.count)")
         getCards()
+       
     }
     
-    func getMemberName(Id: String) -> String {
-        print("Id: \(Id)")
-        return order.getMemberName(Id: Id)
+    func getMemberName(name: String) -> String {
+        print("name: \(name)")
+        return ""
+        //return order.getMemberName(Id: Id)
     }
     
     func getOrderDetails(c: Card) -> String{
@@ -214,7 +314,7 @@ class CarouselViewModel: ObservableObject {
         let pickUPF = c.orderD.pickUpFloor
         let pickUPR = c.orderD.pickUpRoom
         
-        let all="OrderDetails: \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
+        let all="OrderDetails:\n \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
         return all;
     }
     
@@ -243,7 +343,10 @@ class CarouselViewModel: ObservableObject {
                 x=1
             }
             print("inside loop added order to card")
-            cards.append(contentsOf: [ Card( cardColor: Color("CardColor\(x)"), orderD : index )])
+            //member = Member(id: index.memberId)
+            member.name = "Reem algabani"
+            print("member name inside getCards: " + member.name)
+            cards.append(contentsOf: [ Card( cardColor: Color("CardColor\(x)"), memberName: member.name, orderD : index )])
             x+=1
         }
             
@@ -257,6 +360,7 @@ struct Card: Identifiable {
     var id = UUID().uuidString //takes the order id instead?
     var cardColor: Color
     var offset: CGFloat = 0
+    var memberName: String
     //order object passed from the cards array
     var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false)
 }
