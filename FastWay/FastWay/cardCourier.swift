@@ -12,6 +12,7 @@ struct CardView: View {
     @EnvironmentObject var model : CarouselViewModel
     var card: Card
     var animation: Namespace.ID
+    
     var body: some View {
         
         
@@ -19,23 +20,20 @@ struct CardView: View {
             
             HStack { //title
                 
-                Text("\(card.memberName) \n\n \(model.getOrderDetails(c:card))")
+                /*Text(" \n\n \(model.orderPreview(c: card).dropOffBulding)")
                     .fontWeight(.semibold)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
                     .padding()
                     .animation(.easeIn)
                     .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
-                Spacer(minLength: 0)
+                Spacer(minLength: 0)*/
                 
                 //Map
-                Text("")
-                    .fontWeight(.semibold)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
+                /*Image(uiImage: #imageLiteral(resourceName: "map"))
                     .padding()
                     .animation(.easeIn)
-                    .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
+                    .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)*/
                 Spacer(minLength: 0)
             }
             //preview of order details
@@ -47,7 +45,7 @@ struct CardView: View {
                 
                 if !model.showContent{
                     
-                    Text("Read More")
+                    Text("Intrested")
                     
                     Image(systemName: "arrow.right")
                 }
@@ -100,7 +98,7 @@ struct DetailView: View {
                 VStack{
                     
                     HStack {
-                        Text("\(model.selectedCard.memberName)")
+                        Text("")
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)
@@ -238,7 +236,7 @@ struct DetailView: View {
 class CarouselViewModel: ObservableObject {
     
     @ObservedObject var order = Order()
-    @ObservedObject var member: Member
+   // @ObservedObject var member: Member
     
     //orders array here
     //initialize the cards array with orders array
@@ -248,12 +246,12 @@ class CarouselViewModel: ObservableObject {
     
     // Detail Content....
     @Published var showCard = false
-    @Published var selectedCard = Card(cardColor: .clear, memberName: "")
+    @Published var selectedCard = Card(cardColor: .clear)
     @Published var showContent = false
     
     init(){
-        member = Member()
-        order.getOrder()
+        //member = Member()
+        order.getOrder() //if this in onapear then delete it
         print("number of oreders inside init: \(order.orders.count)")
         getCards()
        
@@ -276,8 +274,12 @@ class CarouselViewModel: ObservableObject {
         let pickUPF = c.orderD.pickUpFloor
         let pickUPR = c.orderD.pickUpRoom
         
-        let all="OrderDetails:\n \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
+        let all="\n \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
         return all;
+    }
+    
+    func orderPreview(c: Card) -> OrderDetails {
+        return c.orderD
     }
     
     func getMap(c: Card) -> String{
@@ -306,10 +308,11 @@ class CarouselViewModel: ObservableObject {
             }
             print("inside loop added order to card")
             //member = Member(id: index.memberId)
-            member.name = "Reem algabani"
-            print("member name inside getCards: " + member.name)
-            cards.append(contentsOf: [ Card( cardColor: Color("CardColor\(x)"), memberName: member.name, orderD : index )])
+           // member.name = "Reem algabani"
+           // print("member name inside getCards: " + member.name)
+            cards.append(contentsOf: [ Card( cardColor: Color("CardColor"), orderD : index )])
             x+=1
+            
         }
             
         
@@ -322,7 +325,7 @@ struct Card: Identifiable {
     var id = UUID().uuidString //takes the order id instead?
     var cardColor: Color
     var offset: CGFloat = 0
-    var memberName: String
+   // var memberName: String
     //order object passed from the cards array
     var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false)
 }

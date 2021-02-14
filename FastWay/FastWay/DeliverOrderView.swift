@@ -25,7 +25,7 @@ struct DeliverOrderView: View {
                     //background
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                     //DeliverOrderView
-                    Text("View New Order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    Text("Available Orders").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
                     //white rectangle
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
@@ -58,7 +58,7 @@ struct DeliverOrderView: View {
                         }
                         .frame(height: 400)
                         .contentShape(Rectangle())
-                        .offset(x: model.cards[index].offset)
+                        .offset(x: model.cards[index].offset)//.shadow(radius: 4)
                         .gesture(DragGesture(minimumDistance: 0)
                                     .onChanged({ (value) in
                                         onChanged(value: value, index: index)
