@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1559F3EE25D89C50000B925E /* SearchBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559F3ED25D89C50000B925E /* SearchBa.swift */; };
 		4D85BD8425D76C4F00A8596F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BD8325D76C4F00A8596F /* Map.swift */; };
 		4D85BD9225D7D42900A8596F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BD9125D7D42900A8596F /* MapView.swift */; };
 		4D85BDDD25D80F9C00A8596F /* LocationMsnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BDDC25D80F9C00A8596F /* LocationMsnager.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1559F3ED25D89C50000B925E /* SearchBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBa.swift; sourceTree = "<group>"; };
 		4D85BD8325D76C4F00A8596F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		4D85BD9125D7D42900A8596F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4D85BDDC25D80F9C00A8596F /* LocationMsnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMsnager.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
+				1559F3ED25D89C50000B925E /* SearchBa.swift */,
 				589433F125C8F62300E19E18 /* Preview Content */,
 				4D85BD8325D76C4F00A8596F /* Map.swift */,
 			);
@@ -311,6 +314,7 @@
 				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
 				4D85BDDD25D80F9C00A8596F /* LocationMsnager.swift in Sources */,
+				1559F3EE25D89C50000B925E /* SearchBa.swift in Sources */,
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,

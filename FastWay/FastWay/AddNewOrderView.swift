@@ -16,7 +16,7 @@ struct AddNewOrderView: View {
     @State var buldingPick = 0
     @State var floorPick = -1
     @State var roomPick = ""
-    @State var Bulding = "Bulding"
+    @State var Bulding = ""
     @State var Floor = "Floor"
 
         
@@ -36,6 +36,11 @@ struct AddNewOrderView: View {
     @State var expandFloor = false
     @State var expand = false
     @State var buldingNum = 0
+    
+    
+    var columns = Array(repeating: GridItem(.flexible()), count: 1)
+    @State var text = ""
+    
     
     var body: some View {
         
@@ -82,7 +87,7 @@ struct AddNewOrderView: View {
      
        VStack{
     
-        Text("PICK UP LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+        Text("Pick up location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }//END VStack
@@ -121,9 +126,9 @@ struct AddNewOrderView: View {
                       .offset(x:-160 ,y:23)
              
              
-         TextField("", text: $location)
+         TextField("Select location", text: $location)
              .font(.system(size: 18))
-             .offset(x:20 ,y:-5).padding(12)
+             .offset(x:20 ,y:-3).padding(12)
              .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
          
            
@@ -150,7 +155,7 @@ struct AddNewOrderView: View {
                      
 
                             HStack() {
-                                Text(Bulding).font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                TextField("Search Bulding here", text: $text).multilineTextAlignment(.leading).frame(width: 295, height: 6)
                                 Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                             }.onTapGesture {
                                 self.expand.toggle()
@@ -159,6 +164,8 @@ struct AddNewOrderView: View {
                             if (expand && !expandFloor) {
                                 Group {
                                 ScrollView {
+                                    /*
+                                    
                                 Group {
                                 //1
                                 Button(action: {
@@ -292,11 +299,45 @@ struct AddNewOrderView: View {
 
                                 })
                                 {
-                                    Text("6 Computer and Information Sciences").padding(5)
+                                    Text(Bulding.title).padding(5)
                                 }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                     
                                 }
-                                
+                                */
+                                    
+                                 
+                                    
+                                        LazyVGrid(columns: columns, spacing: 10){
+                                            ForEach(fData.filter({ "\($0)".contains(text) || text.isEmpty})){ Bulding in
+                                                ZStack(){
+                                                    VStack {
+
+                                                        HStack {         //2
+                                                            Button(action: {
+                                                                self.expand.toggle()
+                                                                buldingPick = 12
+                                                                text=Bulding.title
+
+                                                            })
+                                                            {
+                                                                Text(Bulding.title).padding(5)
+                                                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
+                                                    }
+                                                    
+                                                
+                                                    
+                                                }
+                                               
+                                                
+                                               
+                                                
+                                                
+                                            }
+                                        }
+                            
+                                    
+           
+                                    
                                 
                                 }.frame(width: 300, height: 70)
                                 }.offset(x: -5, y: 10.0)
@@ -440,7 +481,7 @@ struct AddNewOrderView: View {
                     }
                 
                 })   {
-                    Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                 .padding(.top,25)
@@ -513,12 +554,29 @@ struct AddNewOrderView: View {
          
 }
     
+
+
+
+
+
+
+struct Bulding: Identifiable {
+    var id = UUID()
+    var title: String
 }
 
 
+var fData = [
+    Bulding(title: "Sciences 5"),
+    Bulding(title: "Computer and Information Sciences 6"),
+    Bulding(title: "Pharmacy 8" ),
+    Bulding(title: "Medicine 9"),
+    Bulding(title: "Dentistry 10"),
+    Bulding(title: "Applied Medical Science 11"),
 
 
-
+]
+}
 
 
 /*if order.addOrder(){
