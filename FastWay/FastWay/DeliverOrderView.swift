@@ -23,7 +23,7 @@ struct DeliverOrderView: View {
             HStack{
                 GeometryReader{ geometry in
                     //background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)//.offset(y:-100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                     //DeliverOrderView
                     Text("View New Order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
