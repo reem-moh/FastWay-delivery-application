@@ -36,17 +36,17 @@ struct AddNewOrderView: View {
     @State var Bulding = ""
     @State var Floor = "Floor"
 
-        
+    @State var locationpp = GeoPoint(latitude: 22.00, longitude: 33.00)
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
-     @State var errorFloorPick = false
-     @State var errorRoomPick = false
+    @State var errorFloorPick = false
+    @State var errorRoomPick = false
     @State var lErr = ""
     @State var bErr = ""
     @State var fErr = ""
     @State var rErr = ""
-    
+
     @StateObject var viewRouter: ViewRouter
 
     //for drop down menu
@@ -60,9 +60,9 @@ struct AddNewOrderView: View {
     
     
     var body: some View {
-        
 
-        
+       // @State var str = String(location.latitude)
+      //  let str = String(decoding: location, as: UTF8.self)
         //pick up location
         ZStack{
         
@@ -124,7 +124,7 @@ struct AddNewOrderView: View {
             
             //LOCATION
             VStack(spacing: -10){
-                
+               // text(location)
                 
                      
                  //Show Error message if the location feild empty
@@ -139,8 +139,8 @@ struct AddNewOrderView: View {
                       .clipped()
                       .offset(x:-160 ,y:23)
              
-             
-         TextField("Select location", text: $location)
+                
+         TextField("Select location", text: $location )
              .font(.system(size: 18))
              .offset(x:20 ,y:-3).padding(12)
              .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
@@ -474,13 +474,13 @@ struct AddNewOrderView: View {
 
                 //NEXT
                 Button(action: {
-                    
+                    print("helooooooo")
                     self.PICKUPlocation()
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
-                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
+                         if (order.setpickUPAndpickUpDetails(pickUP:locationpp,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
                             print("pick up saved")
                             viewRouter.currentPage = .DROPOFFlocation
 
@@ -540,10 +540,10 @@ struct AddNewOrderView: View {
         
        self.errorlocation = false
     
-        if self.location.count <= 0 {
+      /*  if self.location.count <= 0 {
          self.lErr="*must  enter pick up location "
             self.errorlocation = true
-        }
+        }*/
         
          self.errorRoomPick = false
         

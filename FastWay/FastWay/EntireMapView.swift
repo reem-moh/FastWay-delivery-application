@@ -9,7 +9,6 @@ import SwiftUI
 import MapKit
 import UIKit
 
-
 struct EntireMapView: UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -17,7 +16,7 @@ struct EntireMapView: UIViewRepresentable {
     @Binding var alert : Bool
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
-
+    //@Binding var centerCoordinate: CLLocationCoordinate2D
 
         func updateUIView(_ mapView: MKMapView, context: Context) {
 
@@ -29,7 +28,9 @@ struct EntireMapView: UIViewRepresentable {
             mapView.setRegion(region, animated: true)
 
         }
+    
 
+    
         func makeUIView(context: Context) -> MKMapView {
 
            // let myMap = MKMapView(frame: .zero)
@@ -38,7 +39,7 @@ struct EntireMapView: UIViewRepresentable {
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
             map.showsUserLocation = true
             let longPress = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(EntireMapViewCoordinator.addAnnotation(gesture:)))
-            longPress.minimumPressDuration = 1
+            longPress.minimumPressDuration = 0
             map.addGestureRecognizer(longPress)
             map.delegate = context.coordinator
             return map
@@ -57,17 +58,27 @@ struct EntireMapView: UIViewRepresentable {
           self.entireMapViewController = control
         }
 
-
+     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView){
+            print(mapView.centerCoordinate)
+           // print(locationp)
+        }
+        
+        
         @objc func addAnnotation(gesture: UIGestureRecognizer) {
-
             if gesture.state == .ended {
 
                 if let mapView = gesture.view as? MKMapView {
+                mapView.removeAnnotations(mapView.annotations)
                 let point = gesture.location(in: mapView)
                 let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 mapView.addAnnotation(annotation)
+               // var locationp = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                 let locationp = coordinate
+                    print("the pin selected")
+                    print(locationp)
+            
                 }
             }
         }

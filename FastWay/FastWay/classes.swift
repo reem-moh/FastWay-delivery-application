@@ -179,7 +179,8 @@ class Courier: ObservableObject {
 
 
 class Order{
-    var pickUP: String
+    //var pickUP: CLLocationCoordinate2D
+    var pickUP: GeoPoint
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
@@ -190,7 +191,7 @@ class Order{
     var orderDetails: String
     
     init(){
-        self.pickUP =  ""
+        self.pickUP =  GeoPoint(latitude: 0.0, longitude: 0.0)
         self.pickUpBulding = 0
         self.pickUpFloor = -1
         self.pickUpRoom = ""
@@ -201,13 +202,13 @@ class Order{
         self.orderDetails =  ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
+    func setpickUPAndpickUpDetails(pickUP: GeoPoint,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
         self.pickUP = pickUP
         self.pickUpBulding = pickUpBulding
         self.pickUpFloor = pickUpFloor
         self.pickUpRoom = pickUpRoom
         var flag = false
-        if (pickUP != "" && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
+        if ((pickUP.latitude != 0.0 && pickUP.longitude != 0.0) && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
         {
             flag = true
         }
