@@ -14,30 +14,36 @@ struct CardView: View {
     
     var body: some View {
         
-        
+        //Card
         VStack{
-            
-            HStack { //title
-                
-                if( model.showMap ){
-                    //Map
-                    Image(uiImage: #imageLiteral(resourceName: "map"))
-                        .padding()
-                        .animation(.easeIn)
-                        .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
-                    
-                }
-                Text(" \n\n \(model.orderPreview(c: card).dropOffBulding)")
+            //orderDetails
+            HStack {
+                Text("\(model.orderPreview(c: card).orderDetails)")
+                    .font(.body)
                     .fontWeight(.semibold)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
-                    .padding()
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .animation(.easeIn) //if the user press it it show Detail
+                    
+            }.padding(.top,15)
+            
+            //location
+            VStack {
+                if( model.showMap ){
+                    HStack {
+                        //Spacer(minLength: 0)
+                        Text("Bulding \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t\tBulding \(model.orderPreview(c: card).dropOffBulding)")
+                            .fontWeight(.light)
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .animation(.easeIn) //if the user press it it show Detail
+                        //Spacer(minLength: 0)
+                    }.padding(5)
+                    Image(uiImage: #imageLiteral(resourceName: "PickUp&DropOffPreview"))
                     .animation(.easeIn)
-                    .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
-                Spacer(minLength: 0)
-            }
-            //preview of order details
-            Spacer(minLength: 0)
+                    //.padding(10)
+                    
+                }//end if statment
+                
+            }.padding(15)//end v stack for pickup&dropOff image
             
             HStack{
                 
@@ -52,7 +58,8 @@ struct CardView: View {
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
-        }
+            
+        }//end vStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             card.cardColor
@@ -60,22 +67,24 @@ struct CardView: View {
                 .matchedGeometryEffect(id: "bgColor-\(card.id)", in: animation)
         )
         .onTapGesture {
+            
             withAnimation(.spring()){
                 
                 model.selectedCard = card
                 model.selectedCard.cardColor = Color(.white)
                 model.showCard.toggle() //change the value of showCard to true
                 model.showMap.toggle()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     
                     withAnimation(.easeIn){
                         
                         model.showContent = true
-                        
-                    }
-                }
-            }
-        }
+                        model.showMap = false
+                    }//end with animation
+                }//end dispatch
+            }//end with animation
+            
+        }//end on tap gesture
     }
 }
 
@@ -176,15 +185,15 @@ struct DetailView: View {
                                     
                                     Button(action: CloseView, label: {
                                         
-                                        Image(systemName: "arrow.down")
+                                        Image(systemName: "arrow.left")
                                             .font(.system(size: 20, weight: .semibold))
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(.gray)
                                             .padding()
-                                            .background(Color.white.opacity(0.6))
-                                            .clipShape(Circle())
+                                            //.background(Color.white.opacity(0.6))
+                                            //.clipShape(Circle())
                                             .padding(5)
-                                            .background(Color.white.opacity(0.7))
-                                            .clipShape(Circle())
+                                            //.background(Color.white.opacity(0.7))
+                                            //.clipShape(Circle())
                                             .shadow(radius: 3)
                                     })
                                     .padding(.bottom)
@@ -226,6 +235,7 @@ struct DetailView: View {
                 withAnimation(.easeIn){
                     
                     model.showContent = false
+                    model.showMap = true
                 }
             }
         }
