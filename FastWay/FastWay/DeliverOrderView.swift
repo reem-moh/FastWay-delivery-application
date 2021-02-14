@@ -86,7 +86,8 @@ struct DeliverOrderView: View {
                 Spacer()
             }
             
-            if model.showCard{
+            if model.showCard {
+                
                 DetailView(animation: animation)
             }
             

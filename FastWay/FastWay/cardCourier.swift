@@ -6,7 +6,6 @@
 //
 import SwiftUI
 
-
 // CardView
 struct CardView: View {
     @EnvironmentObject var model : CarouselViewModel
@@ -20,20 +19,21 @@ struct CardView: View {
             
             HStack { //title
                 
-                /*Text(" \n\n \(model.orderPreview(c: card).dropOffBulding)")
+                if( model.showMap ){
+                    //Map
+                    Image(uiImage: #imageLiteral(resourceName: "map"))
+                        .padding()
+                        .animation(.easeIn)
+                        .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
+                    
+                }
+                Text(" \n\n \(model.orderPreview(c: card).dropOffBulding)")
                     .fontWeight(.semibold)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
                     .padding()
                     .animation(.easeIn)
                     .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)
-                Spacer(minLength: 0)*/
-                
-                //Map
-                /*Image(uiImage: #imageLiteral(resourceName: "map"))
-                    .padding()
-                    .animation(.easeIn)
-                    .matchedGeometryEffect(id: "Title-\(card.id)", in: animation)*/
                 Spacer(minLength: 0)
             }
             //preview of order details
@@ -65,7 +65,7 @@ struct CardView: View {
                 model.selectedCard = card
                 model.selectedCard.cardColor = Color(.white)
                 model.showCard.toggle() //change the value of showCard to true
-                
+                model.showMap.toggle()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     
                     withAnimation(.easeIn){
@@ -220,7 +220,7 @@ struct DetailView: View {
         
         withAnimation(.spring()){
             model.showCard.toggle()
-            
+            model.showMap.toggle()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 
                 withAnimation(.easeIn){
@@ -248,6 +248,7 @@ class CarouselViewModel: ObservableObject {
     @Published var showCard = false
     @Published var selectedCard = Card(cardColor: .clear)
     @Published var showContent = false
+    @Published var showMap = true
     
     init(){
         //member = Member()
