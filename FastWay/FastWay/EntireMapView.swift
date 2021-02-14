@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import UIKit
+import CoreLocation
 
 struct EntireMapView: UIViewRepresentable {
     

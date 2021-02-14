@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import MapKit
+import CoreLocation
+
 var order = Order()
 struct AddNewOrderView: View {
 
@@ -540,10 +542,18 @@ struct AddNewOrderView: View {
         
        self.errorlocation = false
     
-      /*  if self.location.count <= 0 {
+        
+   /* if self.location.count <= 0 {
          self.lErr="*must  enter pick up location "
             self.errorlocation = true
         }*/
+        
+        if (self.locationpp.latitude > 0 && self.locationpp.longitude > 0)  {
+            print(locationpp)
+            print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+            self.lErr="*must  enter pick up location "
+               self.errorlocation = true
+        }
         
          self.errorRoomPick = false
         
