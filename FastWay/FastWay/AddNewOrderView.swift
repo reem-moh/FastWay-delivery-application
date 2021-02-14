@@ -8,9 +8,26 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import MapKit
 var order = Order()
 struct AddNewOrderView: View {
 
+    @State var map = MKMapView()
+        @State var manager = CLLocationManager()
+        @State var alert = false
+        @State var source : CLLocationCoordinate2D!
+        @State var destination : CLLocationCoordinate2D!
+        @State var name2 = ""
+        @State var distance = ""
+        @State var time = ""
+        @State var show = false
+        @State var doc = ""
+        @State var data : Data = .init(count: 0)
+        @State var search = false
+    
+
+            
+        
     @State var name = ""
     @State var location = ""
     @State var buldingPick = 0
@@ -95,10 +112,7 @@ struct AddNewOrderView: View {
             
                 //MAP
                 Group{
-                Image(uiImage: #imageLiteral(resourceName: "map"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 280)
+                    EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 360, height: 280, alignment: .center).frame(width: 360, height: 280)
                     .clipped()
                    
                 }.offset(x:0 ,y:-180)
@@ -578,6 +592,10 @@ var fData = [
 ]
 }
 
+/*class map {
+
+    
+}*/
 
 /*if order.addOrder(){
     print("added")}*/

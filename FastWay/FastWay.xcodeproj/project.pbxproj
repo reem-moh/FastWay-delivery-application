@@ -8,12 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1559F3EE25D89C50000B925E /* SearchBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559F3ED25D89C50000B925E /* SearchBa.swift */; };
-		4D85BD8425D76C4F00A8596F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BD8325D76C4F00A8596F /* Map.swift */; };
-		4D85BD9225D7D42900A8596F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BD9125D7D42900A8596F /* MapView.swift */; };
-		4D85BDDD25D80F9C00A8596F /* LocationMsnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BDDC25D80F9C00A8596F /* LocationMsnager.swift */; };
-		4D85BDE025D813AC00A8596F /* MapView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BDDF25D813AC00A8596F /* MapView2.swift */; };
-		4D85BDE325D8141100A8596F /* MapView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BDE225D8141100A8596F /* MapView3.swift */; };
-		4D85BDE625D81AF400A8596F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85BDE525D81AF400A8596F /* Coordinator.swift */; };
+		4D2B14CA25D97B6900E78B16 /* EntireMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2B14C925D97B6900E78B16 /* EntireMapView.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
@@ -43,12 +38,7 @@
 
 /* Begin PBXFileReference section */
 		1559F3ED25D89C50000B925E /* SearchBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBa.swift; sourceTree = "<group>"; };
-		4D85BD8325D76C4F00A8596F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
-		4D85BD9125D7D42900A8596F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		4D85BDDC25D80F9C00A8596F /* LocationMsnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMsnager.swift; sourceTree = "<group>"; };
-		4D85BDDF25D813AC00A8596F /* MapView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView2.swift; sourceTree = "<group>"; };
-		4D85BDE225D8141100A8596F /* MapView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView3.swift; sourceTree = "<group>"; };
-		4D85BDE525D81AF400A8596F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		4D2B14C925D97B6900E78B16 /* EntireMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireMapView.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
@@ -100,22 +90,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4D85BDDA25D80B2300A8596F /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				4D85BD9125D7D42900A8596F /* MapView.swift */,
-				4D85BDDC25D80F9C00A8596F /* LocationMsnager.swift */,
-				4D85BDDF25D813AC00A8596F /* MapView2.swift */,
-				4D85BDE225D8141100A8596F /* MapView3.swift */,
-				4D85BDE525D81AF400A8596F /* Coordinator.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		589433DF25C8F61F00E19E18 = {
 			isa = PBXGroup;
 			children = (
-				4D85BDDA25D80B2300A8596F /* Map */,
 				589433EA25C8F61F00E19E18 /* FastWay */,
 				589433E925C8F61F00E19E18 /* Products */,
 				ED00C03FCE9137CDB8E99BCD /* Pods */,
@@ -148,6 +125,7 @@
 				C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */,
 				C2C26EB125CABEA500505716 /* HomeCourierView.swift */,
 				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
+				4D2B14C925D97B6900E78B16 /* EntireMapView.swift */,
 				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
@@ -160,7 +138,6 @@
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				1559F3ED25D89C50000B925E /* SearchBa.swift */,
 				589433F125C8F62300E19E18 /* Preview Content */,
-				4D85BD8325D76C4F00A8596F /* Map.swift */,
 			);
 			path = FastWay;
 			sourceTree = "<group>";
@@ -304,25 +281,20 @@
 				5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
-				4D85BDE625D81AF400A8596F /* Coordinator.swift in Sources */,
-				4D85BDE025D813AC00A8596F /* MapView2.swift in Sources */,
 				C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */,
-				4D85BD9225D7D42900A8596F /* MapView.swift in Sources */,
 				4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */,
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,
-				4D85BDE325D8141100A8596F /* MapView3.swift in Sources */,
 				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
-				4D85BDDD25D80F9C00A8596F /* LocationMsnager.swift in Sources */,
 				1559F3EE25D89C50000B925E /* SearchBa.swift in Sources */,
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
 				C2A006CA25CF22680010C126 /* CurrentOrderView.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
-				4D85BD8425D76C4F00A8596F /* Map.swift in Sources */,
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
+				4D2B14CA25D97B6900E78B16 /* EntireMapView.swift in Sources */,
 				C2A006CE25CF229A0010C126 /* HistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
