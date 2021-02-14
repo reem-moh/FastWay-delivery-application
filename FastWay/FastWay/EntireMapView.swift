@@ -10,12 +10,6 @@ import MapKit
 import UIKit
 
 
-/*struct EntireMapView_Previews: PreviewProvider {
-    static var previews: some View {
-        EntireMapView()
-    }
-}*/
-
 struct EntireMapView: UIViewRepresentable {
     
     @Binding var map : MKMapView
