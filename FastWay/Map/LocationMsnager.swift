@@ -4,46 +4,34 @@
 //
 //  Created by Raghad AlOtaibi on 01/07/1442 AH.
 //
-/*
 import SwiftUI
 import Foundation
 import MapKit
+import CoreLocation
+ 
 
-/*struct LocationMsnager: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct LocationMsnager_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationMsnager()
-    }
-}*/
-
-class LocatIonMsnager: NSObject , ObservableObject{
-    private let locaIonManager = CLLocationManager()
-    @Published var location: CLLocation? = nil
+class LocationManager: NSObject , ObservableObject{
+    private let LocationManager = CLLocationManager()
+    @Published var location: CLLocation?
     
     override init() {
         super.init()
-        self.locaIonManager.delegate = self
-        self.locaIonManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locaIonManager.distanceFilter = kCLDistanceFilterNone
-        self.locaIonManager.requestWhenInUseAuthorization()
-        self.locaIonManager.startUpdatingLocation()
-        
-        
+        self.LocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.LocationManager.distanceFilter = kCLDistanceFilterNone
+        self.LocationManager.requestWhenInUseAuthorization()
+        self.LocationManager.startUpdatingLocation()
+        self.LocationManager.delegate = self
     }
 }
 
-extension LocatIonMsnager: CLLocationManagerDelegate {
+extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        guard let location = locations.last else{
-            return
+        guard let location = locations.last else { return }
+       
+        DispatchQueue.main.async {
+            self.location = location
         }
-        self.location = location
     }
 }
-*/
+

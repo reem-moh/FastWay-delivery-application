@@ -4,13 +4,14 @@
 //
 //  Created by Shahad AlOtaibi on 01/07/1442 AH.
 //
+/*
 
 import SwiftUI
 import MapKit
 import CoreLocation
 import Firebase
 import Foundation
-
+import UIKit
 
 struct Home : View {
     
@@ -24,6 +25,7 @@ struct Home : View {
     @State var doc = ""
     @State var data : Data = .init(count: 0)
     @State var search = false
+    @State var name = ""
     
     var body: some View{
         
@@ -140,7 +142,7 @@ struct Home : View {
          
             if self.search{
                 
-                SearchView(show: self.$search, map: self.$map, source: self.$source, destination: self.$destination, detail: self.$show)
+                SearchView(show: self.$search, map: self.$map, source: self.$source, destination: self.$destination, name: self.$name, detail: self.$show)
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -327,7 +329,7 @@ struct SearchView: View {
     @Binding var map : MKMapView
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
-   // @Binding var name : String
+    @Binding var name : String
     //@Binding var distance : String
     //@Binding var time : String
     @State var txt = ""
@@ -385,7 +387,7 @@ struct SearchView: View {
                 return
             }
             
-          //  self.name = places?.first?.name ?? ""
+            self.name = places?.first?.name ?? ""
             point.title = places?.first?.name ?? ""
 
             self.detail = true
@@ -514,4 +516,4 @@ struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
     }
-}
+}*/

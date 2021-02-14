@@ -7,13 +7,15 @@
 /*
 import Foundation
 import MapKit
+import UIKit
+import SwiftUI
 
-final class Coordinator: NSObject, MKMapViewDelegate{
+ class Coordinator: NSObject, MKMapViewDelegate{
     
     var control: MapView3
     
-    init(_control: MapView3){
-        self.control = control
+    init(MapView3){
+           self.control = control
         
     }
     
