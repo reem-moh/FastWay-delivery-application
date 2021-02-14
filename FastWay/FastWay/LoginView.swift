@@ -111,7 +111,7 @@ struct LoginView: View {
                                 ErrorShow=false
                             }
                         }) {
-                            Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color( #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                            Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color( #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage:  #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25)
@@ -126,7 +126,7 @@ struct LoginView: View {
                             Button(action: {
                                 viewRouter.currentPage = .SignUp
                             }) {
-                                Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.uppercase)
+                                Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.none)
                             }
                         }//end Group
                         
