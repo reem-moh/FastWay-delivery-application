@@ -36,7 +36,6 @@ struct DeliverOrderView: View {
             }
             
             VStack{
-                HStack{Spacer()}.padding(.top,80)
                 // Carousel....
                 Spacer()
                 ZStack{
@@ -55,14 +54,14 @@ struct DeliverOrderView: View {
                                         .padding(.vertical, 10)
                                         
                                         
-                                    }//end of for each
+                                    }.padding(.bottom,25)//end of for each
                             
                             
                             }//.frame(width: 300, height: 200)
 
                         }
                     }
-                }
+                }.padding(.top,80)
                 Spacer()
             }.padding(.bottom,80)
             
@@ -105,7 +104,7 @@ struct DeliverOrderView: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
-        }//endZStack
+        }//end ZStack
     }//end Body
     
 }
