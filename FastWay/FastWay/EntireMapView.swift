@@ -17,6 +17,8 @@ struct EntireMapView: UIViewRepresentable {
     @Binding var alert : Bool
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
+   // @Binding var name : String
+//    @Binding var show : Bool
     //@Binding var centerCoordinate: CLLocationCoordinate2D
 
         func updateUIView(_ mapView: MKMapView, context: Context) {
@@ -65,6 +67,44 @@ struct EntireMapView: UIViewRepresentable {
         }
         
         
+     /*   class Coordinator : NSObject,MKMapViewDelegate,CLLocationManagerDelegate{
+            
+            var parent : EntireMapView
+            
+            init(parent1 : EntireMapView) {
+                
+                parent = parent1
+            }
+            
+        @objc func tap(ges: UITapGestureRecognizer){
+            
+            let location = ges.location(in: self.parent.map)
+            let mplocation = self.parent.map.convert(location, toCoordinateFrom: self.parent.map)
+            
+            let point = MKPointAnnotation()
+            point.subtitle = "Destination"
+            point.coordinate = mplocation
+            
+            self.parent.destination = mplocation
+            
+            let decoder = CLGeocoder()
+            decoder.reverseGeocodeLocation(CLLocation(latitude: mplocation.latitude, longitude: mplocation.longitude)) { (places, err) in
+                
+                if err != nil{
+                    
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                
+                self.parent.name = places?.first?.name ?? ""
+                point.title = places?.first?.name ?? ""
+                
+                self.parent.show = true
+            }
+            print(location)
+        }
+        }*/
+        
         @objc func addAnnotation(gesture: UIGestureRecognizer) {
             if gesture.state == .ended {
 
@@ -83,5 +123,6 @@ struct EntireMapView: UIViewRepresentable {
                 }
             }
         }
-    }
-}
+ }
+ }
+ 
