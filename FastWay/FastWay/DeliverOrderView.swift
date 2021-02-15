@@ -8,7 +8,7 @@
 // Home
 import SwiftUI
 
-struct DeliverOrderView: View {
+struct DeliverOrderView: View{
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CarouselViewModel
@@ -51,7 +51,8 @@ struct DeliverOrderView: View {
                                         .padding(.horizontal)
                                         .contentShape(Rectangle())
                                         .gesture(DragGesture(minimumDistance: 20))
-                                        .padding(.vertical, 10)
+                                        .padding(.vertical, 5)
+                                        .shadow(radius: 1)
                                         
                                         
                                     }.padding(.bottom,25)//end of for each
@@ -93,6 +94,7 @@ struct DeliverOrderView: View {
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
                                     viewRouter.currentPage = .AboutUs
+                                    //model.showContent = false
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
                             //Profile icon

@@ -18,26 +18,31 @@ struct CardView: View {
         VStack{
             //orderDetails
             HStack {
+                Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
                 Text("\(model.orderPreview(c: card).orderDetails)")
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn) //if the user press it it show Detail
-                    
+                Spacer(minLength: 0)
             }.padding(.top,15)
             
             //location
             VStack {
+                    
+                    Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
+                    .animation(.easeIn)
                     HStack {
                         Text("Bulding \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t\tBulding \(model.orderPreview(c: card).dropOffBulding)")
                             .fontWeight(.light)
                             .foregroundColor(Color.black.opacity(0.5))
                             .animation(.easeIn) //if the user press it it show Detail
                     }.padding(5)
-                    Image(uiImage: #imageLiteral(resourceName: "PickUp&DropOffPreview"))
-                    .animation(.easeIn)
                 
             }.padding(15)//end v stack for pickup&dropOff image
+            
+            
+            
             
             HStack{
                 

@@ -83,7 +83,7 @@ struct TabBarMenuC {
 
 struct TabBarIcon: View {
     @StateObject var viewRouter: ViewRouter
-         let assignedPage: Page
+     let assignedPage: Page
      let width, height: CGFloat
      let systemIconName, tabName: String
      
@@ -99,7 +99,7 @@ struct TabBarIcon: View {
                  .font(.footnote)
              Spacer()
          }.padding(.horizontal, 14).onTapGesture {
-                          viewRouter.currentPage = assignedPage
+                          viewRouter.currentPage = assignedPage 
                       }.foregroundColor(viewRouter.currentPage == assignedPage ? Color("TabBarHighlight") : .gray)
      }
  }
