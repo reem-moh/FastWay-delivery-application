@@ -40,6 +40,7 @@ struct Home: View {
                         self.manager.requestAlwaysAuthorization()
                         
                     }
+                
             }
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
@@ -58,7 +59,7 @@ struct MapView : UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         map = MKMapView(frame: .zero)
         map.delegate = context.coordinator
-        manager.delegate = context.coordinator as? CLLocationManagerDelegate
+        manager.delegate = context.coordinator as CLLocationManagerDelegate
         map.showsUserLocation = true
         return map
     }

@@ -25,6 +25,7 @@
 		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
 		58B5F55225D9726B00D4C099 /* Maps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55125D9726B00D4C099 /* Maps.swift */; };
 		58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55825D9859500D4C099 /* EntireMapView.swift */; };
+		58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */; };
 		C24354B525D431B90033B69F /* cardCourier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24354B425D431B90033B69F /* cardCourier.swift */; };
 		C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C268D59725D07EF7006183AB /* UserDefaults.swift */; };
 		C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006C125CF1F1A0010C126 /* MotherView.swift */; };
@@ -59,6 +60,7 @@
 		589C42FB25CBA651009D6B45 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		58B5F55125D9726B00D4C099 /* Maps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maps.swift; sourceTree = "<group>"; };
 		58B5F55825D9859500D4C099 /* EntireMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntireMapView.swift; sourceTree = "<group>"; };
+		58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedOrderOffer.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C24354B425D431B90033B69F /* cardCourier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardCourier.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				C2A006D125CF22B20010C126 /* DeliverOrderView.swift */,
 				C24354B425D431B90033B69F /* cardCourier.swift */,
 				58B5F55125D9726B00D4C099 /* Maps.swift */,
+				58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */,
 				58B5F55825D9859500D4C099 /* EntireMapView.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
@@ -298,6 +301,7 @@
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
 				C2A006CA25CF22680010C126 /* CurrentOrderView.swift in Sources */,
+				58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
