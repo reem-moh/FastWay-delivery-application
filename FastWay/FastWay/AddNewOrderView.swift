@@ -12,6 +12,7 @@ import MapKit
 import CoreLocation
 
 var order = Order()
+
 struct AddNewOrderView: View {
 
     @State var map = MKMapView()
@@ -38,7 +39,8 @@ struct AddNewOrderView: View {
     @State var Bulding = ""
     @State var Floor = "Floor"
 
-    @State var locationpp = GeoPoint(latitude: 22.00, longitude: 33.00)
+
+    @State var locationpp = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -50,7 +52,6 @@ struct AddNewOrderView: View {
     @State var rErr = ""
 
     @StateObject var viewRouter: ViewRouter
-
     //for drop down menu
     @State var expandFloor = false
     @State var expand = false
@@ -63,14 +64,11 @@ struct AddNewOrderView: View {
     
     var body: some View {
 
-       // @State var str = String(location.latitude)
-      //  let str = String(decoding: location, as: UTF8.self)
-        //pick up location
+
+        
         ZStack{
         
-            
-            
-            
+                        
             ZStack{
 
             
@@ -113,41 +111,30 @@ struct AddNewOrderView: View {
             
             
                 //MAP
-                Group{
-                    EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 360, height: 280, alignment: .center).frame(width: 360, height: 280)
-                    .clipped()
+                VStack{
+              Group{
+                
+                Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-100,y:25)
+                
+                if errorlocation{
+                Text(lErr).font(.custom("Roboto Regular", size: 18))
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-55,y:35) }
+                
+                EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 360, height: 280, alignment: .center).frame(width: 360, height: 280)
+                    .clipped().offset(y:30)
                    
                 }.offset(x:0 ,y:-180)
+            }
             
             }
             
             VStack(spacing: 10){
-
+      
             
             //LOCATION
             VStack(spacing: -10){
-               // text(location)
-                
                      
-                 //Show Error message if the location feild empty
-                     if errorlocation{
-                     Text(lErr).font(.custom("Roboto Regular", size: 18))
-                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -60,y:5) }
-             
-                  Image(uiImage: #imageLiteral(resourceName: "location"))
-                      .resizable()
-                      .aspectRatio(contentMode: .fill)
-                      .frame(width: 25, height: 25)
-                      .clipped()
-                      .offset(x:-160 ,y:23)
-             
-                
-         TextField("Select location", text: $location )
-             .font(.system(size: 18))
-             .offset(x:20 ,y:-3).padding(12)
-             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
-         
-           
+
             }//.offset(x:0 ,y:5)
             
             
@@ -477,6 +464,7 @@ struct AddNewOrderView: View {
                 //NEXT
                 Button(action: {
                     print("helooooooo")
+                    locationpp = pickAndDrop
                     self.PICKUPlocation()
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
@@ -485,7 +473,6 @@ struct AddNewOrderView: View {
                          if (order.setpickUPAndpickUpDetails(pickUP:locationpp,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
                             print("pick up saved")
                             viewRouter.currentPage = .DROPOFFlocation
-
                         }
   
                         else
@@ -514,7 +501,7 @@ struct AddNewOrderView: View {
    
         
             
-            }.offset(x: 0,y:160)
+            }.offset(x: 0,y:185)
 
 
 
@@ -548,12 +535,24 @@ struct AddNewOrderView: View {
             self.errorlocation = true
         }*/
         
-        if (self.locationpp.latitude > 0 && self.locationpp.longitude > 0)  {
+       if (self.locationpp.latitude > 24.729343530281625 && self.locationpp.longitude > 46.63784759870069)  {
             print(locationpp)
-            print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-            self.lErr="*must  enter pick up location "
+            self.lErr="*The region out of our service "
                self.errorlocation = true
         }
+        
+        if (self.locationpp.latitude == 0 && self.locationpp.longitude == 0)  {
+            print(locationpp)
+            self.lErr="*must enter pick up location "
+               self.errorlocation = true
+        }
+
+     /*   if ((self.locationpp.latitude != 0 && self.locationpp.longitude != 0)&&(self.locationpp.latitude < 24.729343530281625 && self.locationpp.longitude < 46.63784759870069)){
+            
+            selectLoctaionPick = " location saved "
+            
+        }*/
+        
         
          self.errorRoomPick = false
         
@@ -602,13 +601,8 @@ var fData = [
 ]
 }
 
-/*class map {
 
-    
-}*/
 
-/*if order.addOrder(){
-    print("added")}*/
 
 struct AddNewOrderView_Previews: PreviewProvider {
     static var previews: some View {

@@ -18,7 +18,6 @@
 		5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5886863C25D1B43C00C15A0D /* AboutUs.swift */; };
 		589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589433EB25C8F61F00E19E18 /* FastWayApp.swift */; };
 		589433F025C8F62300E19E18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433EF25C8F62300E19E18 /* Assets.xcassets */; };
-		589433F325C8F62300E19E18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 589433F225C8F62300E19E18 /* Preview Assets.xcassets */; };
 		589433FC25C8F74100E19E18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 589433FB25C8F74100E19E18 /* GoogleService-Info.plist */; };
 		5894342A25C90DD800E19E18 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894342925C90DD800E19E18 /* SignView.swift */; };
 		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
@@ -49,7 +48,6 @@
 		589433E825C8F61F00E19E18 /* FastWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589433EB25C8F61F00E19E18 /* FastWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastWayApp.swift; sourceTree = "<group>"; };
 		589433EF25C8F62300E19E18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		589433F225C8F62300E19E18 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		589433F425C8F62300E19E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		589433FB25C8F74100E19E18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5894342925C90DD800E19E18 /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
@@ -137,17 +135,8 @@
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
 				1559F3ED25D89C50000B925E /* SearchBa.swift */,
-				589433F125C8F62300E19E18 /* Preview Content */,
 			);
 			path = FastWay;
-			sourceTree = "<group>";
-		};
-		589433F125C8F62300E19E18 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				589433F225C8F62300E19E18 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		ED00C03FCE9137CDB8E99BCD /* Pods */ = {
@@ -218,7 +207,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589433F325C8F62300E19E18 /* Preview Assets.xcassets in Resources */,
 				589433F025C8F62300E19E18 /* Assets.xcassets in Resources */,
 				589433FC25C8F74100E19E18 /* GoogleService-Info.plist in Resources */,
 			);

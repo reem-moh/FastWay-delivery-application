@@ -8,7 +8,8 @@
 import SwiftUI
 import MapKit
 import UIKit
-import CoreLocation
+
+var pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
 struct EntireMapView: UIViewRepresentable {
     
@@ -17,9 +18,7 @@ struct EntireMapView: UIViewRepresentable {
     @Binding var alert : Bool
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
-   // @Binding var name : String
-//    @Binding var show : Bool
-    //@Binding var centerCoordinate: CLLocationCoordinate2D
+
 
         func updateUIView(_ mapView: MKMapView, context: Context) {
 
@@ -31,9 +30,7 @@ struct EntireMapView: UIViewRepresentable {
             mapView.setRegion(region, animated: true)
 
         }
-    
 
-    
         func makeUIView(context: Context) -> MKMapView {
 
            // let myMap = MKMapView(frame: .zero)
@@ -61,53 +58,11 @@ struct EntireMapView: UIViewRepresentable {
           self.entireMapViewController = control
         }
 
-     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView){
-            print(mapView.centerCoordinate)
-           // print(locationp)
-        }
-        
-        
-     /*   class Coordinator : NSObject,MKMapViewDelegate,CLLocationManagerDelegate{
-            
-            var parent : EntireMapView
-            
-            init(parent1 : EntireMapView) {
-                
-                parent = parent1
-            }
-            
-        @objc func tap(ges: UITapGestureRecognizer){
-            
-            let location = ges.location(in: self.parent.map)
-            let mplocation = self.parent.map.convert(location, toCoordinateFrom: self.parent.map)
-            
-            let point = MKPointAnnotation()
-            point.subtitle = "Destination"
-            point.coordinate = mplocation
-            
-            self.parent.destination = mplocation
-            
-            let decoder = CLGeocoder()
-            decoder.reverseGeocodeLocation(CLLocation(latitude: mplocation.latitude, longitude: mplocation.longitude)) { (places, err) in
-                
-                if err != nil{
-                    
-                    print((err?.localizedDescription)!)
-                    return
-                }
-                
-                self.parent.name = places?.first?.name ?? ""
-                point.title = places?.first?.name ?? ""
-                
-                self.parent.show = true
-            }
-            print(location)
-        }
-        }*/
-        
-        @objc func addAnnotation(gesture: UIGestureRecognizer) {
-            if gesture.state == .ended {
 
+        @objc func addAnnotation(gesture: UIGestureRecognizer) {
+
+            if gesture.state == .ended {
+                var test: Double
                 if let mapView = gesture.view as? MKMapView {
                 mapView.removeAnnotations(mapView.annotations)
                 let point = gesture.location(in: mapView)
@@ -115,14 +70,24 @@ struct EntireMapView: UIViewRepresentable {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 mapView.addAnnotation(annotation)
-               // var locationp = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-                 let locationp = coordinate
-                    print("the pin selected")
-                    print(locationp)
-            
+                    let location = coordinate
+                    pickAndDrop = coordinate
+                    test = location.latitude
+                  //  selectLoctaionPick = location
+                    print("yees")
+                    print(test)
                 }
             }
         }
- }
- }
- 
+        
+        
+    }
+    
+    
+}
+
+/*extension EntireMapView: CLLocationManagerDelegate {
+    func `self`() -> EntireMapView {
+        <#code#>
+    }
+}*/

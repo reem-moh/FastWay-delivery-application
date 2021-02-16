@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import Combine
+import MapKit
 
 let db = Firestore.firestore()
 
@@ -180,7 +181,7 @@ class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = []//[OrderDetails(id: "1", pickUP: "1", pickUpBulding: 1, pickUpFloor: 1, pickUpRoom: "1", dropOff: "1", dropOffBulding: 1, dropOffFloor: 1, dropOffRoom: "1", orderDetails: "1", isAdded: false),]
     
-    var pickUP: GeoPoint
+    var pickUP: CLLocationCoordinate2D
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
@@ -193,7 +194,7 @@ class Order: ObservableObject{
     var memberName: String
     
     init(){
-        self.pickUP =  GeoPoint(latitude: 0.0, longitude: 0.0)
+        self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         self.pickUpBulding = 0
         self.pickUpFloor = -1
         self.pickUpRoom = ""
@@ -206,7 +207,7 @@ class Order: ObservableObject{
         self.memberName = ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: GeoPoint,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
+    func setpickUPAndpickUpDetails(pickUP: CLLocationCoordinate2D ,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
         self.pickUP = pickUP
         self.pickUpBulding = pickUpBulding
         self.pickUpFloor = pickUpFloor
