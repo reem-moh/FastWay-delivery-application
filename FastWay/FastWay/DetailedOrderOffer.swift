@@ -10,7 +10,6 @@ import MapKit
 import CoreLocation
 
 struct DetailedOrderOffer: View {
-    
     @EnvironmentObject var model: CarouselViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
