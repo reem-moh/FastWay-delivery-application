@@ -8,12 +8,9 @@ import SwiftUI
 
 // CardView
 struct CardView: View {
-    @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model : CarouselViewModel
-    //@State var orderDetailed = false
-    @State var card: Card
+    var card: Card
     var animation: Namespace.ID
-    
     
     var body: some View {
         
@@ -81,13 +78,6 @@ struct CardView: View {
                     withAnimation(.easeIn){
                         
                         model.showContent = true
-                        /*NavigationView{
-                            ZStack{
-                                NavigationLink(
-                                    <#LocalizedStringKey#>, destination : DetailedOrderOffer(order: self.$card.$orderD, viewRouter: <#ViewRouter#>, animation: <#Namespace.ID#>)
-                                )
-                            }
-                        }*/
                     }//end with animation
                 }//end dispatch
             }//end with animation
