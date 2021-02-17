@@ -17,7 +17,6 @@ struct DROPOFFlocationView: View {
     @State var roomPick = ""
     @State var Bulding = "Bulding"
     @State var Floor = "Floor"
-
         
     
     @State var errorlocation = false
@@ -91,10 +90,10 @@ struct DROPOFFlocationView: View {
                 Image(uiImage: #imageLiteral(resourceName: "map"))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 292)
+                    .frame(width: 360, height: 280)
                     .clipped()
                    
-                }.offset(x:0 ,y:-175)
+                }.offset(x:0 ,y:-180)
             
             }
             
@@ -116,7 +115,7 @@ struct DROPOFFlocationView: View {
                       .aspectRatio(contentMode: .fill)
                       .frame(width: 25, height: 25)
                       .clipped()
-                      .offset(x:-160 ,y:30)
+                      .offset(x:-160 ,y:23)
              
              
          TextField("", text: $location)
@@ -130,6 +129,7 @@ struct DROPOFFlocationView: View {
             
             
 
+                
                 // Bulding
                 VStack(spacing: 0){
                 
@@ -295,8 +295,8 @@ struct DROPOFFlocationView: View {
                                 }
                                 
                                 
-                                }.frame(width: 300, height: 30)
-                                }.offset(x: -5, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                                }.frame(width: 300, height: 70)
+                                }.offset(x: -5, y: 10.0)
                             }
                         
                         }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
@@ -312,7 +312,6 @@ struct DROPOFFlocationView: View {
                 
                 
              
-                
                 
                 
                     //Floor
@@ -381,7 +380,7 @@ struct DROPOFFlocationView: View {
                                 Text("3").padding(3)
                                 }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).frame(width: 297, height: 30)
 
-                            }.frame(width: 300, height: 30)
+                            }.frame(width: 300, height:  70)
                     }.offset(x: -10, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
                         }
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
@@ -390,6 +389,7 @@ struct DROPOFFlocationView: View {
         }//.offset(x:0 ,y:173)//END Floor
             
        
+           
        
                 
                 
@@ -411,7 +411,6 @@ struct DROPOFFlocationView: View {
         }//.offset(x:0 ,y:235)
                 
           
-          
             
             VStack(spacing: -10){
 
@@ -422,23 +421,23 @@ struct DROPOFFlocationView: View {
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
-                       
-                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
-                            print("DROP OFF LOCATION saved")
-                            viewRouter.currentPage = .DROPOFFlocation
+     
+                         if (order.setDropOffAndDropOffDetails(dropOff:location,dropOffBulding: buldingPick, dropOffFloor: floorPick, dropOffRoom: roomPick)){
+                            print("drop off saved")
+                            viewRouter.currentPage = .SendOrder
 
                         }
   
                         else
                         {
-                            print("DROP OFF LOCATION  not saved")
+                            print("drop off  not saved")
 
                         }
                     
                     }
                 
                 })   {
-                    Text("NEXT").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                 .padding(.top,25)
@@ -446,7 +445,7 @@ struct DROPOFFlocationView: View {
                 
                 
                 
-            }//.offset(x: 0,y:274)  //END NEXT
+            }//.offset(x: 0,y:65)  //END NEXT
 
             
            
@@ -455,7 +454,7 @@ struct DROPOFFlocationView: View {
    
         
             
-            }.offset(x: 0,y:170)
+            }.offset(x: 0,y:160)
 
 
 

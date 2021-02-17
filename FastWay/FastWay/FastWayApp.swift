@@ -20,7 +20,7 @@ struct FastWayApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application( _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool{
-        print("setting")
+        print("configurate firebase")
         FirebaseApp.configure()
         return true
     }

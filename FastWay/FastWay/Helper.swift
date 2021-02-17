@@ -21,6 +21,7 @@ enum Page{
     case CurrentOrder
     case HistoryView
     case DeliverOrder
+    //case DetailsDeliver
     
     
 }

@@ -79,7 +79,7 @@ struct SignUPView: View {
             VStack{
                 
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,30).offset(y: 60)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,40).offset(y: 60)
                 
                 ScrollView{
                     VStack(alignment: .leading){
@@ -88,7 +88,9 @@ struct SignUPView: View {
                             
                             //error for name
                             Text(nErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .padding(.trailing)
+                                .offset(x: 12,y: 10)
                             //name field
                             TextField("Name", text: $name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -167,7 +169,7 @@ struct SignUPView: View {
                             self.signUp()
                             
                         }) {
-                            Text("SIGN UP").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                            Text("SIGN UP").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24)

@@ -12,9 +12,9 @@ import FirebaseFirestore
 struct ViewMemberProfile: View {
     @ObservedObject var member = Member()
     
-    @State var name = ""
+   /* @State var name = ""
     @State var email = ""
-    @State var phoneNum = ""
+    @State var phoneNum = ""*/
     @State var password = ""
     @State var newPassword = ""
     @State var reNewPassword = ""
@@ -35,12 +35,10 @@ struct ViewMemberProfile: View {
                 
                 
                 
-            }.onAppear(){
-                
+            }/*.onAppear {
                 self.member.getMember(id: UserDefaults.standard.getUderId())
                 print("view M")
-                
-            }
+            }*/
             
             VStack{
                 //Cancel and Done button
@@ -81,10 +79,10 @@ struct ViewMemberProfile: View {
                             Text("name:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField(" \(self.member.member.name)", text: $name)
+                            TextField(" \(self.member.member.name)", text: $member.member.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             
@@ -95,10 +93,10 @@ struct ViewMemberProfile: View {
                             Text("email:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.member.member.email)", text: $email)
+                            TextField("\(self.member.member.email)", text: $member.member.email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             //print("email \((self.member.email))")
@@ -110,10 +108,10 @@ struct ViewMemberProfile: View {
                             Text("phone number:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.member.member.phoneNo)", text: $phoneNum)
+                            TextField("\(self.member.member.phoneNo)", text: $member.member.phoneNo)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             //print("Phone number \(self.member.phoneNo)")
@@ -155,7 +153,7 @@ struct ViewMemberProfile: View {
                         Button(action: {
                             logout()
                         }) {
-                            Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                            Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24).padding(.bottom,100)

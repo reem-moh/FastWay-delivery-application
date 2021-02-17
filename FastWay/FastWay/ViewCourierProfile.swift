@@ -11,9 +11,9 @@ import FirebaseFirestore
 
 struct ViewCourierProfile: View {
     @ObservedObject var courier = Courier()
-    @State var name = ""
+    /*@State var name = ""
     @State var email = ""
-    @State var phoneNum = ""
+    @State var phoneNum = ""*/
     @State var password = ""
     @State var newPassword = ""
     @State var reNewPassword = ""
@@ -32,11 +32,6 @@ struct ViewCourierProfile: View {
                 //background
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
-                
-            }.onAppear(){
-                
-                self.courier.getCourier(id: UserDefaults.standard.getUderId())
-                print("view C")
                 
             }
             
@@ -81,10 +76,10 @@ struct ViewCourierProfile: View {
                             Text("name:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.name)", text: $name)
+                            TextField("\(self.courier.courier.name)", text: $courier.courier.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             
@@ -95,10 +90,10 @@ struct ViewCourierProfile: View {
                             Text("email:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.email)", text: $email)
+                            TextField("\(self.courier.courier.email)", text: $courier.courier.email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             //print("email \((self.member.email))")
@@ -110,10 +105,10 @@ struct ViewCourierProfile: View {
                             Text("phone number:").font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField("\(self.courier.courier.phoneNo)", text: $phoneNum)
+                            TextField("\(self.courier.courier.phoneNo)", text: $courier.courier.phoneNo)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             //print("Phone number \(self.member.phoneNo)")
@@ -155,7 +150,7 @@ struct ViewCourierProfile: View {
                         Button(action: {
                             logout()
                         }) {
-                            Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                            Text("Logout").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25).offset(x: 24).padding(.bottom,100)

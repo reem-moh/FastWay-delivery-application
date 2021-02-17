@@ -20,12 +20,13 @@ class Member: ObservableObject {
     var phoneNo: String
    
     @Published var member = M(id: "", name: "", email: "", phoneNo: "")
-   
-    init() {
+    //initialize from DB
+    init(id : String = UserDefaults.standard.getUderId()) {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
+        self.getMember(id: id)
     }
     
     init(id: String, name: String, email: String, phN: String) {
@@ -73,42 +74,12 @@ class Member: ObservableObject {
             print("got member data  \(self.member.email)")
             print("got member data  \(self.member.phoneNo)")
             print("----------")
+            
         } //listener
        
     } //function
     
 }
-
-//member/courier struct
-struct M: Identifiable {
-    var id: String
-    var name: String
-    var email: String
-    var phoneNo: String
-}
-struct C: Identifiable {
-    var id: String
-    var name: String
-    var email: String
-    var phoneNo: String
-}
-
-//order struct
-struct OrderDetails: Identifiable {
-    var id: String
-    var pickUP: String
-    var pickUpBulding: Int
-    var pickUpFloor: Int
-    var pickUpRoom: String
-    var dropOff: String
-    var dropOffBulding: Int
-    var dropOffFloor: Int
-    var dropOffRoom: String
-    var orderDetails: String
-    // to identify whether it is added to cart...
-    var isAdded: Bool = false
-}
-
 
 class Courier: ObservableObject {
     var id: String
@@ -116,12 +87,13 @@ class Courier: ObservableObject {
     var email: String
     var phoneNo: String
     @Published var courier = C(id: "", name: "", email: "", phoneNo: "")
-    
+    //initialize from DB
     init() {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
+        self.getCourier(id: UserDefaults.standard.getUderId())
     }
     
     init(id: String,name: String, email: String, phN: String) {
@@ -144,7 +116,7 @@ class Courier: ObservableObject {
         return flag
     }
     
-    //retrieve from database 
+    //retrieve from database
     func getCourier(id: String){
         
         db.collection("Courier").document(id).addSnapshotListener { (querySnapshot, error) in
@@ -172,11 +144,23 @@ class Courier: ObservableObject {
         } //listener
     } //function
 }
+//member/courier struct
+struct M: Identifiable {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+}
+struct C: Identifiable {
+    var id: String
+    var name: String
+    var email: String
+    var phoneNo: String
+}
 
-
-
-
-class Order{
+//order struct
+struct OrderDetails: Identifiable {
+    var id: String
     var pickUP: String
     var pickUpBulding: Int
     var pickUpFloor: Int
@@ -186,6 +170,26 @@ class Order{
     var dropOffFloor: Int
     var dropOffRoom: String
     var orderDetails: String
+    var memberId : String
+    // to identify whether it is added to cart...
+    var isAdded: Bool
+}
+
+class Order: ObservableObject{
+    
+    @Published var orders: [OrderDetails] = []//[OrderDetails(id: "1", pickUP: "1", pickUpBulding: 1, pickUpFloor: 1, pickUpRoom: "1", dropOff: "1", dropOffBulding: 1, dropOffFloor: 1, dropOffRoom: "1", orderDetails: "1", isAdded: false),]
+    
+    var pickUP: String
+    var pickUpBulding: Int
+    var pickUpFloor: Int
+    var pickUpRoom: String
+    var dropOff: String
+    var dropOffBulding: Int
+    var dropOffFloor: Int
+    var dropOffRoom: String
+    var orderDetails: String
+    var memberId: String
+    var memberName: String
     
     init(){
         self.pickUP =  ""
@@ -197,6 +201,8 @@ class Order{
         self.dropOffFloor = -1
         self.dropOffRoom = ""
         self.orderDetails =  ""
+        self.memberId = ""
+        self.memberName = ""
     }
     
     func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
@@ -250,14 +256,13 @@ class Order{
         return flag
     }
     
-    
     func addOrder() -> Bool {
         var flag = true
         //need to change the id
         let id = UserDefaults.standard.getUderId()
-        let doc = db.collection("Order").document(id)
+        let doc = db.collection("Order").document()
         
-        doc.setData(["PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails ]) { (error) in
+        doc.setData(["MemberID": id,"PickUp":self.pickUP, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOff":self.dropOff, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false" ]) { (error) in
             
             if error != nil {
                 flag = false
@@ -265,6 +270,54 @@ class Order{
         }
         
         return flag
+    }
+    
+    //get data from DB
+    func getOrder() {
+       // var temp: [OrderDetails] = []
+        db.collection("Order").whereField("Assigned", isEqualTo: "false").addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No order documents")
+                return
+            }
+                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                print(queryDocumentSnapshot.data())
+                let data = queryDocumentSnapshot.data()
+                let uid = queryDocumentSnapshot.documentID
+                let pickup = data["PickUp"] as? String ?? ""
+                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                let dropoff = data["DropOff"] as? String ?? ""
+                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
+                let orderDetails = data["orderDetails"] as? String ?? ""
+                let assigned = data["Assigned"] as? Bool ?? false
+                let MemberID = data["MemberID"] as? String ?? ""
+                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                
+                    return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned)
+            })
+            
+            
+        }
+    }
+    
+    func getMemberName(Id: String) ->String{
+        let docRef = db.collection("Member").document(Id)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("inside getMemberName print doc from firebase :\n \(document.documentID) => \(String(describing: document.data()))")
+                print("Inside if statment")
+                let data = document.data()
+                self.memberName = data?["Name"] as? String ?? ""
+                print("\(self.memberName)")
+            }
+            print("Inside Document")
+        }
+        print("Inside get member name: \(self.memberName)")
+        return self.memberName
     }
     
 }
