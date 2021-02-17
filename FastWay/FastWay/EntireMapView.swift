@@ -13,6 +13,19 @@ var pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
 struct EntireMapView: UIViewRepresentable {
     
+    @ObservedObject var locationManager = LocationManager()
+
+       var userLatitude: String {
+           return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
+       }
+
+       var userLongitude: String {
+           return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
+       }
+    
+    
+    
+    
     @Binding var map : MKMapView
     @Binding var manager : CLLocationManager
     @Binding var alert : Bool
@@ -85,7 +98,6 @@ struct EntireMapView: UIViewRepresentable {
                 }
             }
         }
-        
         
     }
     

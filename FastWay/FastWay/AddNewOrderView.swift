@@ -14,6 +14,17 @@ import CoreLocation
 var order = Order()
 
 struct AddNewOrderView: View {
+    
+    @ObservedObject var locationManager = LocationManager()
+
+      var userLatitude: String {
+          return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
+      }
+
+      var userLongitude: String {
+          return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
+      }
+
 
     @State var map = MKMapView()
         @State var manager = CLLocationManager()
@@ -113,6 +124,12 @@ struct AddNewOrderView: View {
                 //MAP
                 VStack{
               Group{
+                
+                Text("location status: \(locationManager.statusString)")
+                          HStack {
+                              Text("latitude: \(userLatitude)")
+                              Text("longitude: \(userLongitude)")
+                          }
                 
                 Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-100,y:25)
                 
@@ -501,7 +518,7 @@ struct AddNewOrderView: View {
    
         
             
-            }.offset(x: 0,y:185)
+            }.offset(x: 0,y:170)
 
 
 
@@ -548,25 +565,40 @@ struct AddNewOrderView: View {
         
         
         
-       if ((self.locationpp.latitude < 24.730605398456717
-                && self.locationpp.longitude < 46.63897475075839
-               )||(self.locationpp.latitude > 24.727272133239453
-                       && self.locationpp.longitude > 46.64145186356194
-                      )||(self.locationpp.latitude > 24.72312923605736
-                       && self.locationpp.longitude > 46.63956453952105
-                      )||(self.locationpp.latitude > 24.724617361734303
-                           && self.locationpp.longitude > 46.63274920230714
-                          )) {
+       if ((self.locationpp.latitude < 24.729236389910497
+                && self.locationpp.longitude <  46.63796555645328
+               )&&(self.locationpp.latitude <  24.727141181704155
+                    && self.locationpp.longitude <  46.63969560349054
+                   )&&(self.locationpp.latitude <  24.726688802794214
+                        && self.locationpp.longitude <  46.64002326371437
+                       )&&(self.locationpp.latitude <  24.725307845737717
+                            && self.locationpp.longitude <  46.64004947674826
+                           )&&(self.locationpp.latitude <  24.72514117731049
+                                && self.locationpp.longitude < 46.64016743450085
+                               )&&(self.locationpp.latitude > 24.725188797195315
+                                    && self.locationpp.longitude > 46.64019364753466
+                                   )&&(self.locationpp.latitude > 24.724807840331238
+                                        && self.locationpp.longitude > 46.64293288827727
+                                       )) {
         print(locationpp)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
+        
+  
+     
+        
+        
+        
         
         if (self.locationpp.latitude == 0 && self.locationpp.longitude == 0)  {
             print(locationpp)
             self.lErr="*must enter pick up location "
                self.errorlocation = true
         }
+        
+        
+        
 
      /*   if ((self.locationpp.latitude != 0 && self.locationpp.longitude != 0)&&(self.locationpp.latitude < 24.729343530281625 && self.locationpp.longitude < 46.63784759870069)){
             
