@@ -77,7 +77,8 @@ struct CardView: View {
                     
                     withAnimation(.easeIn){
                         
-                        model.showContent = true
+                        //model.showContent = true
+                        
                     }//end with animation
                 }//end dispatch
             }//end with animation
@@ -87,7 +88,7 @@ struct CardView: View {
 }
 
 // DetailView
-struct DetailView: View {
+/*struct DetailView: View {
     @EnvironmentObject var model: CarouselViewModel
     var animation: Namespace.ID
     
@@ -226,7 +227,7 @@ struct DetailView: View {
             }
         }
     }
-}
+}*/
 
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {

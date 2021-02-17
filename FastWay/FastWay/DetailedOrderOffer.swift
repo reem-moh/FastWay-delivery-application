@@ -10,7 +10,10 @@ import MapKit
 import CoreLocation
 
 struct DetailedOrderOffer: View {
+    
+    @EnvironmentObject var model: CarouselViewModel
     @StateObject var viewRouter: ViewRouter
+    var animation: Namespace.ID
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var alert = false
@@ -24,7 +27,23 @@ struct DetailedOrderOffer: View {
     var body: some View{
         
         ZStack{
-            
+            VStack{
+                //go back button
+                //arrow_back image
+                   Button(action: {
+                    model.showCard = false
+                    viewRouter.currentPage = .DeliverOrder
+                    
+                       
+                   }) {
+                     Image("arrow_back")
+                         .resizable()
+                         .aspectRatio(contentMode: .fill)
+                         .frame(width: 30, height: 30)
+                         .clipped()
+                        .background(Color("CardColor3"))
+                   }.position(x:30 ,y:20).padding(1.0)
+            }
           //  VStack(spacing: 0){
                 MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination)
                     .onAppear {
@@ -168,7 +187,7 @@ struct DetailedOrderOffer: View {
                 }.edgesIgnoringSafeArea(.all)//zstack
             }
             
-            
+         
             
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
@@ -176,8 +195,8 @@ struct DetailedOrderOffer: View {
     
 }
 
-struct DetailedOrderOffer_Previews: PreviewProvider {
+/*struct DetailedOrderOffer_Previews: PreviewProvider {
     static var previews: some View {
-        DetailedOrderOffer(viewRouter: ViewRouter())
+        DetailedOrderOffer(viewRouter: ViewRouter(), animation: Namespace)
     }
-}
+}*/

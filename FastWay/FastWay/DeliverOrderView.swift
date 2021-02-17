@@ -68,7 +68,7 @@ struct DeliverOrderView: View{
             
             if model.showCard {
                 
-                DetailView(animation: animation)
+                DetailedOrderOffer(viewRouter: ViewRouter(), animation: animation)
             }
             
             //BarMenue
@@ -95,13 +95,15 @@ struct DeliverOrderView: View{
                                 }.padding(.horizontal, 14).onTapGesture {
                                     viewRouter.currentPage = .AboutUs
                                     //model.showContent = false
+                                    //model.showCard = false
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
                             //Profile icon
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile")//change assigned page
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height/8)
                         .background(Color("TabBarBackground").shadow(radius: 2))
+                        
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
