@@ -166,7 +166,7 @@ struct OrderDetails: Identifiable {
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
-    var dropOff: String
+    var dropOff: CLLocationCoordinate2D
     var dropOffBulding: Int
     var dropOffFloor: Int
     var dropOffRoom: String
@@ -184,7 +184,7 @@ class Order: ObservableObject{
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
-    var dropOff: String
+    var dropOff: CLLocationCoordinate2D
     var dropOffBulding: Int
     var dropOffFloor: Int
     var dropOffRoom: String
@@ -197,7 +197,7 @@ class Order: ObservableObject{
         self.pickUpBulding = 0
         self.pickUpFloor = -1
         self.pickUpRoom = ""
-        self.dropOff =  ""
+        self.dropOff =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         self.dropOffBulding = 0
         self.dropOffFloor = -1
         self.dropOffRoom = ""
@@ -224,13 +224,13 @@ class Order: ObservableObject{
         return flag
     }
     
-    func setDropOffAndDropOffDetails(dropOff: String, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: String   )-> Bool{
+    func setDropOffAndDropOffDetails(dropOff: CLLocationCoordinate2D, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: String   )-> Bool{
         self.dropOff = dropOff
         self.dropOffBulding = dropOffBulding
         self.dropOffFloor = dropOffFloor
         self.dropOffRoom = dropOffRoom
         var flag = false
-    if (dropOff != "" && dropOffBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
+        if (dropOff.latitude != 0.0 && dropOff.longitude != 0.0 && dropOffBulding != 0 &&  dropOffFloor != -1 &&  dropOffRoom != "")
     {
         flag = true
     }
@@ -289,7 +289,7 @@ class Order: ObservableObject{
                 let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
                 let pickupFloor = data["pickUpFloor"] as? Int ?? 0
                 let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                let dropoff = data["DropOff"] as? String ?? ""
+                let dropoff = data["DropOff"] as? CLLocationCoordinate2D ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
                 let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
                 let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
                 let dropoffRoom = data["dropOffRoom"] as? String ?? ""

@@ -5,7 +5,7 @@
 //  Created by Reem on 10/02/2021.
 //
 import SwiftUI
-
+import MapKit
 // CardView
 struct CardView: View {
     @EnvironmentObject var model : CarouselViewModel
@@ -271,12 +271,6 @@ class CarouselViewModel: ObservableObject {
     }
     
     //check if map return string ?
-    func getMap(c: Card) -> String{
-        let dropOff = c.orderD.dropOff
-        let pickUP = c.orderD.pickUP
-        let all = "" + dropOff + "" + pickUP
-        return all
-    }
     
     func setOrderOffer(){
         
@@ -302,5 +296,5 @@ struct Card: Identifiable {
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    var orderD = OrderDetails(id: "", pickUP: "", pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: "", dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false)
+    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false)
 }
