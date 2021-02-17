@@ -534,12 +534,33 @@ struct AddNewOrderView: View {
          self.lErr="*must  enter pick up location "
             self.errorlocation = true
         }*/
+        /*
+         ((self.locationpp.latitude > 24.729188771938155
+   && self.locationpp.longitude > 46.638253897426154
+  )||(self.locationpp.latitude > 24.730248267150188
+          && self.locationpp.longitude > 46.6321987327953
+         )||(self.locationpp.latitude < 24.72312923605736
+          && self.locationpp.longitude < 46.63956453952105
+         )||(self.locationpp.latitude < 24.724617361734303
+              && self.locationpp.longitude < 46.63274920230714
+             ))
+         */
         
-       if (self.locationpp.latitude > 24.729343530281625 && self.locationpp.longitude > 46.63784759870069)  {
-            print(locationpp)
-            self.lErr="*The region out of our service "
-               self.errorlocation = true
-        }
+        
+        
+       if ((self.locationpp.latitude < 24.730605398456717
+                && self.locationpp.longitude < 46.63897475075839
+               )||(self.locationpp.latitude > 24.727272133239453
+                       && self.locationpp.longitude > 46.64145186356194
+                      )||(self.locationpp.latitude > 24.72312923605736
+                       && self.locationpp.longitude > 46.63956453952105
+                      )||(self.locationpp.latitude > 24.724617361734303
+                           && self.locationpp.longitude > 46.63274920230714
+                          )) {
+        print(locationpp)
+        self.lErr="*The region out of our service "
+           self.errorlocation = true
+    }
         
         if (self.locationpp.latitude == 0 && self.locationpp.longitude == 0)  {
             print(locationpp)

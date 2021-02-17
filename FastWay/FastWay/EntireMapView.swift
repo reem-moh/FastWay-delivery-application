@@ -63,6 +63,8 @@ struct EntireMapView: UIViewRepresentable {
 
             if gesture.state == .ended {
                 var test: Double
+                var test1: Double
+
                 if let mapView = gesture.view as? MKMapView {
                 mapView.removeAnnotations(mapView.annotations)
                 let point = gesture.location(in: mapView)
@@ -73,9 +75,13 @@ struct EntireMapView: UIViewRepresentable {
                     let location = coordinate
                     pickAndDrop = coordinate
                     test = location.latitude
+                    test1 = location.longitude
+
                   //  selectLoctaionPick = location
                     print("yees")
                     print(test)
+                    print(test1)
+
                 }
             }
         }
