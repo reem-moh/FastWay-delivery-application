@@ -10,7 +10,11 @@ import MapKit
 import CoreLocation
 
 struct DetailedOrderOffer: View {
+    //@Binding var order : OrderDetails
     @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var model: CarouselViewModel
+    @State var cardView = false
+    //var animation: Namespace.ID
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var alert = false
@@ -176,8 +180,8 @@ struct DetailedOrderOffer: View {
     
 }
 
-struct DetailedOrderOffer_Previews: PreviewProvider {
+/*struct DetailedOrderOffer_Previews: PreviewProvider {
     static var previews: some View {
-        DetailedOrderOffer(viewRouter: ViewRouter())
+       // DetailedOrderOffer(viewRouter: ViewRouter())
     }
-}
+}*/

@@ -41,7 +41,7 @@ struct MotherView: View {
                 case .AboutUs:
                     AboutUs(viewRouter: viewRouter)//
             case .DetailsDeliver:
-                DetailedOrderOffer(viewRouter: ViewRouter())
+                DetailedOrderOffer(viewRouter: ViewRouter()).environmentObject(homeModel)
             }
        
     }
