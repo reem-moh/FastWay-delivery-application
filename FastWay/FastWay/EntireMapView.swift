@@ -9,7 +9,6 @@ import SwiftUI
 import MapKit
 import UIKit
 
-var pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
 struct EntireMapView: UIViewRepresentable {
     
@@ -39,7 +38,7 @@ struct EntireMapView: UIViewRepresentable {
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
             map.showsUserLocation = true
             let longPress = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(EntireMapViewCoordinator.addAnnotation(gesture:)))
-            longPress.minimumPressDuration = 0
+            longPress.minimumPressDuration = 1
             map.addGestureRecognizer(longPress)
             map.delegate = context.coordinator
             return map
@@ -62,38 +61,15 @@ struct EntireMapView: UIViewRepresentable {
         @objc func addAnnotation(gesture: UIGestureRecognizer) {
 
             if gesture.state == .ended {
-                var test: Double
-                var test1: Double
 
                 if let mapView = gesture.view as? MKMapView {
-                mapView.removeAnnotations(mapView.annotations)
                 let point = gesture.location(in: mapView)
                 let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 mapView.addAnnotation(annotation)
-                    let location = coordinate
-                    pickAndDrop = coordinate
-                    test = location.latitude
-                    test1 = location.longitude
-
-                  //  selectLoctaionPick = location
-                    print("yees")
-                    print(test)
-                    print(test1)
-
                 }
             }
         }
-        
-        
     }
-    
-    
 }
-
-/*extension EntireMapView: CLLocationManagerDelegate {
-    func `self`() -> EntireMapView {
-        <#code#>
-    }
-}*/

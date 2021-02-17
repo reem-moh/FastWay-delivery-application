@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import Combine
+import MapKit
 
 let db = Firestore.firestore()
 
@@ -161,7 +162,7 @@ struct C: Identifiable {
 //order struct
 struct OrderDetails: Identifiable {
     var id: String
-    var pickUP: String
+    var pickUP: CLLocationCoordinate2D
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
@@ -179,7 +180,7 @@ class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = []//[OrderDetails(id: "1", pickUP: "1", pickUpBulding: 1, pickUpFloor: 1, pickUpRoom: "1", dropOff: "1", dropOffBulding: 1, dropOffFloor: 1, dropOffRoom: "1", orderDetails: "1", isAdded: false),]
     
-    var pickUP: String
+    var pickUP: CLLocationCoordinate2D
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
@@ -192,7 +193,7 @@ class Order: ObservableObject{
     var memberName: String
     
     init(){
-        self.pickUP =  ""
+        self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         self.pickUpBulding = 0
         self.pickUpFloor = -1
         self.pickUpRoom = ""
@@ -205,13 +206,13 @@ class Order: ObservableObject{
         self.memberName = ""
     }
     
-    func setpickUPAndpickUpDetails(pickUP: String,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
+    func setpickUPAndpickUpDetails(pickUP: CLLocationCoordinate2D ,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
         self.pickUP = pickUP
         self.pickUpBulding = pickUpBulding
         self.pickUpFloor = pickUpFloor
         self.pickUpRoom = pickUpRoom
         var flag = false
-        if (pickUP != "" && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
+        if (pickUP.latitude != 0.0 && pickUP.longitude != 0.0 && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
         {
             flag = true
         }
@@ -284,7 +285,7 @@ class Order: ObservableObject{
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = queryDocumentSnapshot.documentID
-                let pickup = data["PickUp"] as? String ?? ""
+                let pickup = data["PickUp"] as? CLLocationCoordinate2D ??  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
                 let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
                 let pickupFloor = data["pickUpFloor"] as? Int ?? 0
                 let pickupRoom = data["pickUpRoom"] as? String ?? ""

@@ -35,16 +35,11 @@ struct DROPOFFlocationView: View {
     @State var expand = false
     @State var buldingNum = 0
     
-    
-    var columns = Array(repeating: GridItem(.flexible()), count: 1)
-    @State var text = ""
-    
-    
     var body: some View {
         
         
         
-        //drop off location
+        //pick up location
         ZStack{
         
             
@@ -84,7 +79,7 @@ struct DROPOFFlocationView: View {
      
        VStack{
     
-        Text("Drop off location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+        Text("DROP OFF LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }//END VStack
@@ -123,9 +118,9 @@ struct DROPOFFlocationView: View {
                       .offset(x:-160 ,y:23)
              
              
-                TextField("Select location", text: $location)
+         TextField("", text: $location)
              .font(.system(size: 18))
-             .offset(x:20 ,y:-3).padding(12)
+             .offset(x:20 ,y:-5).padding(12)
              .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
          
            
@@ -442,7 +437,7 @@ struct DROPOFFlocationView: View {
                     }
                 
                 })   {
-                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
+                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                 .padding(.top,25)
@@ -515,10 +510,7 @@ struct DROPOFFlocationView: View {
          
 }
     
-    
 }
-
-
 
 
 
@@ -533,4 +525,3 @@ struct DROPOFFlocationView_Previews: PreviewProvider {
         }
     }
 }
-
