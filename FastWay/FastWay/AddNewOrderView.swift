@@ -8,45 +8,67 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import MapKit
+import CoreLocation
+
 var order = Order()
+
 struct AddNewOrderView: View {
 
+    @State var map = MKMapView()
+        @State var manager = CLLocationManager()
+        @State var alert = false
+        @State var source : CLLocationCoordinate2D!
+        @State var destination : CLLocationCoordinate2D!
+        @State var name2 = ""
+        @State var distance = ""
+        @State var time = ""
+        @State var show = false
+        @State var doc = ""
+        @State var data : Data = .init(count: 0)
+        @State var search = false
+    
+
+            
+        
     @State var name = ""
     @State var location = ""
     @State var buldingPick = 0
     @State var floorPick = -1
     @State var roomPick = ""
-    @State var Bulding = "Bulding"
+    @State var Bulding = ""
     @State var Floor = "Floor"
 
-        
+
+    @State var locationpp = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
-     @State var errorFloorPick = false
-     @State var errorRoomPick = false
+    @State var errorFloorPick = false
+    @State var errorRoomPick = false
     @State var lErr = ""
     @State var bErr = ""
     @State var fErr = ""
     @State var rErr = ""
-    
-    @StateObject var viewRouter: ViewRouter
 
+    @StateObject var viewRouter: ViewRouter
     //for drop down menu
     @State var expandFloor = false
     @State var expand = false
     @State var buldingNum = 0
     
+    
+    var columns = Array(repeating: GridItem(.flexible()), count: 1)
+    @State var text = ""
+    
+    
     var body: some View {
-        
+
 
         
-        //pick up location
         ZStack{
         
-            
-            
-            
+                        
             ZStack{
 
             
@@ -82,51 +104,37 @@ struct AddNewOrderView: View {
      
        VStack{
     
-        Text("PICK UP LOCATION ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+        Text("Pick up location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
             .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
         
        }//END VStack
             
             
                 //MAP
-                Group{
-                Image(uiImage: #imageLiteral(resourceName: "map"))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 360, height: 280)
-                    .clipped()
+                VStack{
+              Group{
+                
+                Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-100,y:25)
+                
+                if errorlocation{
+                Text(lErr).font(.custom("Roboto Regular", size: 18))
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-55,y:35) }
+                
+                EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 360, height: 280, alignment: .center).frame(width: 360, height: 280)
+                    .clipped().offset(y:30)
                    
                 }.offset(x:0 ,y:-180)
+            }
             
             }
             
             VStack(spacing: 10){
-
+      
             
             //LOCATION
             VStack(spacing: -10){
-                
-                
                      
-                 //Show Error message if the location feild empty
-                     if errorlocation{
-                     Text(lErr).font(.custom("Roboto Regular", size: 18))
-                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -60,y:5) }
-             
-                  Image(uiImage: #imageLiteral(resourceName: "location"))
-                      .resizable()
-                      .aspectRatio(contentMode: .fill)
-                      .frame(width: 25, height: 25)
-                      .clipped()
-                      .offset(x:-160 ,y:23)
-             
-             
-         TextField("", text: $location)
-             .font(.system(size: 18))
-             .offset(x:20 ,y:-5).padding(12)
-             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 11.0)
-         
-           
+
             }//.offset(x:0 ,y:5)
             
             
@@ -150,7 +158,7 @@ struct AddNewOrderView: View {
                      
 
                             HStack() {
-                                Text(Bulding).font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                TextField("Search Bulding here", text: $text).multilineTextAlignment(.leading).frame(width: 295, height: 6)
                                 Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                             }.onTapGesture {
                                 self.expand.toggle()
@@ -159,6 +167,8 @@ struct AddNewOrderView: View {
                             if (expand && !expandFloor) {
                                 Group {
                                 ScrollView {
+                                    /*
+                                    
                                 Group {
                                 //1
                                 Button(action: {
@@ -292,11 +302,45 @@ struct AddNewOrderView: View {
 
                                 })
                                 {
-                                    Text("6 Computer and Information Sciences").padding(5)
+                                    Text(Bulding.title).padding(5)
                                 }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                     
                                 }
-                                
+                                */
+                                    
+                                 
+                                    
+                                        LazyVGrid(columns: columns, spacing: 10){
+                                            ForEach(fData.filter({ "\($0)".contains(text) || text.isEmpty})){ Bulding in
+                                                ZStack(){
+                                                    VStack {
+
+                                                        HStack {         //2
+                                                            Button(action: {
+                                                                self.expand.toggle()
+                                                                buldingPick = 12
+                                                                text=Bulding.title
+
+                                                            })
+                                                            {
+                                                                Text(Bulding.title).padding(5)
+                                                            }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
+                                                    }
+                                                    
+                                                
+                                                    
+                                                }
+                                               
+                                                
+                                               
+                                                
+                                                
+                                            }
+                                        }
+                            
+                                    
+           
+                                    
                                 
                                 }.frame(width: 300, height: 70)
                                 }.offset(x: -5, y: 10.0)
@@ -419,16 +463,16 @@ struct AddNewOrderView: View {
 
                 //NEXT
                 Button(action: {
-                    
+                    print("helooooooo")
+                    locationpp = pickAndDrop
                     self.PICKUPlocation()
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
-                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
+                         if (order.setpickUPAndpickUpDetails(pickUP:locationpp,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
                             print("pick up saved")
                             viewRouter.currentPage = .DROPOFFlocation
-
                         }
   
                         else
@@ -440,7 +484,7 @@ struct AddNewOrderView: View {
                     }
                 
                 })   {
-                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
+                    Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                                     }
                 .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                 .padding(.top,25)
@@ -457,7 +501,7 @@ struct AddNewOrderView: View {
    
         
             
-            }.offset(x: 0,y:160)
+            }.offset(x: 0,y:185)
 
 
 
@@ -485,10 +529,51 @@ struct AddNewOrderView: View {
         
        self.errorlocation = false
     
-        if self.location.count <= 0 {
+        
+   /* if self.location.count <= 0 {
          self.lErr="*must  enter pick up location "
             self.errorlocation = true
+        }*/
+        /*
+         ((self.locationpp.latitude > 24.729188771938155
+   && self.locationpp.longitude > 46.638253897426154
+  )||(self.locationpp.latitude > 24.730248267150188
+          && self.locationpp.longitude > 46.6321987327953
+         )||(self.locationpp.latitude < 24.72312923605736
+          && self.locationpp.longitude < 46.63956453952105
+         )||(self.locationpp.latitude < 24.724617361734303
+              && self.locationpp.longitude < 46.63274920230714
+             ))
+         */
+        
+        
+        
+       if ((self.locationpp.latitude < 24.730605398456717
+                && self.locationpp.longitude < 46.63897475075839
+               )||(self.locationpp.latitude > 24.727272133239453
+                       && self.locationpp.longitude > 46.64145186356194
+                      )||(self.locationpp.latitude > 24.72312923605736
+                       && self.locationpp.longitude > 46.63956453952105
+                      )||(self.locationpp.latitude > 24.724617361734303
+                           && self.locationpp.longitude > 46.63274920230714
+                          )) {
+        print(locationpp)
+        self.lErr="*The region out of our service "
+           self.errorlocation = true
+    }
+        
+        if (self.locationpp.latitude == 0 && self.locationpp.longitude == 0)  {
+            print(locationpp)
+            self.lErr="*must enter pick up location "
+               self.errorlocation = true
         }
+
+     /*   if ((self.locationpp.latitude != 0 && self.locationpp.longitude != 0)&&(self.locationpp.latitude < 24.729343530281625 && self.locationpp.longitude < 46.63784759870069)){
+            
+            selectLoctaionPick = " location saved "
+            
+        }*/
+        
         
          self.errorRoomPick = false
         
@@ -513,13 +598,32 @@ struct AddNewOrderView: View {
          
 }
     
+
+
+
+
+
+
+struct Bulding: Identifiable {
+    var id = UUID()
+    var title: String
+}
+
+
+var fData = [
+    Bulding(title: "Sciences 5"),
+    Bulding(title: "Computer and Information Sciences 6"),
+    Bulding(title: "Pharmacy 8" ),
+    Bulding(title: "Medicine 9"),
+    Bulding(title: "Dentistry 10"),
+    Bulding(title: "Applied Medical Science 11"),
+
+
+]
 }
 
 
 
-
-/*if order.addOrder(){
-    print("added")}*/
 
 struct AddNewOrderView_Previews: PreviewProvider {
     static var previews: some View {
@@ -528,3 +632,4 @@ struct AddNewOrderView_Previews: PreviewProvider {
         }
     }
 }
+
