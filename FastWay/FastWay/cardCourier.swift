@@ -77,7 +77,7 @@ struct CardView: View {
                     
                     withAnimation(.easeIn){
                         
-                        //model.showContent = true
+                        model.showContent = true
                         
                     }//end with animation
                 }//end dispatch

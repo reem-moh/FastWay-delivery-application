@@ -30,9 +30,17 @@ struct DetailedOrderOffer: View {
                 //go back button
                 //arrow_back image
                    Button(action: {
-                    model.showCard = false
-                    viewRouter.currentPage = .DeliverOrder
+                    //model.showCard = false
                     
+                    withAnimation(.spring()){
+                        model.showCard.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withAnimation(.easeIn){
+                                    model.showContent = false
+                            }
+                        }
+                    }
+                    viewRouter.currentPage = .DeliverOrder
                        
                    }) {
                      Image("arrow_back")
@@ -40,16 +48,19 @@ struct DetailedOrderOffer: View {
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 30, height: 30)
                          .clipped()
-                        .background(Color("CardColor3"))
-                   }.position(x:30 ,y:20).padding(1.0)
-            }
-          //  VStack(spacing: 0){
+                        //.background(Color("CardColor3"))
+                   }.offset(x:-150 ,y:55).padding(1.0)
+                ZStack{
                 MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination)
+                    .cornerRadius(35)
+                    .offset(y: 50)
                     .onAppear {
                         
                         self.manager.requestAlwaysAuthorization()
                     }
-           // }//end of map vStack
+                }
+            }
+
             ZStack {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
                 
