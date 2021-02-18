@@ -65,7 +65,7 @@ struct SendOrderIView: View {
                 VStack{
                  
                  
-                 Text("SEND ORDER ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                 Text("Send order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                      .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
                  
                 }
@@ -132,7 +132,7 @@ struct SendOrderIView: View {
                     print("order added")
                 }
             })  {
-                Text("SEND ORDER").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.uppercase)
+                Text("Send order").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                                 }
             .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
             .padding(.top,25).offset(x: 0, y:10)
