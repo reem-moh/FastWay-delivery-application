@@ -64,6 +64,8 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         self.lastLocation = location
         print(#function, location)
+        print("curent loction")
+
     }
 
 }

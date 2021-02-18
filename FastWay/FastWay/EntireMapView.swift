@@ -13,6 +13,19 @@ var pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 
 struct EntireMapView: UIViewRepresentable {
     
+    
+    @State private var userTrackingMode: MapUserTrackingMode = .follow
+        @State private var region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(
+                latitude: 24.72640308847297,
+                longitude: 46.638332536327816
+            ),
+            span: MKCoordinateSpan(
+                latitudeDelta: 50,
+                longitudeDelta: 50
+            )
+        )
+    
     @ObservedObject var locationManager = LocationManager()
 
        var userLatitude: String {
@@ -52,7 +65,7 @@ struct EntireMapView: UIViewRepresentable {
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
             map.showsUserLocation = true
             let longPress = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(EntireMapViewCoordinator.addAnnotation(gesture:)))
-            longPress.minimumPressDuration = 0
+            longPress.minimumPressDuration = 1
             map.addGestureRecognizer(longPress)
             map.delegate = context.coordinator
             return map
@@ -62,8 +75,12 @@ struct EntireMapView: UIViewRepresentable {
     func makeCoordinator() -> EntireMapViewCoordinator {
         return EntireMapViewCoordinator(self)
     }
+    
+    
 
     class EntireMapViewCoordinator: NSObject, MKMapViewDelegate {
+        
+        
 
         var entireMapViewController: EntireMapView
 
