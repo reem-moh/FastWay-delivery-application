@@ -58,7 +58,7 @@ struct DeliverOrderView: View{
                                     }.padding(.bottom,25)//end of for each
                             
                             
-                            }//.frame(width: 300, height: 200)
+                            }
 
                         }
                     }
@@ -94,8 +94,7 @@ struct DeliverOrderView: View{
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
                                     viewRouter.currentPage = .AboutUs
-                                    //model.showContent = false
-                                    //model.showCard = false
+                                    
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
                             //Profile icon
