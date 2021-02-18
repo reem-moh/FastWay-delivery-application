@@ -45,7 +45,7 @@ struct DetailedOrderOffer: View {
                     //go back button
                     //arrow_back image
                     Group{
-                        RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color("CardColor3"))
+                        RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
                         
                         Button(action: {
                        // model.showCard = false
@@ -58,14 +58,16 @@ struct DetailedOrderOffer: View {
                                     
                                  }
                              }
+                            
                          }
                         }) {
                           Image("arrow_back")
                               .resizable()
+                              .colorInvert()
                               .aspectRatio(contentMode: .fill)
                               .frame(width: 30, height: 30)
                               .clipped()
-                             .background(Color("CardColor3"))
+                            .background(Color(.white))
                         }.padding(1.0)
                     }.position(x: 50, y: 50)
                     
