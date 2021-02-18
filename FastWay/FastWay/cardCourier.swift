@@ -6,9 +6,12 @@
 //
 import SwiftUI
 import MapKit
+
+
 // CardView
 struct CardView: View {
     @EnvironmentObject var model : CarouselViewModel
+   // @StateObject var viewRouter: ViewRouter
     var card: Card
     var animation: Namespace.ID
     
@@ -16,6 +19,7 @@ struct CardView: View {
         
         //Card
         VStack{
+            
             //orderDetails
             HStack {
                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
@@ -49,12 +53,12 @@ struct CardView: View {
                 //to let an arrow in the right of the card
                 Spacer(minLength: 0)
                 
-                if !model.showContent{
+             //   if !model.showContent{
                     
                     Text("Intrested")
                     
                     Image(systemName: "arrow.right")
-                }
+               // }
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
@@ -72,12 +76,13 @@ struct CardView: View {
                 
                 model.selectedCard = card
                 model.selectedCard.cardColor = Color(.white)
-                model.showCard.toggle() //change the value of showCard to true
+               model.showCard.toggle() //change the value of showCard to true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     
                     withAnimation(.easeIn){
-                        
+                        //viewRouter.currentPage = .DetailsDeliver
                         model.showContent = true
+                        
                         
                     }//end with animation
                 }//end dispatch
@@ -87,147 +92,7 @@ struct CardView: View {
     }
 }
 
-// DetailView
-/*struct DetailView: View {
-    @EnvironmentObject var model: CarouselViewModel
-    var animation: Namespace.ID
-    
-    //for drop down menu
-    @State var expandOffer = false
-    @State var expand = false
-    @State var offer = 0
-    @State var offerList : String = ""
-    
-    var body: some View {
-        
-        ZStack {
-            
-                //content
-                VStack{
-                    
-                    if model.showContent{
-                        
-                        // CLose Button..
-                        VStack{
-                            
-                            Button(action: CloseView, label: {
-                                    
-                                Image(systemName: "arrow.left")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.gray)
-                                    .padding(.horizontal,18)
-                                    .shadow(radius: 2)
-                                // to let the arrow left the card
-                                Spacer(minLength: 0)
-                                
-                            })
-                        }.padding(.top,25)
-                        
-                        //Detiles card
-                        ScrollView{
-                            //map
-                            Image(uiImage: #imageLiteral(resourceName: "map"))
-                                .padding(.top,20)
-                                .animation(.easeIn)
-                            
-                            //orderDetails
-                            Text(model.getOrderDetails(c:model.selectedCard))
-                                .fontWeight(.semibold)
-                                .foregroundColor(.gray)
-                                .padding()
-                                .padding(.trailing)
-                                .animation(.easeIn)
-                            
-                            //Offer price
-                            VStack(spacing: 0){
-                         
-                                HStack() {
-                                    Text("Offer")
-                                        .font(.custom("Roboto Medium", size: 18))
-                                        .fontWeight(.bold).multilineTextAlignment(.leading)
-                                        .frame(width: 295, height: 6)
-                                    Image(systemName: expand ? "chevron.up" : "chevron.down")
-                                        .resizable()
-                                        .frame(width: 13, height: 6)
-                                }.onTapGesture {
-                                    self.expand.toggle()
-                                    self.expandOffer = false
-                                }
-                                if (expand && !expandOffer) {
-                                    Group {
-                                    ScrollView {
-                                                                               
-                                            ForEach((1...20), id: \.self) { i in
-                                               
-                                                Button(action: {
-                                                    self.expand.toggle()
-                                                    offer = i
-                                                    offerList="\(i) SAR"
-                                                })
-                                                {
-                                                    Text("\(i) SAR").padding(5)
-                                                }
-                                                .foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                                .frame(width: 297, height: 30)
-                                                
-                                            }//end for each
-                                        }.frame(width: 300, height: 70)//end scroll view
-                                    }.offset(x: -15, y: 10.0)//end group
-                                }//end if statment
-                            
-                            }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(Color(.gray), lineWidth: 1))
-                            .colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
-                            
-                            //make an offer button
-                            Button(action: {
-                                //Call DB
-                            }) {
-                                Text("Make an Offer")
-                                    .font(.custom("Roboto Bold", size: 22))
-                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                    .multilineTextAlignment(.center)
-                                    .padding(1.0)
-                                    .frame(width: UIScreen.main.bounds.width - 50)
-                                    .textCase(.none)
-                            }
-                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                            .padding(.top,25)
-                            .offset(x: 0)
-                            .padding(.bottom,100)
 
-                        }//end scroll
-                        
-                        
-                    }// end if statment of show content
-                    
-                }//end vstack
-                .frame(maxWidth: .infinity, maxHeight: 630)
-                .background(
-                    model.selectedCard.cardColor
-                        .cornerRadius(25)
-                        //to add animation
-                        .matchedGeometryEffect(id: "bgColor-\(model.selectedCard.id)", in: animation)
-                        .ignoresSafeArea(.all, edges: .bottom)
-                )
-                
-        }//end zStack
-    }//end body
-    
-    func CloseView(){
-        
-        withAnimation(.spring()){
-            model.showCard.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.easeIn){
-                        model.showContent = false
-                }
-            }
-        }
-    }
-}*/
 
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
@@ -249,28 +114,12 @@ class CarouselViewModel: ObservableObject {
         getCards()
        
     }
-    
-    //Delete this method? because we have orderPerview return order
-    func getOrderDetails(c: Card) -> String{
-        //dropOff
-        let dropOffB = c.orderD.dropOffBulding
-        let dropOffF = c.orderD.dropOffFloor
-        let dropOffR = c.orderD.dropOffRoom
-        let orderDetails = c.orderD.orderDetails
-        //pickUp
-        let pickUPB = c.orderD.pickUpBulding
-        let pickUPF = c.orderD.pickUpFloor
-        let pickUPR = c.orderD.pickUpRoom
-        
-        let all="\n \(orderDetails) \n\n PickUp: \nBulding: \(pickUPB),Floor: \(pickUPF),Room: \(pickUPR) \n\n dropOff: \n Bulding: \(dropOffB),Floor: \(dropOffF),Room: \(dropOffR)"
-        return all;
-    }
-    
+    //return order details
     func orderPreview(c: Card) -> OrderDetails {
         return c.orderD
     }
     
-    //check if map return string ?
+    //in next sprint
     
     func setOrderOffer(){
         
