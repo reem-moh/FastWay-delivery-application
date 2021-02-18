@@ -48,7 +48,7 @@ struct DetailedOrderOffer: View {
                         RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color("CardColor3"))
                         
                         Button(action: {
-                        model.showCard = false
+                       // model.showCard = false
                          
                          withAnimation(.spring()){
                            model.showCard.toggle()
@@ -82,7 +82,7 @@ struct DetailedOrderOffer: View {
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
                                 HStack {
                                     
-                                    Text("Building \(model.selectedCard.orderD.pickUpBulding), \nfloor \(model.selectedCard.orderD.pickUpFloor), office \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(model.selectedCard.orderD.pickUpBulding), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
                                 }
                                 
                             }
@@ -92,7 +92,7 @@ struct DetailedOrderOffer: View {
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
                                 HStack {
                                     
-                                    Text("Building \(model.selectedCard.orderD.dropOffBulding), \nfloor \(model.selectedCard.orderD.dropOffFloor), office \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(model.selectedCard.orderD.dropOffBulding), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
                                 }
                                 
                             }
@@ -179,7 +179,23 @@ struct DetailedOrderOffer: View {
                                 Spacer()
                                 HStack {
                                     //Home icon
-                                    TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                                    
+                                    VStack {
+                                        Image(systemName: "homekit")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: geometry.size.width/5, height: geometry.size.height/28)
+                                            .padding(.top, 10)
+                                        Text("Home")
+                                            .font(.footnote)
+                                        Spacer()
+                                    }.padding(.horizontal, 14).onTapGesture {
+                                                    model.showContent = false
+                                        model.showCard.toggle()
+                                                     viewRouter.currentPage = .HomePageC
+                                                 }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
+                                    
+                                    
                                     ZStack {
                                         //about us icon
                                         Circle()
@@ -192,12 +208,29 @@ struct DetailedOrderOffer: View {
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                         }.padding(.horizontal, 14).onTapGesture {
+                                            model.showContent = false
+                                            model.showCard.toggle()
                                             viewRouter.currentPage = .AboutUs
-                                            //model.showContent = false
                                         }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                                     }.offset(y: -geometry.size.height/8/2)
+                                    
                                     //Profile icon
-                                    TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                                    VStack {
+                                        Image(systemName: "person.crop.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: geometry.size.width/5, height: geometry.size.height/28)
+                                            .padding(.top, 10)
+                                        Text("Profile")
+                                            .font(.footnote)
+                                        Spacer()
+                                    }.padding(.horizontal, 14).onTapGesture {
+                                                    model.showContent = false
+                                        model.showCard.toggle()
+                                                     viewRouter.currentPage = .ViewProfileC
+                                                 }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
+                                    
+                                    
                                 }
                                 .frame(width: geometry.size.width, height: geometry.size.height/8)
                                 .background(Color("TabBarBackground").shadow(radius: 2))
