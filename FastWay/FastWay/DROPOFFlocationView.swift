@@ -11,7 +11,7 @@ import FirebaseFirestore
 import MapKit
 import CoreLocation
 
-//var order = Order()
+
 
 struct DROPOFFlocationView: View {
     
@@ -28,30 +28,15 @@ struct DROPOFFlocationView: View {
 
     @State var map = MKMapView()
         @State var manager = CLLocationManager()
-        @State var alert = false
-        @State var source : CLLocationCoordinate2D!
-        @State var destination : CLLocationCoordinate2D!
-        @State var name2 = ""
-        @State var distance = ""
-        @State var time = ""
-        @State var show = false
-        @State var doc = ""
-        @State var data : Data = .init(count: 0)
-        @State var search = false
-    
 
-            
-        
-    @State var name = ""
-    @State var location = ""
-    @State var buldingPick = 0
-    @State var floorPick = -1
-    @State var roomPick = ""
-    @State var Bulding = ""
+   
+    @State var bulding = 0
+    @State var floorNum = -1
+    @State var room = ""
     @State var Floor = "Floor"
 
 
-    @State var locationpp = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -63,6 +48,7 @@ struct DROPOFFlocationView: View {
     @State var rErr = ""
 
     @StateObject var viewRouter: ViewRouter
+    
     //for drop down menu
     @State var expandFloor = false
     @State var expand = false
@@ -126,7 +112,7 @@ struct DROPOFFlocationView: View {
                 
                 
                     
-                      EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 380, height: 400, alignment: .center)
+                      EntireMapView(map: self.$map, manager: self.$manager).frame(width: 380, height: 400, alignment: .center)
                           .clipped().offset(y:50)
                     
                 Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
@@ -192,7 +178,7 @@ struct DROPOFFlocationView: View {
                                                         HStack {         //2
                                                             Button(action: {
                                                                 self.expand.toggle()
-                                                                buldingPick = 12
+                                                                bulding = 12
                                                                 text=Bulding.title
 
                                                             })
@@ -261,7 +247,7 @@ struct DROPOFFlocationView: View {
                             //1
                             Button(action: {
                                 self.expandFloor.toggle()
-                                floorPick = 0
+                                floorNum = 0
                                 Floor="0"
                             })
                             {
@@ -271,7 +257,7 @@ struct DROPOFFlocationView: View {
                             //2
                             Button(action: {
                                 self.expandFloor.toggle()
-                                floorPick = 1
+                                floorNum = 1
                                 Floor="1"
 
                             })
@@ -282,7 +268,7 @@ struct DROPOFFlocationView: View {
                             //3
                             Button(action: {
                                 self.expandFloor.toggle()
-                                floorPick = 2
+                                floorNum = 2
                                 Floor="2"
 
                             })
@@ -293,7 +279,7 @@ struct DROPOFFlocationView: View {
                             //4
                                 Button(action: {
                                 self.expandFloor.toggle()
-                                floorPick = 3
+                                floorNum = 3
                                     Floor="3"
 
                             })
@@ -324,7 +310,7 @@ struct DROPOFFlocationView: View {
                     
                 
                 //room numbers
-            TextField("room numbers , more details...", text: $roomPick)
+            TextField("room numbers , more details...", text: $room)
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14).offset(x: 0,y:0)
@@ -338,13 +324,13 @@ struct DROPOFFlocationView: View {
                 //NEXT
                 Button(action: {
                     print("helooooooo")
-                    locationpp = pickAndDrop
+                    location = pickAndDrop
                     self.DROPOFFlocation()
 
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
-                         if (order.setpickUPAndpickUpDetails(pickUP:locationpp,pickUpBulding: buldingPick, pickUpFloor: floorPick, pickUpRoom: roomPick)){
+                        if (order.setDropOffAndDropOffDetails(dropOff: location, dropOffBulding: bulding, dropOffFloor: floorNum, dropOffRoom: room)){
                             print("pick up saved")
                             viewRouter.currentPage = .SendOrder
                         }
@@ -407,22 +393,22 @@ struct DROPOFFlocationView: View {
 
         
         
-       if ((self.locationpp.latitude < 24.729236389910497
-                && self.locationpp.longitude <  46.63796555645328
-               )&&(self.locationpp.latitude <  24.727141181704155
-                    && self.locationpp.longitude <  46.63969560349054
-                   )&&(self.locationpp.latitude <  24.726688802794214
-                        && self.locationpp.longitude <  46.64002326371437
-                       )&&(self.locationpp.latitude <  24.725307845737717
-                            && self.locationpp.longitude <  46.64004947674826
-                           )&&(self.locationpp.latitude <  24.72514117731049
-                                && self.locationpp.longitude < 46.64016743450085
-                               )&&(self.locationpp.latitude > 24.725188797195315
-                                    && self.locationpp.longitude > 46.64019364753466
-                                   )&&(self.locationpp.latitude > 24.724807840331238
-                                        && self.locationpp.longitude > 46.64293288827727
+       if ((self.location.latitude < 24.729236389910497
+                && self.location.longitude <  46.63796555645328
+               )&&(self.location.latitude <  24.727141181704155
+                    && self.location.longitude <  46.63969560349054
+                   )&&(self.location.latitude <  24.726688802794214
+                        && self.location.longitude <  46.64002326371437
+                       )&&(self.location.latitude <  24.725307845737717
+                            && self.location.longitude <  46.64004947674826
+                           )&&(self.location.latitude <  24.72514117731049
+                                && self.location.longitude < 46.64016743450085
+                               )&&(self.location.latitude > 24.725188797195315
+                                    && self.location.longitude > 46.64019364753466
+                                   )&&(self.location.latitude > 24.724807840331238
+                                        && self.location.longitude > 46.64293288827727
                                        )) {
-        print(locationpp)
+        print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
@@ -433,8 +419,8 @@ struct DROPOFFlocationView: View {
         
         
         
-        if (self.locationpp.latitude == 0 && self.locationpp.longitude == 0)  {
-            print(locationpp)
+        if (self.location.latitude == 0 && self.location.longitude == 0)  {
+            print(location)
             self.lErr="*must enter Drop off location "
                self.errorlocation = true
         }
@@ -446,21 +432,21 @@ struct DROPOFFlocationView: View {
         
          self.errorRoomPick = false
         
-           if self.roomPick.count == 0 {
+           if self.room.count == 0 {
                self.rErr="*must enter  more details"
                self.errorRoomPick = true
          }
          
          self.errorBuldingPick = false
         
-        if self.buldingPick == 0 {
+        if self.bulding == 0 {
              self.bErr="*must select bulding"
              self.errorBuldingPick = true
          }
         
         self.errorFloorPick = false
         
-        if self.floorPick == -1 {
+        if self.floorNum == -1 {
             self.fErr="*must select floor"
             self.errorFloorPick = true
         }

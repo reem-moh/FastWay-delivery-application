@@ -68,7 +68,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
     }
     
-    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
+   /* func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
         // Make sure the app is authorized.
       //  if CLLocationManager.authorizationStatus() == .authorizedAlways {
             // Make sure region monitoring is supported.
@@ -83,6 +83,6 @@ extension LocationManager: CLLocationManagerDelegate {
                 locationManager.startMonitoring(for: region)
             }
         
-    }
+    }*/
 }
 

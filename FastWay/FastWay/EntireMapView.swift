@@ -41,9 +41,6 @@ struct EntireMapView: UIViewRepresentable {
     
     @Binding var map : MKMapView
     @Binding var manager : CLLocationManager
-    @Binding var alert : Bool
-    @Binding var source : CLLocationCoordinate2D!
-    @Binding var destination : CLLocationCoordinate2D!
 
 
         func updateUIView(_ mapView: MKMapView, context: Context) {
@@ -59,7 +56,6 @@ struct EntireMapView: UIViewRepresentable {
 
         func makeUIView(context: Context) -> MKMapView {
 
-           // let myMap = MKMapView(frame: .zero)
             map = MKMapView(frame: .zero)
             map.delegate = context.coordinator
             manager.delegate = context.coordinator as? CLLocationManagerDelegate

@@ -25,8 +25,7 @@ struct MotherView: View {
                 case .AddNewOrder :
                     AddNewOrderView(viewRouter : viewRouter)
                 case .DROPOFFlocation :
-                
-                    DROPOFFlocationView(viewRouter : viewRouter)
+                DROPOFFlocationView(viewRouter : viewRouter)
                 case .SendOrder :
                     SendOrderIView(viewRouter : viewRouter)
                 case .ViewProfileM :
