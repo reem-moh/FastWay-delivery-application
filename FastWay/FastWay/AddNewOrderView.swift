@@ -79,6 +79,8 @@ struct AddNewOrderView: View {
         
         ZStack{
         
+            
+            
                         
             ZStack{
 
@@ -102,71 +104,67 @@ struct AddNewOrderView: View {
                  .aspectRatio(contentMode: .fill)
                  .frame(width: 30, height: 30)
                .clipped()
-           }.position(x:30 ,y:70)
+           }.position(x:30 ,y:20)
         
             
-            //white rectangle
-            Spacer(minLength: 100)
-            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+            
+            Text("Pick up location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-735)
+            
+           
             
         }//END VStack
         
 
      
-       VStack{
-    
-        Text("Pick up location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
-        
-       }//END VStack
+       
             
             
                 //MAP
-                VStack{
-              Group{
+                ZStack{
+                    
                 
-                Text("location status: \(locationManager.statusString)")
-                          HStack {
-                              Text("latitude: \(userLatitude)")
-                              Text("longitude: \(userLongitude)")
-                          }
                 
-                Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-100,y:25)
+                    
+                      EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 380, height: 400, alignment: .center)
+                          .clipped().offset(y:50)
+                    
+                Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
                 
                 if errorlocation{
                 Text(lErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-55,y:35) }
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
                 
-                EntireMapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$source, destination: self.$destination).frame(width: 360, height: 280, alignment: .center).frame(width: 360, height: 280)
-                    .clipped().offset(y:30)
+            
                    
-                }.offset(x:0 ,y:-180)
-            }
+                            }.offset(x:0 ,y:-180)
+
             
             }
+            
+            
+            
+            //white rectangle
+            Spacer(minLength: 100)
+            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:0 ,y:430)
             
             VStack(spacing: 10){
       
             
-            //LOCATION
-            VStack(spacing: -10){
-                     
-
-            }//.offset(x:0 ,y:5)
-            
+          
             
             
 
                 
                 // Bulding
-                VStack(spacing: 0){
+                VStack(spacing: -10){
                 
                     
                 
             //Show Error message if no bulding selected
                     if errorBuldingPick {
                         Text(bErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:0)
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:-10)
                     }
                 
                 
@@ -184,149 +182,8 @@ struct AddNewOrderView: View {
                             if (expand && !expandFloor) {
                                 Group {
                                 ScrollView {
-                                    /*
-                                    
-                                Group {
-                                //1
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 5
-                                    Bulding="5 Sciences"
-                                })
-                                {
-                                    Text("5 Sciences").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //2
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 6
-                                    Bulding="6 Computer and Information Sciences"
-
-                                })
-                                {
-                                    Text("6 Computer and Information Sciences").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //3
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 8
-                                    Bulding="8 Pharmacy"
-
-                                })
-                                {
-                                    Text("8 Pharmacy").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //4
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 9
-                                    Bulding="9 Medicine"
-
-                                })
-                                {
-                                    Text("9 Medicine").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //5
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 10
-                                    Bulding="10 Dentistry"
-
-                                })
-                                {
-                                    Text("10 Dentistry").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
+                               
                                 
-                                //6
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 11
-                                    Bulding="11 Applied Medical Sciences"
-
-                                })
-                                {
-                                    Text("11 Applied Medical Sciences").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //7
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-                                    Bulding="12 Nursing"
-
-                                })
-                                {
-                                    Text("12 Nursing").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    //8
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        buldingPick = 12
-                                        Bulding="12 Nursing"
-
-                                    })
-                                    {
-                                        Text("12 Nursing").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    //9
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        buldingPick = 12
-                                        Bulding="12 Nursing"
-
-                                    })
-                                    {
-                                        Text("12 Nursing").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                    //10
-                                    Button(action: {
-                                        self.expand.toggle()
-                                        buldingPick = 12
-                                        Bulding="12 Nursing"
-
-                                    })
-                                    {
-                                        Text("12 Nursing").padding(5)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                }
-                                    
-                                Group {
-                                //1
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-                                    Bulding="5 Sciences"
-
-                                })
-                                {
-                                    Text("5 Sciences").padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-
-                                //2
-                                Button(action: {
-                                    self.expand.toggle()
-                                    buldingPick = 12
-                                    Bulding="6 Computer and Information Sciences"
-
-                                })
-                                {
-                                    Text(Bulding.title).padding(5)
-                                }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                    
-                                }
-                                */
-                                    
-                                 
-                                    
                                         LazyVGrid(columns: columns, spacing: 10){
                                             ForEach(fData.filter({ "\($0)".contains(text) || text.isEmpty})){ Bulding in
                                                 ZStack(){
@@ -366,10 +223,10 @@ struct AddNewOrderView: View {
                         }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                     
                    
-                  //  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                
                    
                    
-                   }//.offset(x:0 ,y:20)// END Bulding
+                   }// END Bulding
                     
                 
                     
@@ -379,13 +236,13 @@ struct AddNewOrderView: View {
                 
                 
                     //Floor
-            VStack(spacing: 0){
+            VStack(spacing: -10){
                 
                 
                 //Show Error message if no floor selected
         if errorFloorPick {
             Text(fErr).font(.custom("Roboto Regular", size: 18))
-                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:0)
+                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:-10)
         }
                     
             
@@ -450,7 +307,7 @@ struct AddNewOrderView: View {
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                 
                     
-        }//.offset(x:0 ,y:173)//END Floor
+        }//END Floor
             
        
            
@@ -470,9 +327,9 @@ struct AddNewOrderView: View {
             TextField("room numbers , more details...", text: $roomPick)
                 .font(.system(size: 18))
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14).offset(x: 0,y:0)
                 
-        }//.offset(x:0 ,y:235)
+        }
                 
           
             
@@ -509,7 +366,7 @@ struct AddNewOrderView: View {
                 
                 
                 
-            }//.offset(x: 0,y:65)  //END NEXT
+            }  //END NEXT
 
             
            
@@ -518,7 +375,7 @@ struct AddNewOrderView: View {
    
         
             
-            }.offset(x: 0,y:210)
+            }.offset(x: 0,y:215)
 
 
 
@@ -547,22 +404,7 @@ struct AddNewOrderView: View {
        self.errorlocation = false
     
         
-   /* if self.location.count <= 0 {
-         self.lErr="*must  enter pick up location "
-            self.errorlocation = true
-        }*/
-        /*
-         ((self.locationpp.latitude > 24.729188771938155
-   && self.locationpp.longitude > 46.638253897426154
-  )||(self.locationpp.latitude > 24.730248267150188
-          && self.locationpp.longitude > 46.6321987327953
-         )||(self.locationpp.latitude < 24.72312923605736
-          && self.locationpp.longitude < 46.63956453952105
-         )||(self.locationpp.latitude < 24.724617361734303
-              && self.locationpp.longitude < 46.63274920230714
-             ))
-         */
-        
+
         
         
        if ((self.locationpp.latitude < 24.729236389910497
@@ -600,12 +442,7 @@ struct AddNewOrderView: View {
         
         
 
-     /*   if ((self.locationpp.latitude != 0 && self.locationpp.longitude != 0)&&(self.locationpp.latitude < 24.729343530281625 && self.locationpp.longitude < 46.63784759870069)){
-            
-            selectLoctaionPick = " location saved "
-            
-        }*/
-        
+    
         
          self.errorRoomPick = false
         
