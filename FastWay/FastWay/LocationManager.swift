@@ -31,7 +31,7 @@ class LocationManager: NSObject, ObservableObject {
             objectWillChange.send()
         }
     }
-
+/*
     var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
@@ -46,7 +46,7 @@ class LocationManager: NSObject, ObservableObject {
         default: return "unknown"
         }
 
-    }
+    }*/
 
     let objectWillChange = PassthroughSubject<Void, Never>()
 
@@ -57,7 +57,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         self.locationStatus = status
-        print(#function, statusString)
+       // print(#function, statusString)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
