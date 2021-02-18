@@ -497,7 +497,7 @@ var fData = [
 struct DROPOFFlocationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AddNewOrderView(viewRouter: ViewRouter())
+            DROPOFFlocationView(viewRouter: ViewRouter())
         }
     }
 }
