@@ -191,6 +191,10 @@ class Order: ObservableObject{
     var orderDetails: String
     var memberId: String
     var memberName: String
+    var setPick: Bool
+    var setDrop: Bool
+    var setDetails: Bool
+
     
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -204,6 +208,9 @@ class Order: ObservableObject{
         self.orderDetails =  ""
         self.memberId = ""
         self.memberName = ""
+        self.setPick = false
+        self.setDrop = false
+        self.setDetails = false
     }
     
     func setpickUPAndpickUpDetails(pickUP: CLLocationCoordinate2D ,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String   )-> Bool{
@@ -215,6 +222,7 @@ class Order: ObservableObject{
         if (pickUP.latitude != 0.0 && pickUP.longitude != 0.0 && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
         {
             flag = true
+            self.setPick = true
         }
         else {
             
@@ -233,6 +241,7 @@ class Order: ObservableObject{
         if (dropOff.latitude != 0.0 && dropOff.longitude != 0.0 && dropOffBulding != 0 &&  dropOffFloor != -1 &&  dropOffRoom != "")
     {
         flag = true
+        self.setDrop = true
     }
           else {
             
@@ -247,6 +256,7 @@ class Order: ObservableObject{
         if orderDetails != ""
         {
             flag = true
+            self.setDetails = true
         }else
         
         {
@@ -262,14 +272,14 @@ class Order: ObservableObject{
         //need to change the id
         let id = UserDefaults.standard.getUderId()
         let doc = db.collection("Order").document()
-        
+        if (self.setPick && self.setDrop && self.setDetails){
         doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false" ]) { (error) in
             
             if error != nil {
                 flag = false
             }
         }
-        
+        }
         return flag
     }
     
