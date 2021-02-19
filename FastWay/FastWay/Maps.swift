@@ -57,7 +57,7 @@ struct MapView : UIViewRepresentable {
     @Binding var destination : CLLocationCoordinate2D!
     
     func makeUIView(context: Context) -> MKMapView {
-        map = MKMapView(frame: .zero)
+        //map = MKMapView(frame: .zero)
         map.delegate = context.coordinator
         manager.delegate = context.coordinator as CLLocationManagerDelegate
         map.showsUserLocation = true

@@ -162,11 +162,11 @@ struct C: Identifiable {
 //order struct
 struct OrderDetails: Identifiable {
     var id: String
-    var pickUP: CLLocationCoordinate2D
+    var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
-    var dropOff: CLLocationCoordinate2D
+    var dropOff: CLLocationCoordinate2D!
     var dropOffBulding: Int
     var dropOffFloor: Int
     var dropOffRoom: String
@@ -180,11 +180,11 @@ class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = []//[OrderDetails(id: "1", pickUP: "1", pickUpBulding: 1, pickUpFloor: 1, pickUpRoom: "1", dropOff: "1", dropOffBulding: 1, dropOffFloor: 1, dropOffRoom: "1", orderDetails: "1", isAdded: false),]
     
-    var pickUP: CLLocationCoordinate2D
+    var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
     var pickUpFloor: Int
     var pickUpRoom: String
-    var dropOff: CLLocationCoordinate2D
+    var dropOff: CLLocationCoordinate2D!
     var dropOffBulding: Int
     var dropOffFloor: Int
     var dropOffRoom: String
@@ -285,11 +285,17 @@ class Order: ObservableObject{
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = queryDocumentSnapshot.documentID
-                let pickup = data["PickUp"] as? CLLocationCoordinate2D ??  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                //pickUp location
+                let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
+                let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
+                let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
                 let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
                 let pickupFloor = data["pickUpFloor"] as? Int ?? 0
                 let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                let dropoff = data["DropOff"] as? CLLocationCoordinate2D ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                //DropOff Location
+                let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
+                let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
+                let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
                 let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
                 let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
                 let dropoffRoom = data["dropOffRoom"] as? String ?? ""
