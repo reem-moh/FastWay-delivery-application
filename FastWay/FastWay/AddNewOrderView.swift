@@ -327,9 +327,9 @@ struct AddNewOrderView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.PICKUPlocation()
-                    print(map.region.center)
-                    CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
-                    print(CheckPinInRegion)
+                   // print(map.region.center)
+                  //  CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
+                   // print(CheckPinInRegion)
                     
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
@@ -412,7 +412,7 @@ struct AddNewOrderView: View {
                                    )&&(self.location.latitude > 24.724807840331238
                                         && self.location.longitude > 46.64293288827727
                                        )) */
-        if(CheckPinInRegion){
+        if(!isInRegion(region: map.region, coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
