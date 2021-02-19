@@ -16,12 +16,11 @@ struct DetailedOrderOffer: View {
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var alert = false
-    @State var source : CLLocationCoordinate2D!
-    //@State var destination : CLLocationCoordinate2D!
     @State var expandOffer = false
     @State var expand = false
     @State var offer = 0
-    @State var offerList : String = ""
+    @State var offerList : String = "Offer"
+    @State var checkOffer : Bool = false
     
     var body: some View{
         
@@ -107,16 +106,22 @@ struct DetailedOrderOffer: View {
                             }
                         }
                         //Offer price
+                            if(checkOffer) {
+                                Text("You must add price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                        .offset(x: -5)
+                                
+                            }
                         VStack(spacing: 0){
                      
                             HStack() {
-                                Text("Offer")
+                                Text("\(offerList)")
                                     .font(.custom("Roboto Medium", size: 18))
                                     .fontWeight(.bold).multilineTextAlignment(.leading)
                                     .frame(width: 268, height: 6)
                                 Image(systemName: expand ? "chevron.up" : "chevron.down")
                                     .resizable()
                                     .frame(width: 13, height: 6)
+                                    .foregroundColor(.white)
                             }.onTapGesture {
                                 self.expand.toggle()
                                 self.expandOffer = false
@@ -151,7 +156,7 @@ struct DetailedOrderOffer: View {
                         
                         //make an offer button
                         Button(action: {
-                            //Call DB
+                            makeAnOffer()
                         }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -246,11 +251,15 @@ struct DetailedOrderOffer: View {
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }
-    
     func estimateTime(){
         
     }
-    
+    func makeAnOffer(){
+        checkOffer=false
+        if( offerList == "Offer"){
+            checkOffer=true
+        }
+    }
     
 }
 
