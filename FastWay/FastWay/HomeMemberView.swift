@@ -23,7 +23,7 @@ struct HomeMemberView: View {
             ZStack{
                 
                 //background
-              Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+              Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(.all).offset(y:-100)
               Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 25)
                 
                 GeometryReader { geometry in
