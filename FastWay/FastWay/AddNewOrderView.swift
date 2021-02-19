@@ -37,6 +37,7 @@ struct AddNewOrderView: View {
 
 
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    @State var CheckPinInRegion = false
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -326,7 +327,10 @@ struct AddNewOrderView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.PICKUPlocation()
-
+                    print(map.region.center)
+                    CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
+                    print(CheckPinInRegion)
+                    
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
@@ -393,7 +397,7 @@ struct AddNewOrderView: View {
 
         
         
-       if ((self.location.latitude < 24.729236389910497
+     /*  if ((self.location.latitude < 24.729236389910497
                 && self.location.longitude <  46.63796555645328
                )&&(self.location.latitude <  24.727141181704155
                     && self.location.longitude <  46.63969560349054
@@ -407,7 +411,8 @@ struct AddNewOrderView: View {
                                     && self.location.longitude > 46.64019364753466
                                    )&&(self.location.latitude > 24.724807840331238
                                         && self.location.longitude > 46.64293288827727
-                                       )) {
+                                       )) */
+        if(CheckPinInRegion){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
@@ -477,7 +482,25 @@ var fData = [
 ]
 }
 
+func isInRegion (region : MKCoordinateRegion, coordinate : CLLocationCoordinate2D) -> Bool {
+print("swsssssswwwswssssssssssswwwwwwwwww")
+    print(coordinate)
+  //  let center   = region.center;
+    let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
+    let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
+  //  let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    print(northWestCorner)
+  //  let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+print(southEastCorner)
+  //  return (
+    let x = ( coordinate.latitude  >= northWestCorner.latitude &&
+        coordinate.latitude  <= southEastCorner.latitude &&
 
+        coordinate.longitude >= northWestCorner.longitude &&
+        coordinate.longitude <= southEastCorner.longitude)
+   // )
+    return x
+}
 
 
 struct AddNewOrderView_Previews: PreviewProvider {

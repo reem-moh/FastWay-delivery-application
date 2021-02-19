@@ -10,6 +10,7 @@ import MapKit
 import UIKit
 
 var pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+var CheckPinInRegion = true
 
 struct EntireMapView: UIViewRepresentable {
     
@@ -56,7 +57,7 @@ struct EntireMapView: UIViewRepresentable {
 
         func makeUIView(context: Context) -> MKMapView {
 
-            map = MKMapView(frame: .zero)
+           // map = MKMapView(frame: .zero)
             map.delegate = context.coordinator
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
             map.showsUserLocation = true
