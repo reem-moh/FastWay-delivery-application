@@ -13,7 +13,7 @@ struct FastWayApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MotherView(viewRouter: viewRouter)
+            MotherView(viewRouter: viewRouter).environment(\.colorScheme, .light)
         }
     }
 }
