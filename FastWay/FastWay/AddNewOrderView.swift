@@ -14,16 +14,18 @@ import CoreLocation
 var order = Order()
 
 struct AddNewOrderView: View {
-    
-   // @ObservedObject var locationManager = LocationManager()
+   
+    /*
+    @ObservedObject var locationManager = LocationManager()
 
-    /*  var userLatitude: String {
+      var userLatitude: String {
           return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
       }
 
       var userLongitude: String {
           return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-      }*/
+      }
+  */
 
 
     @State var map = MKMapView()
@@ -83,7 +85,8 @@ struct AddNewOrderView: View {
             //arrow_back image
            Button(action: {
             viewRouter.currentPage = .HomePageM
-               
+            
+             pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
            }) {
              Image("arrow_back")
                  .resizable()
@@ -119,7 +122,7 @@ struct AddNewOrderView: View {
                 
                 if errorlocation{
                 Text(lErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-35,y:-115) }
                 
             
                    
@@ -404,7 +407,7 @@ struct AddNewOrderView: View {
         
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*your location out of the campus "
+            self.lErr="*current location out of the campus "
                self.errorlocation = true
         }
      

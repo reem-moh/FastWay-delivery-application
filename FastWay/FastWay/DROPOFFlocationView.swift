@@ -83,7 +83,8 @@ struct DROPOFFlocationView: View {
             //arrow_back image
            Button(action: {
             viewRouter.currentPage = .AddNewOrder
-               
+            
+             pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
            }) {
              Image("arrow_back")
                  .resizable()
@@ -326,7 +327,7 @@ struct DROPOFFlocationView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.DROPOFFlocation()
-                    
+                    pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        

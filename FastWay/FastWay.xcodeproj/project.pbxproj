@@ -475,7 +475,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FastWay/Preview Content\"";
-				DEVELOPMENT_TEAM = 4C64WFDN96;
+				DEVELOPMENT_TEAM = W2HV5HSKMW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = FastWay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -483,7 +483,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SWE444.FastWay;
+				PRODUCT_BUNDLE_IDENTIFIER = jhhSWE444.FastWay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -500,7 +500,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FastWay/Preview Content\"";
-				DEVELOPMENT_TEAM = 4C64WFDN96;
+				DEVELOPMENT_TEAM = W2HV5HSKMW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = FastWay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -508,7 +508,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SWE444.FastWay;
+				PRODUCT_BUNDLE_IDENTIFIER = jhhSWE444.FastWay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

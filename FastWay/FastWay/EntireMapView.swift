@@ -61,9 +61,10 @@ struct EntireMapView: UIViewRepresentable {
 
             map.delegate = context.coordinator
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
+            manager.requestAlwaysAuthorization()
             map.showsUserLocation = true
             let longPress = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(EntireMapViewCoordinator.addAnnotation(gesture:)))
-            longPress.minimumPressDuration = 0.5
+            longPress.minimumPressDuration = 0.1
             map.addGestureRecognizer(longPress)
             map.delegate = context.coordinator
             return map

@@ -4,7 +4,7 @@
 //
 //  Created by Ghaida . on 05/07/1442 AH.
 //
-/*
+
 import SwiftUI
 import Foundation
 import CoreLocation
@@ -88,4 +88,4 @@ extension LocationManager: CLLocationManagerDelegate {
         
     }
 }
-*/
+
