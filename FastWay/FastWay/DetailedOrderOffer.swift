@@ -190,6 +190,49 @@ struct DetailedOrderOffer: View {
             checkOffer=true
         }
     }
+    func getBuilding(id: Int) -> String {
+        var fData = [
+            "College Of Sciences",
+            "College Of Computer and Information Sciences",
+            "College Of Pharmacy 8",
+            "College Of Medicine 9",
+            "College Of Dentistry 10",
+            "College Of Applied Medical Science 11",
+            "College Of Education",
+            "COLLEGE OF ARTS",
+            "COLLEGE OF LANGUAGES AND TRANSLATION",
+            "COLLEGE OF BUSINESS ADMINISTRATION",
+            "College of Sports Sciences and Physical Activity",
+            "College of Law and Political Sciences"]
+        switch id {
+        case 5:
+            return "no.5 College Of Sciences"
+        case 6:
+            return "no.6 College Of Computer and Information Sciences"
+        case 8:
+            return "no.8 College Of Pharmacy"
+        case 9:
+            return "College Of Medicine"
+        case 10:
+            return "College Of Sciences"
+        case 11:
+            return "College Of Sciences"
+        case 12:
+            return "College Of Sciences"
+        case 13:
+            return "College Of Sciences"
+        case 14:
+            return "College Of Sciences"
+        case 15:
+            return "College Of Sciences"
+        case 16:
+            return "College Of Sciences"
+        case 17:
+            return "College Of Sciences"
+        default:
+            return ""
+        }
+    }
     
 }
 
