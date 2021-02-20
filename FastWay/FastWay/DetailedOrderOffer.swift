@@ -16,6 +16,8 @@ struct DetailedOrderOffer: View {
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var alert = false
+    @State var distance = ""
+    @State var time = ""
     @State var expandOffer = false
     @State var expand = false
     @State var offer = 0
@@ -27,7 +29,7 @@ struct DetailedOrderOffer: View {
         ZStack{
                                    
             //map
-            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff)
+            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: 390, height: 300).padding(.bottom, 0)
                 .clipped().position(x: 188,y: 100)
