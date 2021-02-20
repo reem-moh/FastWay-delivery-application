@@ -4,6 +4,7 @@
 //
 //  Created by Ghaida . on 05/07/1442 AH.
 //
+/*
 import UIKit
 import MapKit
 
@@ -24,3 +25,4 @@ extension MKMapView {
     setRegion(region, animated: true)
   }
 }
+*/

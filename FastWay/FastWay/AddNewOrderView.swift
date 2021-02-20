@@ -15,15 +15,15 @@ var order = Order()
 
 struct AddNewOrderView: View {
     
-    @ObservedObject var locationManager = LocationManager()
+   // @ObservedObject var locationManager = LocationManager()
 
-      var userLatitude: String {
+    /*  var userLatitude: String {
           return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
       }
 
       var userLongitude: String {
           return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-      }
+      }*/
 
 
     @State var map = MKMapView()
@@ -37,7 +37,6 @@ struct AddNewOrderView: View {
 
 
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    @State var CheckPinInRegion = false
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -325,11 +324,10 @@ struct AddNewOrderView: View {
                 //NEXT
                 Button(action: {
                     print("helooooooo")
+                    
                     location = pickAndDrop
+                    
                     self.PICKUPlocation()
-                   // print(map.region.center)
-                  //  CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
-                   // print(CheckPinInRegion)
                     
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
@@ -397,19 +395,19 @@ struct AddNewOrderView: View {
     
         
     
-        if(!isInRegion(region: map.region, coordinate: location)){
+        if(!isInRegion(coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
-        /*
-            if(!iscurrentInRegion(region: map.region, coordinate: location)){
+        
+        if(!isInRegion(coordinate: map.userLocation.coordinate)){
             print(location)
             self.lErr="*your  current out of our service "
                self.errorlocation = true
         }
-     */
+     
         
         
         
@@ -455,7 +453,6 @@ struct AddNewOrderView: View {
 
 
 struct Bulding: Identifiable {
-    //   var id = UUID()
     var title: String
     var id: Int
 
@@ -478,29 +475,28 @@ var fData = [
 ]
 }
 
-func isInRegion (region : MKCoordinateRegion, coordinate : CLLocationCoordinate2D) -> Bool {
-print("swsssssswwwswssssssssssswwwwwwwwww")
+func isInRegion (coordinate : CLLocationCoordinate2D) -> Bool {
+
     print(coordinate)
-  //  let center   = region.center;
+
     let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
     let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
   //  let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
     print(northWestCorner)
   //  let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
 print(southEastCorner)
-  //  return (
-    let x = ( coordinate.latitude  >= northWestCorner.latitude &&
+return (
+     ( coordinate.latitude  >= northWestCorner.latitude &&
         coordinate.latitude  <= southEastCorner.latitude &&
 
         coordinate.longitude >= northWestCorner.longitude &&
         coordinate.longitude <= southEastCorner.longitude)
-   // )
-    return x
+   )
 }
 
 
 /*
-func iscurrentInRegion (region : MKCoordinateRegion, coordinate : CLLocationCoordinate2D) -> Bool {
+func iscurrentInRegion ( coordinate : CLLocationCoordinate2D) -> Bool {
 print("swsssssswwwswssssssssssswwwwwwwwww")
     print(coordinate)
   //  let center   = region.center;

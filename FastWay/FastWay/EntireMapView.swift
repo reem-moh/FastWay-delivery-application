@@ -15,7 +15,7 @@ var CheckPinInRegion = true
 struct EntireMapView: UIViewRepresentable {
     
     
-    @State private var userTrackingMode: MapUserTrackingMode = .follow
+ /*   @State private var userTrackingMode: MapUserTrackingMode = .follow
         @State private var region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(
                 latitude: 24.72640308847297,
@@ -25,9 +25,9 @@ struct EntireMapView: UIViewRepresentable {
                 latitudeDelta: 50,
                 longitudeDelta: 50
             )
-        )
+        )*/
     
-    @ObservedObject var locationManager = LocationManager()
+  /*  @ObservedObject var locationManager = LocationManager()
 
        var userLatitude: String {
            return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -35,7 +35,7 @@ struct EntireMapView: UIViewRepresentable {
 
        var userLongitude: String {
            return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-       }
+       }*/
     
     
     
@@ -57,7 +57,6 @@ struct EntireMapView: UIViewRepresentable {
 
         func makeUIView(context: Context) -> MKMapView {
 
-           // map = MKMapView(frame: .zero)
             map.delegate = context.coordinator
             manager.delegate = context.coordinator as? CLLocationManagerDelegate
             map.showsUserLocation = true
@@ -103,9 +102,7 @@ struct EntireMapView: UIViewRepresentable {
                     pickAndDrop = coordinate
                     test = location.latitude
                     test1 = location.longitude
-
-                  //  selectLoctaionPick = location
-                    print("yees")
+                    print("User annotation")
                     print(test)
                     print(test1)
 
@@ -117,9 +114,3 @@ struct EntireMapView: UIViewRepresentable {
     
     
 }
-
-/*extension EntireMapView: CLLocationManagerDelegate {
-    func `self`() -> EntireMapView {
-        <#code#>
-    }
-}*/

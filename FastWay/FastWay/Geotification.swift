@@ -4,7 +4,7 @@
 //
 //  Created by Ghaida . on 05/07/1442 AH.
 //
-
+/*
 import SwiftUI
 
 
@@ -107,3 +107,4 @@ extension Geotification {
     return region
   }
 }
+*/

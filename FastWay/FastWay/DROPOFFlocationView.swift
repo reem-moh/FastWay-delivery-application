@@ -15,15 +15,15 @@ import CoreLocation
 
 struct DROPOFFlocationView: View {
     
-    @ObservedObject var locationManager = LocationManager()
+  //  @ObservedObject var locationManager = LocationManager()
 
-      var userLatitude: String {
+    /*  var userLatitude: String {
           return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
       }
 
       var userLongitude: String {
           return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-      }
+      }*/
 
 
     @State var map = MKMapView()
@@ -37,7 +37,6 @@ struct DROPOFFlocationView: View {
 
 
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    @State var CheckPinInRegion = false
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -327,9 +326,6 @@ struct DROPOFFlocationView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.DROPOFFlocation()
-                   // print(map.region.center)
-                  //  CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
-                   // print(CheckPinInRegion)
                     
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
@@ -341,7 +337,7 @@ struct DROPOFFlocationView: View {
   
                         else
                         {
-                            print("drop up  not saved")
+                            print("drop up not saved")
 
                         }
                     
@@ -396,20 +392,18 @@ struct DROPOFFlocationView: View {
         
 
       
-        if(!isInRegion(region: map.region, coordinate: location)){
+        if(!isInRegion(coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
   
-        /*
-            if(!iscurrentInRegion(region: map.region, coordinate: location)){
+         if(!isInRegion(coordinate: map.userLocation.coordinate)){
             print(location)
             self.lErr="*your  current out of our service "
                self.errorlocation = true
         }
-     */
         
         
         
