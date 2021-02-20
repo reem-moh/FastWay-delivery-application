@@ -21,8 +21,31 @@ struct MapView : UIViewRepresentable {
     @Binding var destination : CLLocationCoordinate2D!
     @Binding var distance : String
     @Binding var time : String
+    //@State private var userTrackingMode: MapUserTrackingMode = .follow
+        
+   /* @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(
+            latitude: 24.72640308847297,
+            longitude: 46.638332536327816
+        ),
+        span: MKCoordinateSpan(
+            latitudeDelta: 50,
+            longitudeDelta: 50
+        )
+    )
+
+@ObservedObject var locationManager = LocationManager()
+
+   var userLatitude: String {
+       return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
+   }
+
+   var userLongitude: String {
+       return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
+   }
+    */
     
-        func makeUIView(context: Context) -> MKMapView {
+    func makeUIView(context: Context) -> MKMapView {
         //map = MKMapView(frame: .zero)
         map.delegate = context.coordinator
         manager.delegate = context.coordinator as CLLocationManagerDelegate
@@ -95,9 +118,9 @@ struct MapView : UIViewRepresentable {
                     
                     req.destination = MKMapItem(placemark: MKPlacemark(coordinate: self.parent.destination))
                     
-                    let directions = MKDirections(request: req)
+                    //let directions = MKDirections(request: req)
                     
-                    directions.calculate { (dir, err) in
+                   /* directions.calculate { (dir, err) in
                         
                         if err != nil{
                             
@@ -118,7 +141,7 @@ struct MapView : UIViewRepresentable {
                         self.parent.map.addOverlay(polyline!)
                         
                         self.parent.map.setRegion(MKCoordinateRegion(polyline!.boundingMapRect), animated: true)
-                    }
+                    }*/
                     
                     //self.parent.map.removeAnnotations(self.parent.map.annotations)
                     self.parent.map.addAnnotation(point1)
