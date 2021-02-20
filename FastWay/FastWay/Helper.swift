@@ -19,9 +19,11 @@ enum Page{
     case ViewProfileC
     case AboutUs
     case CurrentOrder
+    case CurrentOrderCourier
     case HistoryView
+    case HistoryCourierView
     case DeliverOrder
-    //case DetailsDeliver
+    
     
     
 }

@@ -45,7 +45,7 @@ struct HomeCourierView: View {
                     
                     //current
                     Button(action: {
-                    viewRouter.currentPage = .CurrentOrder
+                    viewRouter.currentPage = .CurrentOrderCourier
                         
                     }) {
                     Image("current")
@@ -59,7 +59,7 @@ struct HomeCourierView: View {
                 
                     //History
                     Button(action: {
-                    viewRouter.currentPage = .HistoryView
+                    viewRouter.currentPage = .HistoryCourierView
                         
                     }) {
                     
