@@ -75,12 +75,12 @@ struct CardView: View {
             withAnimation(.spring()){
                 
                 model.selectedCard = card
-                //model.selectedCard.cardColor = Color(.white)
+                
                model.showCard.toggle() //change the value of showCard to true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     
                     withAnimation(.easeIn){
-                        //viewRouter.currentPage = .DetailsDeliver
+                        
                         model.showContent = true
                         
                         
