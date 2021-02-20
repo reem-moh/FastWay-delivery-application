@@ -53,12 +53,12 @@ struct CardView: View {
                 //to let an arrow in the right of the card
                 Spacer(minLength: 0)
                 
-             //   if !model.showContent{
+               if !model.showContent{
                     
                     Text("Intrested")
                     
                     Image(systemName: "arrow.right")
-               // }
+               }
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
