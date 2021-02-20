@@ -15,16 +15,7 @@ import CoreLocation
 
 struct DROPOFFlocationView: View {
     
-  //  @ObservedObject var locationManager = LocationManager()
-
-    /*  var userLatitude: String {
-          return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
-      }
-
-      var userLongitude: String {
-          return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-      }*/
-
+  
 
     @State var map = MKMapView()
     @State var manager = CLLocationManager()

@@ -14,18 +14,7 @@ import CoreLocation
 var order = Order()
 
 struct AddNewOrderView: View {
-   
-    /*
-    @ObservedObject var locationManager = LocationManager()
-
-      var userLatitude: String {
-          return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
-      }
-
-      var userLongitude: String {
-          return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-      }
-  */
+  
 
 
     @State var map = MKMapView()
@@ -481,8 +470,8 @@ var fData = [
 func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
 print("yeeeeeeeeeeeeeeeeeeeeeees")
     print(coordinate)
-   let region = map.region
-    let center = region.center
+  // let region = map.region
+  //  let center = region.center
    // let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
 //    let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
     
@@ -505,27 +494,6 @@ return (
 }
 
 
-/*
-func iscurrentInRegion ( coordinate : CLLocationCoordinate2D) -> Bool {
-print("swsssssswwwswssssssssssswwwwwwwwww")
-    print(coordinate)
-  //  let center   = region.center;
-    let northWestCorner = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-    let southEastCorner = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-  //  let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
-    print(northWestCorner)
-  //  let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
-print(southEastCorner)
-  //  return (
-    let x = ( coordinate.latitude  >= northWestCorner.latitude &&
-        coordinate.latitude  <= southEastCorner.latitude &&
-
-        coordinate.longitude >= northWestCorner.longitude &&
-        coordinate.longitude <= southEastCorner.longitude)
-   // )
-    return x
-}
-*/
 
 struct AddNewOrderView_Previews: PreviewProvider {
     static var previews: some View {

@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		157F4D6E25DD5C0B005452F0 /* Apple.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 157F4D6D25DD5C0B005452F0 /* Apple.gpx */; };
-		157F4D7225DD5C53005452F0 /* Google.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 157F4D7125DD5C53005452F0 /* Google.gpx */; };
-		157F4D7625DD5C8B005452F0 /* SimulatedLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 157F4D7525DD5C8B005452F0 /* SimulatedLocations.gpx */; };
-		157F4D7925DD5DC1005452F0 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F4D7825DD5DC1005452F0 /* Utilities.swift */; };
-		157F4D7C25DD5FC4005452F0 /* GeotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F4D7B25DD5FC4005452F0 /* GeotificationsViewController.swift */; };
-		157F4D7F25DD6003005452F0 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F4D7E25DD6003005452F0 /* Geotification.swift */; };
-		157F4D8225DD7287005452F0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F4D8125DD7287005452F0 /* LocationManager.swift */; };
-		4D95167E25D09C91002D6087 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D95167D25D09C91002D6087 /* SwiftUIView.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
@@ -49,14 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		157F4D6D25DD5C0B005452F0 /* Apple.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = Apple.gpx; sourceTree = "<group>"; };
-		157F4D7125DD5C53005452F0 /* Google.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = Google.gpx; sourceTree = "<group>"; };
-		157F4D7525DD5C8B005452F0 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
-		157F4D7825DD5DC1005452F0 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		157F4D7B25DD5FC4005452F0 /* GeotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeotificationsViewController.swift; sourceTree = "<group>"; };
-		157F4D7E25DD6003005452F0 /* Geotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
-		157F4D8125DD7287005452F0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		4D95167D25D09C91002D6087 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
@@ -142,7 +126,6 @@
 				C268D59725D07EF7006183AB /* UserDefaults.swift */,
 				589C42FB25CBA651009D6B45 /* classes.swift */,
 				5886863825D1AD4500C15A0D /* TabBarMenu.swift */,
-				4D95167D25D09C91002D6087 /* SwiftUIView.swift */,
 				589C42D925C9B2B6009D6B45 /* RadioButton.swift */,
 				589C42D525C9956E009D6B45 /* LoginView.swift */,
 				5894342925C90DD800E19E18 /* SignView.swift */,
@@ -166,14 +149,7 @@
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
-				157F4D6D25DD5C0B005452F0 /* Apple.gpx */,
 				589433F125C8F62300E19E18 /* Preview Content */,
-				157F4D7125DD5C53005452F0 /* Google.gpx */,
-				157F4D7525DD5C8B005452F0 /* SimulatedLocations.gpx */,
-				157F4D7825DD5DC1005452F0 /* Utilities.swift */,
-				157F4D7B25DD5FC4005452F0 /* GeotificationsViewController.swift */,
-				157F4D7E25DD6003005452F0 /* Geotification.swift */,
-				157F4D8125DD7287005452F0 /* LocationManager.swift */,
 			);
 			path = FastWay;
 			sourceTree = "<group>";
@@ -254,12 +230,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				157F4D6E25DD5C0B005452F0 /* Apple.gpx in Resources */,
 				589433F325C8F62300E19E18 /* Preview Assets.xcassets in Resources */,
-				157F4D7225DD5C53005452F0 /* Google.gpx in Resources */,
 				589433F025C8F62300E19E18 /* Assets.xcassets in Resources */,
 				589433FC25C8F74100E19E18 /* GoogleService-Info.plist in Resources */,
-				157F4D7625DD5C8B005452F0 /* SimulatedLocations.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,23 +287,19 @@
 			files = (
 				589C42FC25CBA651009D6B45 /* classes.swift in Sources */,
 				C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */,
-				157F4D8225DD7287005452F0 /* LocationManager.swift in Sources */,
 				5886863525D17F6B00C15A0D /* ViewCourierProfile.swift in Sources */,
 				5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */,
 				5886863125D17C6D00C15A0D /* ViewMemberProfile.swift in Sources */,
 				5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
-				157F4D7C25DD5FC4005452F0 /* GeotificationsViewController.swift in Sources */,
 				C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */,
 				4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */,
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,
 				C22D4E9B25E15ADD001EF297 /* CurrentOrderCourierView.swift in Sources */,
 				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
-				4D95167E25D09C91002D6087 /* SwiftUIView.swift in Sources */,
 				58B5F55225D9726B00D4C099 /* Maps.swift in Sources */,
-				157F4D7925DD5DC1005452F0 /* Utilities.swift in Sources */,
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
@@ -341,7 +310,6 @@
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
 				C2A006CE25CF229A0010C126 /* HistoryView.swift in Sources */,
-				157F4D7F25DD6003005452F0 /* Geotification.swift in Sources */,
 				58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */,
 				C24354B525D431B90033B69F /* cardCourier.swift in Sources */,
 			);

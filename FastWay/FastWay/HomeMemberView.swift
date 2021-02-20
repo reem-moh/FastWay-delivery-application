@@ -71,10 +71,7 @@ struct HomeMemberView: View {
 
             
   VStack{
-    /*      transparent-log-out-icon-5d6b36311cbea9 2
-
-     */
-
+   
                     
                    Button(action: {
                     viewRouter.currentPage = .AddNewOrder

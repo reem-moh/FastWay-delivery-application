@@ -15,28 +15,6 @@ var CheckPinInRegion = true
 struct EntireMapView: UIViewRepresentable {
     
     
- /*   @State private var userTrackingMode: MapUserTrackingMode = .follow
-        @State private var region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(
-                latitude: 24.72640308847297,
-                longitude: 46.638332536327816
-            ),
-            span: MKCoordinateSpan(
-                latitudeDelta: 50,
-                longitudeDelta: 50
-            )
-        )*/
-    
-  /*  @ObservedObject var locationManager = LocationManager()
-
-       var userLatitude: String {
-           return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
-       }
-
-       var userLongitude: String {
-           return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
-       }*/
-    
     
     
     
