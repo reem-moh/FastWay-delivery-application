@@ -22,6 +22,8 @@ struct HomeCourierView: View {
                 //background
               Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
               Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 25)
+                Image("FASTWAY1").frame(width: -50, height: -50)
+                    .offset(x:180 ,y:130).position(x: 10, y: -60)
                 
             }
             
@@ -33,11 +35,12 @@ struct HomeCourierView: View {
                     viewRouter.currentPage = .DeliverOrder
                     }) {
                     //logo, text feilds and buttons
-                    Image("addNewOrder")
+                    Image("DeliverNew")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 300, height: 180)
-                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipped().shadow(radius: 2)
                     }
                     
                     //current
@@ -49,7 +52,8 @@ struct HomeCourierView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 300, height: 180)
-                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipped().shadow(radius: 2)
                     
                     }
                 
@@ -63,7 +67,8 @@ struct HomeCourierView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 300, height: 180)
-                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipped().shadow(radius: 2)
                     
                     }
                             

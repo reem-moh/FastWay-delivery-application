@@ -85,7 +85,8 @@ struct HomeMemberView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 300, height: 180)
-                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipped().shadow(radius: 2)
                    }
                 
                     
@@ -101,7 +102,8 @@ struct HomeMemberView: View {
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 180)
-                         .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                         .clipped().shadow(radius: 2)
                      
                    }
                     
@@ -117,7 +119,8 @@ struct HomeMemberView: View {
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 180)
-                         .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                         .clipped().shadow(radius: 2)
                      
                    }
                   
