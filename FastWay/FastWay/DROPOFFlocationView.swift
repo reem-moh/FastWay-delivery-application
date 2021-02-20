@@ -11,7 +11,7 @@ import FirebaseFirestore
 import MapKit
 import CoreLocation
 
-
+//var order = Order()
 
 struct DROPOFFlocationView: View {
     
@@ -27,9 +27,9 @@ struct DROPOFFlocationView: View {
 
 
     @State var map = MKMapView()
-        @State var manager = CLLocationManager()
-
+    @State var manager = CLLocationManager()
    
+        
     @State var bulding = 0
     @State var floorNum = -1
     @State var room = ""
@@ -37,6 +37,7 @@ struct DROPOFFlocationView: View {
 
 
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    @State var CheckPinInRegion = false
     
     @State var errorlocation = false
     @State var errorBuldingPick = false
@@ -178,7 +179,7 @@ struct DROPOFFlocationView: View {
                                                         HStack {         //2
                                                             Button(action: {
                                                                 self.expand.toggle()
-                                                                bulding = 12
+                                                                bulding = Bulding.id
                                                                 text=Bulding.title
 
                                                             })
@@ -279,7 +280,7 @@ struct DROPOFFlocationView: View {
                             //4
                                 Button(action: {
                                 self.expandFloor.toggle()
-                                floorNum = 3
+                                    floorNum = 3
                                     Floor="3"
 
                             })
@@ -326,11 +327,14 @@ struct DROPOFFlocationView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.DROPOFFlocation()
-
+                   // print(map.region.center)
+                  //  CheckPinInRegion = isInRegion(region: map.region, coordinate: location)
+                   // print(CheckPinInRegion)
+                    
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
-                        if (order.setDropOffAndDropOffDetails(dropOff: location, dropOffBulding: bulding, dropOffFloor: floorNum, dropOffRoom: room)){
+                         if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: bulding, pickUpFloor: floorNum, pickUpRoom: room)){
                             print("pick up saved")
                             viewRouter.currentPage = .SendOrder
                         }
@@ -391,37 +395,29 @@ struct DROPOFFlocationView: View {
     
         
 
-        
-        
-       if ((self.location.latitude < 24.729236389910497
-                && self.location.longitude <  46.63796555645328
-               )&&(self.location.latitude <  24.727141181704155
-                    && self.location.longitude <  46.63969560349054
-                   )&&(self.location.latitude <  24.726688802794214
-                        && self.location.longitude <  46.64002326371437
-                       )&&(self.location.latitude <  24.725307845737717
-                            && self.location.longitude <  46.64004947674826
-                           )&&(self.location.latitude <  24.72514117731049
-                                && self.location.longitude < 46.64016743450085
-                               )&&(self.location.latitude > 24.725188797195315
-                                    && self.location.longitude > 46.64019364753466
-                                   )&&(self.location.latitude > 24.724807840331238
-                                        && self.location.longitude > 46.64293288827727
-                                       )) {
+      
+        if(!isInRegion(region: map.region, coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
   
-     
+        /*
+            if(!iscurrentInRegion(region: map.region, coordinate: location)){
+            print(location)
+            self.lErr="*your  current out of our service "
+               self.errorlocation = true
+        }
+     */
+        
         
         
         
         
         if (self.location.latitude == 0 && self.location.longitude == 0)  {
             print(location)
-            self.lErr="*must enter Drop off location "
+            self.lErr="*must enter pick up location "
                self.errorlocation = true
         }
         
@@ -460,23 +456,32 @@ struct DROPOFFlocationView: View {
 
 
 struct Bulding: Identifiable {
-    var id = UUID()
+    //   var id = UUID()
     var title: String
+    var id: Int
+
 }
 
-
+   
 var fData = [
-    Bulding(title: "Sciences 5"),
-    Bulding(title: "Computer and Information Sciences 6"),
-    Bulding(title: "Pharmacy 8" ),
-    Bulding(title: "Medicine 9"),
-    Bulding(title: "Dentistry 10"),
-    Bulding(title: "Applied Medical Science 11"),
+    Bulding(title: "College Of Sciences 5", id: 5),
+    Bulding(title: "College Of Computer and Information Sciences 6", id: 6),
+    Bulding(title: "College Of Pharmacy 8", id: 8 ),
+    Bulding(title: "College Of Medicine 9", id: 9),
+    Bulding(title: "College Of Dentistry 10", id: 10),
+    Bulding(title: "College Of Applied Medical Science 11", id: 11),
+    Bulding(title: "College Of Education", id: 12),
+    Bulding(title: "COLLEGE OF ARTS", id: 13),
+    Bulding(title: "COLLEGE OF LANGUAGES AND TRANSLATION", id: 14),
+    Bulding(title: "COLLEGE OF BUSINESS ADMINISTRATION", id: 15),
+    Bulding(title: "College of Sports Sciences and Physical Activity", id: 16),
+    Bulding(title: "College of Law and Political Sciences", id: 17),
+
+
 
 
 ]
 }
-
 
 
 

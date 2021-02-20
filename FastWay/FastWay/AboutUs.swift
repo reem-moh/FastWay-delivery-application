@@ -15,7 +15,22 @@ struct AboutUs: View {
             
             //background
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 100)
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 90)
+            
+            VStack{
+             
+                
+                
+                Text("About us ").font(.custom("Roboto Medium", size: 35)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-340)
+                
+               
+                
+            }//END VStack
+            
+
+            
+            
             
             VStack{
                 ScrollView{

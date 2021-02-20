@@ -10,8 +10,11 @@ import Foundation
 import CoreLocation
 import Combine
 
+//var curlocation
+
 class LocationManager: NSObject, ObservableObject {
 
+    
     override init() {
         super.init()
         self.locationManager.delegate = self
@@ -31,7 +34,7 @@ class LocationManager: NSObject, ObservableObject {
             objectWillChange.send()
         }
     }
-/*
+
     var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
@@ -46,7 +49,7 @@ class LocationManager: NSObject, ObservableObject {
         default: return "unknown"
         }
 
-    }*/
+    }
 
     let objectWillChange = PassthroughSubject<Void, Never>()
 
@@ -61,14 +64,14 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        self.lastLocation = location
-        print(#function, location)
+        guard let curlocation = locations.last else { return }
+        self.lastLocation = curlocation
+        print(#function, curlocation)
         print("curent loction")
 
     }
     
-   /* func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
+    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
         // Make sure the app is authorized.
       //  if CLLocationManager.authorizationStatus() == .authorizedAlways {
             // Make sure region monitoring is supported.
@@ -83,6 +86,6 @@ extension LocationManager: CLLocationManagerDelegate {
                 locationManager.startMonitoring(for: region)
             }
         
-    }*/
+    }
 }
 

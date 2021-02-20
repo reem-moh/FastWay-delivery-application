@@ -179,7 +179,7 @@ struct AddNewOrderView: View {
                                                         HStack {         //2
                                                             Button(action: {
                                                                 self.expand.toggle()
-                                                                bulding = 12
+                                                                bulding = Bulding.id
                                                                 text=Bulding.title
 
                                                             })
@@ -336,6 +336,8 @@ struct AddNewOrderView: View {
                        
                          if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: bulding, pickUpFloor: floorNum, pickUpRoom: room)){
                             print("pick up saved")
+                            
+                             pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
                             viewRouter.currentPage = .DROPOFFlocation
                         }
   
@@ -394,32 +396,20 @@ struct AddNewOrderView: View {
        self.errorlocation = false
     
         
-
-        
-        
-     /*  if ((self.location.latitude < 24.729236389910497
-                && self.location.longitude <  46.63796555645328
-               )&&(self.location.latitude <  24.727141181704155
-                    && self.location.longitude <  46.63969560349054
-                   )&&(self.location.latitude <  24.726688802794214
-                        && self.location.longitude <  46.64002326371437
-                       )&&(self.location.latitude <  24.725307845737717
-                            && self.location.longitude <  46.64004947674826
-                           )&&(self.location.latitude <  24.72514117731049
-                                && self.location.longitude < 46.64016743450085
-                               )&&(self.location.latitude > 24.725188797195315
-                                    && self.location.longitude > 46.64019364753466
-                                   )&&(self.location.latitude > 24.724807840331238
-                                        && self.location.longitude > 46.64293288827727
-                                       )) */
+    
         if(!isInRegion(region: map.region, coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
-  
-     
+        /*
+            if(!iscurrentInRegion(region: map.region, coordinate: location)){
+            print(location)
+            self.lErr="*your  current out of our service "
+               self.errorlocation = true
+        }
+     */
         
         
         
@@ -465,18 +455,28 @@ struct AddNewOrderView: View {
 
 
 struct Bulding: Identifiable {
-    var id = UUID()
+    //   var id = UUID()
     var title: String
+    var id: Int
+
 }
 
-
+   
 var fData = [
-    Bulding(title: "Sciences 5"),
-    Bulding(title: "Computer and Information Sciences 6"),
-    Bulding(title: "Pharmacy 8" ),
-    Bulding(title: "Medicine 9"),
-    Bulding(title: "Dentistry 10"),
-    Bulding(title: "Applied Medical Science 11"),
+    Bulding(title: "College Of Sciences 5", id: 5),
+    Bulding(title: "College Of Computer and Information Sciences 6", id: 6),
+    Bulding(title: "College Of Pharmacy 8", id: 8 ),
+    Bulding(title: "College Of Medicine 9", id: 9),
+    Bulding(title: "College Of Dentistry 10", id: 10),
+    Bulding(title: "College Of Applied Medical Science 11", id: 11),
+    Bulding(title: "College Of Education", id: 12),
+    Bulding(title: "COLLEGE OF ARTS", id: 13),
+    Bulding(title: "COLLEGE OF LANGUAGES AND TRANSLATION", id: 14),
+    Bulding(title: "COLLEGE OF BUSINESS ADMINISTRATION", id: 15),
+    Bulding(title: "College of Sports Sciences and Physical Activity", id: 16),
+    Bulding(title: "College of Law and Political Sciences", id: 17),
+
+
 
 
 ]
@@ -502,6 +502,28 @@ print(southEastCorner)
     return x
 }
 
+
+/*
+func iscurrentInRegion (region : MKCoordinateRegion, coordinate : CLLocationCoordinate2D) -> Bool {
+print("swsssssswwwswssssssssssswwwwwwwwww")
+    print(coordinate)
+  //  let center   = region.center;
+    let northWestCorner = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+    let southEastCorner = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+  //  let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    print(northWestCorner)
+  //  let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+print(southEastCorner)
+  //  return (
+    let x = ( coordinate.latitude  >= northWestCorner.latitude &&
+        coordinate.latitude  <= southEastCorner.latitude &&
+
+        coordinate.longitude >= northWestCorner.longitude &&
+        coordinate.longitude <= southEastCorner.longitude)
+   // )
+    return x
+}
+*/
 
 struct AddNewOrderView_Previews: PreviewProvider {
     static var previews: some View {
