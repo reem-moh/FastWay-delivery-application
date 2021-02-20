@@ -214,23 +214,23 @@ struct DetailedOrderOffer: View {
         case 8:
             return "no.8 College Of Pharmacy"
         case 9:
-            return "College Of Medicine"
+            return "no.9 College Of Medicine"
         case 10:
-            return "College Of Sciences"
+            return "no.10 College Of Dentistry"
         case 11:
-            return "College Of Sciences"
+            return "no.11 College Of Applied Medical Science"
         case 12:
-            return "College Of Sciences"
+            return "no.12 College Of Education"
         case 13:
-            return "College Of Sciences"
+            return "no.13 College Of Arts"
         case 14:
-            return "College Of Sciences"
+            return "no.14 College Of Languages And Translation"
         case 15:
-            return "College Of Sciences"
+            return "no.15 College Of Business Administration"
         case 16:
-            return "College Of Sciences"
+            return "no.16 College of Sports Sciences and Physical Activity"
         case 17:
-            return "College Of Sciences"
+            return "no.17 College of Law and Political Sciences"
         default:
             return ""
         }
