@@ -314,7 +314,7 @@ struct AddNewOrderView: View {
             TextField("room numbers , more details...", text: $room)
                 .font(.system(size: 18))
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14).offset(x: 0,y:0)
+                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
                 
         }
                 

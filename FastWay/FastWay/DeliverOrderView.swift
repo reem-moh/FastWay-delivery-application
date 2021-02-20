@@ -29,7 +29,7 @@ struct DeliverOrderView: View{
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
                     
                 }.edgesIgnoringSafeArea(.all)
-               
+                
             }.onAppear(){
                 model.order.getOrder()
                 model.getCards()
@@ -42,24 +42,24 @@ struct DeliverOrderView: View{
                     GeometryReader{ geometry in
                         HStack {
                             ScrollView {
-                                                                       
-                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                        HStack{
-                                            CardView(card: model.cards[index], animation: animation)
-                                            Spacer(minLength: 0)
-                                        }//.frame(height: 100)
-                                        .padding(.horizontal)
-                                        .contentShape(Rectangle())
-                                        .gesture(DragGesture(minimumDistance: 20))
-                                        .padding(.vertical, 5)
-                                        .shadow(radius: 1)
-                                        
-                                        
-                                    }.padding(.bottom,25)//end of for each
-                            
-                            
+                                
+                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                    HStack{
+                                        CardView(card: model.cards[index], animation: animation)
+                                        Spacer(minLength: 0)
+                                    }//.frame(height: 100)
+                                    .padding(.horizontal)
+                                    .contentShape(Rectangle())
+                                    .gesture(DragGesture(minimumDistance: 20))
+                                    .padding(.vertical, 5)
+                                    .shadow(radius: 1)
+                                    
+                                    
+                                }.padding(.bottom,25)//end of for each
+                                
+                                
                             }
-
+                            
                         }
                     }
                 }.padding(.top,80)
@@ -80,7 +80,30 @@ struct DeliverOrderView: View{
                         Spacer()
                         HStack {
                             //Home icon
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                            // TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                            VStack {
+                                Image(systemName: "homekit")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
+                                    .padding(.top, 10)
+                                Text("Home")
+                                    .font(.footnote)
+                                Spacer()
+                            }.padding(.horizontal, 14).onTapGesture {
+                                withAnimation(.spring()){
+                                    model.showCard.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation(.easeIn){
+                                            model.showContent = false
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                viewRouter.currentPage = .HomePageC
+                            }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
+                            
                             ZStack {
                                 //about us icon
                                 Circle()
@@ -93,12 +116,47 @@ struct DeliverOrderView: View{
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
+                                    withAnimation(.spring()){
+                                        model.showCard.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            withAnimation(.easeIn){
+                                                model.showContent = false
+                                                
+                                            }
+                                        }
+                                        
+                                    }
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
+                            
                             //Profile icon
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile")//change assigned page
+                            // TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile")//change assigned page
+                            
+                            VStack {
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
+                                    .padding(.top, 10)
+                                Text("Profile")
+                                    .font(.footnote)
+                                Spacer()
+                            }.padding(.horizontal, 14).onTapGesture {
+                                withAnimation(.spring()){
+                                    model.showCard.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation(.easeIn){
+                                            model.showContent = false
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                viewRouter.currentPage = .ViewProfileC
+                            }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
+                            
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height/8)
                         .background(Color("TabBarBackground").shadow(radius: 2))

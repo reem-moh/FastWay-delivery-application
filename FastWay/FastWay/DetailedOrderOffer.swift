@@ -173,77 +173,7 @@ struct DetailedOrderOffer: View {
                         
                         }
                     }.position(x: 188,y: 700)
-                    
-                    
-                    
-                    //BarMenue
-                    ZStack{
-                        GeometryReader { geometry in
-                            VStack {
-                                Spacer()
-                                Spacer()
-                                Spacer()
-                                HStack {
-                                    //Home icon
-                                    
-                                    VStack {
-                                        Image(systemName: "homekit")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                            .padding(.top, 10)
-                                        Text("Home")
-                                            .font(.footnote)
-                                        Spacer()
-                                    }.padding(.horizontal, 14).onTapGesture {
-                                                    model.showContent = false
-                                        model.showCard.toggle()
-                                                     viewRouter.currentPage = .HomePageC
-                                                 }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
-                                    
-                                    
-                                    ZStack {
-                                        //about us icon
-                                        Circle()
-                                            .foregroundColor(.white)
-                                            .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                            .shadow(radius: 4)
-                                        VStack {
-                                            Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                        }.padding(.horizontal, 14).onTapGesture {
-                                            model.showContent = false
-                                            model.showCard.toggle()
-                                            viewRouter.currentPage = .AboutUs
-                                        }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                                    }.offset(y: -geometry.size.height/8/2)
-                                    
-                                    //Profile icon
-                                    VStack {
-                                        Image(systemName: "person.crop.circle")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                            .padding(.top, 10)
-                                        Text("Profile")
-                                            .font(.footnote)
-                                        Spacer()
-                                    }.padding(.horizontal, 14).onTapGesture {
-                                                    model.showContent = false
-                                        model.showCard.toggle()
-                                                     viewRouter.currentPage = .ViewProfileC
-                                                 }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
-                                    
-                                    
-                                }
-                                .frame(width: geometry.size.width, height: geometry.size.height/8)
-                                .background(Color("TabBarBackground").shadow(radius: 2))
-                            }
-                        }
-                    }.edgesIgnoringSafeArea(.all)//zstack
-                }//.position(x: 188, y: 400)
+                }
            // }
             
          

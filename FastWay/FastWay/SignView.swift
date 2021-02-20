@@ -23,6 +23,14 @@ extension String {
         let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         return Set(self).isSubset(of: nums)
     }
+    
+    func isValidPhoneNumber() -> Bool {
+        //^\\+(?:[0-9]?){6,14}[0-9]
+            let regEx = "[05]{2}[0-9]{4}[0-9]{4}$"
+
+            let phoneCheck = NSPredicate(format: "SELF MATCHES[c] %@", regEx)
+            return phoneCheck.evaluate(with: self)
+        }
 }
 
 extension UITextField {
@@ -194,7 +202,7 @@ struct SignUPView: View {
         // self.gErr=""
         
         if self.name.count < 3 {
-            self.nErr="*Name must be more than 3 characters"
+            self.nErr="*Name must be more than 2 characters"
             self.error = true
         }
         
@@ -202,7 +210,8 @@ struct SignUPView: View {
             self.eErr="*Valid email is required"
             self.error = true
         }
-        if (self.phoneNum.count != 10) || !(self.phoneNum.isNumeric){
+        
+        if !(self.phoneNum.isValidPhoneNumber()){
             self.phErr="*Phone number must be 05********"
             self.error = true
         }
@@ -214,11 +223,7 @@ struct SignUPView: View {
             self.rpErr="*Password mismatch"
             self.error = true
         }
-        /*
-         if self.gender == ""{
-         self.gErr="*Gender must be specified"
-         self.error = true
-         }*/
+        
         if self.user == ""{
             self.uErr="*This field is mandatory"
             self.error = true
