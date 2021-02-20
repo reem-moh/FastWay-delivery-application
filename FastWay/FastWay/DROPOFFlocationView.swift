@@ -392,16 +392,16 @@ struct DROPOFFlocationView: View {
         
 
       
-        if(!isInRegion(coordinate: location)){
+        if(!isInRegion(map: map, coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
   
-         if(!isInRegion(coordinate: map.userLocation.coordinate)){
+        if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*your  current out of our service "
+            self.lErr="*your location out of the campus"
                self.errorlocation = true
         }
         

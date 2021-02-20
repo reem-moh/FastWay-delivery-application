@@ -395,16 +395,16 @@ struct AddNewOrderView: View {
     
         
     
-        if(!isInRegion(coordinate: location)){
+        if(!isInRegion(map: map, coordinate: location)){
         print(location)
         self.lErr="*The region out of our service "
            self.errorlocation = true
     }
         
         
-        if(!isInRegion(coordinate: map.userLocation.coordinate)){
+        if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*your  current out of our service "
+            self.lErr="*your location out of the campus "
                self.errorlocation = true
         }
      
@@ -475,15 +475,22 @@ var fData = [
 ]
 }
 
-func isInRegion (coordinate : CLLocationCoordinate2D) -> Bool {
-
+func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
+print("yeeeeeeeeeeeeeeeeeeeeeees")
     print(coordinate)
-
-    let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
-    let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
-  //  let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+   let region = map.region
+    let center = region.center
+   // let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
+//    let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
+    
+   
+  
+   
+    let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
+    let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
+   // let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
     print(northWestCorner)
-  //  let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+ //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
 print(southEastCorner)
 return (
      ( coordinate.latitude  >= northWestCorner.latitude &&
