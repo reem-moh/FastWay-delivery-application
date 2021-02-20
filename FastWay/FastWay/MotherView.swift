@@ -40,8 +40,10 @@ struct MotherView: View {
                     ViewCourierProfile(viewRouter: viewRouter)
                 case .AboutUs:
                     AboutUs(viewRouter: viewRouter)//
-                //case .DetailsDeliver:
-                   // DetailedOrderOffer(viewRouter: ViewRouter())
+                case .CurrentOrderCourier:
+                    CurrentOrderCourierView(viewRouter: viewRouter)
+                case .HistoryCourierView:
+                    HistoryCourierView(viewRouter: viewRouter)
             }
        
     }

@@ -188,6 +188,8 @@ struct DetailedOrderOffer: View {
         checkOffer=false
         if( offerList == "Offer"){
             checkOffer=true
+        }else{
+            viewRouter.currentPage = .HomePageC
         }
     }
     
