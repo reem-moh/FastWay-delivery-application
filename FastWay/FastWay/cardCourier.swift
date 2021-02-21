@@ -131,10 +131,10 @@ class CarouselViewModel: ObservableObject {
         if order.orders.isEmpty{
             print("there is no order")
         }
-        
+        //"CardColor"
         cards.removeAll()
         for index in order.orders {
-            cards.append(contentsOf: [ Card( cardColor: Color("CardColor"), orderD : index )])
+            cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
         }
     }
     
