@@ -80,21 +80,21 @@ struct DetailedOrderOffer: View {
                         ScrollView{
                             //pick up
                             ZStack{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
+                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 150).foregroundColor(.white).shadow(radius: 1)
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
                                 HStack {
                                     
-                                    Text("Building \(model.selectedCard.orderD.pickUpBulding), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
                                 }
                                 
                             }
                             //drop off
                             ZStack{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
+                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 150).foregroundColor(.white).shadow(radius: 1)
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
                                 HStack {
                                     
-                                    Text("Building \(model.selectedCard.orderD.dropOffBulding), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
                                 }
                                 
                             }
@@ -183,9 +183,7 @@ struct DetailedOrderOffer: View {
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }
-    func estimateTime(){
-        
-    }
+    
     func makeAnOffer(){
         checkOffer=false
         if( offerList == "Offer"){
@@ -195,34 +193,36 @@ struct DetailedOrderOffer: View {
         }
     }
     func getBuilding(id: Int) -> String {
+        var building = ""
         switch id {
         case 5:
-            return "no.5 College Of Sciences"
+            building = "no.5 College Of Sciences"
         case 6:
-            return "no.6 College Of Computer and Information Sciences"
+            building = "no.6 College Of Computer and Information Sciences"
         case 8:
-            return "no.8 College Of Pharmacy"
+            building = "no.8 College Of Pharmacy"
         case 9:
-            return "no.9 College Of Medicine"
+            building = "no.9 College Of Medicine"
         case 10:
-            return "no.10 College Of Dentistry"
+            building = "no.10 College Of Dentistry"
         case 11:
-            return "no.11 College Of Applied Medical Science"
+            building = "no.11 College Of Applied Medical Science"
         case 12:
-            return "no.12 College Of Education"
+            building = "no.12 College Of Education"
         case 13:
-            return "no.13 College Of Arts"
+            building = "no.13 College Of Arts"
         case 14:
-            return "no.14 College Of Languages And Translation"
+            building = "no.14 College Of Languages And Translation"
         case 15:
-            return "no.15 College Of Business Administration"
+            building = "no.15 College Of Business Administration"
         case 16:
-            return "no.16 College of Sports Sciences and Physical Activity"
+            building = "no.16 College of Sports Sciences and Physical Activity"
         case 17:
-            return "no.17 College of Law and Political Sciences"
+            building = "no.17 College of Law and Political Sciences"
         default:
-            return ""
+            building = ""
         }
+        return building
     }
     
 }
