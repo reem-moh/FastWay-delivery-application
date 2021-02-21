@@ -403,7 +403,7 @@ struct DROPOFFlocationView: View {
         
         if (self.location.latitude == 0 && self.location.longitude == 0)  {
             print(location)
-            self.lErr="*must enter pick up location "
+            self.lErr="*must enter Drop off location "
                self.errorlocation = true
         }
         

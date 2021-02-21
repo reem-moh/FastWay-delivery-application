@@ -44,6 +44,10 @@ struct MotherView: View {
                     CurrentOrderCourierView(viewRouter: viewRouter)
                 case .HistoryCourierView:
                     HistoryCourierView(viewRouter: viewRouter)
+                    
+         /*   case .DetailedOrderOffer:
+                DetailedOrderOffer(viewRouter: viewRouter, animation: Namespace.ID) */
+                    
             }
        
     }

@@ -125,7 +125,7 @@ struct SendOrderIView: View {
                 if (order.setOrderDetails(orderDetails:Orderhere)){
                     print("order details saved")
                 }
-                    viewRouter.currentPage = .HomePageM
+                    viewRouter.currentPage = .CurrentOrder
 
                 }
                 if order.addOrder(){

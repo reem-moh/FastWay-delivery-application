@@ -23,6 +23,8 @@ enum Page{
     case HistoryView
     case HistoryCourierView
     case DeliverOrder
+    case DetailedOrderOffer
+
     
     
     
