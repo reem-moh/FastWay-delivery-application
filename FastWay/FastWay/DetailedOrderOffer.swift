@@ -177,9 +177,6 @@ struct DetailedOrderOffer: View {
                     }.position(x: 188,y: 700)
                 }
            // }
-            
-         
-            
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }
@@ -192,6 +189,8 @@ struct DetailedOrderOffer: View {
             viewRouter.currentPage = .HomePageC
         }
     }
+    
+    //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
         switch id {
@@ -226,9 +225,3 @@ struct DetailedOrderOffer: View {
     }
     
 }
-
-/*struct DetailedOrderOffer_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailedOrderOffer(viewRouter: ViewRouter(), animation: Namespace)
-    }
-}*/

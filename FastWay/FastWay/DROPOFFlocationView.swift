@@ -151,7 +151,7 @@ struct DROPOFFlocationView: View {
                      
 
                             HStack() {
-                                TextField("Search Bulding here", text: $text).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                TextField("Search Building here", text: $text).multilineTextAlignment(.leading).frame(width: 295, height: 6)
                                 Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                             }.onTapGesture {
                                 self.expand.toggle()
@@ -422,7 +422,7 @@ struct DROPOFFlocationView: View {
          self.errorBuldingPick = false
         
         if self.bulding == 0 {
-             self.bErr="*must select bulding"
+             self.bErr="*must select building"
              self.errorBuldingPick = true
          }
         

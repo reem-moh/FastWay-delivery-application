@@ -37,7 +37,7 @@ struct CardView: View {
                     Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
                     .animation(.easeIn)
                     HStack {
-                        Text("Bulding \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t\tBulding \(model.orderPreview(c: card).dropOffBulding)")
+                        Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
                             .fontWeight(.light)
                             .foregroundColor(Color.black.opacity(0.5))
                             .animation(.easeIn) //if the user press it it show Detail
@@ -92,8 +92,6 @@ struct CardView: View {
     }
 }
 
-
-
 // CarouselViewModel
 class CarouselViewModel: ObservableObject {
     
@@ -114,15 +112,10 @@ class CarouselViewModel: ObservableObject {
         getCards()
        
     }
+    
     //return order details
     func orderPreview(c: Card) -> OrderDetails {
         return c.orderD
-    }
-    
-    //in next sprint
-    
-    func setOrderOffer(){
-        
     }
     
     func getCards(){
@@ -140,6 +133,7 @@ class CarouselViewModel: ObservableObject {
     
 }
 
+//Card info
 struct Card: Identifiable {
     
     var id = UUID().uuidString
