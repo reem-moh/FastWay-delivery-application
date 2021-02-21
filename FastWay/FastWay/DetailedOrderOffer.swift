@@ -84,7 +84,7 @@ struct DetailedOrderOffer: View {
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
                                 HStack {
                                     
-                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
                                 }
                                 
                             }
@@ -92,9 +92,9 @@ struct DetailedOrderOffer: View {
                             ZStack{
                                 RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 150).foregroundColor(.white).shadow(radius: 1)
                                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
-                                HStack {
+                                HStack{
                                     
-                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200)
+                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
                                 }
                                 
                             }
@@ -104,12 +104,12 @@ struct DetailedOrderOffer: View {
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
                             HStack() {
                                
-                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220)
+                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
                             }
                         }
                         //Offer price
                             if(checkOffer) {
-                                Text("You must add price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                Text("You must specify a price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                         .offset(x: -5)
                                 
                             }
@@ -123,7 +123,7 @@ struct DetailedOrderOffer: View {
                                 Image(systemName: expand ? "chevron.up" : "chevron.down")
                                     .resizable()
                                     .frame(width: 13, height: 6)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.gray)
                             }.onTapGesture {
                                 self.expand.toggle()
                                 self.expandOffer = false
