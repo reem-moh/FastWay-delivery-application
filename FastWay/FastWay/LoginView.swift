@@ -223,10 +223,61 @@ struct LoginView: View {
     
 }
 
+
+
+
+
+//Launch screen struct
+struct LaunchScreen: View {
+    
+    @State var animate = false
+    @State var endSplash = false
+    @StateObject var viewRouter: ViewRouter
+    var body: some View{
+        
+        ZStack{
+            
+            LoginView(viewRouter: viewRouter)
+            
+            ZStack{
+                Color("LaunchScreen")
+                Image("FastWayName")
+                    .resizable()
+                    .renderingMode(.original)
+                    .aspectRatio(contentMode: animate ? .fill : .fit)
+                    .frame(width: animate ? nil : 85, height: animate ? nil : 85)
+                
+                //scaling view
+                    .scaleEffect(animate ? 3 : 1)
+                    .frame(width: UIScreen.main.bounds.width)
+            }
+            .ignoresSafeArea(.all, edges: .all)
+            .onAppear(perform: animateSplash)
+            //hiding view after finish
+            .opacity(endSplash ? 0 : 1)
+        }
+        
+    }
+    
+    func animateSplash() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25){
+            withAnimation(Animation.easeOut(duration: 0.35)){
+                animate.toggle()
+            }
+            withAnimation(Animation.easeOut(duration: 0.45)){
+                endSplash.toggle()
+            }
+        }
+    }
+}
+
+
+
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LoginView(viewRouter: ViewRouter())
+            LaunchScreen(viewRouter: ViewRouter())
         }
     }
 }
