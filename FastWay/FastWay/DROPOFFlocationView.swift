@@ -393,7 +393,7 @@ struct DROPOFFlocationView: View {
   
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*your location out of the campus"
+            self.lErr="*Your location\'s out of the campus"
                self.errorlocation = true
         }
         
@@ -403,7 +403,7 @@ struct DROPOFFlocationView: View {
         
         if (self.location.latitude == 0 && self.location.longitude == 0)  {
             print(location)
-            self.lErr="*must enter Drop off location "
+            self.lErr="*must enter drop off location"
                self.errorlocation = true
         }
         

@@ -397,7 +397,7 @@ struct AddNewOrderView: View {
         
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*current location out of the campus "
+            self.lErr="*Your current location\'s out of the campus "
             self.errorlocation = true
         }
         
@@ -407,7 +407,7 @@ struct AddNewOrderView: View {
         
         if (self.location.latitude == 0 && self.location.longitude == 0)  {
             print(location)
-            self.lErr="*must enter pick up location "
+            self.lErr="*must enter pick up location"
             self.errorlocation = true
         }
         
@@ -419,7 +419,7 @@ struct AddNewOrderView: View {
         self.errorRoomPick = false
         
         if self.room.text.count == 0 {
-            self.rErr="*must enter  more details"
+            self.rErr="*must enter more details"
             self.errorRoomPick = true
         }
         
