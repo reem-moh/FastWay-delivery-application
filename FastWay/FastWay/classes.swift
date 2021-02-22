@@ -11,6 +11,29 @@ import FirebaseFirestore
 import Combine
 import MapKit
 
+
+//For textfield chcaracter limit
+class TextfieldManager: ObservableObject{
+    @Published var text = ""{
+        didSet{
+            if text.count > charLimit && oldValue.count <= charLimit{
+                text = oldValue
+            }
+        }
+    }
+    let charLimit: Int
+    init(limit: Int = 5) {
+        charLimit = limit
+    }
+}
+
+
+
+
+
+
+
+
 let db = Firestore.firestore()
 
 class Member: ObservableObject {

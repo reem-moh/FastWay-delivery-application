@@ -10,10 +10,10 @@ import Firebase
 import FirebaseFirestore
 
 struct SendOrderIView: View {
-    @State var Orderhere=""
+    //@State var Orderhere=""
     @State var CashonDelivery=""
     @State var sendorder=""
-
+    @ObservedObject var Orderhere = TextfieldManager(limit: 80)
     
     
     @State var error = false
@@ -91,10 +91,10 @@ struct SendOrderIView: View {
                        }
                 
                 
-            TextField("Order here", text: $Orderhere)
+                TextField("Order here", text: $Orderhere.text)
                 .font(.system(size: 18))
             .offset(x:-100 ,y:-100).padding(110)
-                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0).offset(x:0 ,y:-50)
+                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0).offset(x:0 ,y:-50)
             
             }
             
@@ -122,7 +122,7 @@ struct SendOrderIView: View {
                 self.SendOrder()
                 
                 if !error {
-                if (order.setOrderDetails(orderDetails:Orderhere)){
+                    if (order.setOrderDetails(orderDetails:Orderhere.text)){
                     print("order details saved")
                 }
                     viewRouter.currentPage = .CurrentOrder
@@ -155,7 +155,7 @@ func SendOrder() {
   
         
         self.error = false
-        if self.Orderhere.count <= 0 {
+    if self.Orderhere.text.count <= 0 {
             self.nErr="*must be more than one characters"
             self.error = true
         }

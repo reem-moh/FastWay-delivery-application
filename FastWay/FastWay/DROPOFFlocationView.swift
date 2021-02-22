@@ -23,9 +23,9 @@ struct DROPOFFlocationView: View {
         
     @State var bulding = 0
     @State var floorNum = -1
-    @State var room = ""
+    //@State var room = ""
     @State var Floor = "Floor"
-
+    @ObservedObject var room = TextfieldManager(limit: 40)
 
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
@@ -302,7 +302,7 @@ struct DROPOFFlocationView: View {
                     
                 
                 //room numbers
-            TextField("room numbers , more details...", text: $room)
+                TextField("room numbers , more details...", text: $room.text)
                 .font(.system(size: 18))
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.emailAddress).padding(.horizontal, 14).offset(x: 0,y:0)
@@ -322,7 +322,7 @@ struct DROPOFFlocationView: View {
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
-                         if (order.setDropOffAndDropOffDetails(dropOff: location, dropOffBulding: bulding, dropOffFloor: floorNum, dropOffRoom: room)){
+                        if (order.setDropOffAndDropOffDetails(dropOff: location, dropOffBulding: bulding, dropOffFloor: floorNum, dropOffRoom: room.text)){
                             print("drop up saved")
                             viewRouter.currentPage = .SendOrder
                         }
@@ -414,7 +414,7 @@ struct DROPOFFlocationView: View {
         
          self.errorRoomPick = false
         
-           if self.room.count == 0 {
+        if self.room.text.count == 0 {
                self.rErr="*must enter  more details"
                self.errorRoomPick = true
          }
