@@ -479,11 +479,11 @@ func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
     
     
     
-    let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
-    let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
-    // let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+  //  let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
+ //   let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
+     let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
     print(northWestCorner)
-    //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+      let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
     print(southEastCorner)
     return (
         ( coordinate.latitude  >= northWestCorner.latitude &&
