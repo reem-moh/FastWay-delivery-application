@@ -459,12 +459,12 @@ struct AddNewOrderView: View {
         Bulding(title: "College Of Medicine 9", id: 9),
         Bulding(title: "College Of Dentistry 10", id: 10),
         Bulding(title: "College Of Applied Medical Science 11", id: 11),
-        Bulding(title: "College Of Education", id: 12),
-        Bulding(title: "College Of Arts", id: 13),
-        Bulding(title: "College Of Languages And Translation", id: 14),
-        Bulding(title: "College Of Business Administration", id: 15),
-        Bulding(title: "College of Sports Sciences and Physical Activity", id: 16),
-        Bulding(title: "College of Law and Political Sciences", id: 17),
+        Bulding(title: "College Of Education", id: 2),
+        Bulding(title: "College Of Arts", id: 13),////
+        Bulding(title: "College Of Languages And Translation", id: 4),
+        Bulding(title: "College Of Business Administration", id: 3),
+        Bulding(title: "College of Sports Sciences and Physical Activity", id: 16),////
+        Bulding(title: "College of Law and Political Sciences", id: 7),
     ]
 }
 

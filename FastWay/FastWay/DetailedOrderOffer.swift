@@ -193,7 +193,7 @@ struct DetailedOrderOffer: View {
             viewRouter.currentPage = .CurrentOrderCourier
         }
     }
-    
+
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
@@ -210,17 +210,17 @@ struct DetailedOrderOffer: View {
             building = "no.10 College Of Dentistry"
         case 11:
             building = "no.11 College Of Applied Medical Science"
-        case 12:
+        case 2:
             building = "no.12 College Of Education"
         case 13:
             building = "no.13 College Of Arts"
-        case 14:
+        case 4:
             building = "no.14 College Of Languages And Translation"
-        case 15:
+        case 3:
             building = "no.15 College Of Business Administration"
         case 16:
             building = "no.16 College of Sports Sciences and Physical Activity"
-        case 17:
+        case 7:
             building = "no.17 College of Law and Political Sciences"
         default:
             building = ""
