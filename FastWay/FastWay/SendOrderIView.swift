@@ -156,7 +156,7 @@ func SendOrder() {
         
         self.error = false
     if self.Orderhere.text.count <= 0 {
-            self.nErr="*must be more than one characters"
+            self.nErr="*This field is required"
             self.error = true
         }
         
