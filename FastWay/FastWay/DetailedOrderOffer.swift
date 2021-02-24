@@ -27,7 +27,7 @@ struct DetailedOrderOffer: View {
     var body: some View{
         
         ZStack{
-                                   
+            
             //map
             MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
@@ -38,85 +38,85 @@ struct DetailedOrderOffer: View {
                     
                     self.manager.requestAlwaysAuthorization()
                 }
-
-           // VStack{
-                
-                ZStack {
-                    //go back button
-                    //arrow_back image
-                    Group{
-                        RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
+            
+            // VStack{
+            
+            ZStack {
+                //go back button
+                //arrow_back image
+                Group{
+                    RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
+                    
+                    Button(action: {
+                        // model.showCard = false
                         
-                        Button(action: {
-                       // model.showCard = false
-                         
-                         withAnimation(.spring()){
-                           model.showCard.toggle()
-                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                 withAnimation(.easeIn){
-                                        model.showContent = false
+                        withAnimation(.spring()){
+                            model.showCard.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.easeIn){
+                                    model.showContent = false
                                     
-                                 }
-                             }
+                                }
+                            }
                             
-                         }
-                        }) {
-                          Image("arrow_back")
-                              .resizable()
-                              .colorInvert()
-                              .aspectRatio(contentMode: .fill)
-                              .frame(width: 30, height: 30)
-                              .clipped()
+                        }
+                    }) {
+                        Image("arrow_back")
+                            .resizable()
+                            .colorInvert()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30, height: 30)
+                            .clipped()
                             .background(Color(.white))
-                        }.padding(1.0)
-                    }.position(x: 50, y: 50)
+                    }.padding(1.0)
+                }.position(x: 50, y: 50)
+                
+                
+                //white background
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
+                
+                VStack{
                     
-                    
-                    //white background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
-                    
-                    VStack{
-                        
-                        ScrollView{
+                    ScrollView{
+                        HStack{
+                            Image(systemName: "clock")
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: 10, y: 10)
+                                .padding(.leading)
+                            Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: 10, y: 10)
+                            Spacer(minLength: 0)
+                        }
+                        //pick up
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
+                            HStack {
+                                
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                            }
+                            
+                        }
+                        //drop off
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
                             HStack{
-                                Image(systemName: "clock")
-                                    .foregroundColor(Color.black.opacity(0.5))
-                                    .offset(x: 10, y: 10)
-                                    .padding(.leading)
-                                Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
-                                    .font(.body)
-                                    .fontWeight(.regular)
-                                    .foregroundColor(Color.black.opacity(0.5))
-                                    .animation(.easeIn)
-                                    .offset(x: 10, y: 10)
-                                Spacer(minLength: 0)
-                            }
-                            //pick up
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                                Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
-                                HStack {
-                                    
-                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
-                                }
                                 
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
                             }
-                            //drop off
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                                Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
-                                HStack{
-                                    
-                                    Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
-                                }
-                                
-                            }
+                            
+                        }
                         //order items
                         ZStack{
                             if(model.selectedCard.orderD.orderDetails.count <= 25){
                                 RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 130).foregroundColor(.white).shadow(radius: 1)
                             }else{
-                            RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
+                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
                             }
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
                             HStack() {
@@ -125,13 +125,13 @@ struct DetailedOrderOffer: View {
                             }
                         }
                         //Offer price
-                            if(checkOffer) {
-                                Text("*You must specify a price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                        .offset(x: -10)
-                                
-                            }
+                        if(checkOffer) {
+                            Text("*You must specify a price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .offset(x: -50)
+                            
+                        }
                         VStack(spacing: 0){
-                     
+                            
                             HStack() {
                                 Text("\(offerList)")
                                     .font(.custom("Roboto Medium", size: 18))
@@ -147,10 +147,10 @@ struct DetailedOrderOffer: View {
                             }
                             if (expand && !expandOffer) {
                                 Group {
-                                ScrollView {
-                                                                           
+                                    ScrollView {
+                                        
                                         ForEach((1...20), id: \.self) { i in
-                                           
+                                            
                                             Button(action: {
                                                 self.expand.toggle()
                                                 offer = i
@@ -166,11 +166,11 @@ struct DetailedOrderOffer: View {
                                     }.frame(width: 300, height: 70)//end scroll view
                                 }.offset(x: -15, y: 10.0)//end group
                             }//end if statment
-                        
+                            
                         }
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(Color(.gray), lineWidth: 1))
+                                        .strokeBorder(Color(.gray), lineWidth: 1))
                         .colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                         
                         //make an offer button
@@ -190,10 +190,10 @@ struct DetailedOrderOffer: View {
                         .offset(x: 0)
                         .padding(.bottom,450)
                         
-                        }
-                    }.position(x: 188,y: 700)
-                }
-           // }
+                    }
+                }.position(x: 188,y: 700)
+            }
+            // }
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }
@@ -206,7 +206,7 @@ struct DetailedOrderOffer: View {
             viewRouter.currentPage = .CurrentOrderCourier
         }
     }
-
+    
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
