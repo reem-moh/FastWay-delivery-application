@@ -39,10 +39,10 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
-		<key>UIImageName</key>
-		<string>FastWayName</string>
 		<key>UIColorName</key>
 		<string>LaunchScreen</string>
+		<key>UIImageName</key>
+		<string>FastWayName</string>
 	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
