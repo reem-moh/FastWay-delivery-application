@@ -68,8 +68,7 @@ struct DeliverOrderView: View{
             }.padding(.bottom,80)
             
             if model.showCard {
-                
-                DetailedOrderOffer(viewRouter: ViewRouter(), animation: animation)
+                DetailedOrderOffer(viewRouter: viewRouter, animation: animation)
             }
             
             //BarMenue

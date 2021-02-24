@@ -175,7 +175,9 @@ struct DetailedOrderOffer: View {
                         
                         //make an offer button
                         Button(action: {
-                            makeAnOffer()
+                            if(makeAnOffer()){
+                                viewRouter.currentPage = .CurrentOrderCourier
+                            }
                         }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -198,13 +200,13 @@ struct DetailedOrderOffer: View {
         
     }
     
-    func makeAnOffer(){
-        checkOffer=false
+    func makeAnOffer() -> Bool{
+        checkOffer=false //for error message
         if( offerList == "Offer"){
             checkOffer=true
-        }else{
-            viewRouter.currentPage = .CurrentOrderCourier
+            return false;
         }
+        return true;
     }
     
     //name of building
