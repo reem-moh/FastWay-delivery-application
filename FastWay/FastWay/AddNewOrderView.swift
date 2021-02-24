@@ -31,6 +31,7 @@ struct AddNewOrderView: View {
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     @State var errorlocation = false
+    @State var errorlocation1 = false
     @State var errorBuldingPick = false
     @State var errorFloorPick = false
     @State var errorRoomPick = false
@@ -110,10 +111,13 @@ struct AddNewOrderView: View {
                     
                     Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
                     
+                    if errorlocation1{
+                    Text(lErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
+                    
                     if errorlocation{
                     Text(lErr).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
-                    
                 
                     
                 }.offset(x:0 ,y:-180)
@@ -322,7 +326,7 @@ struct AddNewOrderView: View {
                         
                         self.PICKUPlocation()
                         
-                        if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
+                        if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick && !errorlocation1) {
                             
                             
                             if (order.setpickUPAndpickUpDetails(pickUP:location,pickUpBulding: bulding, pickUpFloor: floorNum, pickUpRoom: room.text)){
@@ -386,7 +390,8 @@ struct AddNewOrderView: View {
         
         self.errorlocation = false
         
-        
+        self.errorlocation1 = false
+
         
         if(!isInRegion(map: map, coordinate: location)){
             print(location)
@@ -395,10 +400,10 @@ struct AddNewOrderView: View {
         }
         
         
-        if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
+        if((errorlocation==false)&&(!isInRegion(map: map, coordinate: map.userLocation.coordinate))){
             print(location)
             self.lErr="*Your current location\'s out of the campus "
-            self.errorlocation = true
+            self.errorlocation1 = true
         }
         
         
