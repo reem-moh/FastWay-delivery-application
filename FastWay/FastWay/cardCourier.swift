@@ -19,7 +19,17 @@ struct CardView: View {
         
         //Card
         VStack{
-            
+            HStack{
+                Image(systemName: "clock")
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .padding(.leading)
+                Text("\(model.orderPreview(c: card).createdAt.calenderTimeSinceNow())")
+                    .font(.body)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .animation(.easeIn)
+                Spacer(minLength: 0)
+            }.padding(.top,15)
             //orderDetails
             HStack {
                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
@@ -29,6 +39,7 @@ struct CardView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn) //if the user press it it show Detail
                 Spacer(minLength: 0)
+                
             }.padding(.top,15)
             
             //location

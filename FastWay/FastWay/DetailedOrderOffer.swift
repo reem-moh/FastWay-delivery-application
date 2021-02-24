@@ -78,6 +78,19 @@ struct DetailedOrderOffer: View {
                     VStack{
                         
                         ScrollView{
+                            HStack{
+                                Image(systemName: "clock")
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .offset(x: 10, y: 10)
+                                    .padding(.leading)
+                                Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .animation(.easeIn)
+                                    .offset(x: 10, y: 10)
+                                Spacer(minLength: 0)
+                            }
                             //pick up
                             ZStack{
                                 RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
