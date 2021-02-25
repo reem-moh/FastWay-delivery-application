@@ -21,7 +21,7 @@ struct DetailedOrderOffer: View {
     @State var expandOffer = false
     @State var expand = false
     @State var offer = 0
-    @State var offerList : String = "Offer"
+    @State var offerList : String = "Offer price"
     @State var checkOffer : Bool = false
     
     var body: some View{
@@ -202,7 +202,7 @@ struct DetailedOrderOffer: View {
     
     func makeAnOffer() -> Bool{
         checkOffer=false //for error message
-        if( offerList == "Offer"){
+        if( offerList == "Offer price"){
             checkOffer=true
             return false;
         }
