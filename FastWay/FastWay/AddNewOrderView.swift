@@ -158,7 +158,7 @@ struct AddNewOrderView: View {
                     
                     
                     //Show Error message if no bulding selected
-                    if errorBuldingPick {
+                    if errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2 {
                         Text(bErr).font(.custom("Roboto Regular", size: 18))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:-10)
                     }
@@ -169,7 +169,13 @@ struct AddNewOrderView: View {
                         
                         
                         HStack() {
-                            TextField("Search Building here", text: $text).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                            Button(action: {
+                                
+                                self.PICKUPlocation()
+
+                            }){
+                                TextField("Search Building here", text: $text).font(.custom("Roboto Regular", size: 18)).foregroundColor(.black).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                        }
                             Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expand.toggle()
@@ -187,13 +193,16 @@ struct AddNewOrderView: View {
                                                     
                                                     HStack {         //2
                                                         Button(action: {
+                                    
                                                             self.expand.toggle()
+                                                            
                                                             bulding = Bulding.id
                                                             text=Bulding.title
                                                             
                                                         })
                                                         {
-                                                            Text(Bulding.title).padding(5)
+                                                            Text(Bulding.title).font(.custom("Roboto Regular", size: 13 )).foregroundColor(.black).padding(5)
+                                                        
                                                         }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
                                                 }
                                                 
@@ -236,7 +245,7 @@ struct AddNewOrderView: View {
                     
                     
                     //Show Error message if no floor selected
-                    if errorFloorPick {
+                    if errorFloorPick && !errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2{
                         Text(fErr).font(.custom("Roboto Regular", size: 18))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:-10)
                     }
@@ -245,7 +254,12 @@ struct AddNewOrderView: View {
                     
                     VStack(spacing: 0){
                         HStack() {
-                            Text(Floor).font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.center).frame(width: 295, height: 6).offset(x: -130, y: 0)
+                            Button(action: {
+                                
+                                self.PICKUPlocationBuilding()
+                            }){
+                                Text(Floor).font(.custom("Roboto Medium", size: 18)).foregroundColor(.black).fontWeight(.bold).multilineTextAlignment(.center).frame(width: 295, height: 6).offset(x: -130, y: 0)
+                        }
                             Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expandFloor.toggle()
@@ -313,19 +327,21 @@ struct AddNewOrderView: View {
                 VStack(spacing: -10){
                     
                     //Show Error message if the ROOM feild empty
-                    if errorRoomPick {
+                    if errorRoomPick && !errorFloorPick && !errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2 {
                         Text(rErr).font(.custom("Roboto Regular", size: 18))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -75,y:-10)
                     }
                     
-                    
+                    Button(action: {
+                        self.PICKUPlocationFloor()
+                    }){
                     //room numbers
                     TextField("room numbers , more details...", text: $room.text)
-                        .font(.system(size: 18))
+                        .font(.system(size: 18)).foregroundColor(.black)
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
                     
-                }
+                    }}
                 
                 
                 
@@ -336,9 +352,10 @@ struct AddNewOrderView: View {
                         print("helooooooo")
                         
                         location = pickAndDrop
-                        
                         self.PICKUPlocation()
-
+                        self.PICKUPlocationBuilding()
+                        self.PICKUPlocationFloor()
+                        self.PICKUPlocationRoom()
                         
                         if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick && !errorlocation1) {
                             
@@ -397,15 +414,9 @@ struct AddNewOrderView: View {
     }//END BODY
     
     
-    
-    
-    
     func PICKUPlocation(){
         
         self.errorlocation = false
-     
-        
-        
         self.errorlocation1 = false
         self.errorlocation2 = false
 
@@ -442,12 +453,14 @@ struct AddNewOrderView: View {
         
         
         
-        self.errorRoomPick = false
+    }
+    
+    
+    
+    func PICKUPlocationBuilding(){
         
-        if self.room.text.count == 0 {
-            self.rErr="*must enter more details"
-            self.errorRoomPick = true
-        }
+        
+      
         
         self.errorBuldingPick = false
         
@@ -455,6 +468,17 @@ struct AddNewOrderView: View {
             self.bErr="*must select building"
             self.errorBuldingPick = true
         }
+        
+       
+        
+    }
+    
+    
+    
+    func PICKUPlocationFloor(){
+        
+        
+       
         
         self.errorFloorPick = false
         
@@ -466,6 +490,20 @@ struct AddNewOrderView: View {
     }
     
     
+    func PICKUPlocationRoom(){
+        
+        
+        
+        self.errorRoomPick = false
+        
+        if self.room.text.count == 0 {
+            self.rErr="*must enter more details"
+            self.errorRoomPick = true
+        }
+        
+     
+        
+    }
     
     
     

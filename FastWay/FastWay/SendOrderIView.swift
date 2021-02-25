@@ -87,7 +87,7 @@ struct SendOrderIView: View {
                        if error{
                    //Show Error message if the email feild empty
                        Text(nErr).font(.custom("Roboto Regular", size: 18))
-                           .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -35,y: -50)
+                           .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -90,y: -50)
                        }
                 
                 
