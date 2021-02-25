@@ -30,6 +30,8 @@ struct DROPOFFlocationView: View {
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     @State var errorlocation = false
+    @State var errorlocation1 = false
+    @State var errorlocation2 = false
     @State var errorBuldingPick = false
     @State var errorFloorPick = false
     @State var errorRoomPick = false
@@ -101,21 +103,35 @@ struct DROPOFFlocationView: View {
                 //MAP
                 ZStack{
                     
-                
-                
                     
-                      EntireMapView(map: self.$map, manager: self.$manager).frame(width: 380, height: 400, alignment: .center)
-                          .clipped().offset(y:50)
                     
-                Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
+                    
+                    EntireMapView(map: self.$map, manager: self.$manager).frame(width: 380, height: 400, alignment: .center)
+                        .clipped().offset(y:50)
+                    
+                    
+                    Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
+                    
+                    
+                  
+                    if errorlocation1{
+                    Text(lErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
+                    
                 
-                if errorlocation{
+                if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
+                    Text(lErr).font(.custom("Roboto Regular", size: 18))
+                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                    
+                    
+                
+                if (errorlocation)&&(errorlocation1==false){
                 Text(lErr).font(.custom("Roboto Regular", size: 18))
                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
-                
             
-                   
-                            }.offset(x:0 ,y:-180)
+                
+                
+                }.offset(x:0 ,y:-180)
 
             
             }
@@ -318,7 +334,7 @@ struct DROPOFFlocationView: View {
                     print("helooooooo")
                     location = pickAndDrop
                     self.DROPOFFlocation()
-                    pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                   
                     if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick ) {
 
                        
@@ -379,52 +395,59 @@ struct DROPOFFlocationView: View {
     
     func DROPOFFlocation(){
         
-       self.errorlocation = false
-    
+        self.errorlocation = false
+     
         
+        
+        self.errorlocation1 = false
+        self.errorlocation2 = false
 
-      
-        if(!isInRegion(map: map, coordinate: location)){
-        print(location)
-        self.lErr="*The region out of our service "
-           self.errorlocation = true
-    }
+
         
-  
+        
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
-            self.lErr="*Your location\'s out of the campus"
-               self.errorlocation = true
+            self.lErr="*Your current location\'s out of the campus "
+            self.errorlocation1 = true
         }
         
         
-        
-        
-        
-        if (self.location.latitude == 0 && self.location.longitude == 0)  {
+        if((errorlocation1==false)&&(!isInRegion(map: map, coordinate: location))){
             print(location)
-            self.lErr="*must enter drop off location"
-               self.errorlocation = true
+            self.lErr="*The region out of our service "
+            self.errorlocation2 = true
+        }
+        
+        
+       
+        
+        
+        
+        
+        if ((errorlocation1==false)&&(self.location.latitude == 0 && self.location.longitude == 0) ) {
+            print(location)
+            self.lErr="*must enter Drop off location"
+            self.errorlocation = true
         }
         
         
         
-
-    
         
-         self.errorRoomPick = false
+        
+        
+        self.errorRoomPick = false
         
         if self.room.text.count == 0 {
-               self.rErr="*must enter  more details"
-               self.errorRoomPick = true
-         }
-         
-         self.errorBuldingPick = false
+            self.rErr="*must enter more details"
+            self.errorRoomPick = true
+        }
+        
+        self.errorBuldingPick = false
         
         if self.bulding == 0 {
-             self.bErr="*must select building"
-             self.errorBuldingPick = true
-         }
+            self.bErr="*must select building"
+            self.errorBuldingPick = true
+        }
         
         self.errorFloorPick = false
         
@@ -432,8 +455,8 @@ struct DROPOFFlocationView: View {
             self.fErr="*must select floor"
             self.errorFloorPick = true
         }
-         
-}
+        
+    }
     
 
 

@@ -32,6 +32,7 @@ struct AddNewOrderView: View {
     
     @State var errorlocation = false
     @State var errorlocation1 = false
+    @State var errorlocation2 = false
     @State var errorBuldingPick = false
     @State var errorFloorPick = false
     @State var errorRoomPick = false
@@ -101,7 +102,8 @@ struct AddNewOrderView: View {
                 
                 
                 //MAP
-                ZStack{
+                
+               ZStack{
                     
                     
                     
@@ -109,17 +111,28 @@ struct AddNewOrderView: View {
                     EntireMapView(map: self.$map, manager: self.$manager).frame(width: 380, height: 400, alignment: .center)
                         .clipped().offset(y:50)
                     
+                    
                     Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
                     
+                    
+                  
                     if errorlocation1{
                     Text(lErr).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
                     
-                    if errorlocation{
+                
+                if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
                     Text(lErr).font(.custom("Roboto Regular", size: 18))
                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
-                
                     
+                    
+                
+                if (errorlocation)&&(errorlocation1==false){
+                Text(lErr).font(.custom("Roboto Regular", size: 18))
+                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+            
+                
+                
                 }.offset(x:0 ,y:-180)
                 
                 
@@ -325,6 +338,7 @@ struct AddNewOrderView: View {
                         location = pickAndDrop
                         
                         self.PICKUPlocation()
+
                         
                         if (!errorlocation && !errorRoomPick && !errorBuldingPick && !errorFloorPick && !errorlocation1) {
                             
@@ -389,30 +403,37 @@ struct AddNewOrderView: View {
     func PICKUPlocation(){
         
         self.errorlocation = false
+     
+        
         
         self.errorlocation1 = false
+        self.errorlocation2 = false
+
 
         
-        if(!isInRegion(map: map, coordinate: location)){
-            print(location)
-            self.lErr="*The region out of our service "
-            self.errorlocation = true
-        }
         
-        
-        if((errorlocation==false)&&(!isInRegion(map: map, coordinate: map.userLocation.coordinate))){
+        if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
             self.lErr="*Your current location\'s out of the campus "
             self.errorlocation1 = true
         }
         
         
-        
-        
-        
-        if (self.location.latitude == 0 && self.location.longitude == 0)  {
+        if((errorlocation1==false)&&(!isInRegion(map: map, coordinate: location))){
             print(location)
-            self.lErr="*must enter pick up location"
+            self.lErr="*The region out of our service "
+            self.errorlocation2 = true
+        }
+        
+        
+       
+        
+        
+        
+        
+        if ((errorlocation1==false)&&(self.location.latitude == 0 && self.location.longitude == 0) ) {
+            print(location)
+            self.lErr="*must enter Pick up location"
             self.errorlocation = true
         }
         
@@ -478,14 +499,14 @@ func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
     print(coordinate)
     // let region = map.region
     //  let center = region.center
-     let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
-        let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
+    // let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
+      //  let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
     
     
     
     
-  //  let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
- //   let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
+  let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
+    let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
   //   let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
     print(northWestCorner)
    //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
