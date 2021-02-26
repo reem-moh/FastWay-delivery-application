@@ -32,7 +32,7 @@ struct CurrentOrderView: View {
                 
             }.onAppear(){
                 //calling Methods
-                model.order.getOrder()
+                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 model.getCards()
                 model.showCard = false
             }
@@ -290,7 +290,6 @@ struct CurrentCardMDetailes: View {
                 //go back button
                 Group{
                     RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
-                    
                     Button(action: {
                         withAnimation(.spring()){
                             model.showCard.toggle()
@@ -457,8 +456,8 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     init(){
         //from this ID get all the cards
-        order.getOrder()
-        print("number of oreders inside init: \(order.orders.count)")
+        order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+        print("number of oreders inside init: \(order.memberOrder.count)")
         getCards()
        
     }
@@ -469,13 +468,13 @@ class CurrentCarouselMViewModel: ObservableObject {
     }
     
     func getCards(){
-        print("number of cards inside getCards: \(order.orders.count)")
-        if order.orders.isEmpty{
+        print("number of cards inside getCards: \(order.memberOrder.count)")
+        if order.memberOrder.isEmpty{
             print("there is no order")
         }
 
         cards.removeAll()
-        for index in order.orders {
+        for index in order.memberOrder {
             //Check the state of the order
             cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
         }
