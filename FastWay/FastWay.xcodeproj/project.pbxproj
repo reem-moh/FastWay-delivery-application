@@ -26,6 +26,7 @@
 		58B5F55225D9726B00D4C099 /* Maps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55125D9726B00D4C099 /* Maps.swift */; };
 		58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55825D9859500D4C099 /* EntireMapView.swift */; };
 		58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */; };
+		778D349325E7D9A3002B902D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778D349225E7D9A3002B902D /* TextView.swift */; };
 		C22D4E9B25E15ADD001EF297 /* CurrentOrderCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */; };
 		C22D4E9E25E15B6F001EF297 /* HistoryCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */; };
 		C24354B525D431B90033B69F /* cardCourier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24354B425D431B90033B69F /* cardCourier.swift */; };
@@ -64,6 +65,7 @@
 		58B5F55825D9859500D4C099 /* EntireMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntireMapView.swift; sourceTree = "<group>"; };
 		58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedOrderOffer.swift; sourceTree = "<group>"; };
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
+		778D349225E7D9A3002B902D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderCourierView.swift; sourceTree = "<group>"; };
 		C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCourierView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				C24354B425D431B90033B69F /* cardCourier.swift */,
 				58B5F55125D9726B00D4C099 /* Maps.swift */,
 				58B5F55825D9859500D4C099 /* EntireMapView.swift */,
+				778D349225E7D9A3002B902D /* TextView.swift */,
 				589433EF25C8F62300E19E18 /* Assets.xcassets */,
 				589433F425C8F62300E19E18 /* Info.plist */,
 				589433FB25C8F74100E19E18 /* GoogleService-Info.plist */,
@@ -297,6 +300,7 @@
 				1509CD2425E7BC490093093F /* CurrentOrderViewDetailsCourier.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
+				778D349325E7D9A3002B902D /* TextView.swift in Sources */,
 				C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */,
 				4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */,
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,

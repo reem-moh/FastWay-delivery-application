@@ -10,7 +10,10 @@ import Firebase
 import FirebaseFirestore
 
 struct SendOrderIView: View {
-    //@State var Orderhere=""
+    
+    @State var txt=""
+    @State private var wordCount: Int = 0
+
     @State var CashonDelivery=""
     @State var sendorder=""
     @ObservedObject var Orderhere = TextfieldManager(limit: 80)
@@ -90,11 +93,18 @@ struct SendOrderIView: View {
                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -90,y: -50)
                        }
                 
+                TextView(txt: $txt).padding() .background(Color.clear).border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).cornerRadius(0).frame(width: 355, height: 250, alignment: .center).offset(x:0,y:-50)
+    
+      
+                Text("\(txt.count) /80")
+                    .font(.headline)
+                    .foregroundColor(.secondary).offset(x:-150,y:-50)
+                   
                 
-                TextField("Order here", text: $Orderhere.text)
+                /*TextField("Order  hereEEEEEEEEEEEEEEEEEEEEE EEEEEEE EEEEEE ", text: $Orderhere.text)
                 .font(.system(size: 18))
-            .offset(x:-100 ,y:-100).padding(110)
-                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).padding(.horizontal, 11.0).offset(x:0 ,y:-50)
+                    .offset(x:-100 ,y:-100).padding(110).multilineTextAlignment(.trailing)
+                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).multilineTextAlignment(.trailing).padding(.horizontal, 11.0).offset(x:0 ,y:-50)*/
             
             }
             
@@ -122,7 +132,7 @@ struct SendOrderIView: View {
                 self.SendOrder()
                 
                 if !error {
-                    if (order.setOrderDetails(orderDetails:Orderhere.text)){
+                    if (order.setOrderDetails(orderDetails:txt)){
                     print("order details saved")
                 }
                     viewRouter.currentPage = .CurrentOrder
@@ -155,7 +165,7 @@ func SendOrder() {
   
         
         self.error = false
-    if self.Orderhere.text.count <= 0 {
+    if self.txt.count <= 0 {
             self.nErr="*This field is required"
             self.error = true
         }
