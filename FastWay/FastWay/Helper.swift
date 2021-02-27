@@ -24,6 +24,7 @@ enum Page{
     case HistoryCourierView
     case DeliverOrder
     case DetailedOrderOffer
+    case offers
 }
 // to identify each notificatio or confirmation message when transitioning from one
 // view to the other

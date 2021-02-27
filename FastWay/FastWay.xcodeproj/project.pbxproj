@@ -39,6 +39,7 @@
 		C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006D125CF22B20010C126 /* DeliverOrderView.swift */; };
 		C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A006D625CF24C60010C126 /* ViewRouter.swift */; };
 		C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C26EB125CABEA500505716 /* HomeCourierView.swift */; };
+		C2E20EF525EABFD2009CAE56 /* Offers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E20EF425EABFD2009CAE56 /* Offers.swift */; };
 		C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */; };
 		F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		C2A006D125CF22B20010C126 /* DeliverOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverOrderView.swift; sourceTree = "<group>"; };
 		C2A006D625CF24C60010C126 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		C2C26EB125CABEA500505716 /* HomeCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCourierView.swift; sourceTree = "<group>"; };
+		C2E20EF425EABFD2009CAE56 /* Offers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offers.swift; sourceTree = "<group>"; };
 		C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMemberView.swift; sourceTree = "<group>"; };
 		F4A975CAC4078662B4232E56 /* Pods-FastWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.release.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +145,7 @@
 				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
+				C2E20EF425EABFD2009CAE56 /* Offers.swift */,
 				C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */,
 				1509CD2325E7BC490093093F /* CurrentOrderViewDetailsCourier.swift */,
 				C2A006CD25CF229A0010C126 /* HistoryView.swift */,
@@ -321,6 +324,7 @@
 				C22D4E9E25E15B6F001EF297 /* HistoryCourierView.swift in Sources */,
 				C268D59825D07EF7006183AB /* UserDefaults.swift in Sources */,
 				4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */,
+				C2E20EF525EABFD2009CAE56 /* Offers.swift in Sources */,
 				C2A006CE25CF229A0010C126 /* HistoryView.swift in Sources */,
 				58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */,
 				C24354B525D431B90033B69F /* cardCourier.swift in Sources */,

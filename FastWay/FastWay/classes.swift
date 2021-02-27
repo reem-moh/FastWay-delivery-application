@@ -12,28 +12,6 @@ import Combine
 import MapKit
 
 
-//For textfield chcaracter limit
-class TextfieldManager: ObservableObject{
-    @Published var text = ""{
-        didSet{
-            if text.count > charLimit && oldValue.count <= charLimit{
-                text = oldValue
-            }
-        }
-    }
-    let charLimit: Int
-    init(limit: Int = 5) {
-        charLimit = limit
-    }
-}
-
-
-
-
-
-
-
-
 let db = Firestore.firestore()
 
 class Member: ObservableObject {
@@ -168,21 +146,22 @@ class Courier: ObservableObject {
         } //listener
     } //function
 }
-//member/courier struct
+
+//member info
 struct M: Identifiable {
     var id: String
     var name: String
     var email: String
     var phoneNo: String
 }
+//Courier info
 struct C: Identifiable {
     var id: String
     var name: String
     var email: String
     var phoneNo: String
 }
-
-//order struct
+//order info
 struct OrderDetails: Identifiable {
     var id: String
     var pickUP: CLLocationCoordinate2D!
@@ -199,11 +178,20 @@ struct OrderDetails: Identifiable {
     var isAdded: Bool
     var createdAt : Date = Date()
 }
+//offer info
+struct Offer : Identifiable {
+    var id: String
+    var OrderId: String
+    var memberId: String = ""
+    var courierId: String = ""
+    var price: Int
+}
 
 class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = []
     @Published var memberOrder: [OrderDetails] = []
+    @Published var offers: [Offer] = []
     
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
@@ -386,6 +374,26 @@ class Order: ObservableObject{
         }
     }
     
+    //get offers from DB
+    func getOffers(OrderId: String){
+        //Field equal ??
+        db.collection("Order").whereField("", isEqualTo: OrderId).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No offer documents")
+                return
+            }
+            self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
+                print(queryDocumentSnapshot.data())
+                let data = queryDocumentSnapshot.data()
+                let uid = queryDocumentSnapshot.documentID
+                let MemberID = data["MemberID"] as? String ?? ""
+                print("order :\(uid) + \(MemberID) ")
+                return Offer( id: uid, OrderId: "" , memberId: MemberID ,courierId: "", price: 0)
+            })
+        }
+        
+    }
+
 }
 
 //Date extension to calculate time intervals
@@ -422,4 +430,18 @@ extension Date {
         }
     }
     
+}
+//For textfield chcaracter limit
+class TextfieldManager: ObservableObject{
+    @Published var text = ""{
+        didSet{
+            if text.count > charLimit && oldValue.count <= charLimit{
+                text = oldValue
+            }
+        }
+    }
+    let charLimit: Int
+    init(limit: Int = 5) {
+        charLimit = limit
+    }
 }
