@@ -185,10 +185,7 @@ struct OfferCard: View {
         VStack{
             //Courier name
             HStack{
-                Image(systemName: "clock")
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.leading)
-                Text("\(model.orderPreview(c: card).courierId)")
+                Text("\(model.orderPreview(c: card).OrderId)")
                     .font(.body)
                     .fontWeight(.regular)
                     .foregroundColor(Color.black.opacity(0.5))
@@ -209,12 +206,40 @@ struct OfferCard: View {
             
             //Offers state
             HStack{
-                
-                if !model.haveOffers{
-                    
-                    Text("Waiting for offers")
+                VStack{
+                    //Accept offer button
+                    Button(action: {
+                        //Call method to change assign in order collection to true, add price and courier to order collection, remove all offers in offers subCollection that has the same orderID
+                    }) {
+                        Text("Accept")
+                            .font(.custom("Roboto Bold", size: 22))
+                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                            .multilineTextAlignment(.center)
+                            .padding(1.0)
+                            .frame(width: UIScreen.main.bounds.width - 50)
+                            .textCase(.none)
+                    }
+                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                    .padding(.all,25)
+                    .offset(x: 0)
+                    //deny offer button
+                    Button(action: {
+                        //Call method to remove this offer from offers subCollection that has the same (orderID and member id and courier id)
+                    }) {
+                        Text("Decline")
+                            .font(.custom("Roboto Bold", size: 22))
+                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                            .multilineTextAlignment(.center)
+                            .padding(1.0)
+                            .frame(width: UIScreen.main.bounds.width - 50)
+                            .textCase(.none)
+                    }
+                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                    .padding(.top,25)
+                    .offset(x: 0)
+                    .padding(.bottom,450)
                 }
-                Spacer(minLength: 0)
+                //Spacer(minLength: 0)
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
@@ -256,7 +281,7 @@ class OfferCarousel: ObservableObject {
     @Published var showContent = false
     
     init(){
-        //from this ID get all the cards
+   
         //order.getOffers(OrderId: orderid)
         print("number of offers inside init: \(order.offers.count)")
         getCards()
@@ -269,7 +294,7 @@ class OfferCarousel: ObservableObject {
     }
     
     func getCards(){
-        //if there are offers haveOffers=true
+        //if there are offers change haveOffers=true
         ///Change all this info memberOrder
         print("number of cards inside getCards: \(order.offers.count)")
         if order.offers.isEmpty{

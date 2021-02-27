@@ -37,6 +37,7 @@ struct CurrentOrderView: View {
                 model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 model.getCards()
                 model.showCard = false
+                model.showContent = false
             }
             // Carousel....
             VStack{
@@ -81,10 +82,6 @@ struct CurrentOrderView: View {
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
-                
-                
-                
-                
             }.onAppear(){
                 if viewRouter.notificationT == .SendOrder {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
@@ -312,7 +309,7 @@ struct CurrentCardMDetailes: View {
                 }
             
             ZStack {
-                //go back button
+                //back button
                 Group{
                     RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
                     Button(action: {
@@ -356,6 +353,25 @@ struct CurrentCardMDetailes: View {
                                 .offset(x: 10, y: 10)
                             Spacer(minLength: 0)
                         }
+                        //Offers page
+                        HStack{
+                            Spacer()
+                            Text("Delivery offers")
+                                .multilineTextAlignment(.trailing)
+                                .frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                            Image(systemName: "arrow.right")
+                                .resizable()
+                                //.colorInvert()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 18, height: 18)
+                                .clipped()
+                                //.background(Color(.white))
+                            Spacer(minLength: 0)
+                        }.padding(.top,15)
+                        .onTapGesture {
+                            viewRouter.notificationT = .None
+                            viewRouter.currentPage = .offers
+                        }
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
@@ -389,26 +405,11 @@ struct CurrentCardMDetailes: View {
                                 Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
                             }
                         }
-                        //Accept offer button
+                        //Cancel button
                         Button(action: {
-                            //Call method to change assign in order collection to true, add price and courier to order collection, remove all offers in offers subCollection that has the same orderID
+                                //is it with us this sprint?
                         }) {
-                            Text("Accept")
-                                .font(.custom("Roboto Bold", size: 22))
-                                .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                .multilineTextAlignment(.center)
-                                .padding(1.0)
-                                .frame(width: UIScreen.main.bounds.width - 50)
-                                .textCase(.none)
-                        }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.all,25)
-                        .offset(x: 0)
-                        //deny offer button
-                        Button(action: {
-                            //Call method to remove this offer from offers subCollection that has the same (orderID and member id and courier id)
-                        }) {
-                            Text("Decline")
+                            Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
@@ -420,6 +421,7 @@ struct CurrentCardMDetailes: View {
                         .padding(.top,25)
                         .offset(x: 0)
                         .padding(.bottom,450)
+                        
                         
                     }
                 }.position(x: 188,y: 700)

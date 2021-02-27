@@ -33,7 +33,8 @@ struct DeliverOrderView: View{
             }.onAppear(){
                 model.order.getOrder()
                 model.getCards()
-                model.showCard = false 
+                model.showCard = false
+                model.showContent = false
             }
             
             VStack{
