@@ -13,6 +13,8 @@ struct CurrentOrderView: View {
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CurrentCarouselMViewModel
     @Namespace var animation
+    //for notification
+    @State var show = false
     
     var body: some View {
         
@@ -71,6 +73,25 @@ struct CurrentOrderView: View {
                 //Calling detailed card
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
+            
+            //notification
+            VStack{
+                if show{
+                    Notifications(type: viewRouter.notificationT, imageName: "shoppingCart")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+                
+                
+                
+                
+            }.onAppear(){
+                if viewRouter.notificationT == .SendOrder {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+            }
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -100,6 +121,7 @@ struct CurrentOrderView: View {
                                     }
                                     
                                 }
+                                viewRouter.notificationT = .None
                                 viewRouter.currentPage = .HomePageM
                             }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
                             //about us icon
@@ -124,6 +146,7 @@ struct CurrentOrderView: View {
                                         }
                                         
                                     }
+                                    viewRouter.notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
@@ -149,6 +172,7 @@ struct CurrentOrderView: View {
                                     }
                                     
                                 }
+                                viewRouter.notificationT = .None
                                 viewRouter.currentPage = .ViewProfileM
                             }.foregroundColor(viewRouter.currentPage == .ViewProfileM ? Color("TabBarHighlight") : .gray)
                             
@@ -175,16 +199,16 @@ struct CurrentCardMView: View {
         VStack{
             //State of the card
             /*HStack{
-                Image(systemName: "wait")
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.leading)
-                Text("\(card.state)")
-                    .font(.body)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .animation(.easeIn)
-                Spacer(minLength: 0)
-            }.padding(.top,15)*/
+             Image(systemName: "wait")
+             .foregroundColor(Color.black.opacity(0.5))
+             .padding(.leading)
+             Text("\(card.state)")
+             .font(.body)
+             .fontWeight(.regular)
+             .foregroundColor(Color.black.opacity(0.5))
+             .animation(.easeIn)
+             Spacer(minLength: 0)
+             }.padding(.top,15)*/
             //Time
             HStack{
                 Image(systemName: "clock")
@@ -210,15 +234,15 @@ struct CurrentCardMView: View {
             }.padding(.top,15)
             //location Detailes
             VStack {
-                    
-                    Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
+                
+                Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
                     .animation(.easeIn)
-                    HStack {
-                        Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
-                            .fontWeight(.light)
-                            .foregroundColor(Color.black.opacity(0.5))
-                            .animation(.easeIn) //if the user press it it show Detail
-                    }.padding(5)
+                HStack {
+                    Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
+                        .fontWeight(.light)
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .animation(.easeIn) //if the user press it it show Detail
+                }.padding(5)
                 
             }.padding(15)
             //Detailes Button
@@ -227,12 +251,12 @@ struct CurrentCardMView: View {
                 //to let an arrow in the right of the card
                 Spacer(minLength: 0)
                 
-               if !model.showContent{
+                if !model.showContent{
                     
                     Text("Detailes")
                     
                     Image(systemName: "arrow.right")
-               }
+                }
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
@@ -246,15 +270,15 @@ struct CurrentCardMView: View {
         )
         .onTapGesture {
             withAnimation(.spring()){
-               model.selectedCard = card
-               model.showCard.toggle() //change the value of showCard to true
-               DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(.easeIn){
-                   model.showContent = true
-                }//end with animation
-               }//end dispatch
+                model.selectedCard = card
+                model.showCard.toggle() //change the value of showCard to true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    withAnimation(.easeIn){
+                        model.showContent = true
+                    }//end with animation
+                }//end dispatch
             }//end with animation
-         }//end on tap gesture
+        }//end on tap gesture
     }
 }
 
@@ -271,6 +295,7 @@ struct CurrentCardMDetailes: View {
     @State var expandOffer = false
     @State var expand = false
     
+    
     var body: some View{
         
         ZStack{
@@ -285,7 +310,7 @@ struct CurrentCardMDetailes: View {
                     
                     self.manager.requestAlwaysAuthorization()
                 }
-                        
+            
             ZStack {
                 //go back button
                 Group{
@@ -368,7 +393,7 @@ struct CurrentCardMDetailes: View {
                         Button(action: {
                             //Call method to change assign in order collection to true, add price and courier to order collection, remove all offers in offers subCollection that has the same orderID
                         }) {
-                            Text("Accept the offer")
+                            Text("Accept")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
@@ -383,7 +408,7 @@ struct CurrentCardMDetailes: View {
                         Button(action: {
                             //Call method to remove this offer from offers subCollection that has the same (orderID and member id and courier id)
                         }) {
-                            Text("deny the offer")
+                            Text("Decline")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
@@ -398,6 +423,8 @@ struct CurrentCardMDetailes: View {
                         
                     }
                 }.position(x: 188,y: 700)
+                
+                
             }
             // }
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
@@ -459,7 +486,7 @@ class CurrentCarouselMViewModel: ObservableObject {
         order.getMemberOrder(Id: UserDefaults.standard.getUderId())
         print("number of oreders inside init: \(order.memberOrder.count)")
         getCards()
-       
+        
     }
     
     //return order details
@@ -472,7 +499,7 @@ class CurrentCarouselMViewModel: ObservableObject {
         if order.memberOrder.isEmpty{
             print("there is no order")
         }
-
+        
         cards.removeAll()
         for index in order.memberOrder {
             //Check the state of the order

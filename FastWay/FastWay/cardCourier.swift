@@ -11,7 +11,7 @@ import MapKit
 // CardView
 struct CardView: View {
     @EnvironmentObject var model : CarouselViewModel
-   // @StateObject var viewRouter: ViewRouter
+    // @StateObject var viewRouter: ViewRouter
     var card: Card
     var animation: Namespace.ID
     
@@ -44,15 +44,15 @@ struct CardView: View {
             
             //location
             VStack {
-                    
-                    Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
+                
+                Image(uiImage: #imageLiteral(resourceName: "IMG_0526 1"))
                     .animation(.easeIn)
-                    HStack {
-                        Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
-                            .fontWeight(.light)
-                            .foregroundColor(Color.black.opacity(0.5))
-                            .animation(.easeIn) //if the user press it it show Detail
-                    }.padding(5)
+                HStack {
+                    Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
+                        .fontWeight(.light)
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .animation(.easeIn) //if the user press it it show Detail
+                }.padding(5)
                 
             }.padding(15)//end v stack for pickup&dropOff image
             
@@ -64,12 +64,12 @@ struct CardView: View {
                 //to let an arrow in the right of the card
                 Spacer(minLength: 0)
                 
-               if !model.showContent{
+                if !model.showContent{
                     
                     Text("Intrested")
                     
                     Image(systemName: "arrow.right")
-               }
+                }
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
@@ -87,7 +87,7 @@ struct CardView: View {
                 
                 model.selectedCard = card
                 
-               model.showCard.toggle() //change the value of showCard to true
+                model.showCard.toggle() //change the value of showCard to true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     
                     withAnimation(.easeIn){
@@ -117,11 +117,11 @@ class CarouselViewModel: ObservableObject {
     @Published var showContent = false
     
     init(){
-       
+        
         order.getOrder()
         print("number of oreders inside init: \(order.orders.count)")
         getCards()
-       
+        
     }
     
     //return order details

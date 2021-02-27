@@ -31,12 +31,12 @@ struct MapView : UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         var riyadhCoordinate = CLLocationCoordinate2D()
-       // riyadhCoordinate.latitude = 24.72640308847297
-       // riyadhCoordinate.longitude = 46.638332536327816
+        // riyadhCoordinate.latitude = 24.72640308847297
+        // riyadhCoordinate.longitude = 46.638332536327816
         riyadhCoordinate.latitude = 24.8270610
         riyadhCoordinate.longitude = 46.6551692
-
-
+        
+        
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
     }
@@ -56,29 +56,29 @@ struct MapView : UIViewRepresentable {
         }
         
         func tap(pick: CLLocationCoordinate2D!, drop: CLLocationCoordinate2D!){
-                    
-                    let point1 = MKPointAnnotation()
-                    point1.subtitle = "Pick-up"
-                    point1.coordinate = pick
             
-                    let point2 = MKPointAnnotation()
-                    point2.subtitle = "Drop-off"
-                    point2.coordinate = drop
-                    
-                    self.parent.destination = drop
-                    self.parent.source = pick
-
-                    self.parent.map.addAnnotation(point1)
-                    self.parent.map.addAnnotation(point2)
-         }//end tap
+            let point1 = MKPointAnnotation()
+            point1.subtitle = "Pick-up"
+            point1.coordinate = pick
+            
+            let point2 = MKPointAnnotation()
+            point2.subtitle = "Drop-off"
+            point2.coordinate = drop
+            
+            self.parent.destination = drop
+            self.parent.source = pick
+            
+            self.parent.map.addAnnotation(point1)
+            self.parent.map.addAnnotation(point2)
+        }//end tap
         
         /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-                    
-                    let over = MKPolylineRenderer(overlay: overlay)
-                    over.strokeColor = .red
-                    over.lineWidth = 3
-                    return over
-        }*/
+         
+         let over = MKPolylineRenderer(overlay: overlay)
+         over.strokeColor = .red
+         over.lineWidth = 3
+         return over
+         }*/
         
     }
     

@@ -176,6 +176,7 @@ struct DetailedOrderOffer: View {
                         //make an offer button
                         Button(action: {
                             if(makeAnOffer()){
+                                viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
                         }) {

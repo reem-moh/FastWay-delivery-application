@@ -18,17 +18,17 @@ struct AboutUs: View {
             Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 90)
             
             VStack{
-             
+                
                 
                 
                 Text("About us ").font(.custom("Roboto Medium", size: 35)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                     .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-340)
                 
-               
+                
                 
             }//END VStack
             
-
+            
             
             
             
@@ -46,37 +46,38 @@ struct AboutUs: View {
             //bar menue
             ZStack{
                 GeometryReader { geometry in
-                        VStack {
-                            Spacer()
+                    VStack {
+                        Spacer()
+                        
+                        Spacer()
+                        HStack {
+                            //Home
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: checkTypeForHome(),width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
                             
-                            Spacer()
-                           HStack {
-                                //Home
-                               TabBarIcon(viewRouter: viewRouter, assignedPage: checkTypeForHome(),width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                               
-                                //AboutUs
-                                ZStack {
-                                        Circle()
-                                            .foregroundColor(.white)
-                                            .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                            .shadow(radius: 4)
-                                       VStack {
-                                           Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                               .resizable()
-                                               .aspectRatio(contentMode: .fit)
-                                               .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                       }.padding(.horizontal, 14).onTapGesture {
-                                                        viewRouter.currentPage = .AboutUs
-                                                    }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                                    }.offset(y: -geometry.size.height/8/2)
+                            //AboutUs
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                    .shadow(radius: 4)
+                                VStack {
+                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
+                                }.padding(.horizontal, 14).onTapGesture {
+                                    viewRouter.notificationT = .None
+                                    viewRouter.currentPage = .AboutUs
+                                }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
+                            }.offset(y: -geometry.size.height/8/2)
                             
-                                //Profile
-                               TabBarIcon(viewRouter: viewRouter, assignedPage: checkTypeForProfile() ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
-                            }
-                                .frame(width: geometry.size.width, height: geometry.size.height/8)
-                                .background(Color("TabBarBackground").shadow(radius: 2))
+                            //Profile
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: checkTypeForProfile() ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
                         }
-                 }
+                        .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        .background(Color("TabBarBackground").shadow(radius: 2))
+                    }
+                }
             }.edgesIgnoringSafeArea(.all)//zstack bar menu
         }//ZStack
         

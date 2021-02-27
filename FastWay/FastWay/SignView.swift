@@ -26,11 +26,11 @@ extension String {
     
     func isValidPhoneNumber() -> Bool {
         //^\\+(?:[0-9]?){6,14}[0-9]
-            let regEx = "[05]{2}[0-9]{4}[0-9]{4}$"
-
-            let phoneCheck = NSPredicate(format: "SELF MATCHES[c] %@", regEx)
-            return phoneCheck.evaluate(with: self)
-        }
+        let regEx = "[05]{2}[0-9]{4}[0-9]{4}$"
+        
+        let phoneCheck = NSPredicate(format: "SELF MATCHES[c] %@", regEx)
+        return phoneCheck.evaluate(with: self)
+    }
 }
 
 extension UITextField {
@@ -65,25 +65,26 @@ struct SignUPView: View {
     var body: some View {
         ZStack{
             
-                //background image
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-                //white rectangle
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 50)
+            //background image
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+            //white rectangle
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 50)
             
-                VStack{
-                    //go back button
-                    //arrow_back image
-                       Button(action: {
-                        viewRouter.currentPage = .LogIn
-                           
-                       }) {
-                         Image("arrow_back")
-                             .resizable()
-                             .aspectRatio(contentMode: .fill)
-                             .frame(width: 30, height: 30)
-                           .clipped()
-                       }.position(x:30 ,y:20).padding(1.0)
-                }
+            VStack{
+                //go back button
+                //arrow_back image
+                Button(action: {
+                    viewRouter.notificationT = .None
+                    viewRouter.currentPage = .LogIn
+                    
+                }) {
+                    Image("arrow_back")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 30, height: 30)
+                        .clipped()
+                }.position(x:30 ,y:20).padding(1.0)
+            }
             VStack{
                 
                 //logo, text feilds and buttons
@@ -170,7 +171,7 @@ struct SignUPView: View {
                                     self.user = selected
                                 }
                             }
-                            }//end VStack
+                        }//end VStack
                         
                         //sign up button
                         Button(action: {
@@ -249,6 +250,7 @@ struct SignUPView: View {
                                 UserDefaults.standard.setIsLoggedIn(value: true)
                                 UserDefaults.standard.setUserId(Id: id)
                                 UserDefaults.standard.setUserType(Type: "C")
+                                viewRouter.notificationT = .SignUp
                                 viewRouter.currentPage = .HomePageC
                             }else{
                                 nErr = "An error occurred please try again"
@@ -261,6 +263,7 @@ struct SignUPView: View {
                                     UserDefaults.standard.setIsLoggedIn(value: true)
                                     UserDefaults.standard.setUserId(Id: id)
                                     UserDefaults.standard.setUserType(Type: "M")
+                                    viewRouter.notificationT = .SignUp
                                     viewRouter.currentPage = .HomePageM
                                 }else{
                                     nErr = "An error occurred please try again"

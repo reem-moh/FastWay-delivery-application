@@ -42,7 +42,7 @@ class Member: ObservableObject {
     var name: String
     var email: String
     var phoneNo: String
-   
+    
     @Published var member = M(id: "", name: "", email: "", phoneNo: "")
     //initialize from DB
     init(id : String = UserDefaults.standard.getUderId()) {
@@ -100,7 +100,7 @@ class Member: ObservableObject {
             print("----------")
             
         } //listener
-       
+        
     } //function
     
 }
@@ -219,7 +219,7 @@ class Order: ObservableObject{
     var setPick: Bool
     var setDrop: Bool
     var setDetails: Bool
-
+    
     
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -264,11 +264,11 @@ class Order: ObservableObject{
         self.dropOffRoom = dropOffRoom
         var flag = false
         if (dropOff.latitude != 0.0 && dropOff.longitude != 0.0 && dropOffBulding != 0 &&  dropOffFloor != -1 &&  dropOffRoom != "")
-    {
-        flag = true
-        self.setDrop = true
-    }
-          else {
+        {
+            flag = true
+            self.setDrop = true
+        }
+        else {
             
             flag = false
         }
@@ -286,7 +286,7 @@ class Order: ObservableObject{
         
         {
             flag = false
-
+            
         }
         
         return flag
@@ -299,24 +299,24 @@ class Order: ObservableObject{
         let doc = db.collection("Order").document()
         if (self.setPick && self.setDrop && self.setDetails){
             doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp()]) { (error) in
-            
-            if error != nil {
-                flag = false
+                
+                if error != nil {
+                    flag = false
+                }
             }
-        }
         }
         return flag
     }
     
     //get data from DB
     func getOrder() {
-       // var temp: [OrderDetails] = []
+        // var temp: [OrderDetails] = []
         db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
-                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+            self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = queryDocumentSnapshot.documentID
@@ -337,13 +337,13 @@ class Order: ObservableObject{
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
                 let MemberID = data["MemberID"] as? String ?? ""
-                    
+                
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
-                    return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
-                                })
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
+            })
             
             
         }
@@ -355,7 +355,7 @@ class Order: ObservableObject{
                 print("No order documents")
                 return
             }
-                self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+            self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = queryDocumentSnapshot.documentID
@@ -376,13 +376,13 @@ class Order: ObservableObject{
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
                 let MemberID = data["MemberID"] as? String ?? ""
-                    
+                
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
-                    return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
-                                })
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
+            })
         }
     }
     

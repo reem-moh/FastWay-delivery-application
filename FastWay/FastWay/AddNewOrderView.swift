@@ -76,6 +76,7 @@ struct AddNewOrderView: View {
                 VStack{
                     //arrow_back image
                     Button(action: {
+                        viewRouter.notificationT = .None
                         viewRouter.currentPage = .HomePageM
                         
                         pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -103,7 +104,7 @@ struct AddNewOrderView: View {
                 
                 //MAP
                 
-               ZStack{
+                ZStack{
                     
                     
                     
@@ -115,24 +116,24 @@ struct AddNewOrderView: View {
                     Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
                     
                     
-                  
+                    
                     if errorlocation1{
-                    Text(lErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
-                    
-                
-                if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
-                    Text(lErr).font(.custom("Roboto Regular", size: 18))
-                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                        Text(lErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
                     
                     
-                
-                if (errorlocation)&&(errorlocation1==false){
-                Text(lErr).font(.custom("Roboto Regular", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
-            
-                
-                
+                    if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
+                        Text(lErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                    
+                    
+                    
+                    if (errorlocation)&&(errorlocation1==false){
+                        Text(lErr).font(.custom("Roboto Regular", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                    
+                    
+                    
                 }.offset(x:0 ,y:-180)
                 
                 
@@ -172,10 +173,10 @@ struct AddNewOrderView: View {
                             Button(action: {
                                 
                                 self.PICKUPlocation()
-
+                                
                             }){
                                 TextField("Search Building here", text: $text).font(.custom("Roboto Regular", size: 18)).foregroundColor(.black).multilineTextAlignment(.leading).frame(width: 295, height: 6)
-                        }
+                            }
                             Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expand.toggle()
@@ -193,7 +194,7 @@ struct AddNewOrderView: View {
                                                     
                                                     HStack {         //2
                                                         Button(action: {
-                                    
+                                                            
                                                             self.expand.toggle()
                                                             
                                                             bulding = Bulding.id
@@ -202,7 +203,7 @@ struct AddNewOrderView: View {
                                                         })
                                                         {
                                                             Text(Bulding.title).font(.custom("Roboto Regular", size: 13 )).foregroundColor(.black).padding(5)
-                                                        
+                                                            
                                                         }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
                                                 }
                                                 
@@ -259,7 +260,7 @@ struct AddNewOrderView: View {
                                 self.PICKUPlocationBuilding()
                             }){
                                 Text(Floor).font(.custom("Roboto Medium", size: 18)).foregroundColor(.black).fontWeight(.bold).multilineTextAlignment(.center).frame(width: 295, height: 6).offset(x: -130, y: 0)
-                        }
+                            }
                             Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
                         }.onTapGesture {
                             self.expandFloor.toggle()
@@ -335,12 +336,12 @@ struct AddNewOrderView: View {
                     Button(action: {
                         self.PICKUPlocationFloor()
                     }){
-                    //room numbers
-                    TextField("room numbers , more details...", text: $room.text)
-                        .font(.system(size: 18)).foregroundColor(.black)
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
-                    
+                        //room numbers
+                        TextField("room numbers , more details...", text: $room.text)
+                            .font(.system(size: 18)).foregroundColor(.black)
+                            .padding(12)
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
+                        
                     }}
                 
                 
@@ -364,6 +365,7 @@ struct AddNewOrderView: View {
                                 print("pick up saved")
                                 
                                 pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                                viewRouter.notificationT = .None
                                 viewRouter.currentPage = .DROPOFFlocation
                             }
                             
@@ -419,8 +421,8 @@ struct AddNewOrderView: View {
         self.errorlocation = false
         self.errorlocation1 = false
         self.errorlocation2 = false
-
-
+        
+        
         
         
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
@@ -437,7 +439,7 @@ struct AddNewOrderView: View {
         }
         
         
-       
+        
         
         
         
@@ -460,7 +462,7 @@ struct AddNewOrderView: View {
     func PICKUPlocationBuilding(){
         
         
-      
+        
         
         self.errorBuldingPick = false
         
@@ -469,7 +471,7 @@ struct AddNewOrderView: View {
             self.errorBuldingPick = true
         }
         
-       
+        
         
     }
     
@@ -478,7 +480,7 @@ struct AddNewOrderView: View {
     func PICKUPlocationFloor(){
         
         
-       
+        
         
         self.errorFloorPick = false
         
@@ -501,7 +503,7 @@ struct AddNewOrderView: View {
             self.errorRoomPick = true
         }
         
-     
+        
         
     }
     
@@ -538,16 +540,16 @@ func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
     // let region = map.region
     //  let center = region.center
     // let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
-      //  let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
+    //  let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
     
     
     
     
-  let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
+    let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
     let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
-  //   let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    //   let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
     print(northWestCorner)
-   //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+    //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
     print(southEastCorner)
     return (
         ( coordinate.latitude  >= northWestCorner.latitude &&

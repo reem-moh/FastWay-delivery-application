@@ -15,22 +15,17 @@ extension AnyTransition {
 }
 
 struct Notifications: View {
-    @State var message : String
+    @State var type : NotificationType
+    @State var message = ""
     @State var imageName : String
-    //set to true if not a system image (SF Sympols)
-    @State var flagImage : Bool
+    
     var body: some View {
         
         HStack{
-            if flagImage{
-                Image(self.imageName)
-                    .resizable()
-                    .frame(width: 28, height: 28)
-            }else{
-                Image(systemName: self.imageName)
-                    .foregroundColor(.green)
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-            }
+            
+            Image(self.imageName)
+                .resizable()
+                .frame(width: 28, height: 28)
             
             
             VStack(alignment: .leading){
@@ -43,17 +38,27 @@ struct Notifications: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 1)
-        
-        
-        
-    }
-    
-
-}
-func animateAndDelayWithSeconds(_ seconds: TimeInterval, action: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            withAnimation {
-                action()
+        .onAppear {
+            switch self.type {
+            case .SignUp:
+                self.message = "Welcome, you\'ve been signed up successfuly"
+            case .None:
+                self.message = ""
+            case .LogIn:
+                self.message = "Welcome, you\'ve been Logged in successfuly"
+            case .SendOrder:
+                self.message = "Your order have been sent successfuly"
+            case .SendOffer:
+                self.message = "Your offer have been sent successfuly"
             }
         }
     }
+    
+}
+func animateAndDelayWithSeconds(_ seconds: TimeInterval, action: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+        withAnimation {
+            action()
+        }
+    }
+}

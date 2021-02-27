@@ -101,6 +101,7 @@ struct DeliverOrderView: View{
                                     }
                                     
                                 }
+                                viewRouter.notificationT = .None
                                 viewRouter.currentPage = .HomePageC
                             }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
                             
@@ -126,6 +127,7 @@ struct DeliverOrderView: View{
                                         }
                                         
                                     }
+                                    viewRouter.notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
@@ -154,6 +156,7 @@ struct DeliverOrderView: View{
                                     }
                                     
                                 }
+                                viewRouter.notificationT = .None
                                 viewRouter.currentPage = .ViewProfileC
                             }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
                             
