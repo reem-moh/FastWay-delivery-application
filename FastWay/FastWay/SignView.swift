@@ -101,7 +101,15 @@ struct SignUPView: View {
                                 .padding(.trailing)
                                 .offset(x: 12,y: 10)
                             //name field
-                            TextField("Name", text: $name)
+                            TextField("Name", text: $name, onCommit: {
+                                self.error = false
+                                self.nErr=""
+                                if self.name.count < 3 {
+                                    self.nErr="*Name must be more than 2 characters"
+                                    self.error = true
+                                }
+                                
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -113,7 +121,14 @@ struct SignUPView: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
                             //email field
-                            TextField("Email", text: $email)
+                            TextField("Email", text: $email, onCommit: {
+                                self.error = false
+                                self.eErr=""
+                                if (self.email == "") || !(self.email.isEmail()){
+                                    self.eErr="*Valid email is required"
+                                    self.error = true
+                                }
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -125,7 +140,14 @@ struct SignUPView: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
                             // phone number field
-                            TextField("Phone Number", text: $phoneNum)
+                            TextField("Phone Number", text: $phoneNum, onCommit: {
+                                self.error = false
+                                self.phErr=""
+                                if !(self.phoneNum.isValidPhoneNumber()){
+                                    self.phErr="*Phone number must be 05********"
+                                    self.error = true
+                                }
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -137,7 +159,14 @@ struct SignUPView: View {
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                             
                             //pass feild
-                            SecureField("Password", text: $password)
+                            SecureField("Password", text: $password, onCommit: {
+                                self.error = false
+                                self.pErr=""
+                                if self.password.count < 8 || !checkPass(pass: self.password){
+                                    self.pErr="*Password must be 8 or more characters, conatins a capital letter, a small letter and a digit"
+                                    self.error = true
+                                }
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: 18))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -150,7 +179,14 @@ struct SignUPView: View {
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
                         
                         //repeat pass field
-                        SecureField("Repeat Password", text: $rePassword)
+                        SecureField("Repeat Password", text: $rePassword, onCommit: {
+                            self.error = false
+                            self.rpErr=""
+                            if self.rePassword != self.password{
+                                self.rpErr="*Password mismatch"
+                                self.error = true
+                            }
+                        })
                             .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                             .font(.custom("Roboto Regular", size: 18))
                             .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -194,36 +230,36 @@ struct SignUPView: View {
     func signUp() {
         self.error = false
         
-        self.nErr=""
-        self.eErr=""
-        self.pErr=""
-        self.rpErr=""
-        self.phErr=""
+        //self.nErr=""
+        //self.eErr=""
+        //self.pErr=""
+        //self.rpErr=""
+        //self.phErr=""
         self.uErr=""
         // self.gErr=""
         
-        if self.name.count < 3 {
+        /*if self.name.count < 3 {
             self.nErr="*Name must be more than 2 characters"
             self.error = true
-        }
+        }*/
         
-        if (self.email == "") || !(self.email.isEmail()){
+        /*if (self.email == "") || !(self.email.isEmail()){
             self.eErr="*Valid email is required"
             self.error = true
-        }
+        }*/
         
-        if !(self.phoneNum.isValidPhoneNumber()){
+        /*if !(self.phoneNum.isValidPhoneNumber()){
             self.phErr="*Phone number must be 05********"
             self.error = true
-        }
-        if self.password.count < 8{
-            self.pErr="*Password must be 8 or more characters"
+        }*/
+        /*if self.password.count < 8 || !checkPass(pass: self.password){
+            self.pErr="*Password must be 8 or more characters, conatins a capital letter, a small letter and a digit"
             self.error = true
-        }
-        if self.rePassword != self.password{
+        }*/
+        /*if self.rePassword != self.password{
             self.rpErr="*Password mismatch"
             self.error = true
-        }
+        }*/
         
         if self.user == ""{
             self.uErr="*This field is mandatory"
@@ -277,6 +313,26 @@ struct SignUPView: View {
             }
         }
         
+    }
+    
+    func checkPass(pass: String) -> Bool {
+        var digit = false
+        var cLetter = false
+        var sLetter = false
+        for char in pass {
+            if char.isLetter && char.isUppercase {
+                cLetter = true
+            }else{
+                if char.isLetter && char.isLowercase {
+                    sLetter = true
+                }else{
+                    if char.isNumber {
+                        digit = true
+                    }
+                }
+            }
+        }
+        return digit && cLetter && sLetter
     }
     
 }

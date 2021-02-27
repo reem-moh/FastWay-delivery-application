@@ -10,10 +10,10 @@ import Firebase
 import FirebaseFirestore
 
 struct LoginView: View {
-    @State var email=""
-    @State var pass=""
-    @State var desc=""
-    @State var descReset=""
+    @State var email = ""
+    @State var pass = ""
+    @State var descReset = ""
+    @State var errMsg = ""
     
     // Errors
     @State var showErrorMessageEmail = false
@@ -42,22 +42,22 @@ struct LoginView: View {
                         
                         //Error in auth
                         if ErrorShow{
-                            Text(self.desc).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                .offset(x: -5, y: 30)
+                            Text("*Invalid email or password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .offset(x: -59, y: 30)
                         }
                         
                         //Reset
                         if resetShow{
-                            Text(self.descReset).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
-                                .offset(x: -5, y: 30)
+                            Text("*\(self.descReset)").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
+                                .offset(x: -18, y: 30)
                         }
                         
                         //Email Group
                         Group {
                             //Show Error message if the email feild empty
                             if showErrorMessageEmail {
-                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                    .offset(x: -60, y: 30)
+                                Text(self.errMsg).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                    .offset(x: -35, y: 30)
                             }
                             
                             //Email feild
@@ -70,10 +70,10 @@ struct LoginView: View {
                         //Password Group
                         Group {
                             //Show Error message if the pass feild empty
-                            if showErrorMessagePass {
+                            /*if showErrorMessagePass {
                                 Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                     .offset(x: -60, y: 30)
-                            }
+                            }*/
                             
                             //password feild
                             SecureField("Password", text: $pass).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -87,7 +87,7 @@ struct LoginView: View {
                                 
                                 Button(action: {
                                     
-                                    self.verifyEmptyEmail()
+                                    self.verifyEmpty()
                                     self.reset()
                                     
                                 }) {
@@ -101,8 +101,7 @@ struct LoginView: View {
                         //Log in Button
                         Button(action: {
                             
-                            self.verifyEmptyEmail()
-                            self.verifyEmptyPass()
+                            self.verifyEmpty()
                             
                             //check if the email and passowrd in the firebase
                             if(!showErrorMessageEmail && !showErrorMessagePass){
@@ -139,19 +138,12 @@ struct LoginView: View {
         
     }
     
-    func verifyEmptyEmail(){
-        if self.email.isEmpty {
+    func verifyEmpty(){
+        if self.email.isEmpty || self.pass.isEmpty {
+            self.errMsg = "*Email and password are required"
             self.showErrorMessageEmail = true
         } else {
             self.showErrorMessageEmail = false
-        }
-    }
-    
-    func verifyEmptyPass(){
-        if self.pass.isEmpty {
-            self.showErrorMessagePass = true
-        } else {
-            self.showErrorMessagePass = false
         }
     }
     
@@ -160,18 +152,14 @@ struct LoginView: View {
             Auth.auth().sendPasswordReset(withEmail: self.email) { (err) in
                 
                 if err != nil {
-                    self.desc=err!.localizedDescription
                     ErrorShow=true
                 }else{
                     print("success")
-                    self.descReset="Password reset link has been sent successfully"
+                    self.descReset="Password reset link has been sent to your email"
                     resetShow=true
-                    self.desc=""
                     ErrorShow=false
                 }
             }
-        }else{
-            self.desc=""
         }
         
     }
@@ -180,7 +168,6 @@ struct LoginView: View {
         self.email = self.email.lowercased()
         Auth.auth().signIn(withEmail: self.email, password: self.pass){(res,err) in
             if err != nil{
-                self.desc=err!.localizedDescription
                 ErrorShow=true
             }else{
                 
