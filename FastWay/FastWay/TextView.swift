@@ -31,7 +31,7 @@ struct TextView: UIViewRepresentable {
         //  textView.text = "order here"//
         // textView.textColor = .gray//
         // textView.textColor = UIColor.black.withAlphaComponent(2)//
-        //   textView.textContainer.maximumNumberOfLines = 2
+          // textView.textContainer.maximumNumberOfLines = 5
         //   textView.textContainer.lineBreakMode = .byTruncatingTail
         //textView.isEditable = false
         // font(.system(size: 18))
