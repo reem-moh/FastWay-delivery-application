@@ -15,6 +15,7 @@ struct DetailedOrderOffer: View {
     var animation: Namespace.ID
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
+    @State var order : Order = Order()
     @State var alert = false
     @State var distance = ""
     @State var time = ""
@@ -175,6 +176,7 @@ struct DetailedOrderOffer: View {
                         
                         //make an offer button
                         Button(action: {
+                            order.addOffer()
                             if(makeAnOffer()){
                                 viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier

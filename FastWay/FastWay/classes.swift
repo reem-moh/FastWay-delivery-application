@@ -382,6 +382,12 @@ class Order: ObservableObject{
         }
     }
     
+  /*  func addOffer(){
+        let id = UserDefaults.standard.getUderId()
+        let doc = db.collection("Order").document(id).collection("Offer").document(id)
+        doc.setData(["Offer Prince": "f"])
+    }*/
+    
     //get offers from DB
     func getOffers(OrderId: String){
         //Field equal ??

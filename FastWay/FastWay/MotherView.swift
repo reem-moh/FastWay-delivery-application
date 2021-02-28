@@ -10,6 +10,7 @@ import SwiftUI
 struct MotherView: View {
     @StateObject var courierOrderModel = CarouselViewModel()
     @StateObject var CurrentMModel = CurrentCarouselMViewModel()
+    @StateObject var CurrentCModel = CurrentCarouselCViewModel()
     @StateObject var OfferModel = OfferCarousel()
     @StateObject var viewRouter: ViewRouter
     @Namespace var animation
@@ -43,7 +44,7 @@ struct MotherView: View {
         case .AboutUs:
             AboutUs(viewRouter: viewRouter)//
         case .CurrentOrderCourier:
-            CurrentOrderCourierView(viewRouter: viewRouter)
+            CurrentOrderCourierView(viewRouter: viewRouter).environmentObject(CurrentCModel)
         case .HistoryCourierView:
             HistoryCourierView(viewRouter: viewRouter)
         case .DetailedOrderOffer:
