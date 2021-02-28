@@ -177,6 +177,7 @@ struct OrderDetails: Identifiable {
     //to identify whether it is added to cart...
     var isAdded: Bool
     var createdAt : Date = Date()
+    var status : String
 }
 //offer info
 struct Offer : Identifiable {
@@ -207,8 +208,9 @@ class Order: ObservableObject{
     var setPick: Bool
     var setDrop: Bool
     var setDetails: Bool
+    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned"]
     
-    
+  
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         self.pickUpBulding = 0
@@ -283,10 +285,15 @@ class Order: ObservableObject{
     func addOrder() -> Bool {
         var flag = true
         //need to change the id
+        /*current satate = 1- waiting for offer
+         2- cancled
+         3- have an offer
+         4- assigned
+         */
         let id = UserDefaults.standard.getUderId()
         let doc = db.collection("Order").document()
         if (self.setPick && self.setDrop && self.setDetails){
-            doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp()]) { (error) in
+            doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "Status": self.status[0]]) { (error) in
                 
                 if error != nil {
                     flag = false
@@ -325,12 +332,13 @@ class Order: ObservableObject{
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
                 let MemberID = data["MemberID"] as? String ?? ""
-                
+                let state = data["Status"] as? String ?? ""
+
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
             
@@ -364,12 +372,12 @@ class Order: ObservableObject{
                 let orderDetails = data["orderDetails"] as? String ?? ""
                 let assigned = data["Assigned"] as? Bool ?? false
                 let MemberID = data["MemberID"] as? String ?? ""
-                
+                let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue())
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
         }
     }
