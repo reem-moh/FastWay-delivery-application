@@ -383,7 +383,7 @@ class Order: ObservableObject{
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double){
          let id = UserDefaults.standard.getUderId()
          db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
-         let doc = db.collection("Order").document(OrderId).collection("Offer").document(id)
+         let doc = db.collection("Order").document(OrderId).collection("Offers").document(id)
             doc.setData(["OrderID": OrderId,"MemberID": memberID,"CourierID" : id ,"Price": price,"CourierLatitude": locationLatiude,"CourierLongitude":locationLongitude], merge: true)
     }
     
