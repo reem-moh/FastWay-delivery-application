@@ -83,7 +83,7 @@ struct CurrentOrderView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if viewRouter.notificationT == .SendOrder {
+                if viewRouter.notificationT == .SendOrder || viewRouter.notificationT == .CancelOrder {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -344,16 +344,6 @@ struct CurrentCardMDetailes: View {
                             Text("Delivery offers")
                             Spacer(minLength: 0)
                             Image(systemName: "arrow.right")
-                            Text("")
-                                .multilineTextAlignment(.trailing)
-                                .frame(minWidth: 0, maxWidth: 200, alignment: .leading)
-                            Image(systemName: "arrow.right")
-                                .resizable()
-                                //.colorInvert()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 18, height: 18)
-                                .clipped()
-                                //.background(Color(.white))
                             Spacer(minLength: 0)
                         }
                         .foregroundColor(Color.gray.opacity(0.9))
@@ -399,7 +389,9 @@ struct CurrentCardMDetailes: View {
                         Button(action: {
                             canelOrder()
                             viewRouter.notificationT = .CancelOrder
-                            viewRouter.currentPage = .CurrentOrder
+                            model.showCard = false
+                            model.showContent = false
+
                         }) {
                             Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -416,8 +408,7 @@ struct CurrentCardMDetailes: View {
                         .onTapGesture {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 withAnimation(.easeIn){
-                                    viewRouter.notificationT = .CancelOrder
-                                    viewRouter.currentPage = .CurrentOrder
+                                    
                                 }//end with animation
                             }
                         }
@@ -509,7 +500,7 @@ class CurrentCarouselMViewModel: ObservableObject {
         cards.removeAll()
         for index in order.memberOrder {
             //Check the state of the order
-            if( index.status != "cancled" || index.status != "completed"){
+            if( index.status != "cancled" && index.status != "completed"){
                 cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
             }
             
