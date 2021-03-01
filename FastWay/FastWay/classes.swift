@@ -174,6 +174,9 @@ struct OrderDetails: Identifiable {
     var dropOffRoom: String
     var orderDetails: String
     var memberId : String
+    var courierId : String = ""
+    var deliveryPrice = 0.0
+    var totalPrice = 0.0
     //to identify whether it is added to cart...
     var isAdded: Bool
     var createdAt : Date = Date()
@@ -185,7 +188,8 @@ struct Offer : Identifiable {
     var OrderId: String
     var memberId: String = ""
     var courierId: String = ""
-    var price: Int
+    var price: Double
+    var courierLocation : CLLocationCoordinate2D
 }
 
 class Order: ObservableObject{
@@ -210,7 +214,7 @@ class Order: ObservableObject{
     var setDetails: Bool
     var status: [String] = ["waiting for offer", "cancled","have an offer","assigned", "completed"] //add another status: completed
     
-  
+    
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         self.pickUpBulding = 0
@@ -327,7 +331,7 @@ class Order: ObservableObject{
                 let assigned = data["Assigned"] as? Bool ?? false
                 let MemberID = data["MemberID"] as? String ?? ""
                 let state = data["Status"] as? String ?? ""
-
+                
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(OrderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
@@ -376,14 +380,14 @@ class Order: ObservableObject{
         }
     }
     
-  /*  func addOffer(OrderId: String,price: Int){
-        let id = UserDefaults.standard.getUderId()
-        let doc = db.collection("Order").document(id).collection("Offer").document(id)
-        doc.setData(["Offer Prince": "f"])
-        ***********************************
-        db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
-        db.collection("Order").document(orderId).collection("Offers").setData([ "price": price], merge: true)
-    }*/
+    /*  func addOffer(OrderId: String,price: Int){
+     let id = UserDefaults.standard.getUderId()
+     let doc = db.collection("Order").document(id).collection("Offer").document(id)
+     doc.setData(["Offer Prince": "f"])
+     ***********************************
+     db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
+     db.collection("Order").document(orderId).collection("Offers").setData([ "price": price], merge: true)
+     }*/
     
     //get offers from DB
     func getOffers(OrderId: String){
@@ -396,10 +400,15 @@ class Order: ObservableObject{
             self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
-                let uid = queryDocumentSnapshot.documentID
-                let MemberID = data["MemberID"] as? String ?? ""
-                print("order :\(uid) + \(MemberID) ")
-                return Offer( id: uid, OrderId: "" , memberId: MemberID ,courierId: "", price: 0)
+                let offerId = queryDocumentSnapshot.documentID
+                let orderId = data["OrderID"] as? String ?? ""
+                let memberID = data["MemberID"] as? String ?? ""
+                let courierID = data["CourierID"] as? String ?? ""
+                let courierLatitude = data["CourierLatitude"] as? Double ?? 0.0
+                let courierLongitude = data["CourierLongitude"] as? Double ?? 0.0
+                let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
+                print("order :\(offerId) + \(memberID) ")
+                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: 0, courierLocation: courierLocation)
             })
         }
     }
@@ -407,7 +416,7 @@ class Order: ObservableObject{
     func cancelOrder(OrderId: String){
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
     }
-
+    
 }
 
 //Date extension to calculate time intervals
