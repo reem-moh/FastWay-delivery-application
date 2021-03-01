@@ -397,7 +397,9 @@ struct CurrentCardMDetailes: View {
                         }
                         //Cancel button
                         Button(action: {
-                            model.canelOrder()
+                            canelOrder()
+                            viewRouter.notificationT = .CancelOrder
+                            viewRouter.currentPage = .CurrentOrder
                         }) {
                             Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -430,7 +432,11 @@ struct CurrentCardMDetailes: View {
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }// end body
-    
+    //cancel order
+    func canelOrder(){
+        model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
+        model.getCards()
+    }
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
@@ -503,13 +509,13 @@ class CurrentCarouselMViewModel: ObservableObject {
         cards.removeAll()
         for index in order.memberOrder {
             //Check the state of the order
-            cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
+            if( index.status != "cancled"){
+                cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
+            }
+            
         }
     }
-    func canelOrder(){
-        order.cancelOrder(OrderId: "")
-        getCards()
-    }
+    
     
 }
 
