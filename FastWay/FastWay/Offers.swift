@@ -32,9 +32,9 @@ struct Offers: View {
             }.onAppear(){
                 //calling Methods
                 
-               // model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
-               // model.getCards()
-               // model.showCard = false
+                order.getOffers(OrderId: model.selectedCard.OfferInfo.OrderId)
+                model.getCards()
+                
             }
             if model.haveOffers {
                 // Carousel....
@@ -282,7 +282,7 @@ class OfferCarousel: ObservableObject {
     
     init(){
    
-        //order.getOffers(OrderId: orderid)
+        order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
         print("number of offers inside init: \(order.offers.count)")
         getCards()
         
@@ -315,10 +315,10 @@ struct OfferCardInfo: Identifiable {
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    var price: Int = 0
-    var courierId: String = ""
-    var orderId: String = ""
-    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0)
+    //var price: Int = 0
+    //var courierId: String = ""
+    //var orderId: String = ""
+    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0)// change to get offer info
 }
 
 struct Offers_Previews: PreviewProvider {

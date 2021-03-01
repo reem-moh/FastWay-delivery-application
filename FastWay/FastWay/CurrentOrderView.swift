@@ -184,7 +184,7 @@ struct CurrentOrderView: View {
         }//end ZStack
     }}
 
-//Current card M View
+//Current card M View/ Taif
 struct CurrentCardMView: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
     var card: currentCardM
@@ -267,7 +267,7 @@ struct CurrentCardMView: View {
     }
 }
 
-//Current card M detailes
+//Current card M detailes/ Reem
 struct CurrentCardMDetailes: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
@@ -509,7 +509,7 @@ class CurrentCarouselMViewModel: ObservableObject {
         cards.removeAll()
         for index in order.memberOrder {
             //Check the state of the order
-            if( index.status != "cancled"){
+            if( index.status != "cancled" || index.status != "completed"){
                 cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
             }
             
