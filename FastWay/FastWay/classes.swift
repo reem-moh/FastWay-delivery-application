@@ -308,7 +308,7 @@ class Order: ObservableObject{
             self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
-                let uid = queryDocumentSnapshot.documentID
+                let OrderId = queryDocumentSnapshot.documentID
                 //pickUp location
                 let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                 let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -329,10 +329,10 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
 
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
-                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                print("order :\(OrderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                return OrderDetails(id: OrderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
             
