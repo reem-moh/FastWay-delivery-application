@@ -208,7 +208,7 @@ class Order: ObservableObject{
     var setPick: Bool
     var setDrop: Bool
     var setDetails: Bool
-    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned"]
+    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned"] //add another status: completed
     
   
     init(){
@@ -284,12 +284,6 @@ class Order: ObservableObject{
     
     func addOrder() -> Bool {
         var flag = true
-        //need to change the id
-        /*current satate = 1- waiting for offer
-         2- cancled
-         3- have an offer
-         4- assigned
-         */
         let id = UserDefaults.standard.getUderId()
         let doc = db.collection("Order").document()
         if (self.setPick && self.setDrop && self.setDetails){
@@ -382,14 +376,18 @@ class Order: ObservableObject{
         }
     }
     
-  /*  func addOffer(){
+  /*  func addOffer(price: Int){
         let id = UserDefaults.standard.getUderId()
         let doc = db.collection("Order").document(id).collection("Offer").document(id)
         doc.setData(["Offer Prince": "f"])
+        ***********************************
+        db.collection("Order").whereField("", isEqualTo: OrderId).setData([ "Status": status[2]], merge: true)
+        db.collection("Order").document(orderId).collection("Offers").setData([ "price": price], merge: true)
     }*/
     
-    //get offers from DB
+    //get offers from DB //Not completed yet (orderid?)
     func getOffers(OrderId: String){
+        //maybe change the quarey to first check the status of the order not equal to cancel or assign
         //Field equal ??
         db.collection("Order").whereField("", isEqualTo: OrderId).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
@@ -405,7 +403,10 @@ class Order: ObservableObject{
                 return Offer( id: uid, OrderId: "" , memberId: MemberID ,courierId: "", price: 0)
             })
         }
-        
+    }
+    //change the statuse of the order//Not completed yet (orderid?)
+    func cancelOrder(OrderId: String){
+        db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
     }
 
 }

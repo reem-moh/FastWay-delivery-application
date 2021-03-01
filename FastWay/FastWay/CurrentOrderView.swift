@@ -194,18 +194,7 @@ struct CurrentCardMView: View {
         
         //Card
         VStack{
-            //State of the card
-            /*HStack{
-             Image(systemName: "wait")
-             .foregroundColor(Color.black.opacity(0.5))
-             .padding(.leading)
-             Text("\(card.state)")
-             .font(.body)
-             .fontWeight(.regular)
-             .foregroundColor(Color.black.opacity(0.5))
-             .animation(.easeIn)
-             Spacer(minLength: 0)
-             }.padding(.top,15)*/
+
             //Time
             HStack{
                 Image(systemName: "clock")
@@ -244,12 +233,11 @@ struct CurrentCardMView: View {
             }.padding(15)
             //Detailes Button
             HStack{
-                
-                //to let an arrow in the right of the card
-                Spacer(minLength: 0)
-                
+
                 if !model.showContent{
-                    
+                    //Text("\(model.selectedCard.orderD.status)")
+                    //to let an arrow in the right of the card
+                    Spacer(minLength: 0)
                     Text("Detailes")
                     
                     Image(systemName: "arrow.right")
@@ -288,10 +276,7 @@ struct CurrentCardMDetailes: View {
     @State var manager = CLLocationManager()
     @State var alert = false
     @State var distance = ""
-    @State var time = ""
-    @State var expandOffer = false
-    @State var expand = false
-    
+    @State var time = ""    
     
     var body: some View{
         
@@ -355,8 +340,11 @@ struct CurrentCardMDetailes: View {
                         }
                         //Offers page
                         HStack{
-                            Spacer()
+                            
                             Text("Delivery offers")
+                            Spacer(minLength: 0)
+                            Image(systemName: "arrow.right")
+                            Text("")
                                 .multilineTextAlignment(.trailing)
                                 .frame(minWidth: 0, maxWidth: 200, alignment: .leading)
                             Image(systemName: "arrow.right")
@@ -367,7 +355,9 @@ struct CurrentCardMDetailes: View {
                                 .clipped()
                                 //.background(Color(.white))
                             Spacer(minLength: 0)
-                        }.padding(.top,15)
+                        }
+                        .foregroundColor(Color.gray.opacity(0.9))
+                        .padding(20)
                         .onTapGesture {
                             viewRouter.notificationT = .None
                             viewRouter.currentPage = .offers
@@ -407,7 +397,7 @@ struct CurrentCardMDetailes: View {
                         }
                         //Cancel button
                         Button(action: {
-                                //is it with us this sprint?
+                            model.canelOrder()
                         }) {
                             Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -421,6 +411,14 @@ struct CurrentCardMDetailes: View {
                         .padding(.top,25)
                         .offset(x: 0)
                         .padding(.bottom,450)
+                        .onTapGesture {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(.easeIn){
+                                    viewRouter.notificationT = .CancelOrder
+                                    viewRouter.currentPage = .CurrentOrder
+                                }//end with animation
+                            }
+                        }
                         
                         
                     }
@@ -507,6 +505,10 @@ class CurrentCarouselMViewModel: ObservableObject {
             //Check the state of the order
             cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
         }
+    }
+    func canelOrder(){
+        order.cancelOrder(OrderId: "")
+        getCards()
     }
     
 }

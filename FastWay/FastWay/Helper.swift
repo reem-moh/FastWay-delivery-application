@@ -34,6 +34,7 @@ enum NotificationType {
     case SignUp
     case SendOrder
     case SendOffer
+    case CancelOrder
 }
 
 
