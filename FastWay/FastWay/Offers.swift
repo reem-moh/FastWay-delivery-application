@@ -282,7 +282,7 @@ class OfferCarousel: ObservableObject {
     
     init(){
    
-        order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
+        //order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
         print("number of offers inside init: \(order.offers.count)")
         getCards()
         
@@ -318,7 +318,7 @@ struct OfferCardInfo: Identifiable {
     //var price: Int = 0
     //var courierId: String = ""
     //var orderId: String = ""
-    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0)// change to get offer info
+    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0))// change to get offer info
 }
 
 struct Offers_Previews: PreviewProvider {

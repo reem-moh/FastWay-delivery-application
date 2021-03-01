@@ -188,7 +188,7 @@ struct Offer : Identifiable {
     var OrderId: String
     var memberId: String = ""
     var courierId: String = ""
-    var price: Double
+    var price: Int
     var courierLocation : CLLocationCoordinate2D
 }
 
@@ -212,7 +212,7 @@ class Order: ObservableObject{
     var setPick: Bool
     var setDrop: Bool
     var setDetails: Bool
-    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned", "completed"] //add another status: completed
+    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned", "completed"]
     
     
     init(){
@@ -380,18 +380,15 @@ class Order: ObservableObject{
         }
     }
     
-    /*  func addOffer(OrderId: String,price: Int){
-     let id = UserDefaults.standard.getUderId()
-     let doc = db.collection("Order").document(id).collection("Offer").document(id)
-     doc.setData(["Offer Prince": "f"])
-     ***********************************
-     db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
-     db.collection("Order").document(orderId).collection("Offers").setData([ "price": price], merge: true)
-     }*/
+    func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double){
+         let id = UserDefaults.standard.getUderId()
+         db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
+         let doc = db.collection("Order").document(OrderId).collection("Offer").document(id)
+            doc.setData(["OrderID": OrderId,"MemberID": memberID,"CourierID" : id ,"Price": price,"CourierLatitude": locationLatiude,"CourierLongitude":locationLongitude], merge: true)
+    }
     
     //get offers from DB
     func getOffers(OrderId: String){
-        //Field equal ??
         db.collection("Order").document(OrderId).collection("Offers").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No offer documents")
@@ -406,9 +403,10 @@ class Order: ObservableObject{
                 let courierID = data["CourierID"] as? String ?? ""
                 let courierLatitude = data["CourierLatitude"] as? Double ?? 0.0
                 let courierLongitude = data["CourierLongitude"] as? Double ?? 0.0
+                let Price = data["Price"] as? Int ?? 0
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
                 print("order :\(offerId) + \(memberID) ")
-                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: 0, courierLocation: courierLocation)
+                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: Price, courierLocation: courierLocation)
             })
         }
     }
