@@ -45,9 +45,9 @@ struct RadioButtonField: View {
                     .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: self.size, height: self.size)
+                    .frame(width: width(num:self.size), height: hieght(num:self.size))
                 Text(label)
-                    .font(Font.system(size: textSize))
+                    .font(Font.system(size: fontSize(num:textSize)))
                 Spacer()
             }.foregroundColor(self.color)
         }
@@ -125,7 +125,7 @@ struct RadioButtonGroupT: View {
             id: UserType.courier.rawValue,
             label: UserType.courier.rawValue,
             color: Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)),
-            textSize: 18,
+            textSize: fontSize(num:18),
             isMarked: selectedId == UserType.courier.rawValue ? true : false,
             callback: radioGroupCallback
         )
@@ -136,7 +136,7 @@ struct RadioButtonGroupT: View {
             id: UserType.member.rawValue,
             label: UserType.member.rawValue,
             color: Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)),
-            textSize: 18,
+            textSize: fontSize(num:18),
             isMarked: selectedId == UserType.member.rawValue ? true : false,
             callback: radioGroupCallback
         )

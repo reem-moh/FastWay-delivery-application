@@ -25,7 +25,7 @@ struct Notifications: View {
             
             Image(self.imageName)
                 .resizable()
-                .frame(width: 28, height: 28)
+                .frame(width: width(num:28), height: hieght(num:28))
             
             
             VStack(alignment: .leading){
