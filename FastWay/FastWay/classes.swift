@@ -220,7 +220,7 @@ class OfferOrder: ObservableObject{
         var flag = true
         let id = UserDefaults.standard.getUderId()
         
-        let doc = db.collection("Offers").document(id)
+        let doc = db.collection("Offers").document()
       //  if (self.setPick && self.setDrop && self.setDetails){
         doc.setData(["OrderID": self.OrderId,"memberId": self.memberId ,"courierID": id, "Price":self.price ,"CourierLatitude":self.courierLocation.latitude,"CourierLongitude":self.courierLocation.longitude, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "StateOffer": self.stateOffer[0]]) { (error) in
                 
