@@ -34,7 +34,8 @@ struct Offers: View {
             }.onAppear(){
                 //calling Methods
                 if(status == "have an offer"){
-                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ ")
+                    print("*************************")
+                    print("*******Offers view*********")
                     print("the order id inside offer view\(orderID)")
                    // model.haveOffers = true
                     model.order.getOffers(OrderId: orderID)
