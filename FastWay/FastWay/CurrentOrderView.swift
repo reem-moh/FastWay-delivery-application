@@ -217,6 +217,7 @@ struct CurrentCardMView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
+                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
                     .animation(.easeIn) //if the user press it. It shows detailes
                 Spacer(minLength: 0)
                 
@@ -384,18 +385,25 @@ struct CurrentCardMDetailes: View {
                             
                         }
                         //order items
-                        ZStack{
-                            if(model.selectedCard.orderD.orderDetails.count <= 25){
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 130).foregroundColor(.white).shadow(radius: 1)
-                            }else{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
-                            }
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
+                        ZStack(alignment: .top){
+            
+                           Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -130)
+                            
                             HStack() {
+                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
+                                    .padding(.vertical, 4)
+                            }
+                            
+                           /* HStack() {
                                 
                                 Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
-                            }
-                        }
+                            }*/
+                        }.contentShape(RoundedRectangle(cornerRadius: 15))
+                        .frame(width: 325)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
+                        
                         //Cancel button
                         Button(action: {
                             canelOrder()
