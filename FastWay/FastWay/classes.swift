@@ -462,7 +462,11 @@ class Order: ObservableObject{
         db.collection("Order").document(OrderId).collection("Offers").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No offer documents")
+                
                 return
+            }
+            if(documents.isEmpty){
+                print("no offer documents")
             }
             self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
                 print(queryDocumentSnapshot.data())

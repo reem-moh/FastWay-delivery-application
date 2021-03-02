@@ -50,7 +50,7 @@ struct MotherView: View {
         case .DetailedOrderOffer:
             DetailedOrderOffer(viewRouter: viewRouter, animation: animation)
         case .offers:
-            Offers(viewRouter: viewRouter) .environmentObject(OfferModel)
+            Offers(viewRouter: viewRouter, orderID: "", status: "") .environmentObject(OfferModel)
         }
         
     }
