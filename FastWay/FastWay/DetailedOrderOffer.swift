@@ -178,14 +178,14 @@ struct DetailedOrderOffer: View {
                         //make an offer button
                         Button(action: {
                             
-                         let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID:model.selectedCard.orderD.memberId , price: offer, locationLatiude: map.userLocation.coordinate.latitude, locationLongitude: map.userLocation.coordinate.longitude)
-                            if isOfferAddrd{
-                                
-                            }
-                            if(makeAnOffer() && isOfferAddrd){
+ 
+
+                            if(makeAnOffer()){
                                 viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
+                            
+                            let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID:model.selectedCard.orderD.memberId , price: offer, locationLatiude: map.userLocation.coordinate.latitude, locationLongitude: map.userLocation.coordinate.longitude)
                         }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: 22))
