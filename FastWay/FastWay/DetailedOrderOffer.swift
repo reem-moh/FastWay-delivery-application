@@ -24,7 +24,8 @@ struct DetailedOrderOffer: View {
     @State var offer = 0
     @State var offerList : String = "Offer price"
     @State var checkOffer : Bool = false
-    
+    @State var show = false
+
     var body: some View{
         
         ZStack{
@@ -176,8 +177,12 @@ struct DetailedOrderOffer: View {
                         
                         //make an offer button
                         Button(action: {
-                            //order.addOffer()
-                            if(makeAnOffer()){
+                            
+                         let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID:model.selectedCard.orderD.memberId , price: offer, locationLatiude: map.userLocation.coordinate.latitude, locationLongitude: map.userLocation.coordinate.longitude)
+                            if isOfferAddrd{
+                                
+                            }
+                            if(makeAnOffer() && isOfferAddrd){
                                 viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
@@ -199,6 +204,7 @@ struct DetailedOrderOffer: View {
                 }.position(x: 188,y: 700)
             }
             // }
+            
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
     }

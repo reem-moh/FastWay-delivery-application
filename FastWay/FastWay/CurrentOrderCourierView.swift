@@ -34,7 +34,7 @@ struct CurrentOrderCourierView: View {
                 
             }.onAppear(){
                 //calling Methods
-                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+                model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
                 model.getCards()
                 model.showCard = false
                 model.showContent = false
@@ -180,6 +180,24 @@ struct CurrentOrderCourierView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
+            //notification here
+            VStack{
+                if show{
+                    Notifications(type: viewRouter.notificationT, imageName: "tick")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+                
+                
+                
+                
+            }.onAppear(){
+                if viewRouter.notificationT == .SendOffer  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+            }
+
             
         }//end ZStack
     }}
@@ -468,7 +486,7 @@ struct CurrentCardCDetailes: View {
     }
 }
 
-// CurrentCarouselMViewModel
+// CurrentCarouselCViewModel
 class CurrentCarouselCViewModel: ObservableObject {
     
     //Add obs obje from type member?
@@ -484,9 +502,9 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var showContent = false
     
     init(){
-        //from this ID get all the cards
-        order.getMemberOrder(Id: UserDefaults.standard.getUderId())
-        print("number of oreders inside init: \(order.memberOrder.count)")
+        //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
+        order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
+        print("number of oreders inside init: \(order.CourierOrderOffered.count)")
         getCards()
         
     }
@@ -497,13 +515,13 @@ class CurrentCarouselCViewModel: ObservableObject {
     }
     
     func getCards(){
-        print("number of cards inside getCards: \(order.memberOrder.count)")
-        if order.memberOrder.isEmpty{
+        print("number of cards inside getCards: \(order.CourierOrderOffered.count)")
+        if order.CourierOrderOffered.isEmpty{
             print("there is no order")
         }
         
         cards.removeAll()
-        for index in order.memberOrder {
+        for index in order.CourierOrderOffered {
             //Check the state of the order
             cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }
