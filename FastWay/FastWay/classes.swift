@@ -193,6 +193,47 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
+class OfferOrder: ObservableObject{
+    
+    var id: String
+    var OrderId: String
+    var memberId: String = ""
+    var courierId: String = ""
+    var price: Int
+    var courierLocation : CLLocationCoordinate2D
+    var stateOffer: [String] = ["waiting for accept", "cancle Offer", "accept Offer"]
+    
+    init(){
+        self.id = ""
+        self.OrderId = ""
+        self.memberId = ""
+        self.courierId = ""
+        self.price = 0
+        self.courierLocation =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    }
+    
+    func addOffer(OrderID: String, memberID: String, Price: Int , CourierLocation: CLLocationCoordinate2D ) -> Bool {
+        self.OrderId = OrderID
+        self.memberId = memberID
+        self.price = Price
+        self.courierLocation = CourierLocation
+        var flag = true
+        let id = UserDefaults.standard.getUderId()
+        
+        let doc = db.collection("Offers").document(id)
+      //  if (self.setPick && self.setDrop && self.setDetails){
+        doc.setData(["OrderID": self.OrderId,"memberId": self.memberId ,"courierID": id, "Price":self.price ,"CourierLatitude":self.courierLocation.latitude,"CourierLongitude":self.courierLocation.longitude, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "StateOffer": self.stateOffer[0]]) { (error) in
+                
+                if error != nil {
+                    flag = false
+                }
+            }
+        
+        return flag
+    }
+    
+}
+
 class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = []
@@ -215,7 +256,6 @@ class Order: ObservableObject{
     var setDrop: Bool
     var setDetails: Bool
     var status: [String] = ["waiting for offer", "cancled","have an offer","assigned", "completed"]
-    var stateOffer: [String] = ["waiting for accept", "canle Offer", "accept Offer"]
     
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -383,7 +423,9 @@ class Order: ObservableObject{
     }
     
     func getCourierOrderOffred(Id: String){
-        db.collection("Order").whereField("Status", isEqualTo: status[2]).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+       // db.collection("Offers").get
+        
+        db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             if let err = error {
                 print("Error getting documents: \(err)")
             } else {
@@ -430,7 +472,7 @@ class Order: ObservableObject{
         }//get Orders
     }
 
-    func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
+   /* func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         let id = UserDefaults.standard.getUderId()
       //  let courier = Courier()
       //  courier.getCourier(id: id)
@@ -449,7 +491,7 @@ class Order: ObservableObject{
         }*/
 
         return flag
-    }
+    }*/
     
   /*  func setCourier(courier: Courier, OrderID: String ) -> Bool {
         let doc = db.collection("Courier").document(courier.id)

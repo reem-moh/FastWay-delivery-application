@@ -24,6 +24,7 @@ enum Page{
     case HistoryCourierView
     case DeliverOrder
     case DetailedOrderOffer
+   // case CurrentOrderViewDetailsCourier
     //case offers
 }
 // to identify each notificatio or confirmation message when transitioning from one
@@ -35,6 +36,7 @@ enum NotificationType {
     case SendOrder
     case SendOffer
     case CancelOrder
+    case CancelOffer
 }
 
 

@@ -72,6 +72,9 @@ struct CurrentOrderCourierView: View {
             //Press detailes
             if model.showCard {
                 //Calling detailed card
+              /*  if model.showCard {
+                                CurrentOrderViewDetailsCourier(viewRouter: viewRouter, animation: animation)
+                            }*/
                 CurrentCardCDetailes(viewRouter: viewRouter, animation: animation)
             }
             

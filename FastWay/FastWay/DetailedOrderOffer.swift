@@ -16,6 +16,7 @@ struct DetailedOrderOffer: View {
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var order : Order = Order()
+    @State var offerorder: OfferOrder = OfferOrder()
     @State var alert = false
     @State var distance = ""
     @State var time = ""
@@ -184,9 +185,9 @@ struct DetailedOrderOffer: View {
                                 viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
-                            
-                            let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID:model.selectedCard.orderD.memberId , price: offer, locationLatiude: map.userLocation.coordinate.latitude, locationLongitude: map.userLocation.coordinate.longitude)
-                        }) {
+                            let isOfferAddrd = offerorder.addOffer(OrderID: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, Price: offer , CourierLocation: map.userLocation.coordinate )
+                                
+                               }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
