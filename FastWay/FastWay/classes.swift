@@ -534,6 +534,8 @@ extension Date {
     }
     
 }
+
+
 //For textfield chcaracter limit
 class TextfieldManager: ObservableObject{
     @Published var text = ""{
@@ -547,4 +549,18 @@ class TextfieldManager: ObservableObject{
     init(limit: Int = 5) {
         charLimit = limit
     }
+}
+
+
+//to calculate the dynamic hieght and width divide the UIScreen measurements on the result of the division of the hieght, width of 11pro on the postion sent -> num
+func hieght(num: CGFloat) -> CGFloat {
+    return UIScreen.main.bounds.height/(812/num)
+}
+func width(num: CGFloat) -> CGFloat {
+    return UIScreen.main.bounds.width/(375/num)
+}
+
+//calculate dynamic font size according to 11 pro size
+func fontSize(num: CGFloat) -> CGFloat{
+    return UIScreen.main.bounds.height*(num/812)
 }

@@ -29,42 +29,50 @@ struct LoginView: View {
         ZStack{
             
             GeometryReader{_ in
-                Image(uiImage:  #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                Image(uiImage:  #imageLiteral(resourceName: "Rectangle 49"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .offset(y:hieght(num: -100))
                 
                 ZStack{
                     
-                    Image(uiImage:  #imageLiteral(resourceName: "Rectangle 48")).offset(y: 100)
+                    Image(uiImage:  #imageLiteral(resourceName: "Rectangle 48"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(.all)
+                        .offset(y: hieght(num: 100))
                     
                     VStack(alignment: .center) {
                         
                         //logo
-                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,5)
+                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,hieght(num: 5))
                         
                         //Error in auth
                         if ErrorShow{
-                            Text("*Invalid email or password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                .offset(x: -59, y: 30)
+                            Text("*Invalid email or password").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                .offset(x: width(num: -59), y: hieght(num: 30))
                         }
                         
                         //Reset
                         if resetShow{
-                            Text("*\(self.descReset)").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
-                                .offset(x: -18, y: 30)
+                            Text("*\(self.descReset)").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
+                                .offset(x: width(num: -18), y: hieght(num: 30))
                         }
                         
                         //Email Group
                         Group {
                             //Show Error message if the email feild empty
                             if showErrorMessageEmail {
-                                Text(self.errMsg).font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                    .offset(x: -35, y: 30)
+                                Text(self.errMsg).font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                                    .offset(x: width(num: -35), y: hieght(num: 30))
                             }
                             
                             //Email feild
                             TextField("Email", text: $email).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 25).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 25)).padding(.horizontal, width(num: 16))
                         }
                         
                         //Password Group
@@ -77,10 +85,10 @@ struct LoginView: View {
                             
                             //password feild
                             SecureField("Password", text: $pass).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor( Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 25).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 25)).padding(.horizontal, width(num: 16))
                             
                             //ForgetPassword
                             HStack{
@@ -92,10 +100,10 @@ struct LoginView: View {
                                     
                                 }) {
                                     
-                                    Text("Forget password").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
+                                    Text("Forget password").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                                     
                                 }
-                            }.padding(.top,-20)
+                            }.padding(.top,hieght(num: -20))
                         }
                         
                         //Log in Button
@@ -110,27 +118,27 @@ struct LoginView: View {
                                 ErrorShow=false
                             }
                         }) {
-                            Text("Log in").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color( #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
+                            Text("Log in").font(.custom("Roboto Bold", size: fontSize(num: 22))).foregroundColor(Color( #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage:  #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25)
+                        .padding(.top,hieght(num: 25))
                         
                         //SignUp Group
                         Group {
-                            Text("OR").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,20)
+                            Text("OR").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,hieght(num: 20))
                             
-                            Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color( #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
+                            Text("Don’t have an account yet? ").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color( #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50)
                             
                             //Sign up Button
                             Button(action: {
                                 viewRouter.notificationT = .None
                                 viewRouter.currentPage = .SignUp
                             }) {
-                                Text("Sign up").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,-30).textCase(.none)
+                                Text("Sign up").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,hieght(num: -30)).textCase(.none)
                             }
                         }//end Group
                         
-                    }.offset(y: 50)
+                    }.offset(y: hieght(num: 50))
                 }
             }
             
@@ -234,7 +242,7 @@ struct LaunchScreen: View {
                     .resizable()
                     .renderingMode(.original)
                     .aspectRatio(contentMode: animate ? .fill : .fit)
-                    .frame(width: animate ? nil : 85, height: animate ? nil : 85)
+                    .frame(width: animate ? nil : width(num: 85), height: animate ? nil : hieght(num: 85))
                     
                     //scaling view
                     .scaleEffect(animate ? 3 : 1)
