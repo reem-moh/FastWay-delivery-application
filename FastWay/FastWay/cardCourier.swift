@@ -49,7 +49,7 @@ struct CardView: View {
                     .animation(.easeIn)
                 HStack {
                     Text("Building \(model.orderPreview(c: card).pickUpBulding)\t\t\t\t\t Building \(model.orderPreview(c: card).dropOffBulding)")
-                        .fontWeight(.light)
+                        .fontWeight(.bold)
                         .foregroundColor(Color.black.opacity(0.5))
                         .animation(.easeIn) //if the user press it it show Detail
                 }.padding(5)

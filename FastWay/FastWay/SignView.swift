@@ -230,38 +230,15 @@ struct SignUPView: View {
     func signUp() {
         self.error = false
         
-        //self.nErr=""
-        //self.eErr=""
-        //self.pErr=""
-        //self.rpErr=""
-        //self.phErr=""
+        self.nErr=""
         self.uErr=""
-        // self.gErr=""
         
-        /*if self.name.count < 3 {
-            self.nErr="*Name must be more than 2 characters"
+        if self.name == "" || self.email == "" || self.phoneNum == "" || self.password == "" || self.rePassword == "" || self.user == ""{
+            self.nErr="*All fields are required"
             self.error = true
-        }*/
+        }
         
-        /*if (self.email == "") || !(self.email.isEmail()){
-            self.eErr="*Valid email is required"
-            self.error = true
-        }*/
-        
-        /*if !(self.phoneNum.isValidPhoneNumber()){
-            self.phErr="*Phone number must be 05********"
-            self.error = true
-        }*/
-        /*if self.password.count < 8 || !checkPass(pass: self.password){
-            self.pErr="*Password must be 8 or more characters, conatins a capital letter, a small letter and a digit"
-            self.error = true
-        }*/
-        /*if self.rePassword != self.password{
-            self.rpErr="*Password mismatch"
-            self.error = true
-        }*/
-        
-        if self.user == ""{
+        if self.user == "" && (self.name == "" || self.email == "" || self.phoneNum == "" || self.password == "" || self.rePassword == ""){
             self.uErr="*This field is mandatory"
             self.error = true
         }

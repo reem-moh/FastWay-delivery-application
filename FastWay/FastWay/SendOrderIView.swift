@@ -74,6 +74,9 @@ struct SendOrderIView: View {
                 
             }
             
+            Image("progressBar3")
+                .position(x: UIScreen.main.bounds.width/2, y: 140)
+                .offset(x: 10)
             
             
             
@@ -153,7 +156,7 @@ struct SendOrderIView: View {
                 
                 
                 
-            }
+            }.offset(y: 20)
             
             
             

@@ -97,9 +97,13 @@ struct AddNewOrderView: View {
                     
                 }//END VStack
                 
-                
-                
-                
+                //white background
+                Image("Rectangle 48").resizable().aspectRatio(contentMode: .fill).offset(y:45)
+                //progress bar
+                Image("progressBar1")
+                    .position(x: UIScreen.main.bounds.width/2, y: 80)
+                    .offset(x: 10)
+
                 
                 
                 //MAP
@@ -109,28 +113,34 @@ struct AddNewOrderView: View {
                     
                     
                     
-                    EntireMapView(map: self.$map, manager: self.$manager).frame(width: 380, height: 400, alignment: .center)
-                        .clipped().offset(y:50)
+                    EntireMapView(map: self.$map, manager: self.$manager)
+                        .frame(width: 380, height: 350, alignment: .center)
+                        .clipped().offset(y:90)
                     
                     
-                    Text("Select location:").font(.custom("Roboto Medium", size: 18)).fontWeight(.bold).multilineTextAlignment(.leading).frame(width: 295, height: 6).offset(x:-115,y:-135)
+                    Text("Select location:")
+                        .font(.custom("Roboto Medium", size: 18))
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                        .frame(width: 295, height: 6)
+                        .offset(x:-115,y:-75)
                     
                     
                     
                     if errorlocation1{
                         Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-115) }
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-55) }
                     
                     
                     if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
                         Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-55) }
                     
                     
                     
                     if (errorlocation)&&(errorlocation1==false){
                         Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-115) }
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-55) }
                     
                     
                     
@@ -143,7 +153,7 @@ struct AddNewOrderView: View {
             
             //white rectangle
             Spacer(minLength: 100)
-            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:0 ,y:430)
+            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:0 ,y:450)
             
             VStack(spacing: 10){
                 
@@ -233,9 +243,6 @@ struct AddNewOrderView: View {
                     
                     
                 }// END Bulding
-                
-                
-                
                 
                 
                 
@@ -342,7 +349,7 @@ struct AddNewOrderView: View {
                             .padding(12)
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
                         
-                    }}
+                    }} //end details
                 
                 
                 
