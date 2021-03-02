@@ -553,6 +553,12 @@ class TextfieldManager: ObservableObject{
 
 
 //to calculate the dynamic hieght and width divide the UIScreen measurements on the result of the division of the hieght, width of 11pro on the postion sent -> num
+
+//to get an image's width and height values if its not known use this
+//width(num: UIImage(named: "")!.size.width )
+//hieght(num: UIImage(named: "FastWayName")!.size.height)
+
+
 func hieght(num: CGFloat) -> CGFloat {
     return UIScreen.main.bounds.height/(812/num)
 }

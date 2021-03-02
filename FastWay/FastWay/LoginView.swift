@@ -46,7 +46,10 @@ struct LoginView: View {
                     VStack(alignment: .center) {
                         
                         //logo
-                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName")).padding(.bottom,hieght(num: 5))
+                        Image(uiImage:  #imageLiteral(resourceName: "FastWayName"))
+                            .resizable()
+                            .frame(width: width(num: UIImage(named: "FastWayName")!.size.width ), height: hieght(num: UIImage(named: "FastWayName")!.size.height))
+                            .padding(.bottom,hieght(num: 5))
                         
                         //Error in auth
                         if ErrorShow{
