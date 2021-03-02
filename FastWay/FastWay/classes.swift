@@ -383,43 +383,51 @@ class Order: ObservableObject{
     }
     
     func getCourierOrderOffred(Id: String){
-       // let id = UserDefaults.standard.getUderId()
-        db.collection("Order").whereField("Status", isEqualTo: "have an offer").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-        
-        /*collection("Offers").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in*/
-            guard let documents = querySnapshot?.documents else {
-                print("No order documents")
-                return
-            }
-            self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                print(queryDocumentSnapshot.data())
-                let data = queryDocumentSnapshot.data()
-                let uid = queryDocumentSnapshot.documentID
-                //pickUp location
-                let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
-                let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
-                let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
-                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
-                let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                //DropOff Location
-                let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
-                let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
-                let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
-                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
-                let orderDetails = data["orderDetails"] as? String ?? ""
-                let assigned = data["Assigned"] as? Bool ?? false
-                let MemberID = data["MemberID"] as? String ?? ""
-                let state = data["Status"] as? String ?? ""
-                let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
-                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                print(self.CourierOrderOffered.count)
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-            })
-        }
+        db.collection("Order").whereField("Status", isEqualTo: status[2]).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+            if let err = error {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    let uid = document.documentID
+                    print("\(document.documentID) => \(data)")
+                    db.collection("Order").document(uid).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, err) in
+                        guard let documents = querySnapshot?.documents else {
+                            print("No order documents")
+                            return
+                        }
+                        self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                            let Offerdata = queryDocumentSnapshot.data()
+                            let OfferId = queryDocumentSnapshot.documentID
+                            //pickUp location
+                            let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
+                            let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
+                            let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
+                            let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                            let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                            let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                            //DropOff Location
+                            let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
+                            let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
+                            let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
+                            let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                            let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                            let dropoffRoom = data["dropOffRoom"] as? String ?? ""
+                            let orderDetails = data["orderDetails"] as? String ?? ""
+                            let assigned = data["Assigned"] as? Bool ?? false
+                            let MemberID = data["MemberID"] as? String ?? ""
+                            let state = data["Status"] as? String ?? ""
+                            let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                            print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                            print(self.CourierOrderOffered.count)
+                            return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                        })
+                    }//end DB for offer
+                    
+                }//for loop
+            }//else
+        }//get Orders
     }
 
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
