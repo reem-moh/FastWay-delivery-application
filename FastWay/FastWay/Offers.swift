@@ -13,8 +13,8 @@ struct Offers: View {
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: OfferCarousel
     @Namespace var animation
-    //@State var orderID : String
-    //@State var status : String
+    @State var orderID : String
+    @State var status : String
     
     var body: some View {
         ZStack {
@@ -33,15 +33,16 @@ struct Offers: View {
                 
             }.onAppear(){
                 //calling Methods
-                order.getOffers(OrderId: model.selectedCard.OfferInfo.OrderId)
-                                model.getCards()
-                /*if(status == "have an offer"){
+                if(status == "have an offer"){
+                    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ ")
+                    print("the order id inside offer view\(orderID)")
+                   // model.haveOffers = true
                     model.order.getOffers(OrderId: orderID)
                     model.getCards()
-                }*/
+                }
                 
             }
-            if model.haveOffers {
+            if status == "have an offer" {
                 // Carousel....
                 VStack{
                     Spacer()
@@ -320,18 +321,12 @@ struct OfferCardInfo: Identifiable {
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    //var price: Int = 0
-    //var courierId: String = ""
-    //var orderId: String = ""
-    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0))// change to get offer info
-    
-    
-    //var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))// change to get offer info
+    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))// change to get offer info
 }
 
 struct Offers_Previews: PreviewProvider {
     static var previews: some View {
-        Offers(viewRouter: ViewRouter())
-       // Offers(viewRouter: ViewRouter(), orderID: "", status: "")
+        //Offers(viewRouter: ViewRouter())
+        Offers(viewRouter: ViewRouter(), orderID: "", status: "")
     }
 }

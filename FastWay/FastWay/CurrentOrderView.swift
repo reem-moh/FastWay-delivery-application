@@ -12,6 +12,7 @@ struct CurrentOrderView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CurrentCarouselMViewModel
+    @StateObject var OfferModel = OfferCarousel()
     @Namespace var animation
     //for notification
     @State var show = false
@@ -39,6 +40,7 @@ struct CurrentOrderView: View {
                 model.getCards()
                 model.showCard = false
                 model.showContent = false
+                model.showOffers = false
             }
             // Carousel....
             VStack{
@@ -72,12 +74,11 @@ struct CurrentOrderView: View {
             }.padding(.bottom,80)
             //Press detailes
             if model.showCard {
-                //Calling detailed card
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
-            /*if model.showOffers {
-                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status)
-            }*/
+            if model.showOffers {
+                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status).environmentObject(OfferModel)
+            }
             //notification
             VStack{
                 if show{
@@ -353,16 +354,17 @@ struct CurrentCardMDetailes: View {
                         .foregroundColor(Color.gray.opacity(0.9))
                         .padding(20)
                         .onTapGesture {
-                            viewRouter.notificationT = .None
-                            viewRouter.currentPage = .offers
-                            /*withAnimation(.spring()){
-                                model.showContent.toggle() //change the value of showCard to true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    withAnimation(.easeIn){
-                                        model.showOffers = true
-                                    }//end with animation
-                                }//end dispatch
-                            }//end with animation*/
+                           withAnimation(.spring()){
+                             //model.showContent.toggle() //change the value of showCard to true
+                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                withAnimation(.easeIn){
+                                 //viewRouter.orderId = model.selectedCard.orderD.id
+                                 //viewRouter.status = model.selectedCard.orderD.status
+                                 //viewRouter.currentPage = .offers
+                                 model.showOffers = true
+                                }//end with animation
+                               }//end dispatch
+                             }
                         }
                         //pick up
                         ZStack{
@@ -496,7 +498,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     //user press details
     @Published var showCard = false
     @Published var showContent = false
-    //@Published var showOffers = false
+    @Published var showOffers = false
     
     init(){
         //from this ID get all the cards
@@ -535,8 +537,6 @@ struct currentCardM: Identifiable {
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    //check if not assign then check this varable
-    //States [NoOffer=0, Offers=-1, Assigned = 1]
     var state : Int = 0
     var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, status: "")
 }

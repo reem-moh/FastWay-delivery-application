@@ -388,7 +388,7 @@ struct CurrentCardCDetailes: View {
                         }.padding(.top,15)
                         .onTapGesture {
                             viewRouter.notificationT = .None
-                            viewRouter.currentPage = .offers
+                            //viewRouter.currentPage = .offers
                         }
                         //pick up
                         ZStack{
