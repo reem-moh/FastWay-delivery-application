@@ -66,9 +66,17 @@ struct SignUPView: View {
         ZStack{
             
             //background image
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                .resizable() //add resizable
+                .frame(width: width(num: 375)) //addframe
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                .offset(y:hieght(num: -100))
             //white rectangle
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 50)
+            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                .resizable() //add resizable
+                .frame(width: width(num: 375)) //addframe
+                .edgesIgnoringSafeArea(.all)
+                .offset(y: hieght(num: 50))
             
             VStack{
                 //go back button
@@ -81,14 +89,18 @@ struct SignUPView: View {
                     Image("arrow_back")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 30, height: 30)
+                        .frame(width:  width(num:30), height:hieght(num: 30))
                         .clipped()
-                }.position(x:30 ,y:20).padding(1.0)
+                }.position(x:width(num:30) ,y:hieght(num:20)).padding(1.0)
             }
             VStack{
                 
                 //logo, text feilds and buttons
-                Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,40).offset(y: 60)
+                //Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,40).offset(y: 60)
+                Image(uiImage: #imageLiteral(resourceName: "FastWay"))
+                    //.resizable()
+                    .frame(width: width(num: UIImage(named: "FastWayName")!.size.width ), height: hieght(num: UIImage(named: "FastWayName")!.size.height))
+                    .padding(.bottom,hieght(num:40)).offset(y: hieght(num:60))
                 
                 ScrollView{
                     VStack(alignment: .leading){
@@ -96,10 +108,10 @@ struct SignUPView: View {
                         Group {
                             
                             //error for name
-                            Text(nErr).font(.custom("Roboto Regular", size: 18))
+                            Text(nErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                 .padding(.trailing)
-                                .offset(x: 12,y: 10)
+                                .offset(x: width(num: 12), y: hieght(num: 10))
                             //name field
                             TextField("Name", text: $name, onCommit: {
                                 self.error = false
@@ -111,14 +123,14 @@ struct SignUPView: View {
                                 
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for email
-                            Text(eErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text(eErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                             
                             //email field
                             TextField("Email", text: $email, onCommit: {
@@ -130,14 +142,14 @@ struct SignUPView: View {
                                 }
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for phone number
-                            Text(self.phErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text(self.phErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                             
                             // phone number field
                             TextField("Phone Number", text: $phoneNum, onCommit: {
@@ -149,14 +161,14 @@ struct SignUPView: View {
                                 }
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for password
-                            Text(self.pErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                             
                             //pass feild
                             SecureField("Password", text: $password, onCommit: {
@@ -168,15 +180,15 @@ struct SignUPView: View {
                                 }
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                         }//end group
                         
                         //error for repeat pass
-                        Text(self.rpErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                        Text(self.rpErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                         
                         //repeat pass field
                         SecureField("Repeat Password", text: $rePassword, onCommit: {
@@ -188,20 +200,24 @@ struct SignUPView: View {
                             }
                         })
                             .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .font(.custom("Roboto Regular", size: 18))
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
                             .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                         
                         VStack(alignment: .leading){
                             
                             //error for type(courier, member)
-                            Text(self.uErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 5)
+                            Text(self.uErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                             
                             //type(courier, member) field
-                            Text("Type").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0)
+                            Text("Type")
+                                .font(.custom("Roboto Medium", size: fontSize(num:18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                                .tracking(-0.01)
+                                .multilineTextAlignment(.center)
+                                .padding(.leading, width(num:12.0))
                             HStack{
                                 RadioButtonGroupT { selected in
                                     self.user = selected
@@ -214,13 +230,18 @@ struct SignUPView: View {
                             self.signUp()
                             
                         }) {
-                            Text("Sing Up").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
+                            Text("Sing Up").font(.custom("Roboto Bold", size: fontSize(num:22)))
+                                .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                .multilineTextAlignment(.center)
+                                .padding(1.0)
+                                .frame(width: UIScreen.main.bounds.width - 50)
+                                .textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: 24)
-                    }.padding(.bottom, 60)
+                        .padding(.top,hieght(num:25)).offset(x: width(num:24))
+                    }.padding(.bottom, hieght(num:60))
                 }
-                .padding(.bottom, 3.0)
+                .padding(.bottom, hieght(num:3.0))
                 
             }
             
