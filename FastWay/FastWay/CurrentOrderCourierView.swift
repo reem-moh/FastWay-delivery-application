@@ -307,11 +307,26 @@ struct CurrentCardCView: View {
                     }
                     
                     
-                  //  else{
-                        Text("Waiting for Accept").offset(x: -130, y: -10)
+                    else{
+                       // Text("Waiting for Accept").offset(x: -130, y: -10)
                     
-                    //  }
-                        Image(systemName: "arrow.right").offset(x: 0, y: -10)
+                        Text("Waiting for Accept")
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        HStack{
+                            DotView(frame: 10)
+                            DotView(delay: 0.2, frame: 10)
+                            DotView(delay: 0.4, frame: 10)
+                        }
+                        
+                     }
+                    Image(systemName: "arrow.right")
 
                     
                     
@@ -320,6 +335,7 @@ struct CurrentCardCView: View {
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
             
+           
             
             
             
