@@ -18,6 +18,7 @@ struct CurrentOrderView: View {
     @State var show = false
     
     
+    
     var body: some View {
         
         ZStack {
@@ -87,7 +88,19 @@ struct CurrentOrderView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if viewRouter.notificationT == .SendOrder || viewRouter.notificationT == .CancelOrder {
+                if viewRouter.notificationT == .SendOrder  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+            }
+            VStack{
+                if show{
+                    Notifications(type: viewRouter.notificationT, imageName: "shoppingCart")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if  viewRouter.notificationT == .CancelOrder {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -281,7 +294,8 @@ struct CurrentCardMDetailes: View {
     @State var manager = CLLocationManager()
     @State var alert = false
     @State var distance = ""
-    @State var time = ""    
+    @State var time = ""
+    @State private var showingPaymentAlert = false
     
     var body: some View{
         
@@ -410,11 +424,7 @@ struct CurrentCardMDetailes: View {
                         
                         //Cancel button
                         Button(action: {
-                            canelOrder()
-                            viewRouter.notificationT = .CancelOrder
-                            model.showCard = false
-                            model.showContent = false
-
+                            showingPaymentAlert.toggle()
                         }) {
                             Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: 22))
@@ -443,18 +453,30 @@ struct CurrentCardMDetailes: View {
                 
             }
             // }
-        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {
+            Alert(
+                title: Text("Order confirmed"),
+                message: Text("Are you sure you want cancel this offer"),
+                primaryButton: .default((Text("YES")), action: {
+                    canelOrder()
+                    viewRouter.notificationT = .CancelOrder
+                    viewRouter.currentPage = .CurrentOrder
+                    model.showCard = false
+                    model.showContent = false
+                }) ,
+                secondaryButton: .cancel((Text("NO")))
+            )}//end alert
         
     }// end body
     //cancel order
     func canelOrder(){
-        model.cancelCardOrderId = model.selectedCard.orderD.id
-        model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.easeIn){
-                model.getCards()
-            }//end with animation
-        }
+            model.cancelCardOrderId = model.selectedCard.orderD.id
+            model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation(.easeIn){
+                    model.getCards()
+                }//end with animation
+            }
     }
     //name of building
     func getBuilding(id: Int) -> String {
@@ -507,6 +529,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     @Published var showOffers = false
+    
     @Published var cancelCardOrderId : String = ""
     
     init(){
