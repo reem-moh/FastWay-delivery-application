@@ -54,7 +54,7 @@ struct Notifications: View {
                 self.message = "Your order have been canceled successfuly"
                 
             case .CancelOffer:
-                            self.message = "Your Offer have been canceled successfuly"
+                self.message = "Your Offer have been canceled successfuly"
             }
         }
     }

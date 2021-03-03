@@ -435,12 +435,12 @@ class Order: ObservableObject{
                     print("\(document.documentID) => \(data)")
                     db.collection("Order").document(uid).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, err) in
                         guard let documents = querySnapshot?.documents else {
-                            print("No order documents")
+                            print("No order offers courier documents")
                             return
                         }
                         self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                            let Offerdata = queryDocumentSnapshot.data()
-                            let OfferId = queryDocumentSnapshot.documentID
+                            //let Offerdata = queryDocumentSnapshot.data()
+                           // let OfferId = queryDocumentSnapshot.documentID
                             //pickUp location
                             let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                             let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -461,7 +461,7 @@ class Order: ObservableObject{
                             let state = data["Status"] as? String ?? ""
                             let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                             print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order courier offer and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                             print(self.CourierOrderOffered.count)
                             return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                         })
