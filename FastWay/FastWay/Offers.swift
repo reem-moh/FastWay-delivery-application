@@ -308,17 +308,18 @@ class OfferCarousel: ObservableObject {
         print("number of cards inside OfferCarousel getCards: \(Offers.count)")
         if Offers.isEmpty{
             print("there is no offer")
-            //haveOffers = false
+            haveOffers = false
             return
         }else{
-            //haveOffers = true
+            haveOffers = true
+            cards.removeAll()
+            for index in Offers {
+                //Check the state of the order
+                cards.append(contentsOf: [ OfferCardInfo( cardColor: Color(.white), OfferInfo : index )])
+            }
         }
         
-        cards.removeAll()
-        for index in Offers {
-            //Check the state of the order
-            cards.append(contentsOf: [ OfferCardInfo( cardColor: Color(.white), OfferInfo : index )])
-        }
+        
     }
     
 }
