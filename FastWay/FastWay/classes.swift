@@ -424,23 +424,26 @@ class Order: ObservableObject{
     
     func getCourierOrderOffred(Id: String){
        // db.collection("Offers").get
-        
-        db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-            if let err = error {
+        db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+        /*  if let err = error {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     let uid = document.documentID
                     print("\(document.documentID) => \(data)")
-                    db.collection("Order").document(uid).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, err) in
+                    db.collection("Order").document(uid).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, err) in*/
+            
                         guard let documents = querySnapshot?.documents else {
                             print("No order documents")
                             return
                         }
                         self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                            let Offerdata = queryDocumentSnapshot.data()
-                            let OfferId = queryDocumentSnapshot.documentID
+                           // let id = UserDefaults.standard.getUderId()
+                            //self.getOffersC(Id: Id)
+                            print(queryDocumentSnapshot.data())
+                                let data = queryDocumentSnapshot.data()
+                                let uid = queryDocumentSnapshot.documentID
                             //pickUp location
                             let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                             let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -467,10 +470,10 @@ class Order: ObservableObject{
                         })
                     }//end DB for offer
                     
-                }//for loop
-            }//else
+              //  }//for loop
+           // }//else
         }//get Orders
-    }
+   // }
 
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         let id = UserDefaults.standard.getUderId()
@@ -534,6 +537,40 @@ class Order: ObservableObject{
             })
         }
     }
+    
+    
+    
+    func getOffersC(Id: String){
+        db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No offer documents")
+                
+                return
+            }
+            if(documents.isEmpty){
+                print("no offer documents")
+            }
+            self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
+                print(queryDocumentSnapshot.data())
+                let data = queryDocumentSnapshot.data()
+                let offerId = queryDocumentSnapshot.documentID
+                let orderId = data["OrderID"] as? String ?? ""
+                let memberID = data["MemberID"] as? String ?? ""
+                let courierID = data["CourierID"] as? String ?? ""
+                let courierLatitude = data["CourierLatitude"] as? Double ?? 0.0
+                let courierLongitude = data["CourierLongitude"] as? Double ?? 0.0
+                let Price = data["Price"] as? Int ?? 0
+                let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
+                print("order :\(offerId) + \(memberID) ")
+                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: Price, courierLocation: courierLocation)
+            })
+        }
+    }
+
+
+    
+    
+    
     //change the statuse of the order
     func cancelOrder(OrderId: String){
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
