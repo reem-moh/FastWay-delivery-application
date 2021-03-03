@@ -96,10 +96,9 @@ struct SignUPView: View {
             VStack{
                 
                 //logo, text feilds and buttons
-                //Image(uiImage: #imageLiteral(resourceName: "FastWay")).padding(.bottom,40).offset(y: 60)
                 Image(uiImage: #imageLiteral(resourceName: "FastWay"))
-                    //.resizable()
-                    .frame(width: width(num: UIImage(named: "FastWayName")!.size.width ), height: hieght(num: UIImage(named: "FastWayName")!.size.height))
+                    .resizable()
+                    .frame(width: width(num: UIImage(named: "FastWay")!.size.width ), height: hieght(num: UIImage(named: "FastWay")!.size.height))
                     .padding(.bottom,hieght(num:40)).offset(y: hieght(num:60))
                 
                 ScrollView{

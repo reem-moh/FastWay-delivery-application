@@ -16,84 +16,44 @@ struct HomeMemberView: View {
     
     var body: some View {
         ZStack{
-            
-            
-            
-            
+            //Background
             ZStack{
                 
                 //background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(.all).offset(y:-100)
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 25)
-                Image("FASTWAY1").frame(width: -50, height: -50)
-                    .offset(x:180 ,y:130).position(x: 10, y: -45)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .offset(y:hieght(num: -100))
                 
-                GeometryReader { geometry in
-                    // if UserDefaults.standard.getUderType() == "M"{
-                    
-                    
-                    
-                    
-                    
-                    
-                    VStack {
-                        
-                        Spacer()
-                        
-                        
-                        
-                        Spacer()
-                        HStack {
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                    .shadow(radius: 4)
-                                VStack {
-                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
-                                    viewRouter.notificationT = .None
-                                    viewRouter.currentPage = abuotPage
-                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
-                            }.offset(y: -geometry.size.height/8/2)
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
-                        }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
-                        .background(Color("TabBarBackground").shadow(radius: 2))
-                    }
-                    // }
-                    
-                }
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: hieght(num:25))
                 
+                Image("FASTWAY1")
+                    .resizable()
+                    .frame(width: width(num: UIImage(named: "FASTWAY1")!.size.width ), height: hieght(num: UIImage(named: "FASTWAY1")!.size.height))
+                    .offset(x:width(num:180) ,y:hieght(num:130))
+                    .position(x: width(num:10), y: hieght(num:-45))
             }.edgesIgnoringSafeArea(.all)//zstack
-            
-            
+            //main page
             VStack{
-                
-                
+                //AddNewOrder Button
                 Button(action: {
                     viewRouter.notificationT = .None
                     viewRouter.currentPage = .AddNewOrder
                 }) {
-                    
                     //logo, text feilds and buttons
                     Image("addNewOrder")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num:300), height: hieght(num:180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                 }
-                
-                
-                
-                
-                
-                
+                //CurrentOrder Button
                 Button(action: {
                     viewRouter.notificationT = .None
                     viewRouter.currentPage = .CurrentOrder
@@ -102,53 +62,77 @@ struct HomeMemberView: View {
                     Image("current")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num:300), height: hieght(num:180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                     
                 }
-                
-                
-                
-                
+                //HistoryView Button
                 Button(action: {
                     viewRouter.notificationT = .None
                     viewRouter.currentPage = .HistoryView
                     
                 }) {
-                    
                     Image("History")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num:300), height: hieght(num:180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                     
-                }
-                
-                
-                
-            }.position(x:189 ,y:370)
-            //notification here
+                    }
+
+            }.position(x:width(num:189) ,y:hieght(num:370))
+            //notification
             VStack{
                 if show{
                     Notifications(type: viewRouter.notificationT, imageName: "tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-                
-                
-                
-                
+                }   
             }.onAppear(){
                 if viewRouter.notificationT == .LogIn || viewRouter.notificationT == .SignUp {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
-            
+            //BarMenue
+            ZStack{
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer()
+                        Spacer()
+                        HStack {
+                            //Home
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "homekit", tabName: "Home")
+                           //about us
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: width(num:geometry.size.width/7), height: width(num:geometry.size.width/7))
+                                    .shadow(radius: 4)
+                                VStack {
+                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: width(num:geometry.size.width/7-6 ), height: width(num:geometry.size.width/7-6))
+                                }.padding(.horizontal, width(num:14))
+                                .onTapGesture {
+                                    viewRouter.notificationT = .None
+                                    viewRouter.currentPage = abuotPage
+                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
+                            }.offset(y:hieght(num: -geometry.size.height/8/2))
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                        }
+                        .frame(width: width(num:geometry.size.width), height: hieght(num:geometry.size.height/8))
+                        .background(Color("TabBarBackground").shadow(radius: 2))
+                    }
+                    // }
+                    
+                }
+            }.edgesIgnoringSafeArea(.all)//zstack
         }
-        
+    
     }
     
 }
