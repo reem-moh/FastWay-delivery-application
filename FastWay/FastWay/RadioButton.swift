@@ -55,52 +55,6 @@ struct RadioButtonField: View {
     }
 }
 
-//for gender
-/*
- enum Gender: String {
- case male = "Male"
- case female = "Female"
- }
- 
- struct RadioButtonGroups: View {
- let callback: (String) -> ()
- 
- @State var selectedId: String = ""
- 
- var body: some View {
- HStack {
- radioMaleMajority.padding(.trailing, 24.0)
- radioFemaleMajority
- }
- }
- 
- var radioMaleMajority: some View {
- RadioButtonField(
- id: Gender.male.rawValue,
- label: Gender.male.rawValue,
- color: Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)),
- textSize: 18,
- isMarked: selectedId == Gender.male.rawValue ? true : false,
- callback: radioGroupCallback
- )
- }
- 
- var radioFemaleMajority: some View {
- RadioButtonField(
- id: Gender.female.rawValue,
- label: Gender.female.rawValue,
- color: Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)),
- textSize: 18,
- isMarked: selectedId == Gender.female.rawValue ? true : false,
- callback: radioGroupCallback
- )
- }
- 
- func radioGroupCallback(id: String) {
- selectedId = id
- callback(id)
- }
- }*/
 
 //for user type
 enum UserType: String {
@@ -154,16 +108,31 @@ struct RadioButtonGroupT: View {
 
 
 
-
-
-struct RadioButton: View {
+struct DotView: View {
+    @State var delay: Double = 0 // 1.
+    @State var scale: CGFloat = 0.5
+    @State var frame: CGFloat = 20
+    @State var rad: CGFloat = 10
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("purple")
+            .resizable()
+            .frame(width: width(num: frame), height: hieght(num: frame))
+            .cornerRadius(rad)
+            .padding(.horizontal, width(num: -4))
+            .scaleEffect(scale)
+            .animation(Animation.easeInOut(duration: 0.6).repeatForever().delay(delay)) // 2.
+            .onAppear {
+                withAnimation {
+                    self.scale = 0.8
+                }
+            }
     }
 }
 
-struct RadioButton_Previews: PreviewProvider {
-    static var previews: some View {
-        RadioButton()
-    }
-}
+
+
+/*
+ DotView()
+ DotView(delay: 0.2)
+ DotView(delay: 0.4)
+*/

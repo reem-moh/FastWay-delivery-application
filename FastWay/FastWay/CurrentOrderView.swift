@@ -255,8 +255,17 @@ struct CurrentCardMView: View {
                 if !model.showContent{
                     //Text("\(model.selectedCard.orderD.status)")
                     //to let an arrow in the right of the card
-                    Spacer(minLength: 0)
-                    Text("Details")
+                    
+                    if model.orderPreview(c: card).status == "waiting for offer"{
+                        Text("Waiting for offers")
+                        Spacer(minLength: 0)
+                        HStack{
+                            DotView(frame: 10)
+                            DotView(delay: 0.2, frame: 10)
+                            DotView(delay: 0.4, frame: 10)
+                        }
+                    }
+                    
                     
                     Image(systemName: "arrow.right")
                 }
