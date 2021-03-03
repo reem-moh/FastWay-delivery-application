@@ -300,7 +300,7 @@ struct CurrentCardCView: View {
                 if !model.showContent{
                     //have an offer
                     
-                    if(model.orderPreview(c: card).status=="have an offer"){
+                    if(model.orderPreview(c: card).status=="assigned"){
                     Text("Detailes").offset(x: 130, y: -10)
                     
                    
