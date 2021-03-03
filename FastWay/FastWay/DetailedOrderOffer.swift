@@ -116,17 +116,17 @@ struct DetailedOrderOffer: View {
                         }
                         //order items
                         ZStack{
-                            if(model.selectedCard.orderD.orderDetails.count <= 25){
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 130).foregroundColor(.white).shadow(radius: 1)
-                            }else{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
-                            }
+                          
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
                             HStack() {
                                 
                                 Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
                             }
-                        }
+                        }.contentShape(RoundedRectangle(cornerRadius: 15))
+                        .frame(width: 325)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
                         //Offer price
                         if(checkOffer) {
                             Text("*You must specify a price").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))

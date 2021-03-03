@@ -37,6 +37,7 @@ struct CardView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
+                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
                     .animation(.easeIn) //if the user press it it show Detail
                 Spacer(minLength: 0)
                 
