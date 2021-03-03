@@ -345,6 +345,7 @@ class Order: ObservableObject{
     
     //get data from DB
     func getOrder() {
+        print("\n*******GetOrder*********")
         // var temp: [OrderDetails] = []
         db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
@@ -376,7 +377,7 @@ class Order: ObservableObject{
                 
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(OrderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                print("get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
                 return OrderDetails(id: OrderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
@@ -386,6 +387,7 @@ class Order: ObservableObject{
     }
     
     func getMemberOrder(Id: String){
+        print("\n*******GetMemberOrder*********")
         db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
@@ -415,7 +417,7 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                print("in get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
@@ -423,6 +425,7 @@ class Order: ObservableObject{
     }
     
     func getCourierOrderOffred(Id: String){
+        print("\n*******GetCourierOrderOffred*********")
         self.getOffersC(Id: Id)
         db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
@@ -454,7 +457,7 @@ class Order: ObservableObject{
                     let state = data["Status"] as? String ?? ""
                     let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                    print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                     
                     return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                 }
@@ -465,6 +468,7 @@ class Order: ObservableObject{
         }//get Orders
 
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
+        print("\n*******addOffer*********")
         let id = UserDefaults.standard.getUderId()
         var flag = true
          db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
@@ -475,7 +479,6 @@ class Order: ObservableObject{
                     flag = false
                 }
             }
-
         return flag
     }
     
@@ -483,6 +486,7 @@ class Order: ObservableObject{
     
     //get offers from DB for courier
     func getOffersC(Id: String){
+        print("\n*******GetOffersCourier*********")
             db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
                     print("No offer documents")
@@ -511,6 +515,7 @@ class Order: ObservableObject{
     
     //get offers from DB
     func getOffers(OrderId: String){
+        print("\n*******GetOffersMember*********")
         db.collection("Order").document(OrderId).collection("Offers").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No offer documents")
@@ -538,7 +543,26 @@ class Order: ObservableObject{
     }
     //change the statuse of the order
     func cancelOrder(OrderId: String){
+        print("\n*******CancelOrder*********")
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
+        
+        db.collection("Order").document(OrderId).collection("Offers").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents inside cancle order: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
+                    db.collection("Order").document(OrderId).collection("Offers").document(document.documentID).delete() { err in
+                        if let err = err {
+                            print("Error removing offer inside cancelOrder: \(err)")
+                        } else {
+                            print("offer successfully delete inside cancelOrder!")
+                        }
+                    }//delete offer
+                }//loop
+            }
+        }//get documents
+     
     }
     
     func checkOffer(id : String) -> Bool {
