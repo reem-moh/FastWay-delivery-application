@@ -448,8 +448,13 @@ struct CurrentCardMDetailes: View {
     }// end body
     //cancel order
     func canelOrder(){
+        model.cancelCardOrderId = model.selectedCard.orderD.id
         model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
-        model.getCards()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.easeIn){
+                model.getCards()
+            }//end with animation
+        }
     }
     //name of building
     func getBuilding(id: Int) -> String {
@@ -502,6 +507,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     @Published var showOffers = false
+    @Published var cancelCardOrderId : String = ""
     
     init(){
         //from this ID get all the cards
@@ -525,8 +531,9 @@ class CurrentCarouselMViewModel: ObservableObject {
         cards.removeAll()
         for index in order.memberOrder {
             //Check the state of the order
-            if( index.status != "cancled" && index.status != "completed"){
-                cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
+            if( index.status != "cancled" && index.status != "completed" && index.memberId != cancelCardOrderId){
+                
+                    cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
             }
             
         }
