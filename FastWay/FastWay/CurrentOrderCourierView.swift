@@ -1,9 +1,10 @@
 //
-//  CurrentOrderView.swift
+//  CurrentOrderViewDetailsCourier.swift
 //  FastWay
 //
-//  Created by Reem on 06/02/2021.
+//  Created by Ghaida . on 13/07/1442 AH.
 //
+
 
 import SwiftUI
 import MapKit
@@ -12,6 +13,7 @@ struct CurrentOrderCourierView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CurrentCarouselCViewModel
+    @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
     @State var show = false
@@ -34,7 +36,7 @@ struct CurrentOrderCourierView: View {
                 
             }.onAppear(){
                 //calling Methods
-                model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
+                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 model.getCards()
                 model.showCard = false
                 model.showContent = false
@@ -71,13 +73,9 @@ struct CurrentOrderCourierView: View {
             }.padding(.bottom,80)
             //Press detailes
             if model.showCard {
-                //Calling detailed card
-              /*  if model.showCard {
-                                CurrentOrderViewDetailsCourier(viewRouter: viewRouter, animation: animation)
-                            }*/
                 CurrentCardCDetailes(viewRouter: viewRouter, animation: animation)
             }
-            
+                        
             //notification
             VStack{
                 if show{
@@ -86,7 +84,7 @@ struct CurrentOrderCourierView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if viewRouter.notificationT == .SendOrder {
+                if viewRouter.notificationT == .SendOffer || viewRouter.notificationT == .CancelOffer {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -199,6 +197,11 @@ struct CurrentOrderCourierView: View {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
+                if viewRouter.notificationT == .CancelOffer  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+
             }
 
             
@@ -246,6 +249,7 @@ struct CurrentCardCView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
+                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
                     .animation(.easeIn) //if the user press it. It shows detailes
                 Spacer(minLength: 0)
                 
@@ -312,7 +316,8 @@ struct CurrentCardCDetailes: View {
     @State var time = ""
     @State var expandOffer = false
     @State var expand = false
-    
+    @State private var showingPaymentAlert = false
+
     
     var body: some View{
         
@@ -329,8 +334,13 @@ struct CurrentCardCDetailes: View {
                     self.manager.requestAlwaysAuthorization()
                 }
             
+            // VStack{
+            
             ZStack {
-                //back button
+                //go back button
+                //arrow_back image
+               
+                
                 Group{
                     RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
                     Button(action: {
@@ -354,13 +364,14 @@ struct CurrentCardCDetailes: View {
                             .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: 50, y: 50)
+                
+                
                 //white background
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
                 
                 VStack{
                     
                     ScrollView{
-                        //Time
                         HStack{
                             Image(systemName: "clock")
                                 .foregroundColor(Color.black.opacity(0.5))
@@ -373,25 +384,6 @@ struct CurrentCardCDetailes: View {
                                 .animation(.easeIn)
                                 .offset(x: 10, y: 10)
                             Spacer(minLength: 0)
-                        }
-                        //Offers page
-                        HStack{
-                            Spacer()
-                            Text("Delivery offers")
-                                .multilineTextAlignment(.trailing)
-                                .frame(minWidth: 0, maxWidth: 200, alignment: .leading)
-                            Image(systemName: "arrow.right")
-                                .resizable()
-                                //.colorInvert()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 18, height: 18)
-                                .clipped()
-                                //.background(Color(.white))
-                            Spacer(minLength: 0)
-                        }.padding(.top,15)
-                        .onTapGesture {
-                            viewRouter.notificationT = .None
-                            //viewRouter.currentPage = .offers
                         }
                         //pick up
                         ZStack{
@@ -415,45 +407,76 @@ struct CurrentCardCDetailes: View {
                         }
                         //order items
                         ZStack{
-                            if(model.selectedCard.orderD.orderDetails.count <= 25){
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: 130).foregroundColor(.white).shadow(radius: 1)
-                            }else{
-                                RoundedRectangle(cornerRadius: 15).padding().frame(width: /*@START_MENU_TOKEN@*/350.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/).foregroundColor(.white).shadow(radius: 1)
-                            }
+                           
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
                             HStack() {
                                 
                                 Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
                             }
-                        }
-                        //Cancel button
+                        }.contentShape(RoundedRectangle(cornerRadius: 15))
+                        .frame(width: 325)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
+                      
+                       
+                        //make an offer button
                         Button(action: {
-                                //is it with us this sprint?
+                            
+                            showingPaymentAlert.toggle()
+
+
+                           // if(true){
+                           //     viewRouter.notificationT =  .CancelOffer
+
+                            //    viewRouter.currentPage = .CurrentOrderCourier
+                           // }
+                            
+                      
+                            
+                            
+
                         }) {
-                            Text("Cancel Order")
+                            Text("Cancel Offer")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
                                 .padding(1.0)
                                 .frame(width: UIScreen.main.bounds.width - 50)
                                 .textCase(.none)
+                            
+
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25)
                         .offset(x: 0)
                         .padding(.bottom,450)
                         
-                        
                     }
                 }.position(x: 188,y: 700)
-                
-                
             }
+            
             // }
-        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                       
+                   }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
+                    
+                    
+                    viewRouter.notificationT =  .CancelOffer
+                    
+                    canelOffer()
+           
+                                                                                                                                                                                                                                                                model.showCard = false
+                                                                                                                                                                                                                                                                model.showContent = false
+                    
+                    
+                   }) , secondaryButton: .cancel((Text("NO"))))
+
+        }
         
     }// end body
-    
+    func canelOffer(){
+       ///code for cancel
+    }
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
@@ -504,10 +527,10 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     
-    init(){
+    init(){/////////update
         //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
-        order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
-        print("number of oreders inside init: \(order.CourierOrderOffered.count)")
+        order.getMemberOrder(Id: "A24J5LZ6nuaLm3npHILu8oyLp042")
+        print("number of oreders inside init: \(order.memberOrder.count)")
         getCards()
         
     }
@@ -517,14 +540,14 @@ class CurrentCarouselCViewModel: ObservableObject {
         return c.orderD
     }
     
-    func getCards(){
-        print("number of cards inside getCards: \(order.CourierOrderOffered.count)")
-        if order.CourierOrderOffered.isEmpty{
+    func getCards(){//update CourierOrderOffered
+        print("number of cards inside getCards: \(order.memberOrder.count)")
+        if order.memberOrder.isEmpty{
             print("there is no order")
         }
         
-        cards.removeAll()
-        for index in order.CourierOrderOffered {
+        cards.removeAll() //update CourierOrderOffered
+        for index in order.memberOrder {
             //Check the state of the order
             cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }

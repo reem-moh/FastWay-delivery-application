@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1509CD2425E7BC490093093F /* CurrentOrderViewDetailsCourier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1509CD2325E7BC490093093F /* CurrentOrderViewDetailsCourier.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
@@ -45,7 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1509CD2325E7BC490093093F /* CurrentOrderViewDetailsCourier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderViewDetailsCourier.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
@@ -145,9 +143,8 @@
 				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
-				C2E20EF425EABFD2009CAE56 /* Offers.swift */,
 				C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */,
-				1509CD2325E7BC490093093F /* CurrentOrderViewDetailsCourier.swift */,
+				C2E20EF425EABFD2009CAE56 /* Offers.swift */,
 				C2A006CD25CF229A0010C126 /* HistoryView.swift */,
 				C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */,
 				5886863425D17F6B00C15A0D /* ViewCourierProfile.swift */,
@@ -304,7 +301,6 @@
 				5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */,
 				5886863125D17C6D00C15A0D /* ViewMemberProfile.swift in Sources */,
 				5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */,
-				1509CD2425E7BC490093093F /* CurrentOrderViewDetailsCourier.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				778D349325E7D9A3002B902D /* TextView.swift in Sources */,
