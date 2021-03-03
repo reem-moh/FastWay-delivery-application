@@ -77,7 +77,7 @@ struct CurrentOrderView: View {
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
             if model.showOffers {
-                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status).environmentObject(OfferModel)
+                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status, Offers: model.order.offers).environmentObject(OfferModel)
             }
             //notification
             VStack{
@@ -355,12 +355,14 @@ struct CurrentCardMDetailes: View {
                         .padding(20)
                         .onTapGesture {
                            withAnimation(.spring()){
+                            model.order.getOffers(OrderId: model.selectedCard.orderD.id)
                              //model.showContent.toggle() //change the value of showCard to true
                              DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                 withAnimation(.easeIn){
                                  //viewRouter.orderId = model.selectedCard.orderD.id
                                  //viewRouter.status = model.selectedCard.orderD.status
                                  //viewRouter.currentPage = .offers
+                                 
                                  model.showOffers = true
                                 }//end with animation
                                }//end dispatch
@@ -489,6 +491,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     //Add obs obje from type member?
     @ObservedObject var order = Order()
+    @StateObject var OfferModel = OfferCarousel()
     
     //each order has card
     @Published var cards: [currentCardM] = []

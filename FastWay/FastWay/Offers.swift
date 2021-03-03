@@ -15,6 +15,8 @@ struct Offers: View {
     @Namespace var animation
     @State var orderID : String
     @State var status : String
+    @State var Offers : [Offer] = []
+    
     
     var body: some View {
         ZStack {
@@ -37,13 +39,16 @@ struct Offers: View {
                     print("*************************")
                     print("*******Offers view*********")
                     print("the order id inside offer view\(orderID)")
-                   // model.haveOffers = true
-                    model.order.getOffers(OrderId: orderID)
+                   //model.haveOffers = true
+                    model.OrderId = self.orderID
+                    model.status = self.status
+                    model.Offers = self.Offers
+                    //model.order.getOffers(OrderId: orderID)
                     model.getCards()
                 }
                 
             }
-            if status == "have an offer" {
+            if model.haveOffers {
                 // Carousel....
                 VStack{
                     Spacer()
@@ -284,17 +289,12 @@ class OfferCarousel: ObservableObject {
     // Detail Content....
     @Published var selectedCard = OfferCardInfo(cardColor: .clear)
     
-    @Published var haveOffers = false
+    @Published var haveOffers = true
     @Published var showContent = false
-    
-    init(){
-   
-        //order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
-        print("number of offers inside init: \(order.offers.count)")
-        getCards()
+    @Published var OrderId: String = ""
+    @Published var status: String = ""
+    @Published var Offers : [Offer] = []
         
-    }
-    
     //return order details
     func orderPreview(c: OfferCardInfo) -> Offer {
         return c.OfferInfo
@@ -303,13 +303,19 @@ class OfferCarousel: ObservableObject {
     func getCards(){
         //if there are offers change haveOffers=true
         ///Change all this info memberOrder
-        print("number of cards inside getCards: \(order.offers.count)")
-        if order.offers.isEmpty{
+        //order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
+        //print("number of cards inside OfferCarousel getCards: \(order.offers.count)")Offers
+        print("number of cards inside OfferCarousel getCards: \(Offers.count)")
+        if Offers.isEmpty{
             print("there is no offer")
+            //haveOffers = false
+            return
+        }else{
+            //haveOffers = true
         }
         
         cards.removeAll()
-        for index in order.offers {
+        for index in Offers {
             //Check the state of the order
             cards.append(contentsOf: [ OfferCardInfo( cardColor: Color(.white), OfferInfo : index )])
         }
@@ -325,9 +331,9 @@ struct OfferCardInfo: Identifiable {
     var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))// change to get offer info
 }
 
-struct Offers_Previews: PreviewProvider {
+/*struct Offers_Previews: PreviewProvider {
     static var previews: some View {
         //Offers(viewRouter: ViewRouter())
-        Offers(viewRouter: ViewRouter(), orderID: "", status: "")
+        Offers(viewRouter: ViewRouter(), orderID: "", status: "", Offers: [Offer])
     }
-}
+}*/
