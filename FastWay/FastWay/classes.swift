@@ -472,7 +472,7 @@ class Order: ObservableObject{
         }//get Orders
     }
 
-   /* func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
+    func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         let id = UserDefaults.standard.getUderId()
       //  let courier = Courier()
       //  courier.getCourier(id: id)
@@ -491,7 +491,7 @@ class Order: ObservableObject{
         }*/
 
         return flag
-    }*/
+    }
     
   /*  func setCourier(courier: Courier, OrderID: String ) -> Bool {
         let doc = db.collection("Courier").document(courier.id)

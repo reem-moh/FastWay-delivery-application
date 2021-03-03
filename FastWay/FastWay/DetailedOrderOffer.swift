@@ -185,7 +185,7 @@ struct DetailedOrderOffer: View {
                                 viewRouter.notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
-                            let isOfferAddrd = offerorder.addOffer(OrderID: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, Price: offer , CourierLocation: map.userLocation.coordinate )
+                            let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )
                                 
                                }) {
                             Text("Make an Offer")
