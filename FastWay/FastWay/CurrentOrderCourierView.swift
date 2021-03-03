@@ -36,7 +36,7 @@ struct CurrentOrderCourierView: View {
                 
             }.onAppear(){
                 //calling Methods
-                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+                model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
                 model.getCards()
                 model.showCard = false
                 model.showContent = false
@@ -241,7 +241,28 @@ struct CurrentCardCView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 Spacer(minLength: 0)
+                Spacer(minLength: 0)
+                Spacer(minLength: 0)
+
+            
+            //Time
+          
+                Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .padding(.leading)
+            //    Text("\(model.orderPreview(c: card).createdAt.calenderTimeSinceNow()) SR")
+                    
+                Text("5 SR")
+                    .font(.body)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .animation(.easeIn)
+                
+            
+                
+                Spacer(minLength: 0)
             }.padding(.top,15)
+            
             //orderDetailes
             HStack {
                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
@@ -282,6 +303,10 @@ struct CurrentCardCView: View {
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
+            
+            
+            
+            
             
         }//end vStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -529,8 +554,8 @@ class CurrentCarouselCViewModel: ObservableObject {
     
     init(){/////////update
         //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
-        order.getMemberOrder(Id: "A24J5LZ6nuaLm3npHILu8oyLp042")
-        print("number of oreders inside init: \(order.memberOrder.count)")
+        order.getCourierOrderOffred(Id: "A24J5LZ6nuaLm3npHILu8oyLp042")
+        print("number of oreders inside init: \(order.CourierOrderOffered.count)")
         getCards()
         
     }
@@ -541,13 +566,13 @@ class CurrentCarouselCViewModel: ObservableObject {
     }
     
     func getCards(){//update CourierOrderOffered
-        print("number of cards inside getCards: \(order.memberOrder.count)")
-        if order.memberOrder.isEmpty{
+        print("number of cards inside getCards: \(order.CourierOrderOffered.count)")
+        if order.CourierOrderOffered.isEmpty{
             print("there is no order")
         }
         
         cards.removeAll() //update CourierOrderOffered
-        for index in order.memberOrder {
+        for index in order.CourierOrderOffered {
             //Check the state of the order
             cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }
