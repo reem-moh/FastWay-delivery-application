@@ -34,7 +34,7 @@ struct Offers: View {
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                //model.haveOffers = false
+                model.haveOffers = false
                 //calling Methods
                 if(status == "have an offer"){
                     print("*************************")
@@ -44,10 +44,10 @@ struct Offers: View {
                     model.OrderId = self.orderID
                     model.status = self.status
                     model.Offers = self.Offers
-                    if(self.Offers.isEmpty){
+                    /*if(self.Offers.isEmpty){
                         model.order.getOffers(OrderId: orderID)
                         model.Offers = model.order.offers
-                    }
+                    }*/
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn){
