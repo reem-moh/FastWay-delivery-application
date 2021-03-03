@@ -18,6 +18,8 @@ struct CurrentOrderCourierView: View {
     //for notification
     @State var show = false
     
+
+    
     var body: some View {
         
         ZStack {
@@ -213,7 +215,8 @@ struct CurrentCardCView: View {
     @EnvironmentObject var model : CurrentCarouselCViewModel
     var card: currentCardC
     var animation: Namespace.ID
-    
+    //@State var StateACCEPT = false
+    @State var StateWaiting = true
     var body: some View {
         
         //Card
@@ -295,10 +298,23 @@ struct CurrentCardCView: View {
                 Spacer(minLength: 0)
                 
                 if !model.showContent{
+                    //have an offer
                     
-                    Text("Detailes")
+                    if(model.orderPreview(c: card).status=="have an offer"){
+                    Text("Detailes").offset(x: 130, y: -10)
                     
-                    Image(systemName: "arrow.right")
+                   
+                    }
+                    
+                    
+                  //  else{
+                        Text("Waiting for Accept").offset(x: -130, y: -10)
+                    
+                    //  }
+                        Image(systemName: "arrow.right").offset(x: 0, y: -10)
+
+                    
+                    
                 }
             }
             .foregroundColor(Color.gray.opacity(0.9))
@@ -409,7 +425,23 @@ struct CurrentCardCDetailes: View {
                                 .animation(.easeIn)
                                 .offset(x: 10, y: 10)
                             Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: 10, y: 10)
+                                .padding(.leading)
+                            Text("5 SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: 10, y: 10)
+                            Spacer(minLength: 0)
                         }
+                       
+                        
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
