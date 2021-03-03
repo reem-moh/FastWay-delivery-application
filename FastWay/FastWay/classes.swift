@@ -423,59 +423,49 @@ class Order: ObservableObject{
     }
     
     func getCourierOrderOffred(Id: String){
-       // db.collection("Offers").get
-        
-        db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-            if let err = error {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-                    let uid = document.documentID
-                    print("\(document.documentID) => \(data)")
-                    db.collection("Order").document(uid).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, err) in
-                        guard let documents = querySnapshot?.documents else {
-                            print("No order offers courier documents")
-                            return
-                        }
-                        self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                            //let Offerdata = queryDocumentSnapshot.data()
-                           // let OfferId = queryDocumentSnapshot.documentID
-                            //pickUp location
-                            let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
-                            let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
-                            let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                            let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
-                            let pickupFloor = data["pickUpFloor"] as? Int ?? 0
-                            let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                            //DropOff Location
-                            let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
-                            let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
-                            let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                            let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
-                            let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                            let dropoffRoom = data["dropOffRoom"] as? String ?? ""
-                            let orderDetails = data["orderDetails"] as? String ?? ""
-                            let assigned = data["Assigned"] as? Bool ?? false
-                            let MemberID = data["MemberID"] as? String ?? ""
-                            let state = data["Status"] as? String ?? ""
-                            let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
-                            print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order courier offer and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                            print(self.CourierOrderOffered.count)
-                            return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                        })
-                    }//end DB for offer
+        self.getOffersC(Id: Id)
+        db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No order documents")
+                return
+            }
+            self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                print(queryDocumentSnapshot.data())
+                let data = queryDocumentSnapshot.data()
+                let orderId = queryDocumentSnapshot.documentID
+                if self.checkOffer(id: orderId){
+                    //pickUp location
+                    let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
+                    let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
+                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
+                    let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                    let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                    let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                    //DropOff Location
+                    let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
+                    let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
+                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
+                    let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                    let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                    let dropoffRoom = data["dropOffRoom"] as? String ?? ""
+                    let orderDetails = data["orderDetails"] as? String ?? ""
+                    let assigned = data["Assigned"] as? Bool ?? false
+                    let MemberID = data["MemberID"] as? String ?? ""
+                    let state = data["Status"] as? String ?? ""
+                    let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                    print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nin get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                     
-                }//for loop
-            }//else
+                    return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                }
+                return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, createdAt: Date(), status: "")
+            })
+        }
+        
         }//get Orders
-    }
 
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         let id = UserDefaults.standard.getUderId()
-      //  let courier = Courier()
-      //  courier.getCourier(id: id)
         var flag = true
          db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
          let doc = db.collection("Order").document(OrderId).collection("Offers").document(id)
@@ -485,27 +475,39 @@ class Order: ObservableObject{
                     flag = false
                 }
             }
-        
-      /*  if !setCourier(courier: courier, OrderID: OrderId){
-            flag = false
-        }*/
 
         return flag
     }
     
-  /*  func setCourier(courier: Courier, OrderID: String ) -> Bool {
-        let doc = db.collection("Courier").document(courier.id)
-        var flag = true
-        doc.setData(["ID":courier.id, "Name":courier.name, "PhoneNo": courier.phoneNo, "Email": courier.email, "OrderID": OrderID]) { (error) in
-            
-            if error != nil {
-                flag = false
+
+    
+    //get offers from DB for courier
+    func getOffersC(Id: String){
+            db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("No offer documents")
+                    
+                    return
+                }
+                if(documents.isEmpty){
+                    print("no offer documents")
+                }
+                self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
+                    print(queryDocumentSnapshot.data())
+                    let data = queryDocumentSnapshot.data()
+                    let offerId = queryDocumentSnapshot.documentID
+                    let orderId = data["OrderID"] as? String ?? ""
+                    let memberID = data["MemberID"] as? String ?? ""
+                    let courierID = data["CourierID"] as? String ?? ""
+                    let courierLatitude = data["CourierLatitude"] as? Double ?? 0.0
+                    let courierLongitude = data["CourierLongitude"] as? Double ?? 0.0
+                    let Price = data["Price"] as? Int ?? 0
+                    let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
+                    print("order :\(offerId) + \(memberID) ")
+                    return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: Price, courierLocation: courierLocation)
+                })
             }
         }
-        
-        return flag
-    }*/
-
     
     //get offers from DB
     func getOffers(OrderId: String){
@@ -539,7 +541,19 @@ class Order: ObservableObject{
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
     }
     
+    func checkOffer(id : String) -> Bool {
+        var flag = true
+        for offer in  offers{
+            if offer.OrderId == id {
+                flag = true
+            }
+        }
+        return flag
+    }
+    
 }
+
+
 
 //Date extension to calculate time intervals
 extension Date {
