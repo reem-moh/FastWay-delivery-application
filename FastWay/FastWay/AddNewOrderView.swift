@@ -76,7 +76,7 @@ struct AddNewOrderView: View {
                 VStack{
                     //arrow_back image
                     Button(action: {
-                        viewRouter.notificationT = .None
+                        notificationT = .None
                         viewRouter.currentPage = .HomePageM
                         
                         pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -372,7 +372,7 @@ struct AddNewOrderView: View {
                                 print("pick up saved")
                                 
                                 pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .DROPOFFlocation
                             }
                             

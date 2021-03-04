@@ -29,7 +29,7 @@ struct TabBarMenuM: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                         }.padding(.horizontal, 14).onTapGesture {
-                            viewRouter.notificationT = .None
+                            notificationT = .None
                             viewRouter.currentPage = abuotPage
                         }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
                     }.offset(y: -geometry.size.height/8/2)
@@ -66,7 +66,7 @@ struct TabBarMenuC {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                         }.padding(.horizontal, 14).onTapGesture {
-                            viewRouter.notificationT = .None
+                            notificationT = .None
                             viewRouter.currentPage = abuotPage
                         }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
                     }.offset(y: -geometry.size.height/8/2)
@@ -101,7 +101,7 @@ struct TabBarIcon: View {
                 .font(.footnote)
             Spacer()
         }.padding(.horizontal, 14).onTapGesture {
-            viewRouter.notificationT = .None
+            notificationT = .None
             viewRouter.currentPage = assignedPage 
         }.foregroundColor(viewRouter.currentPage == assignedPage ? Color("TabBarHighlight") : .gray)
     }

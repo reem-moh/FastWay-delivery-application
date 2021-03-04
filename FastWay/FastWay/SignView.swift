@@ -82,7 +82,7 @@ struct SignUPView: View {
                 //go back button
                 //arrow_back image
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .LogIn
                     
                 }) {
@@ -283,7 +283,7 @@ struct SignUPView: View {
                                 UserDefaults.standard.setIsLoggedIn(value: true)
                                 UserDefaults.standard.setUserId(Id: id)
                                 UserDefaults.standard.setUserType(Type: "C")
-                                viewRouter.notificationT = .SignUp
+                                notificationT = .SignUp
                                 viewRouter.currentPage = .HomePageC
                             }else{
                                 nErr = "An error occurred please try again"
@@ -296,7 +296,7 @@ struct SignUPView: View {
                                     UserDefaults.standard.setIsLoggedIn(value: true)
                                     UserDefaults.standard.setUserId(Id: id)
                                     UserDefaults.standard.setUserType(Type: "M")
-                                    viewRouter.notificationT = .SignUp
+                                    notificationT = .SignUp
                                     viewRouter.currentPage = .HomePageM
                                 }else{
                                     nErr = "An error occurred please try again"

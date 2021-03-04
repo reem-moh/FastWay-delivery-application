@@ -64,7 +64,7 @@ struct AboutUs: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width:width(num: geometry.size.width/7-6 ), height:width(num: geometry.size.width/7-6))
                                 }.padding(.horizontal, width(num:  14)).onTapGesture {
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: hieght(num: -geometry.size.height/8/2))

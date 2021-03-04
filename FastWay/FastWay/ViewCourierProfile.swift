@@ -184,7 +184,7 @@ struct ViewCourierProfile: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
@@ -209,7 +209,7 @@ struct ViewCourierProfile: View {
             UserDefaults.standard.setIsLoggedIn(value: false)
             UserDefaults.standard.setUserId(Id: "")
             UserDefaults.standard.setUserType(Type: "")
-            viewRouter.notificationT = .None //chang to logout
+            notificationT = .None //chang to logout
             viewRouter.currentPage = .LogIn
         } catch let signOutError {
             print ("Error signing out: %@", signOutError)
@@ -221,7 +221,7 @@ struct ViewCourierProfile: View {
     func returnHomePage(){
         //check if user loggedin
         if UserDefaults.standard.isLoggedIn(){
-            viewRouter.notificationT = .None
+            notificationT = .None
             viewRouter.currentPage = .HomePageC
         }//end if logged in
     }

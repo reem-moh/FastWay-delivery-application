@@ -81,12 +81,12 @@ struct CurrentOrderCourierView: View {
             //notification
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "shoppingCart")
+                    Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if viewRouter.notificationT == .SendOffer || viewRouter.notificationT == .CancelOffer {
+                if notificationT == .SendOffer || notificationT == .CancelOffer {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -121,7 +121,7 @@ struct CurrentOrderCourierView: View {
                                     }
                                     
                                 }
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .HomePageC
                             }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
                             //about us icon
@@ -146,7 +146,7 @@ struct CurrentOrderCourierView: View {
                                         }
                                         
                                     }
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
@@ -172,7 +172,7 @@ struct CurrentOrderCourierView: View {
                                     }
                                     
                                 }
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .ViewProfileC
                             }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
                             
@@ -186,7 +186,7 @@ struct CurrentOrderCourierView: View {
             //notification here
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: "tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
@@ -195,11 +195,11 @@ struct CurrentOrderCourierView: View {
                 
                 
             }.onAppear(){
-                if viewRouter.notificationT == .SendOffer  {
+                if notificationT == .SendOffer  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
-                if viewRouter.notificationT == .CancelOffer  {
+                if notificationT == .CancelOffer  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -534,12 +534,11 @@ struct CurrentCardCDetailes: View {
                    }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
                     
                     
-                    viewRouter.notificationT =  .CancelOffer
+                    notificationT =  .CancelOffer
                     
                     canelOffer()
-           
-                                                                                                                                                                                                                                                                model.showCard = false
-                                                                                                                                                                                                                                                                model.showContent = false
+                    model.showCard = false
+                    model.showContent = false
                     
                     
                    }) , secondaryButton: .cancel((Text("NO"))))

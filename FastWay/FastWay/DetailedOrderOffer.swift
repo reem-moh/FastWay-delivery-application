@@ -182,7 +182,7 @@ struct DetailedOrderOffer: View {
  
 
                             if(makeAnOffer()){
-                                viewRouter.notificationT = .SendOffer
+                                notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                             }
                             let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )

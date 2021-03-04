@@ -134,7 +134,7 @@ struct LoginView: View {
                             
                             //Sign up Button
                             Button(action: {
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .SignUp
                             }) {
                                 Text("Sign up").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1))).fontWeight(.bold).padding(.vertical).frame(width: UIScreen.main.bounds.width - 50).padding(.top,hieght(num: -30)).textCase(.none)
@@ -204,12 +204,12 @@ struct LoginView: View {
                         if let document = document, document.exists {
                             print("Member")
                             UserDefaults.standard.setUserType(Type: "M")
-                            viewRouter.notificationT = .LogIn
+                            notificationT = .LogIn
                             viewRouter.currentPage = .HomePageM
                         } else {
                             print("Courier")
                             UserDefaults.standard.setUserType(Type: "C")
-                            viewRouter.notificationT = .LogIn
+                            notificationT = .LogIn
                             viewRouter.currentPage = .HomePageC
                         }
                     }

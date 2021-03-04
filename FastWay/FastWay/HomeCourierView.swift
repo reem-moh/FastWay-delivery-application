@@ -32,7 +32,7 @@ struct HomeCourierView: View {
                 
                 //add new Order
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .DeliverOrder
                 }) {
                     //logo, text feilds and buttons
@@ -46,7 +46,7 @@ struct HomeCourierView: View {
                 
                 //current
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .CurrentOrderCourier
                     
                 }) {
@@ -61,7 +61,7 @@ struct HomeCourierView: View {
                 
                 //History
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .HistoryCourierView
                     
                 }) {
@@ -82,7 +82,7 @@ struct HomeCourierView: View {
             //notification here
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: "tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
@@ -91,7 +91,7 @@ struct HomeCourierView: View {
                 
                 
             }.onAppear(){
-                if viewRouter.notificationT == .LogIn || viewRouter.notificationT == .SignUp {
+                if notificationT == .LogIn || notificationT == .SignUp {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -119,7 +119,7 @@ struct HomeCourierView: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)

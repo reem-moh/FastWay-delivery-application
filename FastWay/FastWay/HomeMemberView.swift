@@ -42,7 +42,7 @@ struct HomeMemberView: View {
             VStack{
                 //AddNewOrder Button
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .AddNewOrder
                 }) {
                     //logo, text feilds and buttons
@@ -55,7 +55,7 @@ struct HomeMemberView: View {
                 }
                 //CurrentOrder Button
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .CurrentOrder
                     
                 }) {
@@ -69,7 +69,7 @@ struct HomeMemberView: View {
                 }
                 //HistoryView Button
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .HistoryView
                     
                 }) {
@@ -86,12 +86,12 @@ struct HomeMemberView: View {
             //notification
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: "tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }   
             }.onAppear(){
-                if viewRouter.notificationT == .LogIn || viewRouter.notificationT == .SignUp {
+                if notificationT == .LogIn || notificationT == .SignUp {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -118,7 +118,7 @@ struct HomeMemberView: View {
                                         .frame(width: width(num:geometry.size.width/7-6 ), height: width(num:geometry.size.width/7-6))
                                 }.padding(.horizontal, width(num:14))
                                 .onTapGesture {
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = abuotPage
                                 }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
                             }.offset(y:hieght(num: -geometry.size.height/8/2))

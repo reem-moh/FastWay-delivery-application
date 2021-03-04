@@ -75,7 +75,7 @@ struct DROPOFFlocationView: View {
                 VStack{
                     //arrow_back image
                     Button(action: {
-                        viewRouter.notificationT = .None
+                        notificationT = .None
                         viewRouter.currentPage = .AddNewOrder
                         
                         pickAndDrop = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -373,7 +373,7 @@ struct DROPOFFlocationView: View {
                             
                             if (order.setDropOffAndDropOffDetails(dropOff: location, dropOffBulding: bulding, dropOffFloor: floorNum, dropOffRoom: room.text)){
                                 print("drop up saved")
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .SendOrder
                             }
                             

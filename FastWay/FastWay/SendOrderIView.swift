@@ -46,7 +46,7 @@ struct SendOrderIView: View {
                 //arrow_back image
                 
                 Button(action: {
-                    viewRouter.notificationT = .None
+                    notificationT = .None
                     viewRouter.currentPage = .DROPOFFlocation
                     
                 }) {
@@ -139,7 +139,7 @@ struct SendOrderIView: View {
                             if (order.setOrderDetails(orderDetails:txt)){
                                 print("order details saved")
                             }
-                            viewRouter.notificationT = .SendOrder
+                            notificationT = .SendOrder
                             viewRouter.currentPage = .CurrentOrder
                             
                         }

@@ -26,16 +26,5 @@ enum Page{
     case DetailedOrderOffer
     //case offers
 }
-// to identify each notificatio or confirmation message when transitioning from one
-// view to the other
-enum NotificationType {
-    case None
-    case LogIn
-    case SignUp
-    case SendOrder
-    case SendOffer
-    case CancelOrder
-    case CancelOffer
-}
 
 

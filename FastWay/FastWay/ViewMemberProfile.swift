@@ -186,7 +186,7 @@ struct ViewMemberProfile: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
                                 }.padding(.horizontal, 14).onTapGesture {
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
                             }.offset(y: -geometry.size.height/8/2)
@@ -212,7 +212,7 @@ struct ViewMemberProfile: View {
             UserDefaults.standard.setUserId(Id: "")
             UserDefaults.standard.setUserType(Type: "")
             print("LoggedOut")
-            viewRouter.notificationT = .None
+            notificationT = .None
             viewRouter.currentPage = .LogIn
         } catch let signOutError {
             print ("Error signing out: %@", signOutError)
@@ -224,7 +224,7 @@ struct ViewMemberProfile: View {
     func returnHomePage(){
         //check if user loggedin
         if UserDefaults.standard.isLoggedIn(){
-            viewRouter.notificationT = .None
+            notificationT = .None
             viewRouter.currentPage = .HomePageM
         }//end if logged in
     }

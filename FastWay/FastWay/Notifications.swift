@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+var notificationT : NotificationType = .None
 extension AnyTransition {
     static var fadeAndSlide: AnyTransition {
         AnyTransition.opacity.combined(with: .move(edge: .top))
@@ -66,4 +68,18 @@ func animateAndDelayWithSeconds(_ seconds: TimeInterval, action: @escaping () ->
             action()
         }
     }
+}
+
+
+
+// to identify each notificatio or confirmation message when transitioning from one
+// view to the other
+enum NotificationType {
+    case None
+    case LogIn
+    case SignUp
+    case SendOrder
+    case SendOffer
+    case CancelOrder
+    case CancelOffer
 }

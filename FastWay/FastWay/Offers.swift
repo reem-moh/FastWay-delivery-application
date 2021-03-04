@@ -91,16 +91,16 @@ struct Offers: View {
                     Spacer()
                 }.padding(.bottom,80)
             }
-            else {
+           /* else {
                 Text("waiting for offers")
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
-            }
+            }*/
             
             //BarMenue
-            ZStack{
+           /* ZStack{
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
@@ -188,7 +188,7 @@ struct Offers: View {
                         
                     }
                 }
-            }.edgesIgnoringSafeArea(.all)//zstack
+            }.edgesIgnoringSafeArea(.all)//zstack*/
             
         }//end ZStack
     }

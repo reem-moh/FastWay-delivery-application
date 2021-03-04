@@ -39,7 +39,7 @@ struct CurrentOrderView: View {
                 //calling Methods
                 model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.easeIn){
+                    withAnimation(.none){
                         model.getCards()
                     }//end with animation
                 }
@@ -87,24 +87,24 @@ struct CurrentOrderView: View {
             //notification
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "shoppingCart")
+                    Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if viewRouter.notificationT == .SendOrder  {
+                if notificationT == .SendOrder  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
             VStack{
                 if show{
-                    Notifications(type: viewRouter.notificationT, imageName: "shoppingCart")
+                    Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if  viewRouter.notificationT == .CancelOrder {
+                if  notificationT == .CancelOrder {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -139,7 +139,7 @@ struct CurrentOrderView: View {
                                     }
                                     
                                 }
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .HomePageM
                             }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
                             //about us icon
@@ -164,7 +164,7 @@ struct CurrentOrderView: View {
                                         }
                                         
                                     }
-                                    viewRouter.notificationT = .None
+                                    notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
@@ -190,7 +190,7 @@ struct CurrentOrderView: View {
                                     }
                                     
                                 }
-                                viewRouter.notificationT = .None
+                                notificationT = .None
                                 viewRouter.currentPage = .ViewProfileM
                             }.foregroundColor(viewRouter.currentPage == .ViewProfileM ? Color("TabBarHighlight") : .gray)
                             
@@ -267,6 +267,17 @@ struct CurrentCardMView: View {
                             DotView(frame: 10)
                             DotView(delay: 0.2, frame: 10)
                             DotView(delay: 0.4, frame: 10)
+                        }
+                    }else{
+                        //model.order.offers "\(model.order.offers.count) offers"
+                        if model.orderPreview(c: card).status == "have an offer"{
+                            Text("New offers")
+                                .bold()
+                                .foregroundColor(.white)
+                                .frame(width: 100,height: 25)
+                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                            //.background(Color.purple)
+                            Spacer(minLength: 0)
                         }
                     }
                     
@@ -370,31 +381,54 @@ struct CurrentCardMDetailes: View {
                                 .offset(x: 10, y: 10)
                             Spacer(minLength: 0)
                         }
+                        
+                        
+                 
                         //Offers page
-                        HStack{
-                            
-                            Text("Delivery offers")
-                            Spacer(minLength: 0)
-                            Image(systemName: "arrow.right")
-                            Spacer(minLength: 0)
+                        if model.selectedCard.orderD.status == "have an offer"{
+                            HStack{
+                                
+                                    Text("Delivery offers")
+                                        .foregroundColor(.purple)
+                                        .bold()
+                                
+                                
+                                Spacer(minLength: 0)
+                                Image(systemName: "arrow.right")
+                            }
+                            .foregroundColor(Color.gray.opacity(0.9))
+                            .padding(20)
+                            .onTapGesture {
+                               withAnimation(.spring()){
+                                model.order.getOffers(OrderId: model.selectedCard.orderD.id)
+                                
+                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    withAnimation(.easeIn){
+                                     //viewRouter.orderId = model.selectedCard.orderD.id
+                                     //viewRouter.status = model.selectedCard.orderD.status
+                                     //viewRouter.currentPage = .offers
+                                     
+                                     model.showOffers = true
+                                    }//end with animation
+                                   }//end dispatch
+                                 }
+                            }
+                        }else{
+                            if model.selectedCard.orderD.status == "waiting for offer"{
+                                HStack{
+                                    Text("Waiting for offers")
+                                        .foregroundColor(.purple)
+                                        .bold()
+                                        .padding(.leading, 20)
+                                    DotView(frame: 15)
+                                    DotView(delay: 0.2, frame: 15)
+                                    DotView(delay: 0.4, frame: 15)
+            
+                                Spacer(minLength: 0)
+                                }
+                            }
                         }
-                        .foregroundColor(Color.gray.opacity(0.9))
-                        .padding(20)
-                        .onTapGesture {
-                           withAnimation(.spring()){
-                            model.order.getOffers(OrderId: model.selectedCard.orderD.id)
-                             //model.showContent.toggle() //change the value of showCard to true
-                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                withAnimation(.easeIn){
-                                 //viewRouter.orderId = model.selectedCard.orderD.id
-                                 //viewRouter.status = model.selectedCard.orderD.status
-                                 //viewRouter.currentPage = .offers
-                                 
-                                 model.showOffers = true
-                                }//end with animation
-                               }//end dispatch
-                             }
-                        }
+                        
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
@@ -425,10 +459,6 @@ struct CurrentCardMDetailes: View {
                                     .padding(.vertical, 4)
                             }
                             
-                           /* HStack() {
-                                
-                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
-                            }*/
                         }.contentShape(RoundedRectangle(cornerRadius: 15))
                         .frame(width: 325)
                         .background(Color.white)
@@ -470,14 +500,14 @@ struct CurrentCardMDetailes: View {
             Alert(
                 title: Text("Order confirmed"),
                 message: Text("Are you sure you want cancel this offer"),
-                primaryButton: .default((Text("YES")), action: {
+                primaryButton: .default((Text("Yes")), action: {
                     canelOrder()
-                    viewRouter.notificationT = .CancelOrder
-                    viewRouter.currentPage = .CurrentOrder
+                    notificationT = .CancelOrder
+                    //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
                     model.showContent = false
                 }) ,
-                secondaryButton: .cancel((Text("NO")))
+                secondaryButton: .cancel((Text("No")))
             )}//end alert
         
     }// end body
