@@ -176,7 +176,7 @@ struct OrderDetails: Identifiable {
     var orderDetails: String
     var memberId : String
     var courierId : String = ""
-    var deliveryPrice = 0.0
+    var deliveryPrice = 0
     var totalPrice = 0.0
     //to identify whether it is added to cart...
     var isAdded: Bool
@@ -436,7 +436,8 @@ class Order: ObservableObject{
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
-                if self.checkOffer(id: orderId){
+                let i = self.checkOffer(id: orderId)
+                if i != -1 {
                     //pickUp location
                     let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                     let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -459,9 +460,10 @@ class Order: ObservableObject{
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                     
-                    return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                    return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:self.offers[i].courierId,deliveryPrice:self.offers[i].price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                 }
-                return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, createdAt: Date(), status: "")
+       
+                return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, createdAt: Date(), status: "")
             })
         }
         
@@ -565,14 +567,74 @@ class Order: ObservableObject{
      
     }
     
-    func checkOffer(id : String) -> Bool {
-        var flag = true
+    func cancelOffer(CourierID: String, OrderId: String, MemberID: String, Price: Int) {
+        
+        getOffers(OrderId: OrderId)
+        
+        if self.offers.count == 1{
+            print("change the state of order to waiting for offer")
+            
+        print("\n*******cancelOffer*********")
+        
+        db.collection("Order").document(OrderId).setData([ "Status": status[0] ], merge: true)
+            
+            let indexOffer = self.checkOfferForCancle(CourierID: CourierID, OrderId: OrderId, MemberID: MemberID, Price: Price)
+                
+                if indexOffer != -1{
+                
+                db.collection("Order").document(OrderId).collection("Offers").document(offers[5].id).delete(){ err in
+                    if let err = err {
+                        print("Error removing offer inside cancelOffer: \(err)")
+                    } else {
+                        print("offer successfully delete inside cancelOffer!")
+                    }
+                }
+                
+                
+               /* { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents inside cancle offer: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("inside cancelOffer: offerId:\(document.documentID) =>Data \(document.data())")
+                    db.collection("Order").document(OrderId).collection("Offers").document(document.documentID).delete() { err in
+                        if let err = err {
+                            print("Error removing offer inside cancelOffer: \(err)")
+                        } else {
+                            print("offer successfully delete inside cancelOffer!")
+                        }
+                    }//delete offer
+                }//loop
+            }
+        }//get documents*/
+                
+        }
+    }
+     
+    }
+    
+    func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
+       // var flag = true
+        var i = -1
+        
         for offer in  offers{
-            if offer.OrderId == id {
-                flag = true
+            if (offer.courierId == CourierID && offer.OrderId == OrderId && offer.memberId == MemberID && offer.price == Price) {
+               // flag = true
+                i = i+1
             }
         }
-        return flag
+        return i
+    }
+    
+    func checkOffer(id : String) -> Int {
+        var i = -1
+      //  var flag = true
+        for offer in  offers{
+            if offer.OrderId == id {
+                i = i+1
+            }
+        }
+        return i
     }
     
 }

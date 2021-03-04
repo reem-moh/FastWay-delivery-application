@@ -448,7 +448,8 @@ struct CurrentCardCDetailes: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .offset(x: 10, y: 10)
                                 .padding(.leading)
-                            Text("5 SR")
+                            
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
                                 .font(.body)
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black.opacity(0.5))
@@ -537,6 +538,7 @@ struct CurrentCardCDetailes: View {
                     notificationT =  .CancelOffer
                     
                     canelOffer()
+                    
                     model.showCard = false
                     model.showContent = false
                     
@@ -547,8 +549,16 @@ struct CurrentCardCDetailes: View {
         
     }// end body
     func canelOffer(){
-       ///code for cancel
-    }
+        
+        model.cancelCardOrderId = model.selectedCard.orderD.id
+        model.order.cancelOffer(CourierID: model.selectedCard.orderD.courierId, OrderId: model.selectedCard.orderD.id, MemberID: model.selectedCard.orderD.memberId, Price: model.selectedCard.orderD.deliveryPrice)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.easeIn){
+                model.getCards()
+            }//end with animation
+        }
+}
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
@@ -599,6 +609,8 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     
+    @Published var cancelCardOrderId : String = ""
+    
     init(){/////////update
         //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
         order.getCourierOrderOffred(Id: "A24J5LZ6nuaLm3npHILu8oyLp042")
@@ -618,10 +630,17 @@ class CurrentCarouselCViewModel: ObservableObject {
             print("there is no order")
         }
         
-        cards.removeAll() //update CourierOrderOffered
+        cards.removeAll()
+        //update CourierOrderOffered
+        
         for index in order.CourierOrderOffered {
-            //Check the state of the order
-            cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            
+            if( index.isAdded != true && index.status != "completed" && index.courierId != cancelCardOrderId)
+            {
+                
+                    cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            }
+            
         }
     }
     
@@ -636,7 +655,7 @@ struct currentCardC: Identifiable {
     //check if not assign then check this varable
     //States [NoOffer=0, Offers=-1, Assigned = 1]
     var state : Int = 0
-    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, status: "")
+    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, status: "")
 }
 
 
