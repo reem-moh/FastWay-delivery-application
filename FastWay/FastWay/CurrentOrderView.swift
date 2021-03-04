@@ -39,7 +39,7 @@ struct CurrentOrderView: View {
                 //calling Methods
                 model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.none){
+                    withAnimation(.easeIn){
                         model.getCards()
                     }//end with animation
                 }
@@ -106,7 +106,10 @@ struct CurrentOrderView: View {
             }.onAppear(){
                 if  notificationT == .CancelOrder {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             
@@ -264,6 +267,7 @@ struct CurrentCardMView: View {
                         Text("Waiting for offers")
                         Spacer(minLength: 0)
                         HStack{
+                            
                             DotView(frame: 10)
                             DotView(delay: 0.2, frame: 10)
                             DotView(delay: 0.4, frame: 10)
@@ -481,13 +485,13 @@ struct CurrentCardMDetailes: View {
                         .padding(.top,25)
                         .offset(x: 0)
                         .padding(.bottom,450)
-                        .onTapGesture {
+                        /*.onTapGesture {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 withAnimation(.easeIn){
                                     
                                 }//end with animation
                             }
-                        }
+                        }*/
                         
                         
                     }
