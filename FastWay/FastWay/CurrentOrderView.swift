@@ -39,9 +39,9 @@ struct CurrentOrderView: View {
                 //calling Methods
                 model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.easeIn){
+                    //withAnimation(.easeIn){
                         model.getCards()
-                    }//end with animation
+                    //}//end with animation
                 }
                 model.showCard = false
                 model.showContent = false
@@ -520,9 +520,9 @@ struct CurrentCardMDetailes: View {
             model.cancelCardOrderId = model.selectedCard.orderD.id
             model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                withAnimation(.easeIn){
+                //withAnimation(.easeIn){
                     model.getCards()
-                }//end with animation
+                //}//end with animation
             }
     }
     //name of building
