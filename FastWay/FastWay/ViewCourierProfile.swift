@@ -41,11 +41,11 @@ struct ViewCourierProfile: View {
                 HStack {
                     Spacer()
                     //Cancel button
-                    Button(action: {
+                    /*Button(action: {
                         returnHomePage()
                     }) {
                         Text("Cancel").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
-                    }
+                    }*/
                     Spacer()
                     Spacer()
                     
@@ -55,11 +55,11 @@ struct ViewCourierProfile: View {
                     Spacer()
                     
                     //save button
-                    Button(action: {
+                    /*Button(action: {
                         //action here
                     }) {
                         Text("Done").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
-                    }
+                    }*/
                     Spacer()
                 }
                 
