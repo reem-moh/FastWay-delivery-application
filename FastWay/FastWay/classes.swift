@@ -343,7 +343,6 @@ class Order: ObservableObject{
         return flag
     }
     
-    //get data from DB
     func getOrder() {
         print("\n*******GetOrder*********")
         // var temp: [OrderDetails] = []
@@ -483,10 +482,7 @@ class Order: ObservableObject{
             }
         return flag
     }
-    
-
-    
-    //get offers from DB for courier
+     
     func getOffersC(Id: String){
         print("\n*******GetOffersCourier*********")
             db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
@@ -515,7 +511,6 @@ class Order: ObservableObject{
             }
         }
     
-    //get offers from DB
     func getOffers(OrderId: String){
         print("\n*******GetOffersMember*********")
         db.collection("Order").document(OrderId).collection("Offers").addSnapshotListener { (querySnapshot, error) in
@@ -543,7 +538,7 @@ class Order: ObservableObject{
             })
         }
     }
-    //change the statuse of the order
+    
     func cancelOrder(OrderId: String){
         print("\n*******CancelOrder*********")
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
@@ -611,6 +606,44 @@ class Order: ObservableObject{
         }
     }
      
+    }
+    
+    func cancelAutomatic(memberId: String){
+        print("\n*******cancelAutomatic*********")
+        db.collection("Order").whereField("MemberID", isEqualTo: memberId).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents inside cancle order: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("inside cancelAutomatic: orderId:\(document.documentID) =>Data \(document.data())")
+                    let data = document.data()
+                    let orderId = document.documentID
+                    let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                    print("createdAt: \(createdAt.dateValue().calenderTimeSinceNow())")
+                    if createdAt.dateValue().calenderTimeSinceNow() == "10 minutes ago" {
+                        self.cancelOrder(OrderId: orderId)
+                    }
+                }//loop
+            }
+        }//get documents
+        
+        /*let docRef = db.collection("Order").document("xxlw6pgVzFlou8CsM3pz")
+
+                docRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        _ = document.data().map(String.init(describing:)) ?? "nil"
+                        let data = document.data()
+                        let orderId = document.documentID
+                        let createdAt = data?["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                        print("createdAt: \(createdAt.dateValue().calenderTimeSinceNow())")
+                        if createdAt.dateValue().calenderTimeSinceNow() == "21 minutes ago" {
+                            self.cancelOrder(OrderId: orderId)
+                        }
+                        //print("Document data: \(dataDescription)")
+                    } else {
+                        print("Document in cancelAutomatic does not exist")
+                    }
+                }*/
     }
     
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {

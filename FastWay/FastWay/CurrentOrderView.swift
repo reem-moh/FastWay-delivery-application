@@ -58,6 +58,7 @@ struct CurrentOrderView: View {
                 model.showCard = false
                 model.showContent = false
                 model.showOffers = false
+                model.order.cancelAutomatic(memberId: UserDefaults.standard.getUderId())
             }
             // Carousel....
             VStack{
