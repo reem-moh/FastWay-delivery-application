@@ -619,10 +619,11 @@ class Order: ObservableObject{
                     let data = document.data()
                     let orderId = document.documentID
                     let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                    let state = data["Status"] as? String ?? ""
                     print("createdAt: \(createdAt.dateValue().calenderTimeSinceNow())")
-                    if createdAt.dateValue().calenderTimeSinceNow() == "10 minutes ago" {
+                    if createdAt.dateValue().calenderTimeSinceNow() == "7 minutes ago"  && state == self.status[0]{
                         self.cancelOrder(OrderId: orderId)
-                    }
+                    }//end if statment
                 }//loop
             }
         }//get documents
