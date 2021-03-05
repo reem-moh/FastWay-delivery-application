@@ -26,12 +26,24 @@ struct CurrentOrderView: View {
             HStack{
                 GeometryReader{ geometry in
                     //background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                        .offset(y:hieght(num: -100))
                     //CurrentOrderView
-                    Text("Current Orders").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
+                    Text("Current Orders")
+                        .font(.custom("Roboto Medium", size: fontSize(num:25)))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .multilineTextAlignment(.center)
+                        .position(x:width(num:170) ,y:hieght(num:50))
+                        .offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(.all)
+                        .offset(y:hieght(num:  100))
                     
                 }.edgesIgnoringSafeArea(.all)
                 
@@ -63,20 +75,20 @@ struct CurrentOrderView: View {
                                     .padding(.horizontal)
                                     .contentShape(Rectangle())
                                     .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, 5)
+                                    .padding(.vertical, hieght(num:5))
                                     .shadow(radius: 1)
                                     
                                     
-                                }.padding(.bottom,25)//end of for each
+                                }.padding(.bottom,hieght(num:25))//end of for each
                                 
                                 
                             }
                             
                         }
                     }
-                }.padding(.top,80)
+                }.padding(.top,hieght(num:80))
                 Spacer()
-            }.padding(.bottom,80)
+            }.padding(.bottom,hieght(num:80))
             //Press detailes
             if model.showCard {
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
@@ -126,12 +138,12 @@ struct CurrentOrderView: View {
                                 Image(systemName: "homekit")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
+                                    .frame(width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28))
+                                    .padding(.top, hieght(num:10))
                                 Text("Home")
                                     .font(.footnote)
                                 Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
+                            }.padding(.horizontal, width(num:14)).onTapGesture {
                                 withAnimation(.spring()){
                                     model.showCard.toggle()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -149,14 +161,14 @@ struct CurrentOrderView: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
-                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                    .frame(width: width(num:geometry.size.width/7), height: width(num:geometry.size.width/7))
                                     .shadow(radius: 4)
                                 VStack {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
+                                        .frame(width: width(num:geometry.size.width/7-6) , height: width(num:geometry.size.width/7-6))
+                                }.padding(.horizontal, width(num:14)).onTapGesture {
                                     withAnimation(.spring()){
                                         model.showCard.toggle()
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -171,18 +183,18 @@ struct CurrentOrderView: View {
                                     viewRouter.currentPage = .AboutUs
                                     
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                            }.offset(y: -geometry.size.height/8/2)
+                            }.offset(y: hieght(num:-geometry.size.height/8/2))
                             //profile icon
                             VStack {
                                 Image(systemName: "person.crop.circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
+                                    .frame(width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28))
+                                    .padding(.top, hieght(num:10))
                                 Text("Profile")
                                     .font(.footnote)
                                 Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
+                            }.padding(.horizontal, width(num:14)).onTapGesture {
                                 withAnimation(.spring()){
                                     model.showCard.toggle()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -198,7 +210,7 @@ struct CurrentOrderView: View {
                             }.foregroundColor(viewRouter.currentPage == .ViewProfileM ? Color("TabBarHighlight") : .gray)
                             
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        .frame(width:width(num: geometry.size.width), height: hieght(num:geometry.size.height/8))
                         .background(Color("TabBarBackground").shadow(radius: 2))
                         
                     }
@@ -211,7 +223,7 @@ struct CurrentOrderView: View {
 //Current card M View/ Taif
 struct CurrentCardMView: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
-    var card: currentCardM
+    var card: Card
     var animation: Namespace.ID
     
     var body: some View {
@@ -230,7 +242,7 @@ struct CurrentCardMView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 Spacer(minLength: 0)
-            }.padding(.top,15)
+            }.padding(.top,hieght(num:15))
             //orderDetailes
             HStack {
                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
@@ -238,11 +250,11 @@ struct CurrentCardMView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
-                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
+                    .frame(maxWidth: width(num:220), maxHeight: hieght(num:50), alignment: .leading)
                     .animation(.easeIn) //if the user press it. It shows detailes
                 Spacer(minLength: 0)
                 
-            }.padding(.top,15)
+            }.padding(.top,hieght(num:15))
             //location Detailes
             VStack {
                 
@@ -278,7 +290,7 @@ struct CurrentCardMView: View {
                             Text("New offers")
                                 .bold()
                                 .foregroundColor(.white)
-                                .frame(width: 100,height: 25)
+                                .frame(width: width(num:100),height: hieght(num:25))
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
                             //.background(Color.purple)
                             Spacer(minLength: 0)
@@ -293,7 +305,7 @@ struct CurrentCardMView: View {
             .padding(20)
             
         }//end vStack
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: width(num:.infinity), maxHeight: hieght(num:.infinity))
         .background(
             card.cardColor
                 .cornerRadius(25)
@@ -332,9 +344,11 @@ struct CurrentCardMDetailes: View {
             //map
             MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
-                .frame(width: 390, height: 300).padding(.bottom, 0)
-                .clipped().position(x: 188,y: 100)
-                .offset(y: 50)
+                .frame(width: width(num:390), height: hieght(num:300))
+                .padding(.bottom, hieght(num:0))
+                .clipped()
+                .position(x: width(num:188),y: hieght(num:100))
+                .offset(y: hieght(num:50))
                 .onAppear {
                     
                     self.manager.requestAlwaysAuthorization()
@@ -343,7 +357,9 @@ struct CurrentCardMDetailes: View {
             ZStack {
                 //back button
                 Group{
-                    RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: width(num:45), height:hieght(num: 35))
+                        .foregroundColor(Color(.white))
                     Button(action: {
                         withAnimation(.spring()){
                             model.showCard.toggle()
@@ -360,13 +376,17 @@ struct CurrentCardMDetailes: View {
                             .resizable()
                             .colorInvert()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
+                            .frame(width: width(num:30), height: hieght(num:30))
                             .clipped()
                             .background(Color(.white))
                     }.padding(1.0)
-                }.position(x: 50, y: 50)
+                }.position(x: width(num:50), y: hieght(num:50))
                 //white background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(.bottom)
+                    .offset(y:hieght(num:  240))
                 
                 VStack{
                     
@@ -375,14 +395,14 @@ struct CurrentCardMDetailes: View {
                         HStack{
                             Image(systemName: "clock")
                                 .foregroundColor(Color.black.opacity(0.5))
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)
                             Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
                                 .font(.body)
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
                         
@@ -423,7 +443,7 @@ struct CurrentCardMDetailes: View {
                                     Text("Waiting for offers")
                                         .foregroundColor(.purple)
                                         .bold()
-                                        .padding(.leading, 20)
+                                        .padding(.leading, width(num:20))
                                     DotView(frame: 15)
                                     DotView(delay: 0.2, frame: 15)
                                     DotView(delay: 0.4, frame: 15)
@@ -435,36 +455,46 @@ struct CurrentCardMDetailes: View {
                         
                         //pick up
                         ZStack{
-                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
+                            RoundedRectangle(cornerRadius: 15)
+                                .padding()
+                                .frame(width: width(num:350), height: hieght(num:160))
+                                .foregroundColor(.white)
+                                .shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1"))
+                                .offset(x: width(num:-125))
                             HStack {
                                 
-                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:200), alignment: .leading)
                             }
                             
                         }
                         //drop off
                         ZStack{
-                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
+                            RoundedRectangle(cornerRadius: 15)
+                                .padding()
+                                .frame(width: width(num:350), height: hieght(num:160))
+                                .foregroundColor(.white)
+                                .shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3"))
+                                .offset(x: width(num:-125))
                             HStack{
                                 
-                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:200), alignment: .leading)
                             }
                             
                         }
                         //order items
                         ZStack(alignment: .top){
             
-                           Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -130)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-130))
                             
                             HStack() {
-                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
+                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
                                     .padding(.vertical, 4)
                             }
                             
                         }.contentShape(RoundedRectangle(cornerRadius: 15))
-                        .frame(width: 325)
+                        .frame(width: width(num:325))
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
@@ -474,7 +504,7 @@ struct CurrentCardMDetailes: View {
                             showingPaymentAlert.toggle()
                         }) {
                             Text("Cancel Order")
-                                .font(.custom("Roboto Bold", size: 22))
+                                .font(.custom("Roboto Bold", size: fontSize(num:22)))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
                                 .padding(1.0)
@@ -482,9 +512,9 @@ struct CurrentCardMDetailes: View {
                                 .textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25)
-                        .offset(x: 0)
-                        .padding(.bottom,450)
+                        .padding(.top,hieght(num:25))
+                        .offset(x: width(num:0))
+                        .padding(.bottom,hieght(num:450))
                         /*.onTapGesture {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 withAnimation(.easeIn){
@@ -495,7 +525,7 @@ struct CurrentCardMDetailes: View {
                         
                         
                     }
-                }.position(x: 188,y: 700)
+                }.position(x: width(num:188),y: hieght(num:700))
                 
                 
             }
@@ -568,10 +598,10 @@ class CurrentCarouselMViewModel: ObservableObject {
     @StateObject var OfferModel = OfferCarousel()
     
     //each order has card
-    @Published var cards: [currentCardM] = []
+    @Published var cards: [Card] = []
     
     // Detail Content....
-    @Published var selectedCard = currentCardM(cardColor: .clear)
+    @Published var selectedCard = Card(cardColor: .clear)
     //user press details
     @Published var showCard = false
     @Published var showContent = false
@@ -588,7 +618,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     }
     
     //return order details
-    func orderPreview(c: currentCardM) -> OrderDetails {
+    func orderPreview(c: Card) -> OrderDetails {
         return c.orderD
     }
     
@@ -603,22 +633,13 @@ class CurrentCarouselMViewModel: ObservableObject {
             //Check the state of the order
             if( index.status != "cancled" && index.status != "completed" && index.memberId != cancelCardOrderId){
                 
-                    cards.append(contentsOf: [ currentCardM( cardColor: Color(.white),state : 0, orderD : index )])
+                    cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
             }
             
         }
     }
     
     
-}
-
-//current card M info
-struct currentCardM: Identifiable {
-    var id = UUID().uuidString
-    var cardColor: Color
-    var offset: CGFloat = 0
-    var state : Int = 0
-    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, status: "")
 }
 
 struct CurrentOrderView_Previews: PreviewProvider {
