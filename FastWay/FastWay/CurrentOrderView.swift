@@ -95,7 +95,7 @@ struct CurrentOrderView: View {
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
             if model.showOffers {
-                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status, Offers: model.order.offers).environmentObject(OfferModel)
+                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
             //notification
             VStack{

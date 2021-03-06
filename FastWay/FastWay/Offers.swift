@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct Offers: View {
     
@@ -15,8 +16,8 @@ struct Offers: View {
     @Namespace var animation
     @State var orderID : String
     @State var status : String
+    @State var pickupLocation : CLLocationCoordinate2D
     @State var Offers : [Offer] = []
-    
     
     var body: some View {
         ZStack {
@@ -44,6 +45,8 @@ struct Offers: View {
                     model.OrderId = self.orderID
                     model.status = self.status
                     model.Offers = self.Offers
+                    model.pickupLoc = self.pickupLocation
+                    print("n\(Offers[0].courier.courier.name)")
                     /*if(self.Offers.isEmpty){
                         model.order.getOffers(OrderId: orderID)
                         model.Offers = model.order.offers
@@ -91,104 +94,9 @@ struct Offers: View {
                     Spacer()
                 }.padding(.bottom,80)
             }
-           /* else {
-                Text("waiting for offers")
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .animation(.easeIn)
-            }*/
+           
             
-            //BarMenue
-           /* ZStack{
-                GeometryReader { geometry in
-                    VStack {
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        HStack {
-                            //Home icon
-                            VStack {
-                                Image(systemName: "homekit")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
-                                Text("Home")
-                                    .font(.footnote)
-                                Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
-                                withAnimation(.spring()){
-                                    //model.showCard.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        withAnimation(.easeIn){
-                                            //model.showContent = false
-                                        }
-                                    }
-                                    
-                                }
-                                viewRouter.notificationT = .None
-                                viewRouter.currentPage = .HomePageM
-                            }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
-                            //about us icon
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                    .shadow(radius: 4)
-                                VStack {
-                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
-                                    withAnimation(.spring()){
-                                        //model.showCard.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            withAnimation(.easeIn){
-                                                //model.showContent = false
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-                                    viewRouter.notificationT = .None
-                                    viewRouter.currentPage = .AboutUs
-                                    
-                                }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                            }.offset(y: -geometry.size.height/8/2)
-                            //profile icon
-                            VStack {
-                                Image(systemName: "person.crop.circle")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
-                                Text("Profile")
-                                    .font(.footnote)
-                                Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
-                                withAnimation(.spring()){
-                                    //model.showCard.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        withAnimation(.easeIn){
-                                            //model.showContent = false
-                                            
-                                        }
-                                    }
-                                    
-                                }
-                                viewRouter.notificationT = .None
-                                viewRouter.currentPage = .ViewProfileM
-                            }.foregroundColor(viewRouter.currentPage == .ViewProfileM ? Color("TabBarHighlight") : .gray)
-                            
-                        }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
-                        .background(Color("TabBarBackground").shadow(radius: 2))
-                        
-                    }
-                }
-            }.edgesIgnoringSafeArea(.all)//zstack*/
+           
             
         }//end ZStack
     }
@@ -205,85 +113,88 @@ struct OfferCard: View {
         
         //Card
         VStack{
-            //Courier name
             HStack{
-                Text("\(model.orderPreview(c: card).OrderId)")
+                Image("profileC")
+                    .resizable()
+                    .frame(width: width(num: 30), height: hieght(num: 30))
+                    .padding(.leading)
+                    /*.onAppear(perform: {
+                       // DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            name = card.getCourierName(id: card.OfferInfo.courierId)
+                       // }
+                      
+                    })*/
+                Text("\(model.orderPreview(c: card).courier.courier.name)")
                     .font(.body)
                     .fontWeight(.regular)
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
-                Spacer(minLength: 0)
-            }.padding(.top,15)
-            //Offer price
-            HStack {
-                Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
-                Text("\(model.orderPreview(c: card).price)")
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .animation(.easeIn) //if the user press it. It shows detailes
-                Spacer(minLength: 0)
-                
-            }.padding(.top,15)
-            
-            //Offers state
+                Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+            }.padding(.top, hieght(num: 15))
             HStack{
-                VStack{
-                    //Accept offer button
-                    Button(action: {
-                        //Call method to change assign in order collection to true, add price and courier to order collection, remove all offers in offers subCollection that has the same orderID
-                    }) {
-                        Text("Accept")
-                            .font(.custom("Roboto Bold", size: 22))
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                            .multilineTextAlignment(.center)
-                            .padding(1.0)
-                            .frame(width: UIScreen.main.bounds.width - 50)
-                            .textCase(.none)
-                    }
-                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                    .padding(.all,25)
-                    .offset(x: 0)
-                    //deny offer button
-                    Button(action: {
-                        //Call method to remove this offer from offers subCollection that has the same (orderID and member id and courier id)
-                    }) {
-                        Text("Decline")
-                            .font(.custom("Roboto Bold", size: 22))
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                            .multilineTextAlignment(.center)
-                            .padding(1.0)
-                            .frame(width: UIScreen.main.bounds.width - 50)
-                            .textCase(.none)
-                    }
-                    .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                    .padding(.top,25)
-                    .offset(x: 0)
-                    .padding(.bottom,450)
-                }
-                //Spacer(minLength: 0)
+                Image("dollar")
+                    .resizable()
+                    .frame(width: 10, height: 10)
+                    .padding(.leading, width(num: 20))
+                Text("\(card.OfferInfo.price) SAR")
+                    .font(.body)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .animation(.easeIn)
+                Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+            }.padding(.top, hieght(num: 15))
+            HStack{
+                Text("\(getDistance(loc1: CLLocation(latitude: model.orderPreview(c: card).courierLocation.latitude, longitude: model.orderPreview(c: card).courierLocation.longitude), loc2: CLLocation(latitude: model.pickupLoc.latitude, longitude: model.pickupLoc.longitude))) from pick up location")
+                    .font(.body)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .animation(.easeIn)
+                Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+            }.padding(.top, hieght(num: 15))
+            HStack{
+                Spacer()
+                Spacer()
+                //accept button
+                Button(action: {
+                    //
+                }, label: {
+                    Text("Accept")
+                        .font(.custom("Roboto Bold", size: 22))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .multilineTextAlignment(.center)
+                        .padding(1.0)
+                        .textCase(.none)
+                })
+                .frame(width: width(num: 130), height: hieght(num: 30))
+                .background(Color.purple)
+                Spacer()
+                //decline button
+                Button(action: {
+                    //
+                }, label: {
+                    Text("Decline")
+                        .font(.custom("Roboto Bold", size: 22))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .multilineTextAlignment(.center)
+                        .padding(1.0)
+                        .textCase(.none)
+                })
+                .frame(width: width(num: 130), height: hieght(num: 30))
+                .background(Color.purple)
+                
+                Spacer()
+                Spacer()
+                
             }
-            .foregroundColor(Color.gray.opacity(0.9))
-            .padding(20)
-            
+            .padding(.vertical, hieght(num: 20))
         }//end vStack
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: width(num:.infinity), maxHeight: hieght(num:.infinity))
         .background(
             card.cardColor
                 .cornerRadius(25)
                 .matchedGeometryEffect(id: "bgColor-\(card.id)", in: animation)
         )
-        .onTapGesture {
-            withAnimation(.spring()){
-                model.selectedCard = card
-                //model.showCard.toggle() //change the value of showCard to true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.easeIn){
-                        //model.showContent = true
-                    }//end with animation
-                }//end dispatch
-            }//end with animation
-        }//end on tap gesture
+        
     }
 }
 
@@ -297,12 +208,13 @@ class OfferCarousel: ObservableObject {
     @Published var cards: [OfferCardInfo] = []
     
     // Detail Content....
-    @Published var selectedCard = OfferCardInfo(cardColor: .clear)
+    @Published var selectedCard = OfferCardInfo(cardColor: .clear )
     
     @Published var haveOffers = true
     @Published var showContent = false
     @Published var OrderId: String = ""
     @Published var status: String = ""
+    @Published var pickupLoc : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     @Published var Offers : [Offer] = []
         
     //return order details
@@ -339,12 +251,9 @@ struct OfferCardInfo: Identifiable {
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", price: 0, courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))// change to get offer info
+    //var courier : Courier
+    var OfferInfo = Offer( id: "", OrderId: "" , memberId: "",courierId: "", courier: Courier(id: "", name: "", email: "", phN: ""), price: 0, courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))// change to get offer info
+    
+    
 }
 
-/*struct Offers_Previews: PreviewProvider {
-    static var previews: some View {
-        //Offers(viewRouter: ViewRouter())
-        Offers(viewRouter: ViewRouter(), orderID: "", status: "", Offers: [Offer])
-    }
-}*/

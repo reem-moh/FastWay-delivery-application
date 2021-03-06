@@ -90,13 +90,14 @@ class Courier: ObservableObject {
     var phoneNo: String
     @Published var courier = C(id: "", name: "", email: "", phoneNo: "")
     //initialize from DB
-    init() {
+    init(id: String = UserDefaults.standard.getUderId()) {
         self.id = ""
         self.name = ""
         self.email = ""
         self.phoneNo = ""
-        self.getCourier(id: UserDefaults.standard.getUderId())
+        self.getCourier(id: id)
     }
+    
     
     init(id: String,name: String, email: String, phN: String) {
         self.id = id
@@ -146,6 +147,7 @@ class Courier: ObservableObject {
         } //listener
     } //function
     
+    
 }
 
 //member info
@@ -189,6 +191,7 @@ struct Offer : Identifiable {
     var OrderId: String
     var memberId: String = ""
     var courierId: String = ""
+    var courier : Courier
     var price: Int
     var courierLocation : CLLocationCoordinate2D
 }
@@ -506,7 +509,7 @@ class Order: ObservableObject{
                     let Price = data["Price"] as? Int ?? 0
                     let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
                     print("order :\(offerId) + \(memberID) ")
-                    return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: Price, courierLocation: courierLocation)
+                    return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: "", name: "", email: "", phN: ""), price: Price, courierLocation: courierLocation)
                 })
             }
         }
@@ -534,7 +537,7 @@ class Order: ObservableObject{
                 let Price = data["Price"] as? Int ?? 0
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
                 print("order :\(offerId) + \(memberID) ")
-                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, price: Price, courierLocation: courierLocation)
+                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: courierID), price: Price, courierLocation: courierLocation)
             })
         }
     }

@@ -72,16 +72,26 @@ struct MapView : UIViewRepresentable {
             self.parent.map.addAnnotation(point2)
         }//end tap
         
-        /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-         
-         let over = MKPolylineRenderer(overlay: overlay)
-         over.strokeColor = .red
-         over.lineWidth = 3
-         return over
-         }*/
+        
         
     }
     
+}
+
+
+func getDistance(loc1: CLLocation, loc2: CLLocation) -> String {
+    var distance = 0.0
+    var sDistance = ""
+    
+    distance = loc1.distance(from: loc2)
+    if distance >= 0 && distance < 1000 {
+        sDistance = String(format: "%d m", Int(distance))
+    }else{
+        if distance >= 1000{
+            sDistance = String(format: "%.1f km", distance/1000)
+        }
+    }
+    return sDistance
 }
 
 
