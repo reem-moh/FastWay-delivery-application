@@ -111,18 +111,10 @@ struct CurrentOrderView: View {
                 }
             }
             VStack{
-                if show{
+                if model.showCancel{
                     Notifications(type: notificationT, imageName: "shoppingCart")
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .offset(y: model.showCancel ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-            }.onAppear(){
-                if  notificationT == .CancelOrder {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) {
-                        self.show = false
-                        notificationT = .None
-                    }
                 }
             }
             
@@ -614,6 +606,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     @Published var showOffers = false
+    @Published var showCancel = false
     @Published var check10min = false
     @Published var cancelCardOrderId : String = ""
     
@@ -668,6 +661,9 @@ class CurrentCarouselMViewModel: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 //withAnimation(.easeIn){
                 self.getCards()
+                self.showCancel = true
+                animateAndDelayWithSeconds(0.05) { self.showCancel = true }
+                animateAndDelayWithSeconds(4) {self.showCancel = false }
                 //}//end with animation
             }
     }
