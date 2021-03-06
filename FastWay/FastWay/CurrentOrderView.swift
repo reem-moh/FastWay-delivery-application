@@ -58,7 +58,7 @@ struct CurrentOrderView: View {
                 model.showCard = false
                 model.showContent = false
                 model.showOffers = false
-                model.order.cancelAutomatic(memberId: UserDefaults.standard.getUderId())
+                //model.order.cancelAutomatic(memberId: UserDefaults.standard.getUderId())
             }
             // Carousel....
             VStack{
@@ -323,6 +323,22 @@ struct CurrentCardMView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
+        .alert(isPresented: $model.check10min) {
+            Alert(
+                title: Text("Order confirmed"),
+                message: Text("your order: \"\(card.orderD.orderDetails)\" has been 10 minutes without an offer, do you want to extend the time?"),
+                primaryButton: .default((Text("Yes")), action: {
+                    model.check10min = false
+                }) ,
+                secondaryButton: .cancel((Text("No, Cancel Order")),  action: {
+                    model.canelOrder(Id : card.orderD.id)
+                    notificationT = .CancelOrder
+                    //viewRouter.currentPage = .CurrentOrder
+                    model.showCard = false
+                    model.showContent = false
+                    model.check10min = false
+                })
+        )}//end alert
     }
 }
 
@@ -536,7 +552,7 @@ struct CurrentCardMDetailes: View {
                 title: Text("Order confirmed"),
                 message: Text("Are you sure you want cancel this offer"),
                 primaryButton: .default((Text("Yes")), action: {
-                    canelOrder()
+                    model.canelOrder(Id: model.selectedCard.orderD.id)
                     notificationT = .CancelOrder
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
@@ -546,16 +562,7 @@ struct CurrentCardMDetailes: View {
             )}//end alert
         
     }// end body
-    //cancel order
-    func canelOrder(){
-            model.cancelCardOrderId = model.selectedCard.orderD.id
-            model.order.cancelOrder(OrderId: model.selectedCard.orderD.id)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //withAnimation(.easeIn){
-                    model.getCards()
-                //}//end with animation
-            }
-    }
+    
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
@@ -607,7 +614,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var showCard = false
     @Published var showContent = false
     @Published var showOffers = false
-    
+    @Published var check10min = false
     @Published var cancelCardOrderId : String = ""
     
     init(){
@@ -634,10 +641,35 @@ class CurrentCarouselMViewModel: ObservableObject {
             //Check the state of the order
             if( index.status != "cancled" && index.status != "completed" && index.memberId != cancelCardOrderId){
                 
+                if index.createdAt.calenderTimeSinceNow() == "20 minutes ago"  && index.status == order.status[0]{
+                    order.cancelOrder(OrderId: index.id)
+                    //notification
+                    notificationT = .CancelOrder
+                    //viewRouter.currentPage = .CurrentOrder
+                    showCard = false
+                    showContent = false
+                    
+                }else {
+                    if(index.createdAt.calenderTimeSinceNow() == "10 minutes ago"  && index.status == order.status[0]){
+                        check10min=true
+                    }
+                
                     cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
+                }
             }
             
         }
+    }
+    
+    //cancel order
+    func canelOrder(Id: String){
+           cancelCardOrderId = Id
+            order.cancelOrder(OrderId: Id)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                //withAnimation(.easeIn){
+                self.getCards()
+                //}//end with animation
+            }
     }
     
     
