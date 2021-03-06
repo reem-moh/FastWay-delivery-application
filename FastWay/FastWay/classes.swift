@@ -565,16 +565,19 @@ class Order: ObservableObject{
      
     }
     
+
+    
     func cancelOffer(CourierID: String, OrderId: String, MemberID: String, Price: Int) {
         
+        print("\n*******cancelOffer*********")
+
         getOffers(OrderId: OrderId)
         
         if self.offers.count == 1{
             print("change the state of order to waiting for offer")
-            
-        print("\n*******cancelOffer*********")
+            db.collection("Order").document(OrderId).setData([ "Status": status[0] ], merge: true)
+        }
         
-        db.collection("Order").document(OrderId).setData([ "Status": status[0] ], merge: true)
             
             let indexOffer = self.checkOfferForCancle(CourierID: CourierID, OrderId: OrderId, MemberID: MemberID, Price: Price)
                 
@@ -607,16 +610,17 @@ class Order: ObservableObject{
         }//get documents*/
                 
         }
-    }
+    
      
     }
-    
+
     
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
        // var flag = true
         var i = -1
         
-        for offer in  offers{
+        for offer in  offers {
+            
             if (offer.courierId == CourierID && offer.OrderId == OrderId && offer.memberId == MemberID && offer.price == Price) {
                // flag = true
                 i = i+1
