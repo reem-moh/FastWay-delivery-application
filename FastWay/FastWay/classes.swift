@@ -196,7 +196,7 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
-/*class OfferOrder: ObservableObject{
+class OfferOrder: ObservableObject{
     
     var id: String
     var OrderId: String
@@ -235,7 +235,7 @@ struct Offer : Identifiable {
         return flag
     }
     
-}*/
+}
 
 class Order: ObservableObject{
     
