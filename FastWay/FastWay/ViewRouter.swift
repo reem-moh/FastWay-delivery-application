@@ -10,6 +10,6 @@ import SwiftUI
 class ViewRouter: ObservableObject {
     
     @Published var currentPage : Page = .LogIn
-    @Published var notificationT : NotificationType = .None
+    //@Published var notificationT : NotificationType = .None
     
 }

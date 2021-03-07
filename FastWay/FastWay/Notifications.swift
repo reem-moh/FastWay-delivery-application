@@ -49,14 +49,15 @@ struct Notifications: View {
             case .LogIn:
                 self.message = "Welcome, you\'ve been Logged in successfuly"
             case .SendOrder:
-                self.message = "Your order have been sent successfuly"
+                self.message = "Your order has been sent successfuly."
             case .SendOffer:
-                self.message = "Your offer have been sent successfuly"
+                self.message = "Your offer has been sent successfuly."
             case .CancelOrder:
-                self.message = "Your order have been canceled successfuly"
-                
+                self.message = "Your order has been canceled successfuly."
             case .CancelOffer:
-                self.message = "Your Offer have been canceled successfuly"
+                self.message = "Your Offer has been canceled successfully."
+            case .CancelByDefault:
+                self.message = "Your order has been without offers for 15 minutes, So it canceled automatically."
             }
         }
     }
@@ -82,5 +83,6 @@ enum NotificationType {
     case SendOffer
     case CancelOrder
     case CancelOffer
+    case CancelByDefault
 }
 

@@ -100,6 +100,7 @@ struct HomeMemberView: View {
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
+            // canceled order after 15 min
             VStack{
                 if show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
@@ -107,8 +108,8 @@ struct HomeMemberView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if notificationT == .CancelOrder  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                if notificationT == .CancelByDefault  {
+                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }

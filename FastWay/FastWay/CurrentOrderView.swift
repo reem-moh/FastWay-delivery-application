@@ -98,7 +98,8 @@ struct CurrentOrderView: View {
             if model.showOffers {
                 Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
-            //notification
+            //notification CancelByDefault
+            //Send order
             VStack{
                 if show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
@@ -111,11 +112,25 @@ struct CurrentOrderView: View {
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
+            //Cancel order
             VStack{
                 if model.showCancel{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }
+            // canceled order after 15 min
+            VStack{
+                if show{
+                    Notifications(type: notificationT, imageName: "shoppingCart")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if notificationT == .CancelByDefault  {
+                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
+                    animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
             //BarMenue
@@ -664,7 +679,7 @@ class CurrentCarouselMViewModel: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 //withAnimation(.easeIn){
                 self.getCards()
-                self.showCancel = true
+                self.showCancel.toggle()
                 animateAndDelayWithSeconds(0.05) { self.showCancel = true }
                 animateAndDelayWithSeconds(4) {self.showCancel = false }
                 //}//end with animation
@@ -675,17 +690,20 @@ class CurrentCarouselMViewModel: ObservableObject {
 }
 
 func checkOrders(ID : String){
-      order.getMemberOrder(Id: ID)
+    if order.memberOrder.isEmpty{
+        order.getMemberOrder(Id: ID)
+    }
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
         for index in order.memberOrder {
+            
             //convert time to double
             let timeInterval = -1*index.createdAt.timeIntervalSinceNow
             if( index.status != "cancled" && index.status != "completed" ){
-                if timeInterval >= 900  && index.status == order.status[0]{
+                if timeInterval >= 360  && index.status == order.status[0]{
                     order.cancelOrder(OrderId: index.id)
                     //notification
-                    notificationT = .CancelOrder
-                   // currentPage = .CurrentOrder
+                    notificationT = .CancelByDefault
+                    //ViewRouter.currentPage = .HomePageM
                 }
             }
             
