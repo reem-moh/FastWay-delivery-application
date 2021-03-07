@@ -46,7 +46,7 @@ struct Offers: View {
                     model.status = self.status
                     model.Offers = self.Offers
                     model.pickupLoc = self.pickupLocation
-                    print("n\(Offers[0].courier.courier.name)")
+                    //print("n\(Offers[0].courier.courier.name)")
                     /*if(self.Offers.isEmpty){
                         model.order.getOffers(OrderId: orderID)
                         model.Offers = model.order.offers
@@ -131,10 +131,21 @@ struct OfferCard: View {
                     .animation(.easeIn)
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             }.padding(.top, hieght(num: 15))
+            
+            HStack{
+                Text("\(getDistance(loc1: CLLocation(latitude: model.orderPreview(c: card).courierLocation.latitude, longitude: model.orderPreview(c: card).courierLocation.longitude), loc2: CLLocation(latitude: model.pickupLoc.latitude, longitude: model.pickupLoc.longitude))) from pick up location")
+                    .font(.body)
+                    .fontWeight(.regular)
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .padding(.leading, width(num: 27))
+                    .animation(.easeIn)
+                Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+            }.padding(.top, hieght(num: 7))
+            
             HStack{
                 Image("dollar")
                     .resizable()
-                    .frame(width: 10, height: 10)
+                    .frame(width: 20, height: 20)
                     .padding(.leading, width(num: 20))
                 Text("\(card.OfferInfo.price) SAR")
                     .font(.body)
@@ -143,14 +154,7 @@ struct OfferCard: View {
                     .animation(.easeIn)
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             }.padding(.top, hieght(num: 15))
-            HStack{
-                Text("\(getDistance(loc1: CLLocation(latitude: model.orderPreview(c: card).courierLocation.latitude, longitude: model.orderPreview(c: card).courierLocation.longitude), loc2: CLLocation(latitude: model.pickupLoc.latitude, longitude: model.pickupLoc.longitude))) from pick up location")
-                    .font(.body)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .animation(.easeIn)
-                Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
-            }.padding(.top, hieght(num: 15))
+            
             HStack{
                 Spacer()
                 Spacer()
@@ -165,12 +169,26 @@ struct OfferCard: View {
                         .padding(1.0)
                         .textCase(.none)
                 })
-                .frame(width: width(num: 130), height: hieght(num: 30))
-                .background(Color.purple)
+                .frame(width: width(num: 130), height: hieght(num: 40))
+                .background(Color("ButtonColor"))
                 Spacer()
+                
                 //decline button
                 Button(action: {
-                    //
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        //withAnimation(.easeIn){
+                        model.order.cancelOffer(CourierID: model.orderPreview(c: card).courierId, OrderId: model.orderPreview(c: card).OrderId, MemberID: model.orderPreview(c: card).memberId, Price: model.orderPreview(c: card).price)
+                        //}//end with animation
+                    }
+                    
+                    model.order.getOffers(OrderId: model.orderPreview(c: card).OrderId)
+                    model.Offers = model.order.offers
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        //withAnimation(.easeIn){
+                        model.getCards()
+                        //}//end with animation
+                    }
+                   
                 }, label: {
                     Text("Decline")
                         .font(.custom("Roboto Bold", size: 22))
@@ -179,8 +197,8 @@ struct OfferCard: View {
                         .padding(1.0)
                         .textCase(.none)
                 })
-                .frame(width: width(num: 130), height: hieght(num: 30))
-                .background(Color.purple)
+                .frame(width: width(num: 130), height: hieght(num: 40))
+                .background(Color("ButtonColor"))
                 
                 Spacer()
                 Spacer()

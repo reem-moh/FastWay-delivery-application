@@ -583,7 +583,7 @@ class Order: ObservableObject{
                 
                 if indexOffer != -1{
                 
-                db.collection("Order").document(OrderId).collection("Offers").document(offers[5].id).delete(){ err in
+                db.collection("Order").document(OrderId).collection("Offers").document(offers[indexOffer].id).delete(){ err in
                     if let err = err {
                         print("Error removing offer inside cancelOffer: \(err)")
                     } else {
@@ -618,12 +618,12 @@ class Order: ObservableObject{
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
        // var flag = true
         var i = -1
-        
+        var j = -1
         for offer in  offers {
-            
+            j = j+1
             if (offer.courierId == CourierID && offer.OrderId == OrderId && offer.memberId == MemberID && offer.price == Price) {
                // flag = true
-                i = i+1
+                i = j
             }
         }
         return i
@@ -631,9 +631,12 @@ class Order: ObservableObject{
     
     func checkOffer(id : String) -> Int {
         var i = -1
+       // var j = -1
       //  var flag = true
         for offer in  offers{
+           // j = j+1
             if offer.OrderId == id {
+                //i = j
                 i = i+1
             }
         }
