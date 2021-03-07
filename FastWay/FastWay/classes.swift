@@ -438,8 +438,8 @@ class Order: ObservableObject{
                 
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
-                let i = self.checkOffer(id: orderId)
                 self.getOffersC(Id: Id, orderID: orderId)
+                let i = self.checkOffer(id: Id)
                 if self.offers.count == 1{
                     
                     print("\(queryDocumentSnapshot.data()) COURIER OFFER and date finc")
@@ -489,6 +489,8 @@ class Order: ObservableObject{
         return flag
     }
      
+    
+    //get offers fo courier in a single document
     func getOffersC(Id: String, orderID: String){
         print("\n*******GetOffersCourier*********\n\n")
             db.collection("Order").document(orderID).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
@@ -568,8 +570,6 @@ class Order: ObservableObject{
      
     }
     
-
-    
     func cancelOffer(CourierID: String, OrderId: String, MemberID: String, Price: Int) {
         
         print("\n*******cancelOffer*********")
@@ -599,7 +599,6 @@ class Order: ObservableObject{
      
     }
 
-    
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
        // var flag = true
         var i = -1
@@ -620,7 +619,7 @@ class Order: ObservableObject{
       //  var flag = true
         for offer in  offers{
             j = j+1
-            if offer.OrderId == id {
+            if offer.courierId == id {
                 i = j
                 //i = i+1
             }
@@ -628,6 +627,24 @@ class Order: ObservableObject{
         return i
     }
     
+    //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
+    func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double) -> Bool {
+        var flag = false
+        db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
+        self.getOffers(OrderId: orderID)
+        for offer in self.offers {
+            db.collection("Order/\(orderID)/Offers").document(offer.id).delete { (Error) in
+                if Error == nil {
+                    flag = true
+                    return
+                }else{
+                    flag = false
+                }
+            }
+        }
+        
+        return flag
+    }
 }
 
 
