@@ -30,7 +30,7 @@ struct HomeMemberView: View {
                     .resizable() //add resizable
                     .frame(width: width(num: 375)) //addframe
                     .edgesIgnoringSafeArea(.all)
-                    .offset(y: hieght(num:25))
+                    .offset(y: hieght(num:50))
                 
                 Image("FASTWAY1")
                     .resizable()
