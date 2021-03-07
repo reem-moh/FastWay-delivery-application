@@ -360,6 +360,7 @@ struct CurrentCardMDetailes: View {
     @State var distance = ""
     @State var time = ""
     @State private var CancelOrder = false
+    @State var CancelButtonShow = true
     
     var body: some View{
         
@@ -523,29 +524,46 @@ struct CurrentCardMDetailes: View {
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         
-                        //Cancel button
-                        Button(action: {
-                            CancelOrder.toggle()
-                        }) {
-                            Text("Cancel Order")
-                                .font(.custom("Roboto Bold", size: fontSize(num:22)))
-                                .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                .multilineTextAlignment(.center)
-                                .padding(1.0)
-                                .frame(width: UIScreen.main.bounds.width - 50)
-                                .textCase(.none)
-                        }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,hieght(num:25))
-                        .offset(x: width(num:0))
-                        .padding(.bottom,hieght(num:450))
-                        /*.onTapGesture {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                withAnimation(.easeIn){
-                                    
-                                }//end with animation
+                        HStack {
+                            if CancelButtonShow {
+                            //Cancel button
+                             Button(action: {
+                                CancelOrder.toggle()
+                            }) {
+                                Text("Cancel Order")
+                                    .font(.custom("Roboto Bold", size: fontSize(num:22)))
+                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                    .multilineTextAlignment(.center)
+                                    .padding(1.0)
+                                    .frame(width: UIScreen.main.bounds.width - 50)
+                                    .textCase(.none)
                             }
-                        }*/
+                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                            .padding(.top,hieght(num:25))
+                            .offset(x: width(num:0))
+                            .padding(.bottom,hieght(num:450))
+                            /*.onTapGesture {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation(.easeIn){
+                                        
+                                    }//end with animation
+                                }
+                            }*/
+                        }
+                        }.onAppear(){
+                            //assigned
+                            if model.selectedCard.orderD.status == order.status[3]{
+                                
+                             let timeInterval = -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow
+                                //60 * (60+30)
+                                if timeInterval >= 5400 {
+                                    self.CancelButtonShow.toggle()
+                                }else {
+                                    CancelButtonShow = false
+                                }
+                            }
+
+                        }
                         
                         
                     }
