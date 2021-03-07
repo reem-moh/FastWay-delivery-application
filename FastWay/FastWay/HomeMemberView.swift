@@ -37,7 +37,11 @@ struct HomeMemberView: View {
                     .frame(width: width(num: UIImage(named: "FASTWAY1")!.size.width ), height: hieght(num: UIImage(named: "FASTWAY1")!.size.height))
                     .offset(x:width(num:180) ,y:hieght(num:130))
                     .position(x: width(num:10), y: hieght(num:-45))
-            }.edgesIgnoringSafeArea(.all)//zstack
+            }.edgesIgnoringSafeArea(.all)
+            .onAppear(){
+                checkOrders(ID:  UserDefaults.standard.getUderId())
+            }
+            //zstack
             //main page
             VStack{
                 //AddNewOrder Button
@@ -96,6 +100,19 @@ struct HomeMemberView: View {
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
+            VStack{
+                if show{
+                    Notifications(type: notificationT, imageName: "shoppingCart")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if notificationT == .CancelOrder  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+            }
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in

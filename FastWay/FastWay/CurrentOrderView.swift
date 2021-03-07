@@ -49,7 +49,8 @@ struct CurrentOrderView: View {
                 
             }.onAppear(){
                 //calling Methods
-                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+                //model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+                checkOrders(ID:  UserDefaults.standard.getUderId())
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
                         model.getCards()
@@ -113,11 +114,10 @@ struct CurrentOrderView: View {
             VStack{
                 if model.showCancel{
                     Notifications(type: notificationT, imageName: "shoppingCart")
-                        .offset(y: model.showCancel ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }
-            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -315,7 +315,7 @@ struct CurrentCardMView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
-        .alert(isPresented: $model.check10min) {
+        /*.alert(isPresented: $model.check10min) {
             Alert(
                 title: Text("Order confirmed"),
                 message: Text("your order: \"\(card.orderD.orderDetails)\" has been 10 minutes without an offer, do you want to extend the time?"),
@@ -330,7 +330,7 @@ struct CurrentCardMView: View {
                     model.showContent = false
                     model.check10min = false
                 })
-        )}//end alert
+        )}//end alert*/
     }
 }
 
@@ -344,7 +344,7 @@ struct CurrentCardMDetailes: View {
     @State var alert = false
     @State var distance = ""
     @State var time = ""
-    @State private var showingPaymentAlert = false
+    @State private var CancelOrder = false
     
     var body: some View{
         
@@ -510,7 +510,7 @@ struct CurrentCardMDetailes: View {
                         
                         //Cancel button
                         Button(action: {
-                            showingPaymentAlert.toggle()
+                            CancelOrder.toggle()
                         }) {
                             Text("Cancel Order")
                                 .font(.custom("Roboto Bold", size: fontSize(num:22)))
@@ -539,7 +539,7 @@ struct CurrentCardMDetailes: View {
                 
             }
             // }
-        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {
+        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $CancelOrder) {
             Alert(
                 title: Text("Order confirmed"),
                 message: Text("Are you sure you want cancel this offer"),
@@ -607,7 +607,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var showContent = false
     @Published var showOffers = false
     @Published var showCancel = false
-    @Published var check10min = false
+    //@Published var check10min = false
     @Published var cancelCardOrderId : String = ""
     
     init(){
@@ -631,10 +631,11 @@ class CurrentCarouselMViewModel: ObservableObject {
         
         cards.removeAll()
         for index in order.memberOrder {
-            //Check the state of the order
+            //convert time to double
+            checkOrders(ID: UserDefaults.standard.getUderId())
+            //let timeInterval = -1*index.createdAt.timeIntervalSinceNow
             if( index.status != "cancled" && index.status != "completed" && index.memberId != cancelCardOrderId){
-                
-                if index.createdAt.calenderTimeSinceNow() == "20 minutes ago"  && index.status == order.status[0]{
+                /* if timeInterval >= 1200  && index.status == order.status[0]{
                     order.cancelOrder(OrderId: index.id)
                     //notification
                     notificationT = .CancelOrder
@@ -643,13 +644,14 @@ class CurrentCarouselMViewModel: ObservableObject {
                     showContent = false
                     
                 }else {
-                    if(index.createdAt.calenderTimeSinceNow() == "10 minutes ago"  && index.status == order.status[0]){
+                    if((timeInterval >= 600 && timeInterval < 1200)  && index.status == order.status[0]){
                         check10min=true
-                    }
+                    }*/
                 
                     cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
-                }
+                //}
             }
+            
             
         }
     }
@@ -668,6 +670,28 @@ class CurrentCarouselMViewModel: ObservableObject {
             }
     }
     
+    
+}
+
+func checkOrders(ID : String){
+    if order.memberOrder.isEmpty{
+      order.getMemberOrder(Id: ID)
+    }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        for index in order.memberOrder {
+            //convert time to double
+            let timeInterval = -1*index.createdAt.timeIntervalSinceNow
+            if( index.status != "cancled" && index.status != "completed" ){
+                if timeInterval >= 900  && index.status == order.status[0]{
+                    order.cancelOrder(OrderId: index.id)
+                    //notification
+                    notificationT = .CancelOrder
+                   // currentPage = .CurrentOrder
+                }
+            }
+            
+        }
+      }
     
 }
 
