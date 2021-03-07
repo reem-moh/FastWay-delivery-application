@@ -196,7 +196,7 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
-class OfferOrder: ObservableObject{
+/*class OfferOrder: ObservableObject{
     
     var id: String
     var OrderId: String
@@ -235,7 +235,7 @@ class OfferOrder: ObservableObject{
         return flag
     }
     
-}
+}*/
 
 class Order: ObservableObject{
     
@@ -429,8 +429,7 @@ class Order: ObservableObject{
     
     func getCourierOrderOffred(Id: String){
         print("\n*******GetCourierOrderOffred*********")
-        self.getOffersC(Id: Id)
-        db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+            db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order CCCC documents")
                 return
@@ -440,7 +439,8 @@ class Order: ObservableObject{
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
                 let i = self.checkOffer(id: orderId)
-                if i != -1 {
+                self.getOffersC(Id: Id, orderID: orderId)
+                if self.offers.count == 1{
                     
                     print("\(queryDocumentSnapshot.data()) COURIER OFFER and date finc")
                     //pickUp location
@@ -489,9 +489,9 @@ class Order: ObservableObject{
         return flag
     }
      
-    func getOffersC(Id: String){
+    func getOffersC(Id: String, orderID: String){
         print("\n*******GetOffersCourier*********\n\n")
-            db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
+            db.collection("Order").document(orderID).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
                     print("No offer CCCC documents")
                     
@@ -593,24 +593,6 @@ class Order: ObservableObject{
                         print("offer successfully delete inside cancelOffer!")
                     }
                 }
-                
-                
-               /* { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents inside cancle offer: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("inside cancelOffer: offerId:\(document.documentID) =>Data \(document.data())")
-                    db.collection("Order").document(OrderId).collection("Offers").document(document.documentID).delete() { err in
-                        if let err = err {
-                            print("Error removing offer inside cancelOffer: \(err)")
-                        } else {
-                            print("offer successfully delete inside cancelOffer!")
-                        }
-                    }//delete offer
-                }//loop
-            }
-        }//get documents*/
                 
         }
     

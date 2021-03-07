@@ -438,7 +438,7 @@ struct CurrentCardMDetailes: View {
                             HStack{
                                 
                                     Text("Delivery offers")
-                                        .foregroundColor(.purple)
+                                        .foregroundColor(Color("ButtonColor"))
                                         .bold()
                                 
                                 
@@ -707,6 +707,12 @@ class CurrentCarouselMViewModel: ObservableObject {
     
 }
 
+
+
+
+
+
+//check if order exceede th 15 min limit
 func checkOrders(ID : String){
     if order.memberOrder.isEmpty{
         order.getMemberOrder(Id: ID)

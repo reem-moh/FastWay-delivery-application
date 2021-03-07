@@ -635,11 +635,11 @@ class CurrentCarouselCViewModel: ObservableObject {
         
         for index in order.CourierOrderOffered {
             
-            if( index.isAdded != true && index.status != "completed" && index.courierId != cancelCardOrderId)
-            {
-                
+            //if( index.isAdded != true && index.status != "completed" && index.courierId != cancelCardOrderId){
+            if index.id != ""{
                     cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
-            }
+        }
+            //}
             
         }
     }

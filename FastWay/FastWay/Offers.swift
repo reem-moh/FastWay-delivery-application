@@ -34,6 +34,32 @@ struct Offers: View {
                     
                 }.edgesIgnoringSafeArea(.all)
                 
+                //back button
+              
+                    Button(action: {
+                        withAnimation(.spring()){
+                           // $model.showCard.toggle
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.easeIn){
+                                    //model.showContent = false
+                                    //viewRouter.currentPage = .CurrentOrder
+                                   
+                                }
+                            }
+                            
+                        }
+                    }) {
+                        Image("arrow_back")
+                            .resizable()
+                            //.colorInvert()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width(num:30), height: hieght(num:30))
+                            .clipped()
+                           // .background(Color(.white))
+                    }.padding(1.0)
+                    .position(x: width(num:-150), y: hieght(num:5))
+                
+                
             }.onAppear(){
                 model.haveOffers = false
                 //calling Methods
@@ -61,6 +87,7 @@ struct Offers: View {
                 }
                 
             }
+            
             if model.haveOffers {
                 // Carousel....
                 VStack{
@@ -171,6 +198,7 @@ struct OfferCard: View {
                 })
                 .frame(width: width(num: 130), height: hieght(num: 40))
                 .background(Color("ButtonColor"))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 Spacer()
                 
                 //decline button
@@ -199,6 +227,7 @@ struct OfferCard: View {
                 })
                 .frame(width: width(num: 130), height: hieght(num: 40))
                 .background(Color("ButtonColor"))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 
                 Spacer()
                 Spacer()

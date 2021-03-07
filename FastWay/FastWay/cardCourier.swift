@@ -139,9 +139,10 @@ class CarouselViewModel: ObservableObject {
         //"CardColor"
         cards.removeAll()
         for index in order.orders {
-            if index.status == "waiting for offer"{
+            //if index.status == "waiting for offer" && index.status == "have an offer"{
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
-            }
+                
+            //}
             
         }
         print("num of deliver cards \(cards.count)")
