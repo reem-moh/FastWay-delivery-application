@@ -99,7 +99,7 @@ struct Offers: View {
                                     
                                     ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
                                         HStack{
-                                            OfferCard(card: model.cards[index], animation: animation)
+                                            OfferCard(viewRouter: viewRouter, card: model.cards[index], animation: animation)
                                             Spacer(minLength: 0)
                                         }//.frame(height: 100)
                                         .padding(.horizontal)
@@ -133,6 +133,7 @@ struct Offers: View {
 //OfferCard
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
+    @StateObject var viewRouter: ViewRouter
     var card: OfferCardInfo
     var animation: Namespace.ID
     
@@ -187,7 +188,9 @@ struct OfferCard: View {
                 Spacer()
                 //accept button
                 Button(action: {
-                    //
+                    if model.order.acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price)){
+                        viewRouter.currentPage = .CurrentOrder
+                    }
                 }, label: {
                     Text("Accept")
                         .font(.custom("Roboto Bold", size: 22))
