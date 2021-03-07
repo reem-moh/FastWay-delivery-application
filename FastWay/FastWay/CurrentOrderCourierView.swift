@@ -13,7 +13,7 @@ struct CurrentOrderCourierView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CurrentCarouselCViewModel
-    @StateObject var courierOrderModel = CarouselViewModel()
+   // @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
     @State var show = false
@@ -613,7 +613,7 @@ class CurrentCarouselCViewModel: ObservableObject {
     
     init(){/////////update
         //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
-        order.getCourierOrderOffred(Id: "A24J5LZ6nuaLm3npHILu8oyLp042")
+        order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
         print("number of oreders inside init: \(order.CourierOrderOffered.count)")
         getCards()
         
@@ -625,7 +625,7 @@ class CurrentCarouselCViewModel: ObservableObject {
     }
     
     func getCards(){//update CourierOrderOffered
-        print("number of cards inside getCards: \(order.CourierOrderOffered.count)")
+        print("number of cards inside get couerier Cards: \(order.CourierOrderOffered.count)")
         if order.CourierOrderOffered.isEmpty{
             print("there is no order")
         }

@@ -349,6 +349,7 @@ class Order: ObservableObject{
     func getOrder() {
         print("\n*******GetOrder*********")
         // var temp: [OrderDetails] = []
+        //.whereField("Status", isEqualTo: "waiting for offer")
         db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
@@ -390,7 +391,7 @@ class Order: ObservableObject{
     
     func getMemberOrder(Id: String){
         print("\n*******GetMemberOrder*********")
-        db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+        db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
@@ -419,7 +420,7 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                print("in get order and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
@@ -431,15 +432,17 @@ class Order: ObservableObject{
         self.getOffersC(Id: Id)
         db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
-                print("No order documents")
+                print("No order CCCC documents")
                 return
             }
             self.CourierOrderOffered = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                print(queryDocumentSnapshot.data())
+                
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
                 let i = self.checkOffer(id: orderId)
                 if i != -1 {
+                    
+                    print("\(queryDocumentSnapshot.data()) COURIER OFFER and date finc")
                     //pickUp location
                     let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                     let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -487,15 +490,15 @@ class Order: ObservableObject{
     }
      
     func getOffersC(Id: String){
-        print("\n*******GetOffersCourier*********")
+        print("\n*******GetOffersCourier*********\n\n")
             db.collection("Order").document().collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
-                    print("No offer documents")
+                    print("No offer CCCC documents")
                     
                     return
                 }
                 if(documents.isEmpty){
-                    print("no offer documents")
+                    print("no offer CCCC documents")
                 }
                 self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
                     print(queryDocumentSnapshot.data())
@@ -631,13 +634,13 @@ class Order: ObservableObject{
     
     func checkOffer(id : String) -> Int {
         var i = -1
-       // var j = -1
+        var j = -1
       //  var flag = true
         for offer in  offers{
-           // j = j+1
+            j = j+1
             if offer.OrderId == id {
-                //i = j
-                i = i+1
+                i = j
+                //i = i+1
             }
         }
         return i
