@@ -26,8 +26,8 @@ extension UserDefaults {
     }
     
     func getUderId() -> String{
-        print("inside user defualts getUserId:" )
-        print(UserDefaults.standard.string(forKey: "id") ?? "")
+        //print("inside user defualts getUserId:" )
+        //print(UserDefaults.standard.string(forKey: "id") ?? "")
         return UserDefaults.standard.string(forKey: "id") ?? ""
     }
     
