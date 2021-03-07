@@ -28,6 +28,10 @@ struct AboutUs: View {
             VStack{
                 Text("About us ").font(.custom("Roboto Medium", size:fontSize(num: 35))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                     .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading,width(num: 12.0)).offset(x: width(num: 0) ,y:hieght(num: -340))
+            }.onAppear(){
+                if UserDefaults.standard.getUderType() == "M"{
+                    checkOrders(ID:  UserDefaults.standard.getUderId())
+                }
             }//END VStack
 
             VStack{

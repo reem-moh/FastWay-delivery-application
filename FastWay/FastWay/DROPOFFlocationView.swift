@@ -69,6 +69,9 @@ struct DROPOFFlocationView: View {
                     Image("Rectangle 49").ignoresSafeArea()
                     Spacer()
                 }//END VStack
+                .onAppear(){
+                    checkOrders(ID:  UserDefaults.standard.getUderId())
+                }
                 
                 
                 

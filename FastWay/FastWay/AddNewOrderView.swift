@@ -69,6 +69,8 @@ struct AddNewOrderView: View {
                     //background image
                     Image("Rectangle 49").ignoresSafeArea()
                     Spacer()
+                }.onAppear(){
+                    checkOrders(ID:  UserDefaults.standard.getUderId())
                 }//END VStack
                 
                 

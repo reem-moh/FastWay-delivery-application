@@ -15,10 +15,14 @@ struct HistoryView: View {
     var body: some View {
         
         ZStack{
-            
+            ZStack{
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+            }.onAppear(){
+                checkOrders(ID:  UserDefaults.standard.getUderId())
+            }
             //background
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-            Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+           
             GeometryReader { geometry in
                 // if UserDefaults.standard.getUderType() == "M"{
                 VStack {

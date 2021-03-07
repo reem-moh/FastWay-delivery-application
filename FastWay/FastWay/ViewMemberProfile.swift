@@ -35,10 +35,9 @@ struct ViewMemberProfile: View {
                 
                 
                 
-            }/*.onAppear {
-             self.member.getMember(id: UserDefaults.standard.getUderId())
-             print("view M")
-             }*/
+            }.onAppear(){
+                checkOrders(ID:  UserDefaults.standard.getUderId())
+            }
             
             VStack{
                 //Cancel and Done button

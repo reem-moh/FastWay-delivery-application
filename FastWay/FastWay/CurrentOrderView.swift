@@ -539,7 +539,8 @@ struct CurrentCardMDetailes: View {
                 
             }
             // }
-        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $CancelOrder) {
+        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .alert(isPresented: $CancelOrder) {
             Alert(
                 title: Text("Order confirmed"),
                 message: Text("Are you sure you want cancel this offer"),
@@ -674,9 +675,7 @@ class CurrentCarouselMViewModel: ObservableObject {
 }
 
 func checkOrders(ID : String){
-    if order.memberOrder.isEmpty{
       order.getMemberOrder(Id: ID)
-    }
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
         for index in order.memberOrder {
             //convert time to double
