@@ -13,6 +13,7 @@ struct Offers: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: OfferCarousel
+    @EnvironmentObject var CurrentOrdersModel: CurrentCarouselMViewModel
     @Namespace var animation
     @State var orderID : String
     @State var status : String
@@ -33,20 +34,13 @@ struct Offers: View {
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
                     
                 }.edgesIgnoringSafeArea(.all)
-                
-                //back button
-              
+               //back
+                HStack{
                     Button(action: {
                         withAnimation(.spring()){
-                           // $model.showCard.toggle
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                withAnimation(.easeIn){
-                                    //model.showContent = false
-                                    //viewRouter.currentPage = .CurrentOrder
-                                   
-                                }
-                            }
-                            
+                            model.showContent = false
+                            notificationT = .None
+                            CurrentOrdersModel.showOffers = false
                         }
                     }) {
                         Image("arrow_back")
@@ -58,6 +52,7 @@ struct Offers: View {
                            // .background(Color(.white))
                     }.padding(1.0)
                     .position(x: width(num:-150), y: hieght(num:5))
+                }
                 
                 
             }.onAppear(){
@@ -123,8 +118,6 @@ struct Offers: View {
             }
            
             
-           
-            
         }//end ZStack
     }
     
@@ -134,6 +127,7 @@ struct Offers: View {
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
     @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var Envoirment: CurrentCarouselMViewModel
     var card: OfferCardInfo
     var animation: Namespace.ID
     
@@ -190,6 +184,7 @@ struct OfferCard: View {
                 Button(action: {
                     if model.order.acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price)){
                         viewRouter.currentPage = .CurrentOrder
+                        Envoirment.showOffers = false
                     }
                 }, label: {
                     Text("Accept")
