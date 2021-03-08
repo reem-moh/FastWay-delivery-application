@@ -16,7 +16,6 @@ struct DetailedOrderOffer: View {
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
     @State var order : Order = Order()
-    @State var offerorder: OfferOrder = OfferOrder()
     @State var alert = false
     @State var distance = ""
     @State var time = ""

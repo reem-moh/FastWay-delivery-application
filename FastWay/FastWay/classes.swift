@@ -196,50 +196,11 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
-class OfferOrder: ObservableObject{
-    
-    var id: String
-    var OrderId: String
-    var memberId: String = ""
-    var courierId: String = ""
-    var price: Int
-    var courierLocation : CLLocationCoordinate2D
-    var stateOffer: [String] = ["waiting for accept", "cancle Offer", "accept Offer"]
-    
-    init(){
-        self.id = ""
-        self.OrderId = ""
-        self.memberId = ""
-        self.courierId = ""
-        self.price = 0
-        self.courierLocation =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    }
-    
-    func addOffer(OrderID: String, memberID: String, Price: Int , CourierLocation: CLLocationCoordinate2D ) -> Bool {
-        self.OrderId = OrderID
-        self.memberId = memberID
-        self.price = Price
-        self.courierLocation = CourierLocation
-        var flag = true
-        let id = UserDefaults.standard.getUderId()
-        
-        let doc = db.collection("Offers").document()
-      //  if (self.setPick && self.setDrop && self.setDetails){
-        doc.setData(["OrderID": self.OrderId,"memberId": self.memberId ,"courierID": id, "Price":self.price ,"CourierLatitude":self.courierLocation.latitude,"CourierLongitude":self.courierLocation.longitude, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "StateOffer": self.stateOffer[0]]) { (error) in
-                
-                if error != nil {
-                    flag = false
-                }
-            }
-        
-        return flag
-    }
-    
-}
+
 
 class Order: ObservableObject{
     
-    @Published var orders: [OrderDetails] = []
+    @Published var orders: [OrderDetails] = [] //for delivery requests
     @Published var memberOrder: [OrderDetails] = []
     @Published var CourierOrderOffered: [OrderDetails] = []
     @Published var offers: [Offer] = []
@@ -346,6 +307,7 @@ class Order: ObservableObject{
         return flag
     }
     
+    //function to get order for delivery requests that the courier hasn't made an offer to yet (assigned= false and status is waiting for offers or had an offer (not canceled))
     func getOrder() {
         print("\n*******GetOrder*********")
         // var temp: [OrderDetails] = []
@@ -359,6 +321,7 @@ class Order: ObservableObject{
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let OrderId = queryDocumentSnapshot.documentID
+                
                 //pickUp location
                 let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                 let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
@@ -389,6 +352,7 @@ class Order: ObservableObject{
         }
     }
     
+    //get all member orders where member id equals the id sent
     func getMemberOrder(Id: String){
         print("\n*******GetMemberOrder*********")
         db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
@@ -419,14 +383,24 @@ class Order: ObservableObject{
                 let MemberID = data["MemberID"] as? String ?? ""
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                var deliveryPrice = 0
+                var courierId = ""
+                
+                if assigned{ // if the order is assigned and both value are created in db 
+                    deliveryPrice = data["DeliveryPrice"] as? Int ?? 0
+                    courierId = data["CourierID"] as? String ?? ""
+                }
+                
+                
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
         }
     }
     
+    //get courier orders that he made an offer to where (status is have an offer witch means assigned= false)
     func getCourierOrderOffred(Id: String){
         print("\n*******GetCourierOrderOffred*********")
             db.collection("Order").whereField("Status", isEqualTo: "have an offer").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
@@ -439,7 +413,7 @@ class Order: ObservableObject{
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
                 self.getOffersC(Id: Id, orderID: orderId)
-                let i = self.checkOffer(id: Id)
+                //let i = self.checkOffer(id: Id)
                 if self.offers.count == 1{
                     
                     print("\(queryDocumentSnapshot.data()) COURIER OFFER and date finc")
@@ -465,15 +439,15 @@ class Order: ObservableObject{
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                     
-                    return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:self.offers[i].courierId,deliveryPrice:self.offers[i].price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                    return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:self.offers[0].price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                 }
        
                 return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, createdAt: Date(), status: "")
             })
         }
         
-        }//get Orders
-
+        }
+    
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         print("\n*******addOffer*********")
         let id = UserDefaults.standard.getUderId()
@@ -490,7 +464,7 @@ class Order: ObservableObject{
     }
      
     
-    //get offers fo courier in a single document
+    //get offers fo courier in a single an order (it returns a single doc contain the offer made the courier)
     func getOffersC(Id: String, orderID: String){
         print("\n*******GetOffersCourier*********\n\n")
             db.collection("Order").document(orderID).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
@@ -519,9 +493,10 @@ class Order: ObservableObject{
             }
         }
     
+    //get all offers made to a specific order
     func getOffers(OrderId: String){
         print("\n*******GetOffersMember*********")
-        db.collection("Order").document(OrderId).collection("Offers").addSnapshotListener { (querySnapshot, error) in
+        db.collection("Order").document(OrderId).collection("Offers").order(by: "Price", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No offer documents")
                 
@@ -547,6 +522,7 @@ class Order: ObservableObject{
         }
     }
     
+    //cancels an order based on order id and deletes all offers if any
     func cancelOrder(OrderId: String){
         print("\n*******CancelOrder*********")
         db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
@@ -570,6 +546,7 @@ class Order: ObservableObject{
      
     }
     
+    //cancels an offer and changes the order status to waiting for offers if needed
     func cancelOffer(CourierID: String, OrderId: String, MemberID: String, Price: Int) {
         
         print("\n*******cancelOffer*********")
@@ -581,7 +558,7 @@ class Order: ObservableObject{
             db.collection("Order").document(OrderId).setData([ "Status": status[0] ], merge: true)
         }
         
-            
+        
             let indexOffer = self.checkOfferForCancle(CourierID: CourierID, OrderId: OrderId, MemberID: MemberID, Price: Price)
                 
                 if indexOffer != -1{
@@ -599,6 +576,7 @@ class Order: ObservableObject{
      
     }
 
+    //return the index of the offer to be canceled in array offers
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
        // var flag = true
         var i = -1
@@ -613,7 +591,7 @@ class Order: ObservableObject{
         return i
     }
     
-    func checkOffer(id : String) -> Int {
+    /*func checkOffer(id : String) -> Int {
         var i = -1
         var j = -1
       //  var flag = true
@@ -625,7 +603,7 @@ class Order: ObservableObject{
             }
         }
         return i
-    }
+    }*/
     
     //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double) -> Bool {
