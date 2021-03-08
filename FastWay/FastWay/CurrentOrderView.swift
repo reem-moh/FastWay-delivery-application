@@ -523,7 +523,28 @@ struct CurrentCardMDetailes: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
+                        //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
+                        
+                        /////
+                        //order price:
+                        ZStack(alignment: .top){
+                            if model.selectedCard.orderD.status == order.status[3]{
+                                Image(uiImage: #imageLiteral(resourceName: "dollar")).offset(x: width(num:-130))
+                                //here Price
+                                HStack() {
+                                    Text("Price").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
+                                        .padding(.vertical, 4)
+                                }
+                            }
+                            
+                        }.contentShape(RoundedRectangle(cornerRadius: 15))
+                        .frame(width: width(num:325))
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
                         .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
+                        ///
+                        //////
                         
                         HStack {
                             if CancelButtonShow {
@@ -551,19 +572,6 @@ struct CurrentCardMDetailes: View {
                                 }
                             }*/
                         }
-                        }.onAppear(){
-                            //assigned
-                            if model.selectedCard.orderD.status == order.status[3]{
-                                
-                             let timeInterval = -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow
-                                //60 * (60+30)
-                                if timeInterval >= 5400 {
-                                    self.CancelButtonShow.toggle()
-                                }else {
-                                    CancelButtonShow = false
-                                }
-                            }
-
                         }
                         
                         
@@ -587,6 +595,22 @@ struct CurrentCardMDetailes: View {
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert
+        .onAppear(){
+            //assigned
+            if model.selectedCard.orderD.status == order.status[3]{
+            CancelButtonShow = true
+             let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
+                //60 * (60+30)
+                print("timeInterval: \(timeInterval)")
+                if timeInterval >= 5400 {
+                    self.CancelButtonShow.toggle()
+                    CancelButtonShow = true
+                }else {
+                    CancelButtonShow = false
+                }
+            }
+
+        }
         
     }// end body
     
