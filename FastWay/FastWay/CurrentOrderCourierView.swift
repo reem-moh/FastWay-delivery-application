@@ -255,7 +255,7 @@ struct CurrentCardCView: View {
                     .padding(.leading)
             //    Text("\(model.orderPreview(c: card).createdAt.calenderTimeSinceNow()) SR")
                     
-                Text("5 SR")
+                Text("\(model.orderPreview(c: card).deliveryPrice) SR")
                     .font(.body)
                     .fontWeight(.regular)
                     .foregroundColor(Color.black.opacity(0.5))
