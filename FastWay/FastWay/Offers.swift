@@ -40,6 +40,7 @@ struct Offers: View {
                         withAnimation(.spring()){
                             model.showContent = false
                             notificationT = .None
+                            CurrentOrdersModel.getCards()
                             CurrentOrdersModel.showOffers = false
                         }
                     }) {
@@ -126,6 +127,7 @@ struct Offers: View {
 //OfferCard
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
+    @EnvironmentObject var CurrentOrdersModel: CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
    // @EnvironmentObject var Environment: CurrentCarouselMViewModel
     var card: OfferCardInfo
@@ -178,7 +180,14 @@ struct OfferCard: View {
                 //accept button
                 Button(action: {
                     if model.order.acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price)){
-                        viewRouter.currentPage = .CurrentOrder
+                        
+                        model.showContent = false
+                        notificationT = .None
+                        CurrentOrdersModel.getCards()
+                        CurrentOrdersModel.showCard = false
+                        CurrentOrdersModel.showContent = false
+                        CurrentOrdersModel.showOffers = false
+                        //viewRouter.currentPage = .CurrentOrder
                         //Environment.showOffers = false
                     }
                 }, label: {

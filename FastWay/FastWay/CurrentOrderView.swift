@@ -585,7 +585,7 @@ struct CurrentCardMDetailes: View {
         .alert(isPresented: $CancelOrder) {
             Alert(
                 title: Text("Order confirmed"),
-                message: Text("Are you sure you want cancel this offer"),
+                message: Text("Are you sure you want cancel this order"),
                 primaryButton: .default((Text("Yes")), action: {
                     model.canelOrder(Id: model.selectedCard.orderD.id)
                     notificationT = .CancelOrder
