@@ -127,7 +127,7 @@ struct Offers: View {
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
     @StateObject var viewRouter: ViewRouter
-    @EnvironmentObject var Envoirment: CurrentCarouselMViewModel
+   // @EnvironmentObject var Environment: CurrentCarouselMViewModel
     var card: OfferCardInfo
     var animation: Namespace.ID
     
@@ -184,7 +184,7 @@ struct OfferCard: View {
                 Button(action: {
                     if model.order.acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price)){
                         viewRouter.currentPage = .CurrentOrder
-                        Envoirment.showOffers = false
+                        //Environment.showOffers = false
                     }
                 }, label: {
                     Text("Accept")
