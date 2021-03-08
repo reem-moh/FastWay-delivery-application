@@ -140,12 +140,7 @@ struct OfferCard: View {
                     .resizable()
                     .frame(width: width(num: 30), height: hieght(num: 30))
                     .padding(.leading)
-                    /*.onAppear(perform: {
-                       // DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            name = card.getCourierName(id: card.OfferInfo.courierId)
-                       // }
-                      
-                    })*/
+                    
                 Text("\(model.orderPreview(c: card).courier.courier.name)")
                     .font(.body)
                     .fontWeight(.regular)

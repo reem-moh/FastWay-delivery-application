@@ -119,7 +119,7 @@ class CarouselViewModel: ObservableObject {
     
     init(){
         
-        order.getOrder()
+        //order.getOrder()
         print("number of oreders inside init: \(order.orders.count)")
         getCards()
         
@@ -139,10 +139,10 @@ class CarouselViewModel: ObservableObject {
         //"CardColor"
         cards.removeAll()
         for index in order.orders {
-            //if index.status == "waiting for offer" && index.status == "have an offer"{
+            if index.id != "" {
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
                 
-            //}
+            }
             
         }
         print("num of deliver cards \(cards.count)")

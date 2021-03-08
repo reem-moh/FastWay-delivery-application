@@ -49,7 +49,7 @@ struct CurrentOrderView: View {
                 
             }.onAppear(){
                 //calling Methods
-                //model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+                model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 checkOrders(ID:  UserDefaults.standard.getUderId())
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){

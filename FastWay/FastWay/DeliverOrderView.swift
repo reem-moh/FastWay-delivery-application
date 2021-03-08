@@ -32,7 +32,12 @@ struct DeliverOrderView: View{
                 
             }.onAppear(){
                 model.order.getOrder()
-                model.getCards()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    //withAnimation(.easeIn){
+                      model.getCards()
+                    //}//end with animation
+                }
+                
                 model.showCard = false
                 model.showContent = false
             }
