@@ -51,6 +51,7 @@ struct CurrentOrderView: View {
                 //calling Methods
                 model.order.getMemberOrder(Id: UserDefaults.standard.getUderId())
                 checkOrders(ID:  UserDefaults.standard.getUderId())
+                model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
                         model.getCards()
