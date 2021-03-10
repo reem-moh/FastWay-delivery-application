@@ -630,17 +630,22 @@ class Order: ObservableObject{
     //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
-        self.getOffers(OrderId: orderID)
-        for offer in self.offers {
-            db.collection("Order/\(orderID)/Offers").document(offer.id).delete { (Error) in
-                if Error == nil {
-                    print("there is no error")
-                    return
-                }else{
-                    print("something occurs in acceptOffer method")
-                }
+        db.collection("Order").document(orderID).collection("Offers").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents inside cancle order: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
+                    db.collection("Order").document(orderID).collection("Offers").document(document.documentID).delete() { err in
+                        if let err = err {
+                            print("Error removing offer inside cancelOrder: \(err)")
+                        } else {
+                            print("offer successfully delete inside cancelOrder!")
+                        }
+                    }//delete offer
+                }//loop
             }
-        }
+        }//get documents
         
     }
 }

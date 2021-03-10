@@ -186,6 +186,9 @@ struct OfferCard: View {
                     notificationT = .AcceptOffer
                     Env.getCards()
                     Env.AcceptOfferNotification.toggle()
+                    print("Env.selectedCard.orderD.deliveryPrice Before: \(Env.selectedCard.orderD.deliveryPrice)")
+                    Env.selectedCard.orderD.deliveryPrice = card.OfferInfo.price
+                    print("Env.selectedCard.orderD.deliveryPrice After:offer price \(card.OfferInfo.price)OrderPrice\(Env.selectedCard.orderD.deliveryPrice)")
                     Env.showOffers = false
                     Env.showCard = false
                 }, label: {
