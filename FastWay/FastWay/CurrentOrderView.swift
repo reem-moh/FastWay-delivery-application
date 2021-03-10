@@ -91,12 +91,13 @@ struct CurrentOrderView: View {
                 }.padding(.top,hieght(num:80))
                 Spacer()
             }.padding(.bottom,hieght(num:80))
-            //Press detailes
+            //Press details
             if model.showCard {
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
+            //Press deliver details
             if model.showOffers {
-                Offers(viewRouter: viewRouter, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
+                Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
             //notification CancelByDefault
             //Send order
@@ -112,17 +113,35 @@ struct CurrentOrderView: View {
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
-            //Cancel order
+            //cancel order
             VStack{
-                if model.showCancel{
+                if show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if notificationT == .SendOrder  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
             // canceled order after 15 min
             VStack{
                 if show{
+                    Notifications(type: notificationT, imageName: "shoppingCart")
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if notificationT == .CancelByDefault  {
+                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
+                    animateAndDelayWithSeconds(4) { self.show = false }
+                }
+            }
+            //Accept offer
+            VStack{
+                if model.AcceptOfferNotification{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
@@ -338,7 +357,7 @@ struct CurrentCardMView: View {
                     model.check10min = false
                 }) ,
                 secondaryButton: .cancel((Text("No, Cancel Order")),  action: {
-                    model.canelOrder(Id : card.orderD.id)
+                    model.cancelOrder(Id : card.orderD.id)
                     notificationT = .CancelOrder
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
@@ -587,7 +606,7 @@ struct CurrentCardMDetailes: View {
                 title: Text("Order confirmed"),
                 message: Text("Are you sure you want cancel this order"),
                 primaryButton: .default((Text("Yes")), action: {
-                    model.canelOrder(Id: model.selectedCard.orderD.id)
+                    model.cancelOrder(Id: model.selectedCard.orderD.id)
                     notificationT = .CancelOrder
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
@@ -661,13 +680,20 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     // Detail Content....
     @Published var selectedCard = Card(cardColor: .clear)
-    //user press details
+
+    //Display all cards in current page
     @Published var showCard = false
+    //Display details page of a card
     @Published var showContent = false
+    //display offers page
     @Published var showOffers = false
+    //display notification inside system of cancel order
     @Published var showCancel = false
-    //@Published var check10min = false
+    //Id of canceled order
     @Published var cancelCardOrderId : String = ""
+    //Display notification inside the system the offer is accepted
+    @Published var AcceptOfferNotification = false
+    
     
     init(){
         //from this ID get all the cards
@@ -716,7 +742,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     }
     
     //cancel order
-    func canelOrder(Id: String){
+    func cancelOrder(Id: String){
            cancelCardOrderId = Id
             order.cancelOrder(OrderId: Id)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

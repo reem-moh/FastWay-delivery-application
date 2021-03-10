@@ -13,7 +13,7 @@ struct Offers: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: OfferCarousel
-    @EnvironmentObject var CurrentOrdersModel: CurrentCarouselMViewModel
+    @StateObject var CurrentOrdersModel: CurrentCarouselMViewModel
     @Namespace var animation
     @State var orderID : String
     @State var status : String
@@ -95,7 +95,7 @@ struct Offers: View {
                                     
                                     ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
                                         HStack{
-                                            OfferCard(viewRouter: viewRouter, card: model.cards[index], animation: animation)
+                                            OfferCard(viewRouter: viewRouter, card: model.cards[index], animation: animation,Env: CurrentOrdersModel)
                                             Spacer(minLength: 0)
                                         }//.frame(height: 100)
                                         .padding(.horizontal)
@@ -127,12 +127,11 @@ struct Offers: View {
 //OfferCard
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
-    @EnvironmentObject var CurrentOrdersModel: CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
    // @EnvironmentObject var Environment: CurrentCarouselMViewModel
     var card: OfferCardInfo
     var animation: Namespace.ID
-    
+    @StateObject var Env : CurrentCarouselMViewModel
     var body: some View {
         
         //Card
@@ -183,13 +182,15 @@ struct OfferCard: View {
                         
                         model.showContent = false
                         notificationT = .None
-                        CurrentOrdersModel.getCards()
-                        CurrentOrdersModel.showCard = false
-                        CurrentOrdersModel.showContent = false
-                        CurrentOrdersModel.showOffers = false
                         //viewRouter.currentPage = .CurrentOrder
                         //Environment.showOffers = false
+                        
                     }
+                    notificationT = .AcceptOffer
+                    Env.getCards()
+                    Env.AcceptOfferNotification.toggle()
+                    Env.showOffers = false
+                    Env.showCard = false
                 }, label: {
                     Text("Accept")
                         .font(.custom("Roboto Bold", size: 22))
