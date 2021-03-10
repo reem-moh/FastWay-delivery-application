@@ -551,7 +551,7 @@ struct CurrentCardMDetailes: View {
                                 Image(uiImage: #imageLiteral(resourceName: "dollar")).offset(x: width(num:-130))
                                 //here Price
                                 HStack() {
-                                    Text("Price").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
+                                    Text("\(model.selectedCard.orderD.deliveryPrice)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
                                         .padding(.vertical, 4)
                                 }
                             }

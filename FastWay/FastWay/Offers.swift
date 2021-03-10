@@ -178,14 +178,11 @@ struct OfferCard: View {
                 Spacer()
                 //accept button
                 Button(action: {
-                    if model.order.acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price)){
-                        
-                        model.showContent = false
-                        notificationT = .None
-                        //viewRouter.currentPage = .CurrentOrder
-                        //Environment.showOffers = false
-                        
-                    }
+                    model.order
+                        .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price))
+                    model.showContent = false
+                    notificationT = .None
+                    //viewRouter.currentPage = .CurrentOrder
                     notificationT = .AcceptOffer
                     Env.getCards()
                     Env.AcceptOfferNotification.toggle()

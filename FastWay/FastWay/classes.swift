@@ -628,22 +628,20 @@ class Order: ObservableObject{
     }*/
     
     //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
-    func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double) -> Bool {
-        var flag = false
+    func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
         self.getOffers(OrderId: orderID)
         for offer in self.offers {
             db.collection("Order/\(orderID)/Offers").document(offer.id).delete { (Error) in
                 if Error == nil {
-                    flag = true
+                    print("there is no error")
                     return
                 }else{
-                    flag = false
+                    print("something occurs in acceptOffer method")
                 }
             }
         }
         
-        return flag
     }
 }
 
