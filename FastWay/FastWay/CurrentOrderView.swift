@@ -100,7 +100,10 @@ struct CurrentOrderView: View {
             if model.showOffers {
                 Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
-            //notification CancelByDefault
+            
+            
+            
+            
             //Send order
             VStack{
                 if show{
@@ -111,7 +114,10 @@ struct CurrentOrderView: View {
             }.onAppear(){
                 if notificationT == .SendOrder  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             //cancel order
@@ -122,9 +128,12 @@ struct CurrentOrderView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if notificationT == .SendOrder  {
+                if notificationT == .CancelOrder  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             // canceled order after 15 min
@@ -136,21 +145,28 @@ struct CurrentOrderView: View {
                 }
             }.onAppear(){
                 if notificationT == .CancelByDefault  {
-                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             //Accept offer
             VStack{
-                if model.AcceptOfferNotification{
+                if model.AcceptOfferNotification && show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if notificationT == .CancelByDefault  {
-                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                if notificationT == .AcceptOffer  {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        model.AcceptOfferNotification = false
+                        notificationT = .None
+                    }
                 }
             }
             //BarMenue
@@ -549,11 +565,11 @@ struct CurrentCardMDetailes: View {
                         //order price:
                         ZStack(alignment: .top){
                             if model.selectedCard.orderD.status == order.status[3]{
-                                Image(uiImage: #imageLiteral(resourceName: "dollar")).offset(x: width(num:-130))
+                                Image(uiImage: #imageLiteral(resourceName: "dollar")).offset(x: width(num:-130), y: hieght(num: 4))
                                 //here Price
                                 HStack() {
                                     Text("\(model.selectedCard.orderD.deliveryPrice)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
-                                        .padding(.vertical, 4)
+                                        .padding(.vertical, 6)
                                 }
                             }
                             
@@ -562,6 +578,7 @@ struct CurrentCardMDetailes: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
+                        .padding(.top, hieght(num: 10))
                         .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         ///
                         //////
@@ -763,27 +780,29 @@ class CurrentCarouselMViewModel: ObservableObject {
 
 
 
-
 //check if order exceede th 15 min limit
 func checkOrders(ID : String){
     if order.memberOrder.isEmpty{
         order.getMemberOrder(Id: ID)
     }
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-        for index in order.memberOrder {
-            
-            //convert time to double
-            let timeInterval = -1*index.createdAt.timeIntervalSinceNow
-            if( index.status != "cancled" && index.status != "completed" ){
-                if timeInterval >= 360  && index.status == order.status[0]{
-                    order.cancelOrder(OrderId: index.id)
-                    //notification
-                    notificationT = .CancelByDefault
-                    //ViewRouter.currentPage = .HomePageM
+     
+            for index in order.memberOrder {
+                
+                //convert time to double
+                let timeInterval = -1*index.createdAt.timeIntervalSinceNow
+                if( index.status != "cancled" && index.status != "completed" ){
+                    if timeInterval >= 360  && index.status == order.status[0]{
+                        order.cancelOrder(OrderId: index.id)
+                        //notification
+                        notificationT = .CancelByDefault
+                        //ViewRouter.currentPage = .HomePageM
+                    }
                 }
+                
             }
-            
-        }
+        
+        
       }
     
 }

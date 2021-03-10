@@ -355,7 +355,7 @@ class Order: ObservableObject{
                         let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
                         let dropoffRoom = data["dropOffRoom"] as? String ?? ""
                         let orderDetails = data["orderDetails"] as? String ?? ""
-                        let assigned = data["Assigned"] as? Bool ?? false
+                        let assigned = (data["Assigned"] as? String ?? "" == "true" ? true : false)
                         let MemberID = data["MemberID"] as? String ?? ""
                         
                         
@@ -400,7 +400,8 @@ class Order: ObservableObject{
                 let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
                 let dropoffRoom = data["dropOffRoom"] as? String ?? ""
                 let orderDetails = data["orderDetails"] as? String ?? ""
-                let assigned = data["Assigned"] as? Bool ?? false
+                //when converting to Bool we need to do this
+                let assigned = (data["Assigned"] as? String ?? "" == "true" ? true : false)
                 let MemberID = data["MemberID"] as? String ?? ""
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
@@ -410,6 +411,7 @@ class Order: ObservableObject{
                 if assigned{ // if the order is assigned and both value are created in db 
                     deliveryPrice = data["DeliveryPrice"] as? Int ?? 0
                     courierId = data["CourierID"] as? String ?? ""
+                    print("\n\n !!!!!!!!!!!!!!!!!!!!!! pric \(deliveryPrice) \n\n")
                 }
                 
                 
@@ -453,7 +455,7 @@ class Order: ObservableObject{
                     let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
                     let dropoffRoom = data["dropOffRoom"] as? String ?? ""
                     let orderDetails = data["orderDetails"] as? String ?? ""
-                    let assigned = data["Assigned"] as? Bool ?? false
+                    let assigned = (data["Assigned"] as? String ?? "" == "true" ? true : false)
                     let MemberID = data["MemberID"] as? String ?? ""
                     let state = data["Status"] as? String ?? ""
                     let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())

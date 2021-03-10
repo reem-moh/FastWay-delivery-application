@@ -97,7 +97,10 @@ struct HomeMemberView: View {
             }.onAppear(){
                 if notificationT == .LogIn || notificationT == .SignUp {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             // canceled order after 15 min
@@ -109,8 +112,11 @@ struct HomeMemberView: View {
                 }
             }.onAppear(){
                 if notificationT == .CancelByDefault  {
-                    animateAndDelayWithSeconds(0.05) { self.show.toggle() }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
             

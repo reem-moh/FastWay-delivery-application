@@ -59,7 +59,7 @@ struct Notifications: View {
             case .CancelByDefault:
                 self.message = "Your order has been without offers for 15 minutes, So it canceled automatically."
             case .AcceptOffer:
-                self.message = "Your Offer has been accepted successfully."
+                self.message = "Your order has been assigned to a courier."
             }
         }
     }
