@@ -39,10 +39,15 @@ struct CurrentOrderCourierView: View {
             }.onAppear(){
                 //calling Methods
                 model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
-                model.getCards()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    //withAnimation(.easeIn){
+                    //}//end with animation
+                }
                 model.showCard = false
                 model.showContent = false
             }
+            
+            
             // Carousel....
             VStack{
                 Spacer()
