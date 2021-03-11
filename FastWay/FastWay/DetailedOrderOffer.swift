@@ -25,6 +25,7 @@ struct DetailedOrderOffer: View {
     @State var offerList : String = "Offer price"
     @State var checkOffer : Bool = false
     @State var show = false
+    @State var checkCourierLocation : Bool = false
 
     var body: some View{
         
@@ -132,6 +133,10 @@ struct DetailedOrderOffer: View {
                                 .offset(x: -50)
                             
                         }
+                        if(checkCourierLocation){
+                            Text("*Your current location\'s out of the campus ").font(.custom("Roboto Regular", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 0)}
+                        
                         VStack(spacing: 0){
                             
                             HStack() {
@@ -183,8 +188,10 @@ struct DetailedOrderOffer: View {
                             if(makeAnOffer()){
                                 notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
+                                
+                                let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )
                             }
-                            let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )
+                       
                                 
                                }) {
                             Text("Make an Offer")
@@ -211,6 +218,13 @@ struct DetailedOrderOffer: View {
     
     func makeAnOffer() -> Bool{
         checkOffer=false //for error message
+        checkCourierLocation = false
+        
+        if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
+            checkCourierLocation = true
+            return false;
+        }
+        else
         if( offerList == "Offer price"){
             checkOffer=true
             return false;
