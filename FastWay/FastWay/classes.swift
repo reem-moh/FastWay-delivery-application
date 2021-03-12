@@ -322,8 +322,6 @@ class Order: ObservableObject{
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let OrderId = queryDocumentSnapshot.documentID
-                
-                
                 let state = data["Status"] as? String ?? ""
                 if state == "waiting for offer" {
                     flagOffer = true
@@ -333,13 +331,12 @@ class Order: ObservableObject{
                         self.getOffersC(Id: UserDefaults.standard.getUderId(), orderID: OrderId)
                         print ("\nGET ORDERS OFFER COUNT \(self.offers.count)\n")
                         if self.offers.count == 0{
-                            flagOffer = false
+                            flagOffer = true
                         }
                     }
                 }
                 
                 if flagOffer {
-        
                         //pickUp location
                         let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
                         let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0

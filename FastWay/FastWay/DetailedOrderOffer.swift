@@ -182,18 +182,16 @@ struct DetailedOrderOffer: View {
                         
                         //make an offer button
                         Button(action: {
-                            
- 
-
                             if(makeAnOffer()){
                                 notificationT = .SendOffer
                                 viewRouter.currentPage = .CurrentOrderCourier
                                 
                                 let isOfferAddrd = order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )
+                                if(isOfferAddrd){
+                                    print("1")
+                                }
                             }
-                       
-                                
-                               }) {
+                       }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: 22))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))

@@ -68,18 +68,11 @@ struct Offers: View {
                     model.status = self.status
                     model.Offers = self.Offers
                     model.pickupLoc = self.pickupLocation
-                    //print("n\(Offers[0].courier.courier.name)")
-                    /*if(self.Offers.isEmpty){
-                        model.order.getOffers(OrderId: orderID)
-                        model.Offers = model.order.offers
-                    }*/
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn){
                             model.getCards()
                         }//end with animation
                     }
-                    //model.getCards()
                 }
                 
             }
@@ -185,7 +178,6 @@ struct OfferCard: View {
                     notificationT = .AcceptOffer
                     Env.notificationMSG = true
                     Env.getCards()
-                    Env.AcceptOfferNotification.toggle()
                     print("Env.selectedCard.orderD.deliveryPrice Before: \(Env.selectedCard.orderD.deliveryPrice)")
                     Env.selectedCard.orderD.deliveryPrice = card.OfferInfo.price
                     print("Env.selectedCard.orderD.deliveryPrice After:offer price \(card.OfferInfo.price)OrderPrice\(Env.selectedCard.orderD.deliveryPrice)")
@@ -289,6 +281,7 @@ class OfferCarousel: ObservableObject {
                 //Check the state of the order
                 cards.append(contentsOf: [ OfferCardInfo( cardColor: Color(.white), OfferInfo : index )])
             }
+            self.cards = self.cards.sorted(by: { $0.OfferInfo.price >= $1.OfferInfo.price })
         }
         
         
