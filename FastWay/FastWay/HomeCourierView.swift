@@ -20,10 +20,10 @@ struct HomeCourierView: View {
             ZStack{
                 
                 //background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 25)
-                Image("FASTWAY1").frame(width: -50, height: -50)
-                    .offset(x:180 ,y:130).position(x: 10, y: -60)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num: -100))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: hieght(num: 25))
+                Image("FASTWAY1").frame(width: width(num: -50), height: hieght(num: -50))
+                    .offset(x:width(num: 180) ,y:hieght(num: 130)).position(x: width(num: 10), y: hieght(num: -60))
                 
             }
             
@@ -39,7 +39,7 @@ struct HomeCourierView: View {
                     Image("DeliverNew")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num: 300), height: hieght(num: 180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                 }
@@ -53,7 +53,7 @@ struct HomeCourierView: View {
                     Image("current")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num: 300), height: hieght(num: 180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                     
@@ -69,7 +69,7 @@ struct HomeCourierView: View {
                     Image("HistoryCourier")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 180)
+                        .frame(width: width(num: 300), height: hieght(num: 180))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                     
@@ -77,12 +77,12 @@ struct HomeCourierView: View {
                 
                 
                 
-            }.position(x:189 ,y:370)//end VStack
+            }.position(x:width(num: 189) ,y:hieght(num: 370))//end VStack
             
             //notification here
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: "Tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
@@ -93,9 +93,13 @@ struct HomeCourierView: View {
             }.onAppear(){
                 if notificationT == .LogIn || notificationT == .SignUp {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        notificationT = .None
+                    }
                 }
             }
+            
             //bar menue
             ZStack{
                 GeometryReader { geometry in
@@ -118,7 +122,7 @@ struct HomeCourierView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
+                                }.padding(.horizontal, width(num: 14)).onTapGesture {
                                     notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)

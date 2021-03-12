@@ -28,7 +28,7 @@ struct TabBarMenuM: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                        }.padding(.horizontal, 14).onTapGesture {
+                        }.padding(.horizontal, width(num: 14)).onTapGesture {
                             notificationT = .None
                             viewRouter.currentPage = abuotPage
                         }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
@@ -65,7 +65,7 @@ struct TabBarMenuC {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                        }.padding(.horizontal, 14).onTapGesture {
+                        }.padding(.horizontal, width(num: 14)).onTapGesture {
                             notificationT = .None
                             viewRouter.currentPage = abuotPage
                         }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
@@ -96,11 +96,11 @@ struct TabBarIcon: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: width, height: height)
-                .padding(.top, 10)
+                .padding(.top, hieght(num: 10))
             Text(tabName)
                 .font(.footnote)
             Spacer()
-        }.padding(.horizontal, 14).onTapGesture {
+        }.padding(.horizontal, UIScreen.main.bounds.width/(375/14)).onTapGesture {
             notificationT = .None
             viewRouter.currentPage = assignedPage 
         }.foregroundColor(viewRouter.currentPage == assignedPage ? Color("TabBarHighlight") : .gray)

@@ -16,7 +16,7 @@ struct CurrentOrderView: View {
     @Namespace var animation
     //for notification
     @State var show = false
-    
+    @State var imgName = "shoppingCart"
     
     
     var body: some View {
@@ -62,66 +62,69 @@ struct CurrentOrderView: View {
                 model.showOffers = false
                 //model.order.cancelAutomatic(memberId: UserDefaults.standard.getUderId())
             }
-            // Carousel....
-            VStack{
-                Spacer()
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        CurrentCardMView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, hieght(num:5))
-                                    .shadow(radius: 1)
-                                    
-                                    
-                                }.padding(.bottom,hieght(num:25))//end of for each
-                                
-                                
-                            }
-                            
-                        }
-                    }
-                }.padding(.top,hieght(num:80))
-                Spacer()
-            }.padding(.bottom,hieght(num:80))
-            //Press details
-            if model.showCard {
-                CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
-            }
-            //Press deliver details
-            if model.showOffers {
-                Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
-            }
             
             
             
             
             //Send order
             VStack{
+                
                 if show{
-                    Notifications(type: notificationT, imageName: "shoppingCart")
+                    Notifications(type: notificationT, imageName: self.imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
-            }.onAppear(){
+            }
+            .onAppear(){
                 if notificationT == .SendOrder  {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) {
                         self.show = false
                         notificationT = .None
                     }
+                }else{
+                    if notificationT == .CancelByDefault  {
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            notificationT = .None
+                        }
+                    }
                 }
             }
+            .onChange(of: model.notificationMSG, perform: { value in
+                if value {
+                    if notificationT == .CancelOrder  {
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            model.notificationMSG = false
+                            notificationT = .None
+                        }
+                    }else{
+                        
+                            if notificationT == .AcceptOffer  {
+                                animateAndDelayWithSeconds(0.05) {
+                                    self.imgName = "Tick"
+                                    self.show = true }
+                                animateAndDelayWithSeconds(4) {
+                                    self.show = false
+                                    model.notificationMSG = false
+                                    notificationT = .None
+                                }
+                            }
+                        
+                    }
+                }
+            })
+           
+            
             //cancel order
-            VStack{
+           /* VStack{
                 if show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
@@ -168,7 +171,51 @@ struct CurrentOrderView: View {
                         notificationT = .None
                     }
                 }
+            }*/
+            
+            
+            // Carousel....
+            VStack{
+                Spacer()
+                ZStack{
+                    GeometryReader{ geometry in
+                        HStack {
+                            ScrollView {
+                                
+                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                    HStack{
+                                        CurrentCardMView(card: model.cards[index], animation: animation)
+                                        Spacer(minLength: 0)
+                                    }//.frame(height: 100)
+                                    .padding(.horizontal)
+                                    .contentShape(Rectangle())
+                                    .gesture(DragGesture(minimumDistance: 20))
+                                    .padding(.vertical, hieght(num:5))
+                                    .shadow(radius: 1)
+                                    
+                                    
+                                }.padding(.bottom,hieght(num:25))//end of for each
+                                
+                                
+                            }
+                            
+                        }
+                    }
+                }.padding(.top,hieght(num:80))
+                Spacer()
+            }.padding(.bottom,hieght(num:80))
+            //Press details
+            if model.showCard {
+                CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
+            //Press deliver details
+            if model.showOffers {
+                Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
+            }
+            
+            
+            
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -339,6 +386,7 @@ struct CurrentCardMView: View {
                             //.background(Color.purple)
                             Spacer(minLength: 0)
                         }
+                        
                     }
                     
                     
@@ -626,6 +674,7 @@ struct CurrentCardMDetailes: View {
                 primaryButton: .default((Text("Yes")), action: {
                     model.cancelOrder(Id: model.selectedCard.orderD.id)
                     notificationT = .CancelOrder
+                    model.notificationMSG = true
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
                     model.showContent = false
@@ -712,6 +761,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     //Display notification inside the system the offer is accepted
     @Published var AcceptOfferNotification = false
     
+    @Published var notificationMSG =  false
     
     init(){
         //from this ID get all the cards

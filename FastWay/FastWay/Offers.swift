@@ -181,9 +181,9 @@ struct OfferCard: View {
                     model.order
                         .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price))
                     model.showContent = false
-                    notificationT = .None
-                    //viewRouter.currentPage = .CurrentOrder
+                    
                     notificationT = .AcceptOffer
+                    Env.notificationMSG = true
                     Env.getCards()
                     Env.AcceptOfferNotification.toggle()
                     print("Env.selectedCard.orderD.deliveryPrice Before: \(Env.selectedCard.orderD.deliveryPrice)")

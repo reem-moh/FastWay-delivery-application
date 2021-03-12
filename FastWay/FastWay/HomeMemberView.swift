@@ -13,7 +13,7 @@ struct HomeMemberView: View {
     @StateObject var viewRouter: ViewRouter
     let abuotPage: Page = .AboutUs
     @State var show = false
-    
+    @State var imgName = "Tick"
     var body: some View {
         ZStack{
             //Background
@@ -90,7 +90,7 @@ struct HomeMemberView: View {
             //notification
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: self.imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }   
@@ -101,10 +101,20 @@ struct HomeMemberView: View {
                         self.show = false
                         notificationT = .None
                     }
+                }else{
+                    if notificationT == .CancelByDefault{
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            notificationT = .None
+                        }
+                    }
                 }
             }
             // canceled order after 15 min
-            VStack{
+            /*VStack{
                 if show{
                     Notifications(type: notificationT, imageName: "shoppingCart")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
@@ -118,7 +128,7 @@ struct HomeMemberView: View {
                         notificationT = .None
                     }
                 }
-            }
+            }*/
             
             //BarMenue
             ZStack{
