@@ -100,8 +100,8 @@ struct CurrentOrderView: View {
                             model.notificationMSG = false
                             notificationT = .None
                         }
-                    }else{
-                        if notificationT == .AcceptOffer  {
+                    }else if notificationT == .AcceptOffer {
+                       
                             model.getCards()
                             animateAndDelayWithSeconds(0.05) {
                                 self.imgName = "Tick"
@@ -111,7 +111,17 @@ struct CurrentOrderView: View {
                                 model.notificationMSG = false
                                 notificationT = .None
                             }
-                        }
+                        
+                    }else  if notificationT == .CancelByDefault{
+                         
+                            animateAndDelayWithSeconds(0.05) {
+                                self.imgName = "cancelTick"
+                                self.show = true }
+                            animateAndDelayWithSeconds(4) {
+                                self.show = false
+                                notificationT = .None
+                            }
+                        
                     }
                 }
             })
@@ -154,10 +164,7 @@ struct CurrentOrderView: View {
             if model.showOffers {
                 Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
-            
-            
-            
-            
+
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -746,15 +753,10 @@ class CurrentCarouselMViewModel: ObservableObject {
                 //}//end with animation
             }
     }
-    
-    
+  
 }
 
-
-
-
-
-//check if order exceede th 15 min limit
+//check if order exceeds the 15 min limit
 func checkOrders(ID : String){
     if order.memberOrder.isEmpty{
         order.getMemberOrder(Id: ID)
@@ -766,7 +768,8 @@ func checkOrders(ID : String){
                 //convert time to double
                 let timeInterval = -1*index.createdAt.timeIntervalSinceNow
                 if( index.status != "cancled" && index.status != "completed" ){
-                    if timeInterval >= 360  && index.status == order.status[0]{
+                    //60 sec * 15 minutes
+                    if timeInterval >= 900  && index.status == order.status[0]{
                         order.cancelOrder(OrderId: index.id)
                         //notification
                         notificationT = .CancelByDefault

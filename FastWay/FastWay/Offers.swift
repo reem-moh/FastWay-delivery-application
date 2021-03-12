@@ -19,6 +19,9 @@ struct Offers: View {
     @State var status : String
     @State var pickupLocation : CLLocationCoordinate2D
     @State var Offers : [Offer] = []
+    //for notification
+    @State var show = false
+    @State var imgName = "shoppingCart"
     
     var body: some View {
         ZStack {
@@ -66,7 +69,7 @@ struct Offers: View {
                    //model.haveOffers = true
                     model.OrderId = self.orderID
                     model.status = self.status
-                    model.Offers = self.Offers
+                    model.order.offers = self.Offers
                     model.pickupLoc = self.pickupLocation
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn){
@@ -75,7 +78,21 @@ struct Offers: View {
                     }
                 }
                 
-            }
+            }.onChange(of: model.updatePage, perform: { value in
+                    if value {
+                        model.getCards()
+                        if notificationT == .DeclineOffer  {
+                            animateAndDelayWithSeconds(0.05) {
+                                self.imgName = "cancelTick"
+                                self.show = true }
+                            animateAndDelayWithSeconds(4) {
+                                self.show = false
+                                model.updatePage = false
+                                notificationT = .None
+                            }
+                        }
+                    }
+            })
             
             if model.haveOffers {
                 // Carousel....
@@ -178,9 +195,6 @@ struct OfferCard: View {
                     notificationT = .AcceptOffer
                     Env.notificationMSG = true
                     Env.getCards()
-                    print("Env.selectedCard.orderD.deliveryPrice Before: \(Env.selectedCard.orderD.deliveryPrice)")
-                    Env.selectedCard.orderD.deliveryPrice = card.OfferInfo.price
-                    print("Env.selectedCard.orderD.deliveryPrice After:offer price \(card.OfferInfo.price)OrderPrice\(Env.selectedCard.orderD.deliveryPrice)")
                     Env.showOffers = false
                     Env.showCard = false
                 }, label: {
@@ -198,20 +212,16 @@ struct OfferCard: View {
                 
                 //decline button
                 Button(action: {
+                    model.order.cancelOffer(CourierID: model.orderPreview(c: card).courierId, OrderId: model.orderPreview(c: card).OrderId, MemberID: model.orderPreview(c: card).memberId, Price: model.orderPreview(c: card).price)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        //withAnimation(.easeIn){
-                        model.order.cancelOffer(CourierID: model.orderPreview(c: card).courierId, OrderId: model.orderPreview(c: card).OrderId, MemberID: model.orderPreview(c: card).memberId, Price: model.orderPreview(c: card).price)
-                        //}//end with animation
+                        model.order.getOffers(OrderId: model.orderPreview(c: card).OrderId)
                     }
-                    
-                    model.order.getOffers(OrderId: model.orderPreview(c: card).OrderId)
-                    model.Offers = model.order.offers
+                    //model.Offers = model.order.offers
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        //withAnimation(.easeIn){
                         model.getCards()
-                        //}//end with animation
                     }
-                   
+                    notificationT = .DeclineOffer
+                    model.updatePage = true
                 }, label: {
                     Text("Decline")
                         .font(.custom("Roboto Bold", size: 22))
@@ -257,27 +267,24 @@ class OfferCarousel: ObservableObject {
     @Published var OrderId: String = ""
     @Published var status: String = ""
     @Published var pickupLoc : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    @Published var Offers : [Offer] = []
-        
+    //@Published var Offers : [Offer] = []
+    //when user press decline
+    @Published var updatePage =  false
     //return order details
     func orderPreview(c: OfferCardInfo) -> Offer {
         return c.OfferInfo
     }
     
     func getCards(){
-        //if there are offers change haveOffers=true
-        ///Change all this info memberOrder
-        //order.getOffers(OrderId: selectedCard.OfferInfo.OrderId)
-        //print("number of cards inside OfferCarousel getCards: \(order.offers.count)")Offers
-        print("number of cards inside OfferCarousel getCards: \(Offers.count)")
-        if Offers.isEmpty{
+        print("number of cards inside OfferCarousel getCards: \(order.offers.count)")
+        if order.offers.isEmpty{
             print("there is no offer")
             haveOffers = false
             return
         }else{
             haveOffers = true
             cards.removeAll()
-            for index in Offers {
+            for index in order.offers {
                 //Check the state of the order
                 cards.append(contentsOf: [ OfferCardInfo( cardColor: Color(.white), OfferInfo : index )])
             }
