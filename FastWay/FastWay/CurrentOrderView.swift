@@ -101,8 +101,11 @@ struct CurrentOrderView: View {
                             notificationT = .None
                         }
                     }else if notificationT == .AcceptOffer {
-                       
+                            checkOrders(ID:  UserDefaults.standard.getUderId())
                             model.getCards()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    model.getCards()
+                            }
                             animateAndDelayWithSeconds(0.05) {
                                 self.imgName = "Tick"
                                 self.show = true }
@@ -324,9 +327,9 @@ struct CurrentCardMView: View {
                             DotView(delay: 0.2, frame: 10)
                             DotView(delay: 0.4, frame: 10)
                         }
-                    }else{
+                    }else if model.orderPreview(c: card).status == "have an offer"{
                         //model.order.offers "\(model.order.offers.count) offers"
-                        if model.orderPreview(c: card).status == "have an offer"{
+                        
                             Text("New offers")
                                 .bold()
                                 .foregroundColor(.white)
@@ -334,8 +337,11 @@ struct CurrentCardMView: View {
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
                             //.background(Color.purple)
                             Spacer(minLength: 0)
-                        }
                         
+                        
+                    }else {
+                        Text("on the way")
+                        Spacer(minLength: 0)
                     }
                     
                     
