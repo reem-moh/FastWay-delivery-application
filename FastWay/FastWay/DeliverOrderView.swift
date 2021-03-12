@@ -32,13 +32,11 @@ struct DeliverOrderView: View{
                 
             }.onAppear(){
                 model.order.getOrder()
-                model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
                       model.getCards()
                     //}//end with animation
                 }
-                
                 model.showCard = false
                 model.showContent = false
             }
@@ -46,31 +44,35 @@ struct DeliverOrderView: View{
             VStack{
                 // Carousel....
                 Spacer()
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        CardView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, 5)
-                                    .shadow(radius: 1)
+                if model.cards.count == 0 {
+                    Text("There is no order yet, wait for new orders")
+                }else{
+                    ZStack{
+                        GeometryReader{ geometry in
+                            HStack {
+                                ScrollView {
+                                    
+                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                        HStack{
+                                            CardView(card: model.cards[index], animation: animation)
+                                            Spacer(minLength: 0)
+                                        }//.frame(height: 100)
+                                        .padding(.horizontal)
+                                        .contentShape(Rectangle())
+                                        .gesture(DragGesture(minimumDistance: 20))
+                                        .padding(.vertical, 5)
+                                        .shadow(radius: 1)
+                                        
+                                        
+                                    }.padding(.bottom,25)//end of for each
                                     
                                     
-                                }.padding(.bottom,25)//end of for each
-                                
+                                }
                                 
                             }
-                            
                         }
-                    }
-                }.padding(.top,80)
+                    }.padding(.top,80)
+                }
                 Spacer()
             }.padding(.bottom,80)
             

@@ -310,16 +310,13 @@ class Order: ObservableObject{
     //function to get order for delivery requests that the courier hasn't made an offer to yet (assigned= false and status is waiting for offers or had an offer (not canceled))
     func getOrder() {
         print("\n*******GetOrder*********")
-        // var temp: [OrderDetails] = []
-        //.whereField("Status", isEqualTo: "waiting for offer")
-        db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: true).addSnapshotListener { (querySnapshot, error) in
+        db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
             self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 var flagOffer = false
-                print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let OrderId = queryDocumentSnapshot.documentID
                 let state = data["Status"] as? String ?? ""
@@ -329,9 +326,15 @@ class Order: ObservableObject{
                     if state == "have an offer"{
                         self.offers.removeAll()
                         self.getOffersC(Id: UserDefaults.standard.getUderId(), orderID: OrderId)
+                        if !self.getOffersC(Id: UserDefaults.standard.getUderId(), orderID: OrderId){
+                            print("inside get offer c true")
+                            flagOffer = true
+                        }
                         print ("\nGET ORDERS OFFER COUNT \(self.offers.count)\n")
                         if self.offers.count == 0{
-                            flagOffer = true
+                            flagOffer = false
+                        }else {
+                            flagOffer = false
                         }
                     }
                 }
@@ -362,8 +365,9 @@ class Order: ObservableObject{
                         
                         return OrderDetails(id: OrderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                     
+                }else{
+                    return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, createdAt: Date(), status: "")
                 }
-                return OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0, longitude: 0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0, longitude: 0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, createdAt: Date(), status: "")
             })
             
             
@@ -485,8 +489,9 @@ class Order: ObservableObject{
      
     
     //get offers fo courier in a single an order (it returns a single doc contain the offer made the courier)
-    func getOffersC(Id: String, orderID: String){
-        print("\n*******GetOffersCourier*********\n\n")
+    func getOffersC(Id: String, orderID: String)->Bool{
+        var check = false
+        print("\n*******getOffersC*********\n\n")
             db.collection("Order").document(orderID).collection("Offers").whereField("CourierID", isEqualTo: Id).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
                     print("No offer CCCC documents")
@@ -496,7 +501,7 @@ class Order: ObservableObject{
                 if(documents.isEmpty){
                     
                     print("no offer CCCC documents")
-                }
+                }else{
                 self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
                     print(queryDocumentSnapshot.data())
                     let data = queryDocumentSnapshot.data()
@@ -511,7 +516,10 @@ class Order: ObservableObject{
                     print("order :\(offerId) + \(memberID) ")
                     return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: "", name: "", email: "", phN: ""), price: Price, courierLocation: courierLocation)
                 })
+                    check = true
+                }
             }
+            return check
         }
     
     //get all offers made to a specific order

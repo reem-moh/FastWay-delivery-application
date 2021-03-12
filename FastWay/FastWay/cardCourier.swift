@@ -116,6 +116,8 @@ class CarouselViewModel: ObservableObject {
     @Published var showCard = false
     @Published var selectedCard = Card(cardColor: .clear)
     @Published var showContent = false
+    //Id of make an offer for an order
+    @Published var makeAnOffer = ""
     
     init(){
         
@@ -139,9 +141,9 @@ class CarouselViewModel: ObservableObject {
         //"CardColor"
         cards.removeAll()
         for index in order.orders {
-            if index.id != "" {
+            if(  index.id != "" && index.status != "cancled" && index.status != "completed" && index.id != makeAnOffer){
+                print("index.id:\( index.id) \(makeAnOffer)")
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
-                
             }
             
         }
