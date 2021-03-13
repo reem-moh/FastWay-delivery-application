@@ -39,7 +39,7 @@ struct CurrentOrderCourierView: View {
             }.onAppear(){
                 //calling Methods
                 model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
-                model.getCards()
+                //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
                     model.getCards()
@@ -194,7 +194,7 @@ struct CurrentOrderCourierView: View {
             //notification here
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "tick")
+                    Notifications(type: notificationT, imageName: "Tick")
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
