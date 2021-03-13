@@ -188,15 +188,21 @@ struct OfferCard: View {
                 Spacer()
                 //accept button
                 Button(action: {
-                    model.order
-                        .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price))
-                    model.showContent = false
-                    
-                    notificationT = .AcceptOffer
-                    Env.notificationMSG = true
-                    Env.getCards()
-                    Env.showOffers = false
-                    Env.showCard = false
+                    withAnimation(.spring()){
+                        model.order
+                            .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price))
+                        model.showContent = false
+                        notificationT = .AcceptOffer
+                        Env.notificationMSG = true
+                        Env.getCards()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withAnimation(.easeIn){
+                                Env.showOffers = false
+                                Env.showCard = false
+                            }
+                        }
+                        
+                    }
                 }, label: {
                     Text("Accept")
                         .font(.custom("Roboto Bold", size: 22))

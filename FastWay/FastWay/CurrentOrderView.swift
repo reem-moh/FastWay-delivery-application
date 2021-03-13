@@ -77,7 +77,8 @@ struct CurrentOrderView: View {
                         notificationT = .None
                     }
                 }else{
-                    if notificationT == .CancelByDefault  {
+                    if notificationT == .CancelByDefault || cancelNoti {
+                        notificationT = .CancelByDefault
                         animateAndDelayWithSeconds(0.05) {
                             self.imgName = "cancelTick"
                             self.show = true }
@@ -116,6 +117,22 @@ struct CurrentOrderView: View {
                             }
                         
                     }else  if notificationT == .CancelByDefault{
+                         
+                            animateAndDelayWithSeconds(0.05) {
+                                self.imgName = "cancelTick"
+                                self.show = true }
+                            animateAndDelayWithSeconds(4) {
+                                self.show = false
+                                notificationT = .None
+                            }
+                        
+                    }
+                }
+            })
+            .onChange(of: cancelNoti, perform: { value in
+                if value {
+                    notificationT = .CancelByDefault
+                    if notificationT == .CancelByDefault{
                          
                             animateAndDelayWithSeconds(0.05) {
                                 self.imgName = "cancelTick"
@@ -767,6 +784,7 @@ func checkOrders(ID : String){
     if order.memberOrder.isEmpty{
         order.getMemberOrder(Id: ID)
     }
+    cancelNoti = false
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
      
             for index in order.memberOrder {
@@ -775,10 +793,12 @@ func checkOrders(ID : String){
                 let timeInterval = -1*index.createdAt.timeIntervalSinceNow
                 if( index.status != "cancled" && index.status != "completed" ){
                     //60 sec * 15 minutes
-                    if timeInterval >= 900  && index.status == order.status[0]{
+                    if timeInterval >= 120  && index.status == order.status[0]{
                         order.cancelOrder(OrderId: index.id)
                         //notification
                         notificationT = .CancelByDefault
+                        //cancelNoti = true
+                        cancelNoti.toggle()
                         //ViewRouter.currentPage = .HomePageM
                     }
                 }

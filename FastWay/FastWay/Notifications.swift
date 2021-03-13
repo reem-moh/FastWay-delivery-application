@@ -15,6 +15,7 @@ extension AnyTransition {
     }
     
 }
+var cancelNoti : Bool = false
 
 struct Notifications: View {
     @State var type : NotificationType
