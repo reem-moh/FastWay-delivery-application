@@ -437,7 +437,6 @@ class Order: ObservableObject{
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
                 self.getOffersC(Id: Id, orderID: orderId)
-                //let i = self.checkOffer(id: Id)
                 if self.offers.count == 1{
                     
                     print("\(queryDocumentSnapshot.data()) COURIER OFFER and date finc")
@@ -463,6 +462,10 @@ class Order: ObservableObject{
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                     
+                    var i = self.checkOffer(id: orderId)
+                    print(self.offers.count)
+                    print("index of ofeeeeeeeeeeeeeeeeeeeeeeer")
+i = i+1
                     return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:self.offers[0].price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                 }
        
@@ -587,11 +590,13 @@ class Order: ObservableObject{
             db.collection("Order").document(OrderId).setData([ "Status": status[0] ], merge: true)
         }
         
+        print("delete offer from database")
         
             let indexOffer = self.checkOfferForCancle(CourierID: CourierID, OrderId: OrderId, MemberID: MemberID, Price: Price)
                 
                 if indexOffer != -1{
-                
+                    print("delete offer from database")
+
                 db.collection("Order").document(OrderId).collection("Offers").document(offers[indexOffer].id).delete(){ err in
                     if let err = err {
                         print("Error removing offer inside cancelOffer: \(err)")
@@ -620,20 +625,20 @@ class Order: ObservableObject{
         return i
     }
     
-    /*func checkOffer(id : String) -> Int {
+    func checkOffer(id : String) -> Int {
         var i = -1
         var j = -1
       //  var flag = true
-        for offer in  offers{
+        for offer in  self.offers{
             j = j+1
-            if offer.courierId == id {
+            if offer.OrderId == id {
                 i = j
                 //i = i+1
             }
         }
         return i
-    }*/
-    
+    }
+
     //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
