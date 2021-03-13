@@ -466,7 +466,7 @@ class Order: ObservableObject{
                     
                     
                     print(self.offers.count)
-                    print("\n\nDeliver price\(self.offers[0].price)\n\n\(self.deliveryP[i])\n\n")
+                   // print("\n\nDeliver price\(self.offers[0].price)\n\n\(self.deliveryP[i])\n\n")
                     
                     return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:self.deliveryP[i], isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                     
