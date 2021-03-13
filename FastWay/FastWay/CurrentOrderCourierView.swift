@@ -261,7 +261,6 @@ struct CurrentCardCView: View {
                 Image(uiImage: #imageLiteral(resourceName: "dollar"))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.leading)
-            //    Text("\(model.orderPreview(c: card).createdAt.calenderTimeSinceNow()) SR")
                     
                 Text("\(model.orderPreview(c: card).deliveryPrice) SR")
                     
