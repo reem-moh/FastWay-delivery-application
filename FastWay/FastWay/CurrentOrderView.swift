@@ -793,7 +793,7 @@ func checkOrders(ID : String){
                 let timeInterval = -1*index.createdAt.timeIntervalSinceNow
                 if( index.status != "cancled" && index.status != "completed" ){
                     //60 sec * 15 minutes
-                    if timeInterval >= 120  && index.status == order.status[0]{
+                    if timeInterval >= 900  && index.status == order.status[0]{
                         order.cancelOrder(OrderId: index.id)
                         //notification
                         notificationT = .CancelByDefault
