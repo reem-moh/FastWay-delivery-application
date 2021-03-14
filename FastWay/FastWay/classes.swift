@@ -238,76 +238,12 @@ class Order: ObservableObject{
         self.setDetails = false
     }
     
-    func setpickUPAndpickUpDetails(pickUP: CLLocationCoordinate2D ,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String)-> Bool{
-        self.pickUP = pickUP
-        self.pickUpBulding = pickUpBulding
-        self.pickUpFloor = pickUpFloor
-        self.pickUpRoom = pickUpRoom
-        var flag = false
-        if (pickUP.latitude != 0.0 && pickUP.longitude != 0.0 && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
-        {
-            flag = true
-            self.setPick = true
-        }
-        else {
-            
-            flag = false
-        }
-        
-        return flag
-    }
-    
-    func setDropOffAndDropOffDetails(dropOff: CLLocationCoordinate2D, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: String   )-> Bool{
-        self.dropOff = dropOff
-        self.dropOffBulding = dropOffBulding
-        self.dropOffFloor = dropOffFloor
-        self.dropOffRoom = dropOffRoom
-        var flag = false
-        if (dropOff.latitude != 0.0 && dropOff.longitude != 0.0 && dropOffBulding != 0 &&  dropOffFloor != -1 &&  dropOffRoom != "")
-        {
-            flag = true
-            self.setDrop = true
-        }
-        else {
-            
-            flag = false
-        }
-        return flag
-    }
-    
-    func setOrderDetails(orderDetails: String)-> Bool{
-        self.orderDetails=orderDetails
-        var flag = false
-        if orderDetails != ""
-        {
-            flag = true
-            self.setDetails = true
-        }else
-        
-        {
-            flag = false
-            
-        }
-        
-        return flag
-    }
-    
-    func addOrder() -> Bool {
-        var flag = true
-        let id = UserDefaults.standard.getUderId()
-        let doc = db.collection("Order").document()
-        if (self.setPick && self.setDrop && self.setDetails){
-            doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "Status": self.status[0]]) { (error) in
-                
-                if error != nil {
-                    flag = false
-                }
-            }
-        }
-        return flag
-    }
+    //****************************
+          //For Courier user
+    //****************************
     
     //function to get order for delivery requests that the courier hasn't made an offer to yet (assigned= false and status is waiting for offers or had an offer (not canceled))
+    //Delivery request
     func getOrder() {
         print("\n*******GetOrder*********")
         db.collection("Order").whereField("Assigned", isEqualTo: "false").order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
@@ -371,55 +307,6 @@ class Order: ObservableObject{
         }
     }
     
-    //get all member orders where member id equals the id sent
-    func getMemberOrder(Id: String){
-        print("\n*******GetMemberOrder*********")
-        db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                print("No order documents")
-                return
-            }
-            self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
-                print(queryDocumentSnapshot.data())
-                let data = queryDocumentSnapshot.data()
-                let uid = queryDocumentSnapshot.documentID
-                //pickUp location
-                let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
-                let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
-                let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
-                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
-                let pickupRoom = data["pickUpRoom"] as? String ?? ""
-                //DropOff Location
-                let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
-                let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
-                let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
-                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
-                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
-                let orderDetails = data["orderDetails"] as? String ?? ""
-                //when converting to Bool we need to do this
-                let assigned = (data["Assigned"] as? String ?? "" == "true" ? true : false)
-                let MemberID = data["MemberID"] as? String ?? ""
-                let state = data["Status"] as? String ?? ""
-                let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
-                var deliveryPrice = 0
-                var courierId = ""
-                
-                if assigned{ // if the order is assigned and both value are created in db 
-                    deliveryPrice = data["DeliveryPrice"] as? Int ?? 0
-                    courierId = data["CourierID"] as? String ?? ""
-                    print("\n\n !!!!!!!!!!!!!!!!!!!!!! pric \(deliveryPrice) \n\n")
-                }
-                
-                
-                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-            })
-        }
-    }
     //to store the prices will be initialized in getOffersC and used in get courier order offered
     var deliveryP : [Int] = []
     //get courier orders that he made an offer to where (status is have an offer witch means assigned= false)
@@ -478,6 +365,7 @@ class Order: ObservableObject{
         
         }
     
+    //add offer for specific order
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double)-> Bool{
         print("\n*******addOffer*********")
         let id = UserDefaults.standard.getUderId()
@@ -493,8 +381,8 @@ class Order: ObservableObject{
         return flag
     }
      
-    
     //get offers fo courier in a single an order (it returns a single doc contain the offer made the courier)
+    //check if courier has offer in specific order and return it
     func getOffersC(Id: String, orderID: String){
        // var check = false
         //self.offers.removeAll()
@@ -531,6 +419,24 @@ class Order: ObservableObject{
            // return check
         }
     
+    /*func checkOffer(id : String) -> Int {
+        var i = -1
+        var j = -1
+      //  var flag = true
+        for offer in  self.offers{
+            j = j+1
+            if offer.OrderId == id {
+                i = j
+                //i = i+1
+            }
+        }
+        return i
+    }*/
+    
+    //**************************************
+          //For Courier and Member user
+    //**************************************
+    
     //get all offers made to a specific order
     func getOffers(OrderId: String){
         print("\n*******GetOffersMember*********")
@@ -558,30 +464,6 @@ class Order: ObservableObject{
                 return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: courierID), price: Price, courierLocation: courierLocation)
             })
         }
-    }
-    
-    //cancels an order based on order id and deletes all offers if any
-    func cancelOrder(OrderId: String){
-        print("\n*******CancelOrder*********")
-        db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
-        
-        db.collection("Order").document(OrderId).collection("Offers").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents inside cancle order: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
-                    db.collection("Order").document(OrderId).collection("Offers").document(document.documentID).delete() { err in
-                        if let err = err {
-                            print("Error removing offer inside cancelOrder: \(err)")
-                        } else {
-                            print("offer successfully delete inside cancelOrder!")
-                        }
-                    }//delete offer
-                }//loop
-            }
-        }//get documents
-     
     }
     
     //cancels an offer and changes the order status to waiting for offers if needed
@@ -615,7 +497,7 @@ class Order: ObservableObject{
     
      
     }
-
+    
     //return the index of the offer to be canceled in array offers
     func checkOfferForCancle(CourierID: String, OrderId: String, MemberID: String, Price: Int) -> Int {
        // var flag = true
@@ -631,21 +513,159 @@ class Order: ObservableObject{
         return i
     }
     
-    func checkOffer(id : String) -> Int {
-        var i = -1
-        var j = -1
-      //  var flag = true
-        for offer in  self.offers{
-            j = j+1
-            if offer.OrderId == id {
-                i = j
-                //i = i+1
+    
+    //****************************
+          //For Member user
+    //****************************
+    
+    //Add new Order
+    func setpickUPAndpickUpDetails(pickUP: CLLocationCoordinate2D ,pickUpBulding: Int, pickUpFloor: Int, pickUpRoom: String)-> Bool{
+        self.pickUP = pickUP
+        self.pickUpBulding = pickUpBulding
+        self.pickUpFloor = pickUpFloor
+        self.pickUpRoom = pickUpRoom
+        var flag = false
+        if (pickUP.latitude != 0.0 && pickUP.longitude != 0.0 && pickUpBulding != 0 &&  pickUpFloor != -1 &&  pickUpRoom != "")
+        {
+            flag = true
+            self.setPick = true
+        }
+        else {
+            
+            flag = false
+        }
+        
+        return flag
+    }
+    
+    //Add new Order
+    func setDropOffAndDropOffDetails(dropOff: CLLocationCoordinate2D, dropOffBulding: Int, dropOffFloor: Int, dropOffRoom: String   )-> Bool{
+        self.dropOff = dropOff
+        self.dropOffBulding = dropOffBulding
+        self.dropOffFloor = dropOffFloor
+        self.dropOffRoom = dropOffRoom
+        var flag = false
+        if (dropOff.latitude != 0.0 && dropOff.longitude != 0.0 && dropOffBulding != 0 &&  dropOffFloor != -1 &&  dropOffRoom != "")
+        {
+            flag = true
+            self.setDrop = true
+        }
+        else {
+            
+            flag = false
+        }
+        return flag
+    }
+    
+    //Add new Order
+    func setOrderDetails(orderDetails: String)-> Bool{
+        self.orderDetails=orderDetails
+        var flag = false
+        if orderDetails != ""
+        {
+            flag = true
+            self.setDetails = true
+        }else
+        
+        {
+            flag = false
+            
+        }
+        
+        return flag
+    }
+    
+    //Add new Order
+    func addOrder() -> Bool {
+        var flag = true
+        let id = UserDefaults.standard.getUderId()
+        let doc = db.collection("Order").document()
+        if (self.setPick && self.setDrop && self.setDetails){
+            doc.setData(["MemberID": id,"PickUpLatitude":self.pickUP.latitude,"PickUpLongitude":self.pickUP.longitude, "pickUpBulding":self.pickUpBulding, "pickUpFloor": self.pickUpFloor, "pickUpRoom": self.pickUpRoom, "DropOffLatitude":self.dropOff.latitude,"DropOffLongitude":self.dropOff.longitude, "dropOffBulding": self.dropOffBulding, "dropOffFloor": self.dropOffFloor, "dropOffRoom": self.dropOffRoom,"orderDetails": self.orderDetails, "Assigned": "false", "CreatedAt": FieldValue.serverTimestamp(), "Status": self.status[0]]) { (error) in
+                
+                if error != nil {
+                    flag = false
+                }
             }
         }
-        return i
+        return flag
     }
-
-    //function accept offer adds courier id and delivery prive to order and deletes offer subcollection
+    
+    //get all member orders where member id equals the id sent
+    func getMemberOrder(Id: String){
+        print("\n*******GetMemberOrder*********")
+        db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No order documents")
+                return
+            }
+            self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                print(queryDocumentSnapshot.data())
+                let data = queryDocumentSnapshot.data()
+                let uid = queryDocumentSnapshot.documentID
+                //pickUp location
+                let PickUpLatitude = data["PickUpLatitude"] as? Double ?? 0.0
+                let PickUpLongitude = data["PickUpLongitude"] as? Double ?? 0.0
+                let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
+                let pickupBuilding = data["pickUpBulding"] as? Int ?? 0
+                let pickupFloor = data["pickUpFloor"] as? Int ?? 0
+                let pickupRoom = data["pickUpRoom"] as? String ?? ""
+                //DropOff Location
+                let DropOffLatitude = data["DropOffLatitude"] as? Double ?? 0.0
+                let DropOffLongitude = data["DropOffLongitude"] as? Double ?? 0.0
+                let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
+                let dropoffBuilding = data["dropOffBulding"] as? Int ?? 0
+                let dropoffFloor = data["dropOffFloor"] as? Int ?? 0
+                let dropoffRoom = data["dropOffRoom"] as? String ?? ""
+                let orderDetails = data["orderDetails"] as? String ?? ""
+                //when converting to Bool we need to do this
+                let assigned = (data["Assigned"] as? String ?? "" == "true" ? true : false)
+                let MemberID = data["MemberID"] as? String ?? ""
+                let state = data["Status"] as? String ?? ""
+                let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
+                var deliveryPrice = 0
+                var courierId = ""
+                
+                if assigned{ // if the order is assigned and both value are created in db
+                    deliveryPrice = data["DeliveryPrice"] as? Int ?? 0
+                    courierId = data["CourierID"] as? String ?? ""
+                    print("\n\n !!!!!!!!!!!!!!!!!!!!!! pric \(deliveryPrice) \n\n")
+                }
+                
+                
+                print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
+                print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
+                
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+            })
+        }
+    }
+    
+    //cancels an order based on order id and deletes all offers if any
+    func cancelOrder(OrderId: String){
+        print("\n*******CancelOrder*********")
+        db.collection("Order").document(OrderId).setData([ "Status": status[1] ], merge: true)
+        
+        db.collection("Order").document(OrderId).collection("Offers").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents inside cancle order: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
+                    db.collection("Order").document(OrderId).collection("Offers").document(document.documentID).delete() { err in
+                        if let err = err {
+                            print("Error removing offer inside cancelOrder: \(err)")
+                        } else {
+                            print("offer successfully delete inside cancelOrder!")
+                        }
+                    }//delete offer
+                }//loop
+            }
+        }//get documents
+     
+    }
+    
+    //function accept offer adds courier id and delivery price to order and deletes offer subcollection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
         db.collection("Order").document(orderID).collection("Offers").getDocuments() { (querySnapshot, err) in
@@ -666,6 +686,7 @@ class Order: ObservableObject{
         }//get documents
         
     }
+    
 }
 
 
