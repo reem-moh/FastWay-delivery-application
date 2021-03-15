@@ -136,7 +136,7 @@ struct CurrentOrderCourierView: View {
             //notification
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "shoppingCart")
+                    Notifications(type: notificationT, imageName: self.imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
@@ -241,7 +241,7 @@ struct CurrentOrderCourierView: View {
             //notification here
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "Tick")
+                    Notifications(type: notificationT, imageName: self.imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
