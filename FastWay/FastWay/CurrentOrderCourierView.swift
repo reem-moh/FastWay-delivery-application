@@ -17,7 +17,8 @@ struct CurrentOrderCourierView: View {
     @Namespace var animation
     //for notification
     @State var show = false
-    
+    @State var imgName = "shoppingCart"
+
 
     
     var body: some View {
@@ -49,6 +50,52 @@ struct CurrentOrderCourierView: View {
                 model.showContent = false
             }
             
+            
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            //Notification
+            VStack{
+                
+                if show{
+                    Notifications(type: notificationT, imageName: self.imgName)
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }
+        
+            //Cancel offer
+            .onChange(of: model.notificationMSG, perform: { value in
+                if value {
+                    if notificationT == .CancelOffer  {
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            model.notificationMSG = false
+                            notificationT = .None
+                        }
+                    }
+                }
+            })
+         /*   .onChange(of: cancelNoti, perform: { value in
+                if value {
+                    notificationT = .CancelByDefault
+                    if notificationT == .CancelByDefault{
+                         
+                            animateAndDelayWithSeconds(0.05) {
+                                self.imgName = "cancelTick"
+                                self.show = true }
+                            animateAndDelayWithSeconds(4) {
+                                self.show = false
+                                notificationT = .None
+                            }
+                        
+                    }
+                }
+            }) */
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////
             
             
             // Carousel....
@@ -547,6 +594,7 @@ struct CurrentCardCDetailes: View {
                     
                     canelOffer()
                     
+                    model.notificationMSG = true
                     model.showCard = false
                     model.showContent = false
                     
@@ -618,6 +666,8 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var showContent = false
     
     @Published var cancelCardOrderId : String = ""
+    @Published var notificationMSG =  false
+
     
     init(){/////////update
         //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
