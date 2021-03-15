@@ -32,6 +32,9 @@ struct DeliverOrderView: View{
                 
             }.onAppear(){
                 model.order.getOrder()
+                checkOrdersForCourier()
+                //model.order.mainThreadHaveAnOffer()
+                //model.order.getOrderWaitingForOffer()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
                       model.getCards()
@@ -179,6 +182,31 @@ struct DeliverOrderView: View{
             
         }//end ZStack
     }//end Body
+    
+}
+
+//don't show the order who exceed 15 minutes without offers
+func checkOrdersForCourier(){
+    if order.ordersCanceled.isEmpty{
+        order.getOrderForCancel()
+    }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+     
+            for index in order.ordersCanceled {
+                
+                //convert time to double
+                let timeInterval = -1*index.createdAt.timeIntervalSinceNow
+                if( index.status != "cancled" && index.status != "completed" ){
+                    //60 sec * 15 minutes
+                    if timeInterval >= 900  && index.status == order.status[0]{
+                        order.cancelOrder(OrderId: index.id)
+                    }
+                }
+                
+            }
+        
+        
+      }
     
 }
 
