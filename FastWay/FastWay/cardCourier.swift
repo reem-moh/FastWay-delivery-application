@@ -120,7 +120,15 @@ class CarouselViewModel: ObservableObject {
     @Published var makeAnOffer = ""
     
     init(){
-        
+        order.orderID.removeAll()
+        checkOrdersForCourier()
+        order.getOrderWaitingForOffer()
+        order.getAllOffersFromCourier(){ success in
+            print("inside init ")
+            //if success false return
+            guard success else { return }
+            self.getCards()
+        }
         //order.getOrder()
         print("number of oreders inside init: \(order.orders.count)")
         getCards()
@@ -141,7 +149,7 @@ class CarouselViewModel: ObservableObject {
         //"CardColor"
         cards.removeAll()
         for index in order.orders {
-            if(  index.id != "" && index.status != "cancled" && index.status != "completed" && index.id != makeAnOffer){
+            if(index.status != "cancled" && index.status != "completed" && index.id != makeAnOffer && !order.orderID.contains(index.id)){
                 print("index.id:\( index.id) \(makeAnOffer)")
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
             }

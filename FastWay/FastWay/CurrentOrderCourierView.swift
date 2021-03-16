@@ -38,8 +38,16 @@ struct CurrentOrderCourierView: View {
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                //calling Methods
-                model.order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
+                model.order.orderID.removeAll()
+                //retrieve ordered assigned to the user
+                model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+                //retrieve order waiting for accept
+                model.order.getAllOffersFromCourierInCurrentOrder(){ success in
+                    print("inside Delivery order view success ")
+                    //if success false return
+                    guard success else { return }
+                    model.getCards()
+                }
                 //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
@@ -670,8 +678,15 @@ class CurrentCarouselCViewModel: ObservableObject {
 
     
     init(){/////////update
-        //from this ID get all the cards  Id: UserDefaults.standard.getUderId()
-        order.getCourierOrderOffred(Id: UserDefaults.standard.getUderId())
+        order.orderID.removeAll()
+        order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+        //retrieve order waiting for accept
+        order.getAllOffersFromCourierInCurrentOrder(){ success in
+            print("inside Delivery order view success ")
+            //if success false return
+            guard success else { return }
+            self.getCards()
+        }
         print("number of oreders inside init: \(order.CourierOrderOffered.count)")
         getCards()
         
@@ -692,9 +707,9 @@ class CurrentCarouselCViewModel: ObservableObject {
         //update CourierOrderOffered
         
         for index in order.CourierOrderOffered {
-            
+            print("index\(index.status)")
             //if( index.isAdded != true && index.status != "completed" && index.courierId != cancelCardOrderId){
-            if index.id != ""{
+            if order.orderID.contains(index.id) || index.status == "assigned"{
                     cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }
             //}

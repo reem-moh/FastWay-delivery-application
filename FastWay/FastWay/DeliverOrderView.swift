@@ -31,13 +31,19 @@ struct DeliverOrderView: View{
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                model.order.getOrder()
+                model.order.orderID.removeAll()
+                //cancel order who exceeds 15 minutes without offers
                 checkOrdersForCourier()
-                //model.order.mainThreadHaveAnOffer()
-                //model.order.getOrderWaitingForOffer()
+                model.order.getOrderWaitingForOffer()
+                model.order.getAllOffersFromCourier(){ success in
+                    print("inside Delivery order view success ")
+                    //if success false return
+                    guard success else { return }
+                    model.getCards()
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
-                      model.getCards()
+                    model.getCards()
                     //}//end with animation
                 }
                 model.showCard = false
