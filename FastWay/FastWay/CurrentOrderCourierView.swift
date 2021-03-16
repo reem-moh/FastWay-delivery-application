@@ -677,15 +677,15 @@ class CurrentCarouselCViewModel: ObservableObject {
 
     
     init(){/////////update
-        order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+        //order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
         //retrieve order waiting for accept
-        order.getAllOffersFromCourierInCurrentOrder(){ success in
+        /*order.getAllOffersFromCourierInCurrentOrder(){ success in
             print("inside Delivery order view success ")
             //if success false return
             guard success else { return }
             self.getCards()
-        }
-        print("number of oreders inside init: \(order.CourierOrderOffered.count)")
+        }*/
+        print("number of oreders inside init: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
         getCards()
         
     }
@@ -696,23 +696,28 @@ class CurrentCarouselCViewModel: ObservableObject {
     }
     
     func getCards(){//update CourierOrderOffered
-        print("number of cards inside get couerier Cards: \(order.CourierOrderOffered.count)")
-        if order.CourierOrderOffered.isEmpty{
-            print("there is no order")
+        print("number of cards inside get couerier Cards: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
+        
+        if order.CourierOrderOfferedAssign.isEmpty{
+            print("there is no order in Assign")
+        }
+        if order.CourierOrderOfferedWaiting.isEmpty{
+            print("there is no order in waiting")
         }
         
         cards.removeAll()
-        //update CourierOrderOffered
+        for index in order.CourierOrderOfferedWaiting {
+            cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+        }
         
-        for index in order.CourierOrderOffered {
-            print("index\(index.status)")
-            //if( index.isAdded != true && index.status != "completed" && index.courierId != cancelCardOrderId){
-            if order.orderID.contains(index.id) || index.status == "assigned"{
-                    cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+        for index in order.CourierOrderOfferedAssign {
+            print("index in loop assign \(index.id)")
+            cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }
-            //}
-            
+        cards.sort {
+            $0.orderD.createdAt < $1.orderD.createdAt
         }
+        
     }
     
 }
