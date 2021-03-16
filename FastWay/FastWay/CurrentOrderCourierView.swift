@@ -38,7 +38,6 @@ struct CurrentOrderCourierView: View {
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                model.order.orderID.removeAll()
                 //retrieve ordered assigned to the user
                 model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
                 //retrieve order waiting for accept
@@ -678,7 +677,6 @@ class CurrentCarouselCViewModel: ObservableObject {
 
     
     init(){/////////update
-        order.orderID.removeAll()
         order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
         //retrieve order waiting for accept
         order.getAllOffersFromCourierInCurrentOrder(){ success in

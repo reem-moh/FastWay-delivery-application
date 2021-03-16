@@ -31,7 +31,6 @@ struct DeliverOrderView: View{
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                model.order.orderID.removeAll()
                 //cancel order who exceeds 15 minutes without offers
                 checkOrdersForCourier()
                 model.order.getOrderWaitingForOffer()

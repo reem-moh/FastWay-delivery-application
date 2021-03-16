@@ -200,7 +200,8 @@ struct Offer : Identifiable {
 
 class Order: ObservableObject{
     
-    @Published var orders: [OrderDetails] = [] //for delivery requests
+    @Published var orders: [OrderDetails] = [] //for delivery requests have an offer
+    @Published var WaitingOrders: [OrderDetails] = [] //for delivery requests waiting
     @Published var ordersCanceled: [OrderDetails] = [] //for cancel order by default
     @Published var memberOrder: [OrderDetails] = [] //for current order
     @Published var CourierOrderOffered: [OrderDetails] = [] // for current order
@@ -294,7 +295,7 @@ class Order: ObservableObject{
                     print("No order documents")
                     return
                 }
-                self.orders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                self.WaitingOrders = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                     let data = queryDocumentSnapshot.data()
                     let OrderId = queryDocumentSnapshot.documentID
                     let state = data["Status"] as? String ?? ""
