@@ -133,8 +133,8 @@ class CarouselViewModel: ObservableObject {
             self.getCards()
         }*/
         //order.getOrder()
-        print("number of oreders inside init: \(order.orders.count)")
-        getCards()
+        //print("number of oreders inside init: \(order.orders.count)")
+        //getCards()
         
     }
     

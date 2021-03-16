@@ -735,9 +735,9 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     init(){
         //from this ID get all the cards
-        order.getMemberOrder(Id: UserDefaults.standard.getUderId())
-        print("number of oreders inside init: \(order.memberOrder.count)")
-        getCards()
+        //order.getMemberOrder(Id: UserDefaults.standard.getUderId())
+        //print("number of oreders inside init: \(order.memberOrder.count)")
+        //getCards()
         
     }
     

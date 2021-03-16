@@ -685,8 +685,8 @@ class CurrentCarouselCViewModel: ObservableObject {
             guard success else { return }
             self.getCards()
         }*/
-        print("number of oreders inside init: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
-        getCards()
+        //print("number of oreders inside init: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
+        //getCards()
         
     }
     
