@@ -31,11 +31,15 @@ struct DeliverOrderView: View{
                 }.edgesIgnoringSafeArea(.all)
                 
             }.onAppear(){
-                //cancel order who exceeds 15 minutes without offers
+                //cancel order when its exceeds 15 minutes without offers
                 checkOrdersForCourier()
+                //retrieve all waiting for offer orders [from collection order]
                 model.order.getOrderWaitingForOffer()
+                //retrieve all orders have an offer [from collection order]
+                model.order.getOrder()
+                //get all order id that the courier has offer in order [from collection offer]
                 model.order.getAllOffersFromCourier(){ success in
-                    print("inside Delivery order view success ")
+                    print("inside init ")
                     //if success false return
                     guard success else { return }
                     model.getCards()

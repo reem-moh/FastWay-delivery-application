@@ -286,7 +286,7 @@ class Order: ObservableObject{
             
         }
     }
-    //F
+    //T
     //Delivery request for courier [state = waiting for offer]
     func getOrderWaitingForOffer(){
             print("\n*******getOrderWaitingForOffer*********")
@@ -326,7 +326,7 @@ class Order: ObservableObject{
      }
     }
     //T
-    //Delivery request for courier [state = have an offer] //get orders //maybe but it in
+    //Delivery request for courier [state = have an offer] from offer collection
     func getAllOffersFromCourier(completion: @escaping (_ success: Bool) -> Void) {
         self.orderID.removeAll()
         let id = UserDefaults.standard.getUderId()
@@ -346,27 +346,17 @@ class Order: ObservableObject{
                         print("End loop inside getAllOffersFromCourier")
                         
                     }
-                    print("inside getAllOffersFromCourier before getOrder")
-                    //add these orders
-                    self.getOrder(){ success in
-                        print("inside getAllOffersFromCourier after getOrder")
-                        guard success else { return }
-                        let success = true
-                        DispatchQueue.main.async {
-                            print("inside getAllOffersFromCourier in dispatch")
-                            completion(success)
-                        }
+                    let success = true
+                    DispatchQueue.main.async {
+                        print("inside getAllOffersFromCourier in dispatch")
+                        completion(success)
                     }
-                    
-                    
-                    
-                    
                 }
     }
     //T
-    //Delivery request for courier [state = have an offer]
-    func getOrder(completion: @escaping (_ success: Bool) -> Void) {
-            print("inside getOrder")
+    //Delivery request for courier [state = have an offer] from order collection
+    func getOrder() {
+            print("inside getOrder") //status[2] = have an offer
             db.collection("Order").whereField("Status", isEqualTo: status[2]).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
                     print("No order documents")
@@ -400,11 +390,6 @@ class Order: ObservableObject{
                         
                     
                 })
-                let success = true
-                DispatchQueue.main.async {
-                    completion(success)
-                }
-                
             }
     }
     //T
@@ -486,7 +471,7 @@ class Order: ObservableObject{
                     }
                     print("inside getAllOffersFromCourier before getOrder")
                     //add these orders
-                    self.getOrder(){ success in
+                    self.getOrderForCurrentOrder(){ success in
                         print("inside getAllOffersFromCourier after getOrder")
                         guard success else { return }
                         let success = true

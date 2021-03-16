@@ -121,7 +121,11 @@ class CarouselViewModel: ObservableObject {
     
     init(){
         checkOrdersForCourier()
+        //retrieve all waiting for offer orders [from collection order]
         order.getOrderWaitingForOffer()
+        //retrieve all orders have an offer [from collection order]
+        order.getOrder()
+        //get all order id that the courier has offer in order [from collection offer]
         order.getAllOffersFromCourier(){ success in
             print("inside init ")
             //if success false return
@@ -140,26 +144,29 @@ class CarouselViewModel: ObservableObject {
     }
     
     func getCards(){
-        
+        print("inside getCards")
         print("number of cards inside getCards: \(order.orders.count)")
         if order.orders.isEmpty{
             print("there is no order")
         }
         //"CardColor"
         cards.removeAll()
+        //orders has waiting for offers status
         for index in order.WaitingOrders{
-            print("index.id:\( index.id) \(makeAnOffer)")
+            print("index.id in waiting for offer :\( index.id)")
             cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
         }
+        //orders has have an offer status
         for index in order.orders {
-            if(index.status != "cancled" && index.status != "completed" && index.id != makeAnOffer && !order.orderID.contains(index.id)){
-                print("index.id:\( index.id) \(makeAnOffer)")
+            print("index.id in have an offer before if :\( index.id)")
+            if(index.id != makeAnOffer && !order.orderID.contains(index.id)){
+                print("index.id in have an offer after if:\( index.id)")
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
             }
             
         }
         
-        print("num of deliver cards \(cards.count)")
+        print("num of deliver cards inside getCards: \(cards.count)")
     }
     
 }
