@@ -653,14 +653,14 @@ struct CurrentCardCDetailes: View {
         
         
         
-        model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+        /*model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
         //retrieve order waiting for accept
         model.order.getAllOffersFromCourierInCurrentOrder(){ success in
             print("inside Delivery order view success ")
             //if success false return
             guard success else { return }
             model.getCards()
-        }
+        }*/
         //model.getCards()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             //withAnimation(.easeIn){
@@ -740,12 +740,16 @@ class CurrentCarouselCViewModel: ObservableObject {
         }
         
         cards.removeAll()
+        print("number of cards after remove the cards:\(cards.count)")
         for index in order.CourierOrderOfferedWaiting {
-            cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            print("index in loop waiting \(index.orderDetails)")
+            if ( index.id != "") {
+                cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            }
         }
         
         for index in order.CourierOrderOfferedAssign {
-            print("index in loop assign \(index.id)")
+            print("index in loop assign \(index.orderDetails)")
             cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
         }
         cards.sort {
