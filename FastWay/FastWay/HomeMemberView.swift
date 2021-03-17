@@ -96,6 +96,7 @@ struct HomeMemberView: View {
                 }   
             }.onAppear(){
                 if notificationT == .LogIn || notificationT == .SignUp {
+                    self.imgName = "Tick"
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) {
                         self.show = false

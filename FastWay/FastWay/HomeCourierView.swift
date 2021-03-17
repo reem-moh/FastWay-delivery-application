@@ -83,7 +83,7 @@ struct HomeCourierView: View {
             //notification Sign up login
             VStack{
                 if show{
-                    Notifications(type: notificationT, imageName: "Tick")
+                    Notifications(type: notificationT, imageName: imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
@@ -93,6 +93,7 @@ struct HomeCourierView: View {
                 
             }.onAppear(){
                 if notificationT == .LogIn || notificationT == .SignUp {
+                    self.imgName = "Tick"
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) {
                         self.show = false

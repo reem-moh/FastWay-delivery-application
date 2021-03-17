@@ -495,57 +495,7 @@ class Order: ObservableObject{
                 }
             }
     }
-    //T
-    /*func getOrderForCourierCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
-        var success = false
-        self.CourierOrderOfferedWaiting.removeAll()
-        print("inside getOrderForCourierCurrentOrder")
-        for offer in collectAllOffersForCourier{
-            let docRef = db.collection("Order").document(offer.OrderId)
-            docRef.getDocument(source: .cache) { (document, error) in
-                if let document = document {
-                    let data = document.data()
-                    let OrderId = document.documentID
-                    let state = data?["Status"] as? String ?? ""
-                    //pickUp location
-                    let PickUpLatitude = data?["PickUpLatitude"] as? Double ?? 0.0
-                    let PickUpLongitude = data?["PickUpLongitude"] as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = data?["pickUpBulding"] as? Int ?? 0
-                    let pickupFloor = data?["pickUpFloor"] as? Int ?? 0
-                    let pickupRoom = data?["pickUpRoom"] as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = data?["DropOffLatitude"] as? Double ?? 0.0
-                    let DropOffLongitude = data?["DropOffLongitude"] as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = data?["dropOffBulding"] as? Int ?? 0
-                    let dropoffFloor = data?["dropOffFloor"] as? Int ?? 0
-                    let dropoffRoom = data?["dropOffRoom"] as? String ?? ""
-                    let orderDetails = data?["orderDetails"] as? String ?? ""
-                    let assigned = (data?["Assigned"] as? String ?? "" == "true" ? true : false)
-                    let MemberID = data?["MemberID"] as? String ?? ""
-                    let createdAt = data?["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
-                    let price = offer.price
-                    
-                    print("order inside getOrderForCourierCurrentOrder:\(OrderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    let newOrder =  OrderDetails(id: OrderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: offer.courierId,deliveryPrice: price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    self.CourierOrderOfferedWaiting.append(newOrder)
-                } else {
-                    print("Document does not exist in getOrderForCourierCurrentOrder")
-                }
-                success = true
-            }
-        }
-        print("After getOrderForCourierCurrentOrder loop")
-        DispatchQueue.main.async {
-            print("in getOrderForCourierCurrentOrder inside DispatchQueue")
-            completion(success)
-        }
-        
-    }*/
-    //**************************************
-    //For Courier and Member user
-    //**************************************
+    
     func getOrderForCourierCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         db.collection("Order").whereField("Status", isEqualTo: status[2])
             .addSnapshotListener { (querySnapshot, error) in

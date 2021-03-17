@@ -141,6 +141,8 @@ struct Offers: View {
                     .padding(.top,80)
                     Spacer()
                 }.padding(.bottom,80)
+            }else{
+                Text("You haven\'t recieved any offers yet")
             }
            
             
@@ -253,6 +255,11 @@ struct OfferCard: View {
                     }
                     notificationT = .DeclineOffer
                     model.updatePage = true
+                    if model.cards.count == 0 {
+                        Env.showCard = false
+                        Env.showContent = false
+                        Env.showOffers = false
+                    }
                 }, label: {
                     Text("Decline")
                         .font(.custom("Roboto Bold", size: 22))

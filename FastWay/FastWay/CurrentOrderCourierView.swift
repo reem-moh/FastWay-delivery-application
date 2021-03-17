@@ -395,7 +395,11 @@ struct CurrentCardCView: View {
                     else{
                        // Text("Waiting for Accept").offset(x: -130, y: -10)
                     
-                        Text("Waiting for Accept")
+                        Text("Waiting for accept")
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:170),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -404,11 +408,12 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-                        HStack{
-                            DotView(frame: 10)
-                            DotView(delay: 0.2, frame: 10)
-                            DotView(delay: 0.4, frame: 10)
-                        }
+                        Spacer(minLength: 0)
+                        //HStack{
+                            //DotView(frame: 10)
+                            //DotView(delay: 0.2, frame: 10)
+                            //DotView(delay: 0.4, frame: 10)
+                        //}
                         
                      }
                     Image(systemName: "arrow.right")
@@ -554,7 +559,20 @@ struct CurrentCardCDetailes: View {
                                 .offset(x: 10, y: 10)
                             Spacer(minLength: 0)
                         }
-                       
+                        
+                        if model.selectedCard.orderD.status == "have an offer"{
+                            HStack{
+                                Text("Waiting for accept")
+                                    .foregroundColor(.purple)
+                                    .bold()
+                                    .padding(.leading, width(num:20))
+                                DotView(frame: 15)
+                                DotView(delay: 0.2, frame: 15)
+                                DotView(delay: 0.4, frame: 15)
+        
+                            Spacer(minLength: 0)
+                            }
+                        }
                         
                         //pick up
                         ZStack{

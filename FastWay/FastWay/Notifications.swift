@@ -58,7 +58,7 @@ struct Notifications: View {
             case .CancelOffer:
                 self.message = "Your Offer has been canceled successfully."
             case .CancelByDefault:
-                self.message = "Your order has been without offers for 15 minutes, So it canceled automatically."
+                self.message = "Sorry your order has been cancelled, it has been without offers for 15 minutes."
             case .AcceptOffer:
                 self.message = "Your order has been assigned to a courier."
             case .DeclineOffer:

@@ -355,13 +355,17 @@ struct CurrentCardMView: View {
                     
                     if self.stat == "waiting for offer"{
                         Text("Waiting for offers")
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:170),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
                         Spacer(minLength: 0)
-                        HStack{
+                        //HStack{
                             
-                            DotView(frame: 10)
-                            DotView(delay: 0.2, frame: 10)
-                            DotView(delay: 0.4, frame: 10)
-                        }
+                            //DotView(frame: 10)
+                            //DotView(delay: 0.2, frame: 10)
+                            //DotView(delay: 0.4, frame: 10)
+                        //}
                     }else if self.stat == "have an offer"{
                         //model.order.offers "\(model.order.offers.count) offers"
                         
@@ -416,22 +420,6 @@ struct CurrentCardMView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
-        /*.alert(isPresented: $model.check10min) {
-            Alert(
-                title: Text("Order confirmed"),
-                message: Text("your order: \"\(card.orderD.orderDetails)\" has been 10 minutes without an offer, do you want to extend the time?"),
-                primaryButton: .default((Text("Yes")), action: {
-                    model.check10min = false
-                }) ,
-                secondaryButton: .cancel((Text("No, Cancel Order")),  action: {
-                    model.cancelOrder(Id : card.orderD.id)
-                    notificationT = .CancelOrder
-                    //viewRouter.currentPage = .CurrentOrder
-                    model.showCard = false
-                    model.showContent = false
-                    model.check10min = false
-                })
-        )}//end alert*/
     }
 }
 
@@ -499,7 +487,12 @@ struct CurrentCardMDetailes: View {
                     .frame(width: width(num: 375)) //addframe
                     .edgesIgnoringSafeArea(.bottom)
                     .offset(y:hieght(num:  240))
-                
+                    .onAppear(){
+                        self.stat = model.selectedCard.orderD.status
+                    }
+                    .onChange(of: model.selectedCard.orderD.status) { value in
+                        self.stat = value
+                    }
                 VStack{
                     
                     ScrollView{
@@ -517,12 +510,7 @@ struct CurrentCardMDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
-                        .onAppear(){
-                            self.stat = model.selectedCard.orderD.status
-                        }
-                        .onChange(of: model.selectedCard.orderD.status) { value in
-                            self.stat = value
-                        }
+                        
                         
                         
                  
@@ -551,10 +539,6 @@ struct CurrentCardMDetailes: View {
                                 
                                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     withAnimation(.easeIn){
-                                     //viewRouter.orderId = model.selectedCard.orderD.id
-                                     //viewRouter.status = model.selectedCard.orderD.status
-                                     //viewRouter.currentPage = .offers
-                                     
                                      model.showOffers = true
                                     }//end with animation
                                    }//end dispatch
