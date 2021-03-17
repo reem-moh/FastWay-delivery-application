@@ -19,6 +19,7 @@ struct CurrentOrderView: View {
     @State var imgName = "shoppingCart"
     
     
+    
     var body: some View {
         
         ZStack {
@@ -59,6 +60,7 @@ struct CurrentOrderView: View {
                 model.showContent = false
                 model.showOffers = false
             }
+            
             //Notification
             VStack{
                 
@@ -175,10 +177,24 @@ struct CurrentOrderView: View {
                     }
                 }.padding(.top,hieght(num:80))
                 Spacer()
-            }.padding(.bottom,hieght(num:80))
+            }
+            .padding(.bottom,hieght(num:80))
+            .onChange(of: model.cards.count) { value in
+                print("\n\ninside onchange!!!!!!!!!!!\n\n")
+                checkOrders(ID:  UserDefaults.standard.getUderId())
+                model.getCards()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        model.getCards()
+                }
+            }
             //Press details
-            if model.showCard {
+            if model.showCard && model.assigned == false{
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
+            }else{
+                if model.showCard && model.assigned == true {
+                    //call the view to assigned current order
+                    CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
+                }
             }
             //Press deliver details
             if model.showOffers {
@@ -278,14 +294,16 @@ struct CurrentOrderView: View {
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//end ZStack
-    }}
+    }
+    
+}
 
 //Current card M View/ Taif
 struct CurrentCardMView: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
     var card: Card
     var animation: Namespace.ID
-    
+    @State var stat = ""
     var body: some View {
         
         //Card
@@ -335,7 +353,7 @@ struct CurrentCardMView: View {
                     //Text("\(model.selectedCard.orderD.status)")
                     //to let an arrow in the right of the card
                     
-                    if model.orderPreview(c: card).status == "waiting for offer"{
+                    if self.stat == "waiting for offer"{
                         Text("Waiting for offers")
                         Spacer(minLength: 0)
                         HStack{
@@ -344,7 +362,7 @@ struct CurrentCardMView: View {
                             DotView(delay: 0.2, frame: 10)
                             DotView(delay: 0.4, frame: 10)
                         }
-                    }else if model.orderPreview(c: card).status == "have an offer"{
+                    }else if self.stat == "have an offer"{
                         //model.order.offers "\(model.order.offers.count) offers"
                         
                             Text("New offers")
@@ -357,6 +375,7 @@ struct CurrentCardMView: View {
                         
                         
                     }else {
+                        
                         Text("on the way")
                         Spacer(minLength: 0)
                     }
@@ -367,6 +386,15 @@ struct CurrentCardMView: View {
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
+            .onAppear(){
+                model.getCards()
+                self.stat = model.orderPreview(c: card).status
+            }
+            .onChange(of: model.orderPreview(c: card).status) { value in
+                model.getCards()
+                self.stat = value
+                
+            }
             
         }//end vStack
         .frame(maxWidth: width(num:.infinity), maxHeight: hieght(num:.infinity))
@@ -378,7 +406,9 @@ struct CurrentCardMView: View {
         .onTapGesture {
             withAnimation(.spring()){
                 model.selectedCard = card
+                model.assigned = model.selectedCard.orderD.isAdded
                 model.showCard.toggle() //change the value of showCard to true
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.easeIn){
                         model.showContent = true
@@ -417,6 +447,7 @@ struct CurrentCardMDetailes: View {
     @State var time = ""
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
+    @State var stat = ""
     
     var body: some View{
         
@@ -732,7 +763,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     @Published var cancelCardOrderId : String = ""
     //Toggle to show notification
     @Published var notificationMSG =  false
-    
+    @Published var assigned = false
     init(){
         //from this ID get all the cards
         //order.getMemberOrder(Id: UserDefaults.standard.getUderId())

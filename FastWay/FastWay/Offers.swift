@@ -71,6 +71,7 @@ struct Offers: View {
                     model.status = self.status
                     model.order.offers = self.Offers
                     model.pickupLoc = self.pickupLocation
+                    model.getCards()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn){
                             model.getCards()

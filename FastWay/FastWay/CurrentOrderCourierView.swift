@@ -56,7 +56,14 @@ struct CurrentOrderCourierView: View {
                 model.showCard = false
                 model.showContent = false
             }
-            
+            .onChange(of: model.cards.count) { value in
+                print("\n\ninside onchange!!!!!!!!!!!\n\n")
+                //checkOrders(ID:  )
+                model.getCards()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        model.getCards()
+                }
+            }
             
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
@@ -135,9 +142,15 @@ struct CurrentOrderCourierView: View {
                 }.padding(.top,80)
                 Spacer()
             }.padding(.bottom,80)
+            
             //Press detailes
-            if model.showCard {
+            if model.showCard && model.assigned == false{
                 CurrentCardCDetailes(viewRouter: viewRouter, animation: animation)
+            }else{
+                if model.showCard && model.assigned == true{
+                    //change to the assigned order view
+                    CurrentCardCDetailes(viewRouter: viewRouter, animation: animation)
+                }
             }
                         
             //notification
@@ -279,6 +292,7 @@ struct CurrentCardCView: View {
     var animation: Namespace.ID
     //@State var StateACCEPT = false
     @State var StateWaiting = true
+    @State var stat = ""
     var body: some View {
         
         //Card
@@ -362,7 +376,7 @@ struct CurrentCardCView: View {
                 if !model.showContent{
                     //have an offer
                     
-                    if(model.orderPreview(c: card).status=="assigned"){
+                    if(self.stat == "assigned"){
                     Text("Detailes").offset(x: 130, y: -10)
                     
                    
@@ -396,6 +410,15 @@ struct CurrentCardCView: View {
             }
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
+            .onAppear(){
+                model.getCards()
+                self.stat = model.orderPreview(c: card).status
+            }
+            .onChange(of: model.orderPreview(c: card).status) { value in
+                model.getCards()
+                self.stat = value
+                
+            }
             
            
             
@@ -412,6 +435,7 @@ struct CurrentCardCView: View {
         .onTapGesture {
             withAnimation(.spring()){
                 model.selectedCard = card
+                model.assigned = model.selectedCard.orderD.isAdded
                 model.showCard.toggle() //change the value of showCard to true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.easeIn){
@@ -436,6 +460,7 @@ struct CurrentCardCDetailes: View {
     @State var expandOffer = false
     @State var expand = false
     @State private var showingPaymentAlert = false
+    @State var stat = ""
 
     
     var body: some View{
@@ -674,7 +699,7 @@ class CurrentCarouselCViewModel: ObservableObject {
     
     @Published var cancelCardOrderId : String = ""
     @Published var notificationMSG =  false
-
+    @Published var assigned = false
     
     init(){/////////update
         //order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
