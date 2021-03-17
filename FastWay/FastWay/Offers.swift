@@ -92,9 +92,10 @@ struct Offers: View {
                                 notificationT = .None
                             }
                         }
+                        model.updatePage = false
                     }
             })
-            .onChange(of: model.cards.count) { value in
+            /*.onChange(of: model.cards.count) { value in
                 model.getCards()
                 if notificationT == .DeclineOffer  {
                     animateAndDelayWithSeconds(0.05) {
@@ -106,7 +107,7 @@ struct Offers: View {
                         notificationT = .None
                     }
                 }
-            }
+            }*/
             
             if model.haveOffers {
                 // Carousel....
@@ -242,6 +243,7 @@ struct OfferCard: View {
                             notificationT = .DeclineOffer
                             model.updatePage = true
                             model.getCards()
+                            
                         }
                     
                     }
