@@ -504,7 +504,6 @@ class Order: ObservableObject{
             let docRef = db.collection("Order").document(offer.OrderId)
             docRef.getDocument(source: .cache) { (document, error) in
                 if let document = document {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                     let data = document.data()
                     let OrderId = document.documentID
                     let state = data?["Status"] as? String ?? ""
