@@ -94,6 +94,19 @@ struct Offers: View {
                         }
                     }
             })
+            .onChange(of: model.cards.count) { value in
+                model.getCards()
+                if notificationT == .DeclineOffer  {
+                    animateAndDelayWithSeconds(0.05) {
+                        self.imgName = "cancelTick"
+                        self.show = true }
+                    animateAndDelayWithSeconds(4) {
+                        self.show = false
+                        model.updatePage = false
+                        notificationT = .None
+                    }
+                }
+            }
             
             if model.haveOffers {
                 // Carousel....
@@ -220,8 +233,17 @@ struct OfferCard: View {
                 //decline button
                 Button(action: {
                     model.order.cancelOffer(CourierID: model.orderPreview(c: card).courierId, OrderId: model.orderPreview(c: card).OrderId, MemberID: model.orderPreview(c: card).memberId, Price: model.orderPreview(c: card).price)
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        model.order.getOffers(OrderId: model.orderPreview(c: card).OrderId)
+                        model.order.getOffers(OrderId: model.orderPreview(c: card).OrderId) { success in
+                            print("inside getOrderForCourierCurrentOrder success")
+                            guard success else { return }
+                            //model.Offers = model.order.offers
+                            notificationT = .DeclineOffer
+                            model.updatePage = true
+                            model.getCards()
+                        }
+                    
                     }
                     //model.Offers = model.order.offers
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -274,7 +296,7 @@ class OfferCarousel: ObservableObject {
     @Published var OrderId: String = ""
     @Published var status: String = ""
     @Published var pickupLoc : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    //@Published var Offers : [Offer] = []
+    @Published var Offers : [Offer] = []
     //when user press decline
     @Published var updatePage =  false
     //return order details

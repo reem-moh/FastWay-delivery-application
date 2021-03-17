@@ -517,11 +517,17 @@ struct CurrentCardMDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
+                        .onAppear(){
+                            self.stat = model.selectedCard.orderD.status
+                        }
+                        .onChange(of: model.selectedCard.orderD.status) { value in
+                            self.stat = value
+                        }
                         
                         
                  
                         //Offers page
-                        if model.selectedCard.orderD.status == "have an offer"{
+                        if self.stat == "have an offer"{
                             HStack{
                                 
                                     Text("Delivery offers")
@@ -536,7 +542,12 @@ struct CurrentCardMDetailes: View {
                             .padding(20)
                             .onTapGesture {
                                withAnimation(.spring()){
-                                model.order.getOffers(OrderId: model.selectedCard.orderD.id)
+                                model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
+                                    print("inside getOrderForCourierCurrentOrder success")
+                                    guard success else { return }
+                                    model.getCards()
+                                }
+                            
                                 
                                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     withAnimation(.easeIn){
@@ -550,7 +561,7 @@ struct CurrentCardMDetailes: View {
                                  }
                             }
                         }else{
-                            if model.selectedCard.orderD.status == "waiting for offer"{
+                            if self.stat == "waiting for offer"{
                                 HStack{
                                     Text("Waiting for offers")
                                         .foregroundColor(.purple)

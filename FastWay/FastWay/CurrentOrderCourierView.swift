@@ -58,10 +58,19 @@ struct CurrentOrderCourierView: View {
             }
             .onChange(of: model.cards.count) { value in
                 print("\n\ninside onchange!!!!!!!!!!!\n\n")
-                //checkOrders(ID:  )
-                model.getCards()
+                model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+                //retrieve order waiting for accept
+                model.order.getAllOffersFromCourierInCurrentOrder(){ success in
+                    print("inside Delivery order view success ")
+                    //if success false return
+                    guard success else { return }
+                    model.getCards()
+                }
+                //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        model.getCards()
+                    //withAnimation(.easeIn){
+                    model.getCards()
+                    //}//end with animation
                 }
             }
             
@@ -411,6 +420,7 @@ struct CurrentCardCView: View {
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
             .onAppear(){
+                
                 model.getCards()
                 self.stat = model.orderPreview(c: card).status
             }
@@ -641,10 +651,21 @@ struct CurrentCardCDetailes: View {
         model.cancelCardOrderId = model.selectedCard.orderD.id
         model.order.cancelOffer(CourierID: model.selectedCard.orderD.courierId, OrderId: model.selectedCard.orderD.id, MemberID: model.selectedCard.orderD.memberId, Price: model.selectedCard.orderD.deliveryPrice)
         
+        
+        
+        model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+        //retrieve order waiting for accept
+        model.order.getAllOffersFromCourierInCurrentOrder(){ success in
+            print("inside Delivery order view success ")
+            //if success false return
+            guard success else { return }
+            model.getCards()
+        }
+        //model.getCards()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.easeIn){
-                model.getCards()
-            }//end with animation
+            //withAnimation(.easeIn){
+            model.getCards()
+            //}//end with animation
         }
 }
     //name of building
@@ -701,19 +722,7 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var notificationMSG =  false
     @Published var assigned = false
     
-    init(){/////////update
-        //order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
-        //retrieve order waiting for accept
-        /*order.getAllOffersFromCourierInCurrentOrder(){ success in
-            print("inside Delivery order view success ")
-            //if success false return
-            guard success else { return }
-            self.getCards()
-        }*/
-        //print("number of oreders inside init: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
-        //getCards()
-        
-    }
+    
     
     //return order details
     func orderPreview(c: currentCardC) -> OrderDetails {
