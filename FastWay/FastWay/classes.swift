@@ -617,6 +617,7 @@ class Order: ObservableObject{
                         print("Error removing offer inside cancelOffer: \(err)")
                         } else {
                         print("offer successfully delete inside cancelOffer!")
+                            
                         }
                     
                 }

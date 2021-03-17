@@ -56,7 +56,7 @@ struct CurrentOrderCourierView: View {
                 model.showCard = false
                 model.showContent = false
             }
-            .onChange(of: model.cards.count) { value in
+           /* .onChange(of: model.cards.count) { value in
                 print("\n\ninside onchange!!!!!!!!!!!\n\n")
                 model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
                 //retrieve order waiting for accept
@@ -72,7 +72,7 @@ struct CurrentOrderCourierView: View {
                     model.getCards()
                     //}//end with animation
                 }
-            }
+            }*/
             
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
