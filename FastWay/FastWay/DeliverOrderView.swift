@@ -39,7 +39,7 @@ struct DeliverOrderView: View{
                 model.order.getOrder()
                 //get all order id that the courier has offer in order [from collection offer]
                 model.order.getAllOffersFromCourier(){ success in
-                    print("inside init ")
+                    print("inside DeliverOrderView ")
                     //if success false return
                     guard success else { return }
                     model.getCards()

@@ -12,6 +12,7 @@ struct HomeCourierView: View {
     
     @StateObject var viewRouter: ViewRouter
     @State var show = false
+    @State var imgName = "shoppingCart"
     var body: some View {
         
         ZStack{
@@ -79,7 +80,7 @@ struct HomeCourierView: View {
                 
             }.position(x:width(num: 189) ,y:hieght(num: 370))//end VStack
             
-            //notification here
+            //notification Sign up login
             VStack{
                 if show{
                     Notifications(type: notificationT, imageName: "Tick")
@@ -97,6 +98,19 @@ struct HomeCourierView: View {
                         self.show = false
                         notificationT = .None
                     }
+                }
+            }
+            //notification add an offer
+            VStack{
+                if show{
+                    Notifications(type: notificationT, imageName: self.imgName)
+                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onAppear(){
+                if notificationT == .SendOffer || notificationT == .CancelOffer {
+                    animateAndDelayWithSeconds(0.05) { self.show = true }
+                    animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
             

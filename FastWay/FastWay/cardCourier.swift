@@ -120,6 +120,7 @@ class CarouselViewModel: ObservableObject {
     @Published var makeAnOffer = ""
     
     init(){
+        makeAnOffer = ""
         checkOrdersForCourier()
         //retrieve all waiting for offer orders [from collection order]
         //order.getOrderWaitingForOffer()
@@ -159,7 +160,7 @@ class CarouselViewModel: ObservableObject {
         //orders has have an offer status
         for index in order.orders {
             print("index.id in have an offer before if :\( index.id)")
-            if(index.id != makeAnOffer && !order.orderID.contains(index.id)){
+            if(!order.orderID.contains(index.id)){
                 print("index.id in have an offer after if:\( index.id)")
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
             }
