@@ -5,32 +5,96 @@
 //  Created by Ghaida . on 05/08/1442 AH.
 //
 
-import CoreLocation
-import Combine
 
-class LocationManagerService: NSObject, ObservableObject, CLLocationManagerDelegate {
-    var manager: CLLocationManager = CLLocationManager()
-    @Published var location: CLLocation?
-    @Published var enabled: Bool = false
+import SwiftUI
+import MapKit
+
+struct ContentView: View {
     
-    override init() {
-        super.init()
-        manager.delegate = self
-        
-        if CLLocationManager.locationServicesEnabled() {
-            manager.requestWhenInUseAuthorization()
-            // manager.requestAlwaysAuthorization()
-            manager.startUpdatingLocation()
+    @State var manager = CLLocationManager()
+    @State var alert = false
+    
+    var body: some View {
+       
+        MapViewTracking(manager: $manager, alert: $alert).alert(isPresented: $alert) {
+            
+            Alert(title: Text("Please Enable Location Access In Settings Pannel !!!"))
         }
     }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct MapViewTracking : UIViewRepresentable {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("location changed") // prints only once
-        location = locations.first
-      //  manager.stopUpdatingLocation()
+    @Binding var manager : CLLocationManager
+    @Binding var alert : Bool
+    let map = MKMapView()
+    
+    func makeCoordinator() -> MapViewTracking.Coordinator {
+        return Coordinator(parent1: self)
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        enabled = CLLocationManager.locationServicesEnabled()
+    func makeUIView(context: UIViewRepresentableContext<MapViewTracking>) -> MKMapView {
+        
+        
+        let center = CLLocationCoordinate2D(latitude: 13.086, longitude: 80.2707)
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        map.region = region
+        manager.requestWhenInUseAuthorization()
+        manager.delegate = context.coordinator
+        manager.startUpdatingLocation()
+        return map
+    }
+    func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapViewTracking>) {
+        
+    }
+    
+    class Coordinator : NSObject,CLLocationManagerDelegate{
+        
+        var parent : MapViewTracking
+        
+        init(parent1 : MapViewTracking) {
+            
+            parent = parent1
+        }
+        
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            
+            if status == .denied{
+                
+                parent.alert.toggle()
+            }
+        }
+        
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            
+            let location = locations.last
+            let point = MKPointAnnotation()
+            
+            let georeader = CLGeocoder()
+            georeader.reverseGeocodeLocation(location!) { (places, err) in
+                
+                if err != nil{
+                    
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                
+                let place = places?.first?.locality
+                point.title = place
+                point.subtitle = "Currentttttttttttttttttttttttt"
+                point.coordinate = location!.coordinate
+                self.parent.map.removeAnnotations(self.parent.map.annotations)
+                self.parent.map.addAnnotation(point)
+                
+                let region = MKCoordinateRegion(center: location!.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                self.parent.map.region = region
+            }
+        }
     }
 }
