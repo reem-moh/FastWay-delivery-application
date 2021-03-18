@@ -37,22 +37,10 @@ struct AboutUs: View {
             VStack{
                 ScrollView{
                     VStack(alignment: .leading){
-                       /* Spacer()
-                        HStack{
-                            Image("KSU")
-                                .resizable()
-                                .frame(width: width(num: 40), height: hieght(num: 45))
-                            Text("As some members of the university have tight schedules, waiting in queues wastes their valuable time.")
-                                .font(.custom("Roboto Regular", size: fontSize(num:25)))
-                                //.padding(EdgeInsets.init(top: hieght(num:200), leading: 0, bottom: 0, trailing: 0))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .offset(x: width(num:0),y:hieght(num:  0))
-                                .padding(.horizontal, width(num: 16))
-                        }
-                        Text("FastWay helps by providing a delivery service within the KSU female campus, and a part-time job for anyone who has some free time to put into use.")
-                            .font(.custom("Roboto Regular", size: fontSize(num:25)))
-                            .padding(EdgeInsets.init(top: hieght(num:200), leading: 0, bottom: 0, trailing: 0)).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: width(num:0),y:hieght(num:  0)).padding(.horizontal, width(num: 16))
-                        Spacer()*/
+                       Image("aboutUs")
+                        .resizable()
+                        .frame(width: width(num: UIImage(named: "aboutUs")!.size.width ), height: hieght(num: UIImage(named: "aboutUs")!.size.height))
+                        .offset(y: hieght(num: 170))
                     }.padding(.bottom, hieght(num: 60)) //VStack
                 }//scrollview
             }
