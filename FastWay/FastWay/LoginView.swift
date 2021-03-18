@@ -41,7 +41,7 @@ struct LoginView: View {
                         .resizable() //add resizable
                         .frame(width: width(num: 375)) //addframe
                         .edgesIgnoringSafeArea(.all)
-                        .offset(y: hieght(num: 100))
+                        .offset(y: hieght(num: 50))
                     
                     VStack(alignment: .center) {
                         
