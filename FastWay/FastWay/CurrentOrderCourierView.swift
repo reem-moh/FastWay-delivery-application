@@ -630,15 +630,17 @@ struct CurrentCardCDetailes: View {
             // }
                        
                    }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
-                    
-                    
                     notificationT =  .CancelOffer
+                    
+             
                     
                     canelOffer()
                     
+                    
                     model.notificationMSG = true
-                    model.showCard = false
                     model.showContent = false
+                    model.showCard = false
+                   
                     
                     
                    }) , secondaryButton: .cancel((Text("NO"))))
@@ -761,6 +763,16 @@ class CurrentCarouselCViewModel: ObservableObject {
 }
 
 
+
+
+
+struct CurrentOrderCourierView_Previews: PreviewProvider {
+    static var previews: some View {
+        CurrentOrderCourierView(viewRouter: ViewRouter())
+    }
+}
+
+
 //current card C info
 struct currentCardC: Identifiable {
     var id = UUID().uuidString
@@ -771,11 +783,3 @@ struct currentCardC: Identifiable {
     var state : Int = 0
     var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, status: "")
 }
-
-
-struct CurrentOrderCourierView_Previews: PreviewProvider {
-    static var previews: some View {
-        CurrentOrderCourierView(viewRouter: ViewRouter())
-    }
-}
-
