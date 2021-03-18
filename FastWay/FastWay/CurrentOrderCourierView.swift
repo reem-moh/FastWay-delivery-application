@@ -385,7 +385,7 @@ struct CurrentCardCView: View {
                 if !model.showContent{
                     //have an offer
                     
-                    if(self.stat == "assigned"){
+                  /*  if(self.stat == "assigned"){
                     Text("Detailes").offset(x: 130, y: -10)
                     
                    
@@ -413,7 +413,56 @@ struct CurrentCardCView: View {
                             //DotView(delay: 0.4, frame: 10)
                         //}
                         
-                     }
+                     } */
+                    
+                    
+                    if self.stat == "have an offer"{
+                        Text("Waiting for accept")
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:170),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        //HStack{
+                            
+                            //DotView(frame: 10)
+                            //DotView(delay: 0.2, frame: 10)
+                            //DotView(delay: 0.4, frame: 10)
+                        //}
+                    }else if self.stat == "assigned"{
+                        //model.order.offers "\(model.order.offers.count) offers"
+                        
+                            Text("assigned")
+                                .bold()
+                                .foregroundColor(.white)
+                                .frame(width: width(num:100),height: hieght(num:25))
+                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                            //.background(Color.purple)
+                            Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
                     Image(systemName: "arrow.right")
 
                     
@@ -852,7 +901,7 @@ struct CurrentCardCDetailesNeworder: View {
                             Spacer(minLength: 0)
                         }
                         
-                        if model.selectedCard.orderD.status == "assigned"{
+                        if model.selectedCard.orderD.status == ""{
                             HStack{
                                 Text("New order")
                                     .foregroundColor(.green)
