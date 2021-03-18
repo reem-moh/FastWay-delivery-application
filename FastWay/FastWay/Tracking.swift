@@ -5,16 +5,32 @@
 //  Created by Ghaida . on 05/08/1442 AH.
 //
 
-import SwiftUI
+import CoreLocation
+import Combine
 
-struct Tracking: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class LocationManagerService: NSObject, ObservableObject, CLLocationManagerDelegate {
+    var manager: CLLocationManager = CLLocationManager()
+    @Published var location: CLLocation?
+    @Published var enabled: Bool = false
+    
+    override init() {
+        super.init()
+        manager.delegate = self
+        
+        if CLLocationManager.locationServicesEnabled() {
+            manager.requestWhenInUseAuthorization()
+            // manager.requestAlwaysAuthorization()
+            manager.startUpdatingLocation()
+        }
     }
-}
-
-struct Tracking_Previews: PreviewProvider {
-    static var previews: some View {
-        Tracking()
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("location changed") // prints only once
+        location = locations.first
+      //  manager.stopUpdatingLocation()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        enabled = CLLocationManager.locationServicesEnabled()
     }
 }
