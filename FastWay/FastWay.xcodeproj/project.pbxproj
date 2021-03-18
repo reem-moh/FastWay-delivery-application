@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15B8904226034CF900F366CA /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B8904126034CF900F366CA /* Tracking.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
 		4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15B8904126034CF900F366CA /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
 		4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOrderIView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				C2A006D125CF22B20010C126 /* DeliverOrderView.swift */,
 				58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */,
 				C24354B425D431B90033B69F /* cardCourier.swift */,
+				15B8904126034CF900F366CA /* Tracking.swift */,
 				58B5F55125D9726B00D4C099 /* Maps.swift */,
 				58B5F55825D9859500D4C099 /* EntireMapView.swift */,
 				778D349225E7D9A3002B902D /* TextView.swift */,
@@ -301,6 +304,7 @@
 				5886863D25D1B43C00C15A0D /* AboutUs.swift in Sources */,
 				5886863125D17C6D00C15A0D /* ViewMemberProfile.swift in Sources */,
 				5886863925D1AD4500C15A0D /* TabBarMenu.swift in Sources */,
+				15B8904226034CF900F366CA /* Tracking.swift in Sources */,
 				C2A006C625CF1F590010C126 /* Helper.swift in Sources */,
 				5894342A25C90DD800E19E18 /* SignView.swift in Sources */,
 				778D349325E7D9A3002B902D /* TextView.swift in Sources */,
