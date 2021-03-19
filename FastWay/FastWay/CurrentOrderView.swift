@@ -754,7 +754,7 @@ struct CurrentCardMDetailesassigned: View {
         ZStack{
             
             //map
-            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
+            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
                 .padding(.bottom, hieght(num:0))
