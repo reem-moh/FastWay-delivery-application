@@ -33,7 +33,7 @@ struct MapViewTracking : UIViewRepresentable {
     
     @Binding var manager : CLLocationManager
     @Binding var alert : Bool
-    let map = MKMapView()
+    let map = MKMapView() //@Binding
     
     func makeCoordinator() -> MapViewTracking.Coordinator {
         return Coordinator(parent1: self)
@@ -42,7 +42,7 @@ struct MapViewTracking : UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<MapViewTracking>) -> MKMapView {
         
         
-        let center = CLLocationCoordinate2D(latitude: 13.086, longitude: 80.2707)
+        let center = CLLocationCoordinate2D(latitude: 24.72640308847297, longitude: 46.638332536327816)
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
         map.region = region
         manager.requestWhenInUseAuthorization()
@@ -51,6 +51,15 @@ struct MapViewTracking : UIViewRepresentable {
         return map
     }
     func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapViewTracking>) {
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        var riyadhCoordinate = CLLocationCoordinate2D()
+         riyadhCoordinate.latitude = 24.72640308847297
+         riyadhCoordinate.longitude = 46.638332536327816
+      //  riyadhCoordinate.latitude = 24.8270610
+       // riyadhCoordinate.longitude = 46.6551692
+        let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
+        uiView.setRegion(region, animated: true)
         
     }
     
@@ -72,7 +81,7 @@ struct MapViewTracking : UIViewRepresentable {
         }
         
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            
+            //manager.update
             let location = locations.last
             let point = MKPointAnnotation()
             
@@ -87,7 +96,7 @@ struct MapViewTracking : UIViewRepresentable {
                 
                 let place = places?.first?.locality
                 point.title = place
-                point.subtitle = "Currentttttttttttttttttttttttt"
+                point.subtitle = "Current"
                 point.coordinate = location!.coordinate
                 self.parent.map.removeAnnotations(self.parent.map.annotations)
                 self.parent.map.addAnnotation(point)
@@ -96,5 +105,6 @@ struct MapViewTracking : UIViewRepresentable {
                 self.parent.map.region = region
             }
         }
+        
     }
 }

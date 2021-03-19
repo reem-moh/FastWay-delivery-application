@@ -196,7 +196,10 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
-
+/*struct Tracking : Identifiable {
+    var id: String
+    var courierLocation : CLLocationCoordinate2D
+}*/
 
 class Order: ObservableObject{
     
@@ -214,6 +217,8 @@ class Order: ObservableObject{
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
     //T
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
+    
+   // @Published var traking: Tracking = Tracking(id: <#T##String#>, courierLocation: <#T##CLLocationCoordinate2D#>)
     
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
@@ -801,6 +806,43 @@ class Order: ObservableObject{
         
     }
     
+    /*   func updateCourierLocation(Id: String) {
+           db.collection("Tracking").whereField("OrderId", isEqualTo: Id).getDocuments(){ (querySnapshot, err) in
+               if let err = err {
+                   print("Error getting documents inside cancle order: \(err)")
+               } else {
+                   for document in querySnapshot!.documents {
+                       print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
+                       db.collection("Offers").document(document.documentID).delete() { err in
+                           if let err = err {
+                               print("Error removing offer inside cancelOrder: \(err)")
+                           } else {
+                               print("offer successfully delete inside cancelOrder!")
+                           }
+                       }//delete offer
+                   }//loop
+               }
+           
+           let db = Firestore.firestore()
+           let locman = CLLocationManager()
+           locman.requestWhenInUseAuthorization()
+           var loc:CLLocation!
+           if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways{
+               loc = locman.location
+           }
+           let lat:Double = loc.coordinate.latitude
+           let long:Double = loc.coordinate.longitude
+           let geo = GeoPoint.init(latitude: lat, longitude: long)
+
+           let currentUID = currentUserUID
+           let val = db.collection("users").whereField("uid", isEqualTo: currentUserUID)
+
+           db.collection("users").document(val).updateData(["currentUserLocation" : geo])
+
+       }
+
+   }*/
+
 }
 
 
