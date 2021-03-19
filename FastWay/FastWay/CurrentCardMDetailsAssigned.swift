@@ -21,6 +21,9 @@ struct CurrentCardMDetailsAssigned: View {
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
+    //For chat
+    @State var show = false
+    @State var chat = false
     
     var body: some View{
         
@@ -94,55 +97,6 @@ struct CurrentCardMDetailsAssigned: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
-                        }
-                        
-                        
-                        
-                 
-                        //Offers page
-                        if self.stat == "have an offer"{
-                            HStack{
-                                
-                                    Text("Delivery offers")
-                                        .foregroundColor(Color("ButtonColor"))
-                                        .bold()
-                                
-                                
-                                Spacer(minLength: 0)
-                                Image(systemName: "arrow.right")
-                            }
-                            .foregroundColor(Color.gray.opacity(0.9))
-                            .padding(20)
-                            .onTapGesture {
-                               withAnimation(.spring()){
-                                model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
-                                    print("inside getOrderForCourierCurrentOrder success")
-                                    guard success else { return }
-                                    model.getCards()
-                                }
-                            
-                                
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    withAnimation(.easeIn){
-                                     model.showOffers = true
-                                    }//end with animation
-                                   }//end dispatch
-                                 }
-                            }
-                        }else{
-                            if self.stat == "waiting for offer"{
-                                HStack{
-                                    Text("Waiting for offers")
-                                        .foregroundColor(.purple)
-                                        .bold()
-                                        .padding(.leading, width(num:20))
-                                    DotView(frame: 15)
-                                    DotView(delay: 0.2, frame: 15)
-                                    DotView(delay: 0.4, frame: 15)
-            
-                                Spacer(minLength: 0)
-                                }
-                            }
                         }
                         
                         //pick up
@@ -244,8 +198,33 @@ struct CurrentCardMDetailsAssigned: View {
                         
                         
                     }
+                    
                 }.position(x: width(num:188),y: hieght(num:700))
-                
+                //Chat
+                Group{
+                    //RoundedRectangle(cornerRadius: 15)
+                    // .frame(width: width(num:45), height:hieght(num: 45))
+                    //.foregroundColor(Color(.lightGray))
+                    Button(action: {
+                        withAnimation(.spring()){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.easeIn){
+                                   //ChatView(name: self.$name, uid: self.$uid, pic: self.$pic, show: self.$show, chat: self.$chat)
+                                  }
+                            }
+                                               
+                        }
+                   }) {
+                       Image("chat")
+                           .resizable()
+                           .aspectRatio(contentMode: .fill)
+                           .frame(width: width(num:50), height: hieght(num:50))
+                           .clipped()
+                           //.background(Color(.white))
+                   }.padding(1.0)
+               }.position(x: width(num:35), y: hieght(num:670))
+
+
                 
             }
             // }

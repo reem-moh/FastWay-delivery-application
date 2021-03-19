@@ -212,22 +212,16 @@ struct ChatMsg : Identifiable {
 class Order: ObservableObject{
     
     @Published var orders: [OrderDetails] = [] //for delivery requests have an offer
-    
     @Published var ordersCanceled: [OrderDetails] = [] //for cancel order by default
     @Published var memberOrder: [OrderDetails] = [] //for current order
     @Published var WaitingOrders: [OrderDetails] = [] //for delivery requests waiting
-    //T
     @Published var CourierOrderOfferedAssign: [OrderDetails] = [] // for current order
-    //T
     @Published var CourierOrderOfferedWaiting: [OrderDetails] = []  //for current order
     @Published var offers: [Offer] = [] // retrieve offer for specific order
-    //T
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
-    //T
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
     
    // @Published var traking: Tracking = Tracking(id: <#T##String#>, courierLocation: <#T##CLLocationCoordinate2D#>)
-    
     @Published var chat: [ChatMsg] = [] //for messages in chat
     
     var pickUP: CLLocationCoordinate2D!
@@ -266,7 +260,6 @@ class Order: ObservableObject{
     //****************************
     //For Courier user
     //****************************
-    //T
     //Retrieve all orders and check if it exceeds 15 minutes to cancel the order
     func getOrderForCancel() {
         print("\n*******GetOrder*********")
@@ -307,7 +300,6 @@ class Order: ObservableObject{
             
         }
     }
-    //T
     //Delivery request for courier [state = waiting for offer]
     func getOrderWaitingForOffer(){
         print("\n*******getOrderWaitingForOffer*********")
@@ -346,7 +338,6 @@ class Order: ObservableObject{
             
         }
     }
-    //####################
     //Delivery request for courier [state = have an offer] from offer collection
     func getAllOffersFromCourier(completion: @escaping (_ success: Bool) -> Void) {
         self.orderID.removeAll()
@@ -373,7 +364,6 @@ class Order: ObservableObject{
                 }
             }
     }
-    //T
     //Delivery request for courier [state = have an offer] from order collection
     func getOrder() {
         print("inside getOrder") //status[2] = have an offer
@@ -412,7 +402,6 @@ class Order: ObservableObject{
             })
         }
     }
-    //T
     //add offer for specific order in Delivery request
     func addOffer(OrderId: String,memberID: String,price: Int,locationLatiude :Double,locationLongitude :Double){
         print("\n*******addOffer*********")
@@ -430,7 +419,6 @@ class Order: ObservableObject{
             }
         }
     }
-    //F
     //current order for courier [state = assign]
     func getCourierOrderAssign(Id: String){
         self.CourierOrderOfferedAssign.removeAll()
@@ -470,7 +458,7 @@ class Order: ObservableObject{
             
         }
     }
-    //#################
+    //retrieve all offers with specific courier id
     func getAllOffersFromCourierInCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         self.collectAllOffersForCourier.removeAll()
         let id = UserDefaults.standard.getUderId()
@@ -510,7 +498,7 @@ class Order: ObservableObject{
                 }
             }
     }
-    
+    //get all order that has the same order ID with array collectAllOffersForCourier
     func getOrderForCourierCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         db.collection("Order").whereField("Status", isEqualTo: status[2])
             .addSnapshotListener { (querySnapshot, error) in
@@ -559,7 +547,6 @@ class Order: ObservableObject{
                 })
             }
     }
-    //T@@@@@@@@@@@@@@@@@@@@@@
     //get all offers made to a specific order
     func getOffers(OrderId: String, completion: @escaping (_ success: Bool) -> Void){
         print("\n*******GetOffersMember*********")
@@ -593,8 +580,6 @@ class Order: ObservableObject{
             }
         }
     }
-    
-    //T@@@@@@@@@@@@@@@@@@@@@@
     //cancels an offer and changes the order status to waiting for offers if needed
     func cancelOffer(CourierID: String, OrderId: String, MemberID: String, Price: Int) {
         
@@ -638,7 +623,7 @@ class Order: ObservableObject{
     }
     }
     
-    
+    //send chat
      func sendChatRoom(orderId : String, sender_msg: String){
          let sender_id = UserDefaults.standard.getUderId()
          let docData: [String: Any] = [
@@ -659,9 +644,9 @@ class Order: ObservableObject{
              }
          }
      }
-    
-    //?????????
+    //retrieve chat
     func getChatRoom(orderId : String){
+        self.chat.removeAll()
         db.collection("Order").document(orderId).collection("Chat").order(by: "timeSent", descending: true).addSnapshotListener { (querySnapshot, error) in
             if error != nil {
                 print("error getting msg")
@@ -811,8 +796,7 @@ class Order: ObservableObject{
             })
         }
     }
-    
-    //T@@@@@@@@@@@@@@@@@@@@@@@ delete from collection offer
+
     //cancels an order based on order id and deletes all offers if any
     func cancelOrder(OrderId: String){
         print("\n*******CancelOrder*********")
@@ -836,8 +820,7 @@ class Order: ObservableObject{
         }//get documents
         
     }
-    
-    //T@@@@@@@@@@@@@@@@@@@@@@@
+
     //function accept offer adds courier id and delivery price to order and deletes offer subcollection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
