@@ -22,6 +22,7 @@ struct CurrentCardMDetailsAssigned: View {
     @State var CancelButtonShow = true
     @State var stat = ""
     //For chat
+    @State var showChat = false
     @State var show = false
     @State var chat = false
     
@@ -41,6 +42,10 @@ struct CurrentCardMDetailsAssigned: View {
                     
                     self.manager.requestAlwaysAuthorization()
                 }
+            
+            if showChat {
+                ChatView(viewRouter: viewRouter, model: model)
+            }
             
             ZStack {
                 //back button
@@ -81,6 +86,7 @@ struct CurrentCardMDetailsAssigned: View {
                     .onChange(of: model.selectedCard.orderD.status) { value in
                         self.stat = value
                     }
+                //Details
                 VStack{
                     
                     ScrollView{
@@ -145,8 +151,6 @@ struct CurrentCardMDetailsAssigned: View {
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
-                        
-                        /////
                         //order price:
                         ZStack(alignment: .top){
                             if model.selectedCard.orderD.status == order.status[3]{
@@ -158,16 +162,15 @@ struct CurrentCardMDetailsAssigned: View {
                                 }
                             }
                             
-                        }.contentShape(RoundedRectangle(cornerRadius: 15))
+                        }
+                        .contentShape(RoundedRectangle(cornerRadius: 15))
                         .frame(width: width(num:325))
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         .padding(.top, hieght(num: 10))
                         .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
-                        ///
-                        //////
-                        
+                        //CancelButton
                         HStack {
                             if CancelButtonShow {
                             //Cancel button
@@ -195,10 +198,7 @@ struct CurrentCardMDetailsAssigned: View {
                             }*/
                         }
                         }
-                        
-                        
                     }
-                    
                 }.position(x: width(num:188),y: hieght(num:700))
                 //Chat
                 Group{
@@ -206,14 +206,8 @@ struct CurrentCardMDetailsAssigned: View {
                     // .frame(width: width(num:45), height:hieght(num: 45))
                     //.foregroundColor(Color(.lightGray))
                     Button(action: {
-                        withAnimation(.spring()){
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                withAnimation(.easeIn){
-                                   //ChatView(name: self.$name, uid: self.$uid, pic: self.$pic, show: self.$show, chat: self.$chat)
-                                  }
-                            }
-                                               
-                        }
+                        self.showChat.toggle()
+                        
                    }) {
                        Image("chat")
                            .resizable()
@@ -227,7 +221,8 @@ struct CurrentCardMDetailsAssigned: View {
 
                 
             }
-            // }
+            
+            
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .alert(isPresented: $CancelOrder) {
             Alert(
@@ -259,6 +254,7 @@ struct CurrentCardMDetailsAssigned: View {
             }
 
         }
+        
         
     }// end body
     

@@ -545,6 +545,11 @@ class Order: ObservableObject{
                     let newOrder =  OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "" ,courierId: "" ,deliveryPrice: 0, isAdded: false, createdAt: Date(), status: "")
                     return newOrder
                 })
+                let success = true
+                DispatchQueue.main.async {
+                    print("inside getOrderForCourierCurrentOrder in dispatch")
+                    completion(success)
+                }
             }
     }
     //get all offers made to a specific order
@@ -645,7 +650,7 @@ class Order: ObservableObject{
          }
      }
     //retrieve chat
-    func getChatRoom(orderId : String){
+    func getChatRoom(orderId : String, completion: @escaping (_ success: Bool) -> Void){
         self.chat.removeAll()
         db.collection("Order").document(orderId).collection("Chat").order(by: "timeSent", descending: true).addSnapshotListener { (querySnapshot, error) in
             if error != nil {
@@ -662,6 +667,12 @@ class Order: ObservableObject{
                     self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
                 }
             }
+            let success = true
+            DispatchQueue.main.async {
+                print("inside getChatRoom in dispatch")
+                completion(success)
+            }
+            
         }
     }
      

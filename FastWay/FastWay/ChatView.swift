@@ -1,4 +1,4 @@
-//
+
 //  ChatView.swift
 //  FastWay
 //
@@ -13,10 +13,8 @@ struct ChatView : View {
     
     @StateObject var viewRouter: ViewRouter
     @StateObject var model: CurrentCarouselMViewModel
-   
     @Namespace var animation
-    var name : String
-    @Binding var chat : Bool
+
     @State var msgs = [ChatMsg]()
     @State var txt = ""
     @State var nomsgs = false
@@ -71,8 +69,6 @@ struct ChatView : View {
                 TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Button(action: {
-                    
-                   // sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
                     model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
                     self.txt = ""
                     
@@ -90,20 +86,23 @@ struct ChatView : View {
     }
     
     func getMsgs(){
-                    
-        if model.order.chat.isEmpty{
-                
-                self.nomsgs = true
-        }else{
-            for index in model.order.chat{
-                let id = index.id
-                let senderID = index.senderID
-                let timeSent = index.timeSent
-                let msg = index.msg
-                self.msgs.append(ChatMsg(id: id, senderID: senderID, timeSent: timeSent, msg: msg))
+        model.order.getChatRoom(orderId: model.selectedCard.orderD.id){ success in
+            print("inside getMsgs success")
+            guard success else { return }
+            if model.order.chat.isEmpty{
+                    self.nomsgs = true
+            }else{
+                for index in model.order.chat{
+                    let id = index.id
+                    let senderID = index.senderID
+                    let timeSent = index.timeSent
+                    let msg = index.msg
+                    self.msgs.append(ChatMsg(id: id, senderID: senderID, timeSent: timeSent, msg: msg))
 
+                }
             }
         }
+        
     }
 }
 
