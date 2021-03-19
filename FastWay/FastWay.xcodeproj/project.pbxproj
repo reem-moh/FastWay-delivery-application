@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15875B9026052A96001ABBC2 /* Newtracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15875B8F26052A95001ABBC2 /* Newtracking.swift */; };
 		15B8904226034CF900F366CA /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B8904126034CF900F366CA /* Tracking.swift */; };
 		4DDFE1CD25CF1BA6005BEB5B /* AddNewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */; };
 		4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15875B8F26052A95001ABBC2 /* Newtracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newtracking.swift; sourceTree = "<group>"; };
 		15B8904126034CF900F366CA /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
 		4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewOrderView.swift; sourceTree = "<group>"; };
 		4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROPOFFlocationView.swift; sourceTree = "<group>"; };
@@ -148,11 +150,9 @@
 				4DDFE1CC25CF1BA6005BEB5B /* AddNewOrderView.swift */,
 				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
-				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
-				C20283C02605104900182682 /* CurrentCardMDetailsAssigned.swift */,
 				C2E20EF425EABFD2009CAE56 /* Offers.swift */,
+				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
 				C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */,
-				C20283C42605137800182682 /* CurrentCardCDetailesNeworder.swift */,
 				C2A006CD25CF229A0010C126 /* HistoryView.swift */,
 				C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */,
 				5886863425D17F6B00C15A0D /* ViewCourierProfile.swift */,
@@ -160,6 +160,9 @@
 				C2A006D125CF22B20010C126 /* DeliverOrderView.swift */,
 				58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */,
 				C24354B425D431B90033B69F /* cardCourier.swift */,
+				C20283C02605104900182682 /* CurrentCardMDetailsAssigned.swift */,
+				C20283C42605137800182682 /* CurrentCardCDetailesNeworder.swift */,
+				15875B8F26052A95001ABBC2 /* Newtracking.swift */,
 				15B8904126034CF900F366CA /* Tracking.swift */,
 				58B5F55125D9726B00D4C099 /* Maps.swift */,
 				58B5F55825D9859500D4C099 /* EntireMapView.swift */,
@@ -304,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				589C42FC25CBA651009D6B45 /* classes.swift in Sources */,
+				15875B9026052A96001ABBC2 /* Newtracking.swift in Sources */,
 				C2A006C225CF1F1A0010C126 /* MotherView.swift in Sources */,
 				580795B925E97F41002F50A3 /* Notifications.swift in Sources */,
 				5886863525D17F6B00C15A0D /* ViewCourierProfile.swift in Sources */,

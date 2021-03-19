@@ -28,7 +28,7 @@ struct CurrentCardCDetailesNeworder: View {
         ZStack{
             
             //map
-            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
+            Newtracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: 390, height: 300).padding(.bottom, 0)
                 .clipped().position(x: 188,y: 100)

@@ -1,40 +1,16 @@
 //
-//  Tracking.swift
+//  Newtracking.swift
 //  FastWay
 //
-//  Created by Ghaida . on 05/08/1442 AH.
+//  Created by Ghaida . on 06/08/1442 AH.
 //
-
 
 import SwiftUI
 import MapKit
-/*
-struct ContentView: View {
-    
-    @Binding var map : MKMapView
-    @Binding var manager : CLLocationManager
-    @Binding var alert : Bool
-    @Binding var source : CLLocationCoordinate2D!
-    @Binding var destination : CLLocationCoordinate2D!
-    @Binding var distance : String
-    @Binding var time : String
-    
-    var body: some View {
-       
-        MapViewTracking(manager: $manager, alert: $alert).alert(isPresented: $alert) {
-            
-            Alert(title: Text("Please Enable Location Access In Settings Pannel !!!"))
-        }
-    }
-}
+import CoreLocation
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}*/
-//courierrrrr
-struct MapViewTracking : UIViewRepresentable {
+//////member
+struct Newtracking: UIViewRepresentable {
     
     @Binding var map : MKMapView
     @Binding var manager : CLLocationManager
@@ -47,7 +23,7 @@ struct MapViewTracking : UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         map.delegate = context.coordinator
         manager.delegate = context.coordinator as CLLocationManagerDelegate
-       map.showsUserLocation = true
+      //  map.showsUserLocation = true
         let c = makeCoordinator()
         c.tap(pick: source, drop: destination)
         return map
@@ -68,14 +44,14 @@ struct MapViewTracking : UIViewRepresentable {
     
     func makeCoordinator() -> Coordinator {
         
-        return MapViewTracking.Coordinator(parent1: self)
+        return Newtracking.Coordinator(parent1: self)
     }
     
     class Coordinator : NSObject,MKMapViewDelegate,CLLocationManagerDelegate{
         
-        var parent : MapViewTracking
+        var parent : Newtracking
         
-        init(parent1 : MapViewTracking) {
+        init(parent1 : Newtracking) {
             
             parent = parent1
         }
@@ -136,3 +112,9 @@ struct MapViewTracking : UIViewRepresentable {
     }
     
 }
+
+
+
+
+
+
