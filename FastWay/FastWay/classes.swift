@@ -196,6 +196,14 @@ struct Offer : Identifiable {
     var courierLocation : CLLocationCoordinate2D
 }
 
+//chat msg
+struct ChatMsg : Identifiable {
+    var id: String //order id of chat (document id)
+    var senderID : String
+    var timeSent : Date
+    var msg : String
+}
+
 /*struct Tracking : Identifiable {
     var id: String
     var courierLocation : CLLocationCoordinate2D
@@ -219,6 +227,8 @@ class Order: ObservableObject{
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
     
    // @Published var traking: Tracking = Tracking(id: <#T##String#>, courierLocation: <#T##CLLocationCoordinate2D#>)
+    
+    @Published var chat: [ChatMsg] = [] //for messages in chat
     
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
@@ -635,12 +645,13 @@ class Order: ObservableObject{
              "mssg": [
                  "timeSent": FieldValue.serverTimestamp(),
                  "senderId":sender_id,
+                "orderId": orderId,
                     "msg":sender_msg
              ]
          ]
      
      
-         db.collection("Chat").document(orderId).setData(docData) { err in
+        db.collection("Order").document(orderId).collection("Chat").document().setData(docData, merge: true) { err in
              if let err = err {
                  print("Error writing document: \(err)")
              } else {
@@ -650,8 +661,21 @@ class Order: ObservableObject{
      }
     
     //?????????
-    func getChatRoom(orderId : String, sender_msg: String){
-        
+    func getChatRoom(orderId : String){
+        db.collection("Order").document(orderId).collection("Chat").order(by: "timeSent", descending: true).addSnapshotListener { (querySnapshot, error) in
+            if error != nil {
+                print("error getting msg")
+                return
+            }
+            for i in querySnapshot!.documentChanges {
+                let orderID = i.document.get("orderId") as! String
+                let senderID = i.document.get("senderId")as! String
+                let timeSent = i.document.get("timeSent") as! Timestamp
+                let msg = i.document.get("msg") as! String
+                
+                self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
+            }
+        }
     }
      
     
