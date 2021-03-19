@@ -22,7 +22,6 @@ struct CurrentCardMDetailsAssigned: View {
     @State var CancelButtonShow = true
     @State var stat = ""
     //For chat
-    @State var showChat = false
     @State var show = false
     @State var chat = false
     
@@ -43,9 +42,6 @@ struct CurrentCardMDetailsAssigned: View {
                     self.manager.requestAlwaysAuthorization()
                 }
             
-            if showChat {
-                ChatView(viewRouter: viewRouter, model: model)
-            }
             
             ZStack {
                 //back button
@@ -206,7 +202,7 @@ struct CurrentCardMDetailsAssigned: View {
                     // .frame(width: width(num:45), height:hieght(num: 45))
                     //.foregroundColor(Color(.lightGray))
                     Button(action: {
-                        self.showChat.toggle()
+                        model.showChat.toggle()
                         
                    }) {
                        Image("chat")

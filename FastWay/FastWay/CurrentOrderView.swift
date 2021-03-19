@@ -59,6 +59,7 @@ struct CurrentOrderView: View {
                 model.showCard = false
                 model.showContent = false
                 model.showOffers = false
+                model.showChat = false
             }
             
             //Notification
@@ -200,7 +201,10 @@ struct CurrentOrderView: View {
             if model.showOffers {
                 Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
-
+            //press chat
+            if model.showChat {
+                ChatView(viewRouter: viewRouter, model: model)
+            }
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -759,6 +763,9 @@ class CurrentCarouselMViewModel: ObservableObject {
     //Toggle to show notification
     @Published var notificationMSG =  false
     @Published var assigned = false
+    //Toggle to show chat
+    @Published var showChat = false
+    
     init(){
         //from this ID get all the cards
         //order.getMemberOrder(Id: UserDefaults.standard.getUderId())
