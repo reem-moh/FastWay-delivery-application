@@ -668,12 +668,14 @@ class Order: ObservableObject{
                 return
             }
             for i in querySnapshot!.documentChanges {
-                let orderID = i.document.get("orderId") as! String
-                let senderID = i.document.get("senderId")as! String
-                let timeSent = i.document.get("timeSent") as! Timestamp
-                let msg = i.document.get("msg") as! String
-                
-                self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
+                if i.type == .added {
+                    let orderID = i.document.get("orderId") as! String
+                    let senderID = i.document.get("senderId")as! String
+                    let timeSent = i.document.get("timeSent") as! Timestamp
+                    let msg = i.document.get("msg") as! String
+                    
+                    self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
+                }
             }
         }
     }
