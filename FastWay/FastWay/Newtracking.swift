@@ -8,8 +8,8 @@
 import SwiftUI
 import MapKit
 import CoreLocation
-
-//////member
+//courierrrrr
+//Current card c details New order
 struct Newtracking: UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -23,7 +23,7 @@ struct Newtracking: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         map.delegate = context.coordinator
         manager.delegate = context.coordinator as CLLocationManagerDelegate
-      //  map.showsUserLocation = true
+        map.showsUserLocation = true
         let c = makeCoordinator()
         c.tap(pick: source, drop: destination)
         return map

@@ -33,7 +33,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }*/
-//courierrrrr
+//////member
+//Current card M details assigned
 struct MapViewTracking : UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -47,7 +48,7 @@ struct MapViewTracking : UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         map.delegate = context.coordinator
         manager.delegate = context.coordinator as CLLocationManagerDelegate
-       map.showsUserLocation = true
+    //   map.showsUserLocation = true
         let c = makeCoordinator()
         c.tap(pick: source, drop: destination)
         return map

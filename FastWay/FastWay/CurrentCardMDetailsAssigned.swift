@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MapKit
-
+//////member
 //Current card M details assigned
 struct CurrentCardMDetailsAssigned: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
