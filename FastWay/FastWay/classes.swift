@@ -629,6 +629,34 @@ class Order: ObservableObject{
     }
     
     
+     func sendChatRoom(orderId : String, sender_msg: String){
+         let sender_id = UserDefaults.standard.getUderId()
+         let docData: [String: Any] = [
+             "mssg": [
+                 "timeSent": FieldValue.serverTimestamp(),
+                 "senderId":sender_id,
+                    "msg":sender_msg
+             ]
+         ]
+     
+     
+         db.collection("Chat").document(orderId).setData(docData) { err in
+             if let err = err {
+                 print("Error writing document: \(err)")
+             } else {
+                 print("Document successfully written!")
+             }
+         }
+     }
+    
+    //?????????
+    func getChatRoom(orderId : String, sender_msg: String){
+        
+    }
+     
+    
+    
+    
     
     
     //****************************
