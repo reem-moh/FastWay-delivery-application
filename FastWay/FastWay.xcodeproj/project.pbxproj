@@ -28,6 +28,8 @@
 		58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55825D9859500D4C099 /* EntireMapView.swift */; };
 		58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */; };
 		778D349325E7D9A3002B902D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778D349225E7D9A3002B902D /* TextView.swift */; };
+		C20283C12605104900182682 /* CurrentCardMDetailsAssigned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20283C02605104900182682 /* CurrentCardMDetailsAssigned.swift */; };
+		C20283C52605137800182682 /* CurrentCardCDetailesNeworder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20283C42605137800182682 /* CurrentCardCDetailesNeworder.swift */; };
 		C22D4E9B25E15ADD001EF297 /* CurrentOrderCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */; };
 		C22D4E9E25E15B6F001EF297 /* HistoryCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */; };
 		C24354B525D431B90033B69F /* cardCourier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24354B425D431B90033B69F /* cardCourier.swift */; };
@@ -70,6 +72,8 @@
 		773C94515FFF9C6F67574693 /* Pods-FastWay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.debug.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.debug.xcconfig"; sourceTree = "<group>"; };
 		778D349225E7D9A3002B902D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		A521735E255EEE842E224EDC /* Pods_FastWay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastWay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20283C02605104900182682 /* CurrentCardMDetailsAssigned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCardMDetailsAssigned.swift; sourceTree = "<group>"; };
+		C20283C42605137800182682 /* CurrentCardCDetailesNeworder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCardCDetailesNeworder.swift; sourceTree = "<group>"; };
 		C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderCourierView.swift; sourceTree = "<group>"; };
 		C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCourierView.swift; sourceTree = "<group>"; };
 		C24354B425D431B90033B69F /* cardCourier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardCourier.swift; sourceTree = "<group>"; };
@@ -145,8 +149,10 @@
 				4DDFE1D025CF1BCC005BEB5B /* DROPOFFlocationView.swift */,
 				4DDFE1D325CF1BFA005BEB5B /* SendOrderIView.swift */,
 				C2A006C925CF22680010C126 /* CurrentOrderView.swift */,
+				C20283C02605104900182682 /* CurrentCardMDetailsAssigned.swift */,
 				C2E20EF425EABFD2009CAE56 /* Offers.swift */,
 				C22D4E9A25E15ADD001EF297 /* CurrentOrderCourierView.swift */,
+				C20283C42605137800182682 /* CurrentCardCDetailesNeworder.swift */,
 				C2A006CD25CF229A0010C126 /* HistoryView.swift */,
 				C22D4E9D25E15B6F001EF297 /* HistoryCourierView.swift */,
 				5886863425D17F6B00C15A0D /* ViewCourierProfile.swift */,
@@ -311,6 +317,7 @@
 				C2A006D225CF22B20010C126 /* DeliverOrderView.swift in Sources */,
 				4DDFE1D425CF1BFA005BEB5B /* SendOrderIView.swift in Sources */,
 				C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */,
+				C20283C12605104900182682 /* CurrentCardMDetailsAssigned.swift in Sources */,
 				C22D4E9B25E15ADD001EF297 /* CurrentOrderCourierView.swift in Sources */,
 				4DDFE1D125CF1BCC005BEB5B /* DROPOFFlocationView.swift in Sources */,
 				589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */,
@@ -318,6 +325,7 @@
 				C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */,
 				C2A006D725CF24C60010C126 /* ViewRouter.swift in Sources */,
 				589C42D625C9956E009D6B45 /* LoginView.swift in Sources */,
+				C20283C52605137800182682 /* CurrentCardCDetailesNeworder.swift in Sources */,
 				C2A006CA25CF22680010C126 /* CurrentOrderView.swift in Sources */,
 				58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */,
 				589433EC25C8F61F00E19E18 /* FastWayApp.swift in Sources */,
