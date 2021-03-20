@@ -4,12 +4,14 @@
 //
 //  Created by Ghaida . on 06/08/1442 AH.
 //
-
+/*
 import SwiftUI
 import MapKit
 import CoreLocation
+ */
 //courierrrrr
 //Current card c details New order
+/*
 struct Newtracking: UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -119,5 +121,5 @@ struct Newtracking: UIViewRepresentable {
 
 
 
-
+*/
 
