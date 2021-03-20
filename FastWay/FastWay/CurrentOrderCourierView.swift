@@ -28,12 +28,12 @@ struct CurrentOrderCourierView: View {
             HStack{
                 GeometryReader{ geometry in
                     //background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
                     //CurrentOrderView
-                    Text("Current Orders").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
+                    Text("Current Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:100))
                     
                 }.edgesIgnoringSafeArea(.all)
                 
@@ -308,7 +308,7 @@ struct CurrentCardCView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
-                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
+                    .frame(maxWidth: width(num:220), maxHeight: hieght(num:50), alignment: .leading)
                     .animation(.easeIn) //if the user press it. It shows detailes
                 Spacer(minLength: 0)
                 
@@ -426,9 +426,9 @@ struct CurrentCardCDetailes: View {
             //map
             MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
-                .frame(width: 390, height: 300).padding(.bottom, 0)
+                .frame(width: width(num:390), height: hieght(num:300)).padding(.bottom, 0)
                 .clipped().position(x: 188,y: 100)
-                .offset(y: 50)
+                .offset(y: hieght(num:50))
                 .onAppear {
                     
                     self.manager.requestAlwaysAuthorization()
@@ -437,7 +437,7 @@ struct CurrentCardCDetailes: View {
                 //go back button
                 //arrow_back image
                 Group{
-                    RoundedRectangle(cornerRadius: 10).frame(width: 45, height: 35).foregroundColor(Color(.white))
+                    RoundedRectangle(cornerRadius: 10).frame(width: width(num:45), height: hieght(num:35)).foregroundColor(Color(.white))
                     Button(action: {
                         withAnimation(.spring()){
                             model.showCard.toggle()
@@ -454,13 +454,13 @@ struct CurrentCardCDetailes: View {
                             .resizable()
                             .colorInvert()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
+                            .frame(width: width(num:30), height: hieght(num:30))
                             .clipped()
                             .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: 50, y: 50)
                 //white background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 240).shadow(radius: 2)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
                 
                 VStack{
                     
@@ -468,21 +468,21 @@ struct CurrentCardCDetailes: View {
                         HStack{
                             Image(systemName: "clock")
                                 .foregroundColor(Color.black.opacity(0.5))
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)
                             Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
                                 .font(.body)
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
 
                             
                             Image(uiImage: #imageLiteral(resourceName: "dollar"))
                                 .foregroundColor(Color.black.opacity(0.5))
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)
                             
                             Text("\(model.selectedCard.orderD.deliveryPrice) SR")
@@ -490,7 +490,7 @@ struct CurrentCardCDetailes: View {
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
-                                .offset(x: 10, y: 10)
+                                .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
                         if model.selectedCard.orderD.status == "have an offer"{
@@ -508,35 +508,35 @@ struct CurrentCardCDetailes: View {
                         }
                         //pick up
                         ZStack{
-                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: -125)
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: width(num:-125))
                             HStack {
                                 
-                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: width(num:0), maxWidth: width(num:200), alignment: .leading)
                             }
                             
                         }
                         //drop off
                         ZStack{
-                            RoundedRectangle(cornerRadius: 15).padding().frame(width: 350, height: 160).foregroundColor(.white).shadow(radius: 1)
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: -125)
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: width(num:-125))
                             HStack{
                                 
-                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 200, alignment: .leading)
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:200), alignment: .leading)
                             }
                             
                         }
                         //order items
                         ZStack{
                            
-                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: -125)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
                             HStack() {
                                 
-                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: 220, alignment: .leading)
+                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
                             }
                         }
                         .contentShape(RoundedRectangle(cornerRadius: 15))
-                        .frame(width: 325)
+                        .frame(width: width(num:325))
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
@@ -545,7 +545,7 @@ struct CurrentCardCDetailes: View {
                             showingPaymentAlert.toggle()
                         }) {
                             Text("Cancel Offer")
-                                .font(.custom("Roboto Bold", size: 22))
+                                .font(.custom("Roboto Bold", size: fontSize(num:22)))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                                 .multilineTextAlignment(.center)
                                 .padding(1.0)
@@ -554,7 +554,7 @@ struct CurrentCardCDetailes: View {
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                         .padding(.top,25)
-                        .offset(x: 0)
+                        .offset(x: width(num:0))
                         .padding(.bottom,450)
                         
                     }
