@@ -86,25 +86,25 @@ struct AddNewOrderView: View {
                         Image("arrow_back")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
+                            .frame(width: width(num: 30) , height: hieght(num: 30))
                             .clipped()
-                    }.position(x:30 ,y:20)
+                    }.position(x:width(num: 30)  ,y:hieght(num: 20))
                     
                     
                     
-                    Text("Pick up location ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-735)
+                    Text("Pick up location ").font(.custom("Roboto Medium", size: fontSize(num: 25) )).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:width(num: 0) ,y:hieght(num: -735))
                     
                     
                     
                 }//END VStack
                 
                 //white background
-                Image("Rectangle 48").resizable().aspectRatio(contentMode: .fill).offset(y:45)
+                Image("Rectangle 48").resizable().aspectRatio(contentMode: .fill).offset(y:hieght(num:45))
                 //progress bar
                 Image("progressBar1")
-                    .position(x: UIScreen.main.bounds.width/2, y: 80)
-                    .offset(x: 10)
+                    .position(x: UIScreen.main.bounds.width/2, y: hieght(num: 80))
+                    .offset(x: width(num: 10))
 
                 
                 
@@ -116,37 +116,37 @@ struct AddNewOrderView: View {
                     
                     
                     EntireMapView(map: self.$map, manager: self.$manager)
-                        .frame(width: 380, height: 350, alignment: .center)
-                        .clipped().offset(y:90)
+                        .frame(width: width(num: 380), height: hieght(num: 350), alignment: .center)
+                        .clipped().offset(y: hieght(num: 90))
                     
                     
                     Text("Select location:")
-                        .font(.custom("Roboto Medium", size: 18))
+                        .font(.custom("Roboto Medium", size: fontSize(num: 18)))
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
-                        .frame(width: 295, height: 6)
-                        .offset(x:-115,y:-75)
+                        .frame(width: width(num: 295), height:  hieght(num: 6))
+                        .offset(x: width(num: -115),y:hieght(num: -75))
                     
                     
                     
                     if errorlocation1{
-                        Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-10,y:-55) }
+                        Text(lErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -10),y:hieght(num: -55)) }
                     
                     
                     if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
-                        Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-55) }
+                        Text(lErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -65),y: hieght(num: -55)) }
                     
                     
                     
                     if (errorlocation)&&(errorlocation1==false){
-                        Text(lErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:-65,y:-55) }
+                        Text(lErr).font(.custom("Roboto Regular", size:  fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -65),y: hieght(num: -55)) }
                     
                     
                     
-                }.offset(x:0 ,y:-180)
+                }.offset(x:width(num: 0),y: hieght(num: -180))
                 
                 
             }
@@ -155,7 +155,7 @@ struct AddNewOrderView: View {
             
             //white rectangle
             Spacer(minLength: 100)
-            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:0 ,y:450)
+            Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:width(num: 0),y: hieght(num: 450))
             
             VStack(spacing: 10){
                 
@@ -172,8 +172,8 @@ struct AddNewOrderView: View {
                     
                     //Show Error message if no bulding selected
                     if errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2 {
-                        Text(bErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -95,y:-10)
+                        Text(bErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -95),y: hieght(num: -10))
                     }
                     
                     
@@ -187,9 +187,9 @@ struct AddNewOrderView: View {
                                 self.PICKUPlocation()
                                 
                             }){
-                                TextField("Search Building here", text: $text).font(.custom("Roboto Regular", size: 18)).foregroundColor(.black).multilineTextAlignment(.leading).frame(width: 295, height: 6)
+                                TextField("Search Building here", text: $text).font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(.black).multilineTextAlignment(.leading).frame(width:width(num: 295) , height:hieght(num: 6))
                             }
-                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width:width(num: 13) , height: hieght(num: 6))
                         }.onTapGesture {
                             self.expand.toggle()
                             self.expandFloor = false
@@ -214,7 +214,7 @@ struct AddNewOrderView: View {
                                                             
                                                         })
                                                         {
-                                                            Text(Bulding.title).font(.custom("Roboto Regular", size: 13 )).foregroundColor(.black).padding(5)
+                                                            Text(Bulding.title).font(.custom("Roboto Regular", size: fontSize(num:13 ) )).foregroundColor(.black).padding(5)
                                                             
                                                         }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
                                                 }
@@ -234,8 +234,8 @@ struct AddNewOrderView: View {
                                     
                                     
                                     
-                                }.frame(width: 300, height: 70)
-                            }.offset(x: -5, y: 10.0)
+                                }.frame(width:width(num: 300) , height:hieght(num: 70))
+                            }.offset(x:width(num: -5) , y:hieght(num: 10.0))
                         }
                         
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
@@ -256,8 +256,8 @@ struct AddNewOrderView: View {
                     
                     //Show Error message if no floor selected
                     if errorFloorPick && !errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2{
-                        Text(fErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -105,y:-10)
+                        Text(fErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: -105),y:hieght(num: -10))
                     }
                     
                     
@@ -268,9 +268,9 @@ struct AddNewOrderView: View {
                                 
                                 self.PICKUPlocationBuilding()
                             }){
-                                Text(Floor).font(.custom("Roboto Medium", size: 18)).foregroundColor(.black).fontWeight(.bold).multilineTextAlignment(.center).frame(width: 295, height: 6).offset(x: -130, y: 0)
+                                Text(Floor).font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(.black).fontWeight(.bold).multilineTextAlignment(.center).frame(width: width(num: 295) , height: hieght(num: 6)).offset(x:width(num: -130) , y:hieght(num: 0))
                             }
-                            Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6)
+                            Image(systemName: expandFloor ? "chevron.up" : "chevron.down").resizable().frame(width: width(num: 13) , height: hieght(num: 6))
                         }.onTapGesture {
                             self.expandFloor.toggle()
                             self.expand = false
@@ -319,10 +319,10 @@ struct AddNewOrderView: View {
                                     })
                                     {
                                         Text("3").padding(3)
-                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).frame(width: 297, height: 30)
+                                    }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).frame(width: width(num: 297) , height: hieght(num: 30))
                                     
-                                }.frame(width: 300, height:  70)
-                            }.offset(x: -10, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                                }.frame(width: width(num: 300), height: hieght(num: 70))
+                            }.offset(x: width(num: -10), y: hieght(num: 10.0))
                         }
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
                     
@@ -338,8 +338,8 @@ struct AddNewOrderView: View {
                     
                     //Show Error message if the ROOM feild empty
                     if errorRoomPick && !errorFloorPick && !errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2 {
-                        Text(rErr).font(.custom("Roboto Regular", size: 18))
-                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -75,y:-10)
+                        Text(rErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: -75) ,y:hieght(num: -10))
                     }
                     
                     Button(action: {
@@ -347,9 +347,9 @@ struct AddNewOrderView: View {
                     }){
                         //room numbers
                         TextField("room numbers , more details...", text: $room.text)
-                            .font(.system(size: 18)).foregroundColor(.black)
+                            .font(.system(size: fontSize(num: 18) )).foregroundColor(.black)
                             .padding(12)
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: 0,y:0)
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: width(num: 0),y:hieght(num: 0))
                         
                     }} //end details
                 
@@ -387,7 +387,7 @@ struct AddNewOrderView: View {
                         }
                         
                     })   {
-                        Text("Next").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
+                        Text("Next").font(.custom("Roboto Bold", size: fontSize(num: 22) )).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                     }
                     .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
                     .padding(.top,25)
@@ -404,7 +404,7 @@ struct AddNewOrderView: View {
                 
                 
                 
-            }.offset(x: 0,y:215)
+            }.offset(x: width(num: 0) ,y: hieght(num: 215))
             
             
             
@@ -551,14 +551,16 @@ func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
 // let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
 //let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
     
+    //campus region
+    // let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
     
-    
-    
+    //ghaida region
     let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
     let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
-     // let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    
     print(northWestCorner)
-   //   let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+
     print(southEastCorner)
     return (
         ( coordinate.latitude  >= northWestCorner.latitude &&

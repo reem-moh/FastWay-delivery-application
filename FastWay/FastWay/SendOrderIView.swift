@@ -52,9 +52,9 @@ struct SendOrderIView: View {
                         Image("arrow_back")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 30, height: 30)
+                            .frame(width: width(num: 30) , height: hieght(num: 30))
                             .clipped()
-                    }.position(x:30 ,y:70)
+                    }.position(x:width(num: 30)  ,y:hieght(num: 70))
                     
                     
                     //white rectangle
@@ -63,42 +63,42 @@ struct SendOrderIView: View {
                 }
                 //Send order
                 VStack{
-                    Text("Send order ").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:0 ,y:-360)
+                    Text("Send order ").font(.custom("Roboto Medium", size: fontSize(num: 25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:width(num: 0) ,y:hieght(num: -360))
                 }
                 //ProgressBar
                 Image("progressBar3")
-                    .position(x: UIScreen.main.bounds.width/2, y: 140)
-                    .offset(x: 10)
+                    .position(x: UIScreen.main.bounds.width/2, y: hieght(num: 140))
+                    .offset(x: width(num: 10))
                 //Main Page
                 VStack(){
                     //Order Details
                     Group{
-                        Text("Order Details ").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-125 ,y:-50)
+                        Text("Order Details ").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x: width(num: -125),y:hieght(num: -50))
                         
                         
                         if error{
                             //Show Error message if the email feild empty
-                            Text(nErr).font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: -90,y: -50)
+                            Text(nErr).font(.custom("Roboto Medium", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: -90),y:hieght(num: -50))
                         }
                         
-                        TextView(txt: $txt).padding() .background(Color.clear).border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).cornerRadius(0).frame(width: 355, height: 250, alignment: .center).offset(x:0,y:-50)
+                        TextView(txt: $txt).padding() .background(Color.clear).border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).cornerRadius(0).frame(width: width(num: 355), height: hieght(num: 250), alignment: .center).offset(x: width(num: 0),y:hieght(num: -50))
                         
                         Text("\(txt.count) /80")
                             .font(.headline)
-                            .foregroundColor(.secondary).offset(x:-150,y:-50)
+                            .foregroundColor(.secondary).offset(x: width(num: -150),y:hieght(num: -50))
                         
                     }
                     //Payment method
                     Group{
-                        Text("Payment method").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:-110 ,y:-35)
-                        Text("Cash on Delivery").frame(width: 330, height: 30)
-                            .font(.system(size: 18))
-                            .padding(12).offset(x:-100 ,y:0)
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)) .keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x:0 ,y:-40)
+                        Text("Payment method").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x: width(num: -110),y:hieght(num: -35))
+                        Text("Cash on Delivery").frame(width: width(num: 330), height:  hieght(num: 30))
+                            .font(.system(size: fontSize(num: 18)))
+                            .padding(12).offset(x: width(num: -100),y:hieght(num: 0))
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)) .keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x: width(num: 0),y:hieght(num: -40))
                     }
                     //Add new Order Button
                     Group{
@@ -128,10 +128,10 @@ struct SendOrderIView: View {
                             Text("Send order").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: 0, y:10)
+                        .padding(.top,25).offset(x: width(num: 0),y:hieght(num: 10))
                         
                     }
-                }.offset(y: 20)
+                }.offset(y:hieght(num: 20))
             }.onTapGesture {
                 self.hideKeyboard()
             }
