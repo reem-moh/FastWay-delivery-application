@@ -31,7 +31,7 @@ struct CurrentOrderCourierView: View {
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
                     //CurrentOrderView
                     Text("Current Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:width(num:20),y:hieght(num:20))
+                        .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:100))
                     
@@ -427,7 +427,7 @@ struct CurrentCardCDetailes: View {
             MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300)).padding(.bottom, 0)
-                .clipped().position(x: 188,y: 100)
+                .clipped().position(x: width(num:188),y: hieght(num:100))
                 .offset(y: hieght(num:50))
                 .onAppear {
                     
@@ -458,7 +458,7 @@ struct CurrentCardCDetailes: View {
                             .clipped()
                             .background(Color(.white))
                     }.padding(1.0)
-                }.position(x: 50, y: 50)
+                }.position(x: width(num:50), y: hieght(num:50))
                 //white background
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
                 
@@ -558,7 +558,7 @@ struct CurrentCardCDetailes: View {
                         .padding(.bottom,450)
                         
                     }
-                }.position(x: 188,y: 700)
+                }.position(x: width(num:188),y: hieght(num:700))
             }
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
                     notificationT =  .CancelOffer
