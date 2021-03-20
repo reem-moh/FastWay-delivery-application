@@ -263,13 +263,18 @@ struct OfferCard: View {
                 }, label: {
                     Text("Decline")
                         .font(.custom("Roboto Bold", size: 22))
-                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .foregroundColor(Color("ButtonColor"))
                         .multilineTextAlignment(.center)
                         .padding(1.0)
                         .textCase(.none)
+                        
                 })
                 .frame(width: width(num: 130), height: hieght(num: 40))
-                .background(Color("ButtonColor"))
+                .background(Color("ButtonWhite"))
+                .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color("ButtonColor"), lineWidth: 2)
+                        )
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 
                 Spacer()
