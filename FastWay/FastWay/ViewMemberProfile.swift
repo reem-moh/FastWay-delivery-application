@@ -30,9 +30,8 @@ struct ViewMemberProfile: View {
             ZStack{
                 
                 //background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
-                
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:width(num: -100))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: width(num: 30))
                 
                 
             }.onAppear(){
@@ -52,7 +51,8 @@ struct ViewMemberProfile: View {
                     Spacer()
                     Spacer()
                     
-                    Image("profileM").font(.system(size: 56.0)).padding(.bottom,50).offset(x: -12 ,y: 45)
+                    Image("profileM").font(.system(size: fontSize(num: 56.0))).padding(.bottom,50).offset(x:width(num: -12) ,y:hieght(num: 45))
+                    
                     Spacer()
                     Spacer()
                     
@@ -72,44 +72,44 @@ struct ViewMemberProfile: View {
                         Group {
                             
                             //name field
-                            Text("").font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
-                            Text("name:").font(.custom("Roboto Regular", size: 18))
+                            Text("name:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
                             TextField(" \(self.member.member.name)", text: $member.member.name)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             
                             //email field
-                            Text("").font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
-                            Text("email:").font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
+                            Text("email:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x:width(num: 18) ,y:hieght(num: 10))
                             
                             TextField("\(self.member.member.email)", text: $member.member.email)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                             //print("email \((self.member.email))")
                             
                             //phone field
-                            Text("").font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
-                            Text("phone number:").font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
+                            Text("phone number:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x:width(num: 18) ,y:hieght(num: 10))
                             
                             TextField("\(self.member.member.phoneNo)", text: $member.member.phoneNo)
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: 18))
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
@@ -117,29 +117,29 @@ struct ViewMemberProfile: View {
                             
                             //Password
                             Group {
-                                Text("Change the Password").font(.custom("Roboto Medium", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                    .multilineTextAlignment(.center).offset(x: 18,y: 10).padding(.bottom,-20)
+                                Text("Change the Password").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
+                                    .multilineTextAlignment(.center).offset(x: width(num: 18) ,y: hieght(num: 10)).padding(.bottom,-20)
                                 
                                 //current password
-                                Text("").font(.custom("Roboto Regular", size: 18))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: 12,y: 10)
+                                Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
                                 SecureField("Current Password", text: $password)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: 18))
+                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                                 //New Pass
                                 SecureField("New Password", text: $newPassword)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: 18))
+                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
                                 //reNew pass
                                 SecureField("Repeat New Password", text: $reNewPassword)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: 18))
+                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
@@ -152,10 +152,10 @@ struct ViewMemberProfile: View {
                         Button(action: {
                             logout()
                         }) {
-                            Text("Log out").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
+                            Text("Log out").font(.custom("Roboto Bold", size: fontSize(num: 22))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: 24).padding(.bottom,100)
+                        .padding(.top,25).offset(x: width(num: 24)).padding(.bottom,100)
                         
                     }.padding(.bottom, 60) //VStack
                     
