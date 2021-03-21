@@ -93,10 +93,18 @@ struct MapViewTracking : UIViewRepresentable {
             point2.subtitle = "Drop-off"
             point2.coordinate = drop
             
+            /*
+            let point = CLLocationCoordinate2D(latitude: 24.8270611, longitude: 46.6551691)
+         let   point4=MKPointAnnotation()
+            point4.subtitle = "-off"
+            point4.coordinate = point
+           */
             let point3 = MKPointAnnotation()
-            if courierLoc != nil{
+           // if courierLoc != nil{
             point3.subtitle = "Courier"
-                point3.coordinate = courierLoc}
+                point3.coordinate = courierLoc
+                
+            //}
             
             self.parent.destination = drop
             self.parent.source = pick
@@ -104,6 +112,10 @@ struct MapViewTracking : UIViewRepresentable {
             
             self.parent.map.addAnnotation(point1)
             self.parent.map.addAnnotation(point2)
+            self.parent.map.addAnnotation(point3)
+            //self.parent.map.addAnnotation(point4)
+
+
         }//end tap
         
         

@@ -22,7 +22,8 @@ struct CurrentCardCDetailesNeworder: View {
     @State var expand = false
     @State private var showingPaymentAlert = false
     @State var stat = ""
-
+    @State var oneDouble = 0.0
+    @State var tDouble = 0.0
     
     var body: some View{
         
@@ -34,9 +35,18 @@ struct CurrentCardCDetailesNeworder: View {
                 .frame(width: width(num:390), height: hieght(num:300)).padding(.bottom, 0)
                 .clipped().position(x: width(num:188),y: hieght(num:100))
                 .offset(y: hieght(num:50))
-                .onAppear {
-                    
+                .onAppear(){
                     self.manager.requestAlwaysAuthorization()
+                }
+                .onChange(of: model.order.traking.courierLocation.longitude) { value in
+                   // courierLocation = Float(courierLocation.longitude)
+                     oneDouble = Double(model.order.traking.courierLocation.longitude)
+                    self.oneDouble = value
+                    tDouble = Double(model.order.traking.courierLocation.latitude)
+                   self.tDouble = value
+                    //self.model.getCourierLocation
+                    model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: model.selectedCard.orderD.courierLocation)
+                
                 }
             
             // VStack{

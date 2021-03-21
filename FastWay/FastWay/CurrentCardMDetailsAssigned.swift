@@ -25,7 +25,10 @@ struct CurrentCardMDetailsAssigned: View {
     //For chat
     @State var show = false
     @State var chat = false
-    
+    @State var oneDouble = 0.0
+    @State var tDouble = 0.0
+
+
     var body: some View{
         
         ZStack{
@@ -38,10 +41,23 @@ struct CurrentCardMDetailsAssigned: View {
                 .clipped()
                 .position(x: width(num:188),y: hieght(num:100))
                 .offset(y: hieght(num:50))
-                .onAppear {
-                    
+                .onAppear(){
                     self.manager.requestAlwaysAuthorization()
-                }/*.onChange(of: model.selectedCard.orderD.courierLocation, perform: { value in
+                }
+                .onChange(of: model.order.traking.courierLocation.longitude) { value in
+                   // courierLocation = Float(courierLocation.longitude)
+                     oneDouble = Double(model.order.traking.courierLocation.longitude)
+                    self.oneDouble = value
+                    tDouble = Double(model.order.traking.courierLocation.latitude)
+                   self.tDouble = value
+                    //self.model.getCourierLocation
+                    model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
+                }
+                /*.onAppear {
+                    
+                   self.manager.requestAlwaysAuthorization()
+                }
+                .onChange(of: model.selectedCard.orderD.courierLocation, perform: { value in
              if value {
                  if notificationT == .CancelOffer  {
                      animateAndDelayWithSeconds(0.05) {
@@ -54,8 +70,8 @@ struct CurrentCardMDetailsAssigned: View {
                      }
                  }
              }
-         })*/
-            
+         }
+           */
             
             ZStack {
                 //back button

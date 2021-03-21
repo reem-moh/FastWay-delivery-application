@@ -423,10 +423,11 @@ class Order: ObservableObject{
     }
     //current order for courier [state = assign]
     func getCourierOrderAssign(Id: String){
+        print(" CCCChhhhhhhhhhhhjhhjjkjkjkjkjkjkjjkjkjjkjkjjkjkjkjkjjkjkjkkj documents")
         self.CourierOrderOfferedAssign.removeAll()
         db.collection("Order").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
-                print("No order CCCC documents")
+                print("No order CCCChhhhhhhhhhhhjhhjjkjkjkjkjkjkjjkjkjjkjkjjkjkjkjkjjkjkjkkj documents")
                 return
             }
             self.CourierOrderOfferedAssign = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
@@ -453,13 +454,13 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 let price = data["DeliveryPrice"] as? Int ?? 0
-                let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
-                let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
-                let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
-                print("fuhabviuyebvacounuivbiaybci`uybcrutvfacub cuihnavuybyvcxecrftvbyghjk,jminhbgvtcrhjkjminhuby +   \(courierLocation)")
+              
+             
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                
+              
+                return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
         }
@@ -754,6 +755,11 @@ class Order: ObservableObject{
         return flag
     }
     
+    //////////////////////////////////////////////////////////////////
+    
+    
+    
+    /////////////////////////////////////////////////
     //get all member orders where member id equals the id sent
     func getMemberOrder(Id: String){
         print("\n*******GetMemberOrder*********")
@@ -798,8 +804,12 @@ class Order: ObservableObject{
                 
                 print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                
-                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                db.collection("Tracking").document(uid)
+                let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
+                let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
+                let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
+                print("fuhabviuyebvacounuivbiaybci`uybcrutvfacub cuihnavuybyvcxecrftvbyghjk,jminhbgvtcrhjkjminhuby +   \(courierLocation)")
+                return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
         }
     }
@@ -893,7 +903,7 @@ class Order: ObservableObject{
     
     //get the updated courier location
     //updated courier location
-        func updateCourierLocation(orderId : String,courierLocation: CLLocationCoordinate2D ,completion: @escaping (_ success: Bool) -> Void) {
+        func updateCourierLocation(orderId : String,courierLocation: CLLocationCoordinate2D ) {
             
             db.collection("Tracking").document(orderId).setData(["courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
             print("inside updateCourierLocation in dispatch")
@@ -902,7 +912,7 @@ class Order: ObservableObject{
 
 
 
-        func getCourierLocation(orderId : String, completion: @escaping (_ success: Bool) -> Void){
+        func getCourierLocation(orderId : String){
 
             db.collection("Tracking").whereField("OrderId", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
                 if error != nil {
@@ -917,13 +927,14 @@ class Order: ObservableObject{
                         let courierlong = i.document.get("courierLongitude")as! Double
 
                         self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
+                    
                     }
                 }
-                let success = true
-                DispatchQueue.main.async {
-                    print("inside getCourierLocation in dispatch")
-                    completion(success)
-                }
+              //  let success = true
+             //   DispatchQueue.main.async {
+               //     print("inside getCourierLocation in dispatch")
+                   // completion(success)
+             //   }
                 
             }
         }
