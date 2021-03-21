@@ -204,10 +204,10 @@ struct ChatMsg : Identifiable {
     var msg : String
 }
 
-/*struct Tracking : Identifiable {
-    var id: String
+struct Tracking : Identifiable {
+    var id: String //order id of chat (document id)
     var courierLocation : CLLocationCoordinate2D
-}*/
+}
 
 class Order: ObservableObject{
     
@@ -221,7 +221,8 @@ class Order: ObservableObject{
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
     
-   // @Published var traking: Tracking = Tracking(id: <#T##String#>, courierLocation: <#T##CLLocationCoordinate2D#>)
+    @Published var traking: Tracking = Tracking(id: "", courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+    
     @Published var chat: [ChatMsg] = [] //for messages in chat
     
     var pickUP: CLLocationCoordinate2D!
@@ -833,19 +834,23 @@ class Order: ObservableObject{
     }
 
     //function accept offer adds courier id and delivery price to order and deletes offer subcollection
-    func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double){
+    //add document to Tracking collection
+    func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double, courierLocation: CLLocationCoordinate2D){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
+        
+        db.collection("Tracking").document().setData(["orderId": orderID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude])
+        
         db.collection("Offers").whereField("OrderID", isEqualTo: orderID).getDocuments() { (querySnapshot, err) in
             if let err = err {
-                print("Error getting documents inside cancle order: \(err)")
+                print("Error getting documents inside acceptOffer : \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
                     db.collection("Offers").document(document.documentID).delete() { err in
                         if let err = err {
-                            print("Error removing offer inside cancelOrder: \(err)")
+                            print("Error removing offer inside acceptOffer: \(err)")
                         } else {
-                            print("offer successfully delete inside cancelOrder!")
+                            print("offer successfully delete inside acceptOffer!")
                         }
                     }//delete offer
                 }//loop
@@ -890,6 +895,35 @@ class Order: ObservableObject{
        }
 
    }*/
+    
+    //get the updated courier location
+    func updateCourierLocation(orderId : String, completion: @escaping (_ success: Bool) -> Void){
+
+        db.collection("Tracking").whereField("OrderId", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
+            if error != nil {
+                print("error getting courier location")
+                return
+            }
+            for i in querySnapshot!.documentChanges {
+                if i.type == .added {
+                    let orderID = i.document.get("orderId") as! String
+                    let courierlat = i.document.get("courierLatitude") as! Double
+                    let courierlong = i.document.get("courierLongitude")as! Double
+
+                    self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
+                }
+            }
+            let success = true
+            DispatchQueue.main.async {
+                print("inside updateCourierLocation in dispatch")
+                completion(success)
+            }
+            
+        }
+    }
+
+    
+    
 
 }
 

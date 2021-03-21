@@ -207,7 +207,7 @@ struct OfferCard: View {
                 Button(action: {
                     withAnimation(.spring()){
                         model.order
-                            .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price))
+                            .acceptOffer(orderID: model.orderPreview(c: card).OrderId, courierID: model.orderPreview(c: card).courierId, deliveryPrice: Double(model.orderPreview(c: card).price),courierLocation:model.orderPreview(c: card).courierLocation)
                         model.showContent = false
                         notificationT = .AcceptOffer
                         Env.notificationMSG = true
