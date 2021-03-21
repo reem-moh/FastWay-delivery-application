@@ -42,6 +42,7 @@ struct MapViewTracking : UIViewRepresentable {
     @Binding var alert : Bool
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
+    @Binding var courierLocation : CLLocationCoordinate2D!
     @Binding var distance : String
     @Binding var time : String
     
@@ -50,7 +51,7 @@ struct MapViewTracking : UIViewRepresentable {
         manager.delegate = context.coordinator as CLLocationManagerDelegate
     //   map.showsUserLocation = true
         let c = makeCoordinator()
-        c.tap(pick: source, drop: destination)
+        c.tap(pick: source, drop: destination, courierLoc: courierLocation)
         return map
     }
     
@@ -83,8 +84,7 @@ struct MapViewTracking : UIViewRepresentable {
             parent = parent1
         }
         
-        func tap(pick: CLLocationCoordinate2D!, drop: CLLocationCoordinate2D!){
-            
+        func tap(pick: CLLocationCoordinate2D!, drop: CLLocationCoordinate2D!, courierLoc :CLLocationCoordinate2D!){
             let point1 = MKPointAnnotation()
             point1.subtitle = "Pick-up"
             point1.coordinate = pick
@@ -93,8 +93,13 @@ struct MapViewTracking : UIViewRepresentable {
             point2.subtitle = "Drop-off"
             point2.coordinate = drop
             
+            let point3 = MKPointAnnotation()
+            point3.subtitle = "Courier"
+            point3.coordinate = courierLoc
+            
             self.parent.destination = drop
             self.parent.source = pick
+            self.parent.courierLocation = courierLoc
             
             self.parent.map.addAnnotation(point1)
             self.parent.map.addAnnotation(point2)

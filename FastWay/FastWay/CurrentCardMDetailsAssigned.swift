@@ -18,6 +18,7 @@ struct CurrentCardMDetailsAssigned: View {
     @State var alert = false
     @State var distance = ""
     @State var time = ""
+    @State var courierLocation = ""
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
@@ -30,7 +31,7 @@ struct CurrentCardMDetailsAssigned: View {
         ZStack{
             
             //map
-            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
+            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation: self.$model.selectedCard.orderD.courierLocation, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
                 .padding(.bottom, hieght(num:0))
@@ -40,7 +41,20 @@ struct CurrentCardMDetailsAssigned: View {
                 .onAppear {
                     
                     self.manager.requestAlwaysAuthorization()
-                }
+                }/*.onChange(of: model.selectedCard.orderD.courierLocation, perform: { value in
+             if value {
+                 if notificationT == .CancelOffer  {
+                     animateAndDelayWithSeconds(0.05) {
+                         self.imgName = "cancelTick"
+                         self.show = true }
+                     animateAndDelayWithSeconds(4) {
+                         self.show = false
+                         model.notificationMSG = false
+                         notificationT = .None
+                     }
+                 }
+             }
+         })*/
             
             
             ZStack {

@@ -180,6 +180,7 @@ struct OrderDetails: Identifiable {
     var courierId : String = ""
     var deliveryPrice = 0
     var totalPrice = 0.0
+    var courierLocation: CLLocationCoordinate2D!
     //to identify whether it is added to cart...
     var isAdded: Bool
     var createdAt : Date = Date()
@@ -452,14 +453,16 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 let price = data["DeliveryPrice"] as? Int ?? 0
+                let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
+                let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
+                let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
+                return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
         }
-    }
-    //retrieve all offers with specific courier id
+    }    //retrieve all offers with specific courier id
     func getAllOffersFromCourierInCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         self.collectAllOffersForCourier.removeAll()
         let id = UserDefaults.standard.getUderId()
@@ -888,30 +891,41 @@ class Order: ObservableObject{
    }*/
     
     //get the updated courier location
-    func updateCourierLocation(orderId : String, completion: @escaping (_ success: Bool) -> Void){
-
-        db.collection("Tracking").whereField("OrderId", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
-            if error != nil {
-                print("error getting courier location")
-                return
-            }
-            for i in querySnapshot!.documentChanges {
-                if i.type == .added {
-                    let orderID = i.document.get("orderId") as! String
-                    let courierlat = i.document.get("courierLatitude") as! Double
-                    let courierlong = i.document.get("courierLongitude")as! Double
-
-                    self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
-                }
-            }
-            let success = true
-            DispatchQueue.main.async {
-                print("inside updateCourierLocation in dispatch")
-                completion(success)
-            }
+    //updated courier location
+        func updateCourierLocation(orderId : String,courierLocation: CLLocationCoordinate2D ,completion: @escaping (_ success: Bool) -> Void) {
             
+            db.collection("Tracking").document(orderId).setData(["courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
+            print("inside updateCourierLocation in dispatch")
+
         }
-    }
+
+
+
+        func getCourierLocation(orderId : String, completion: @escaping (_ success: Bool) -> Void){
+
+            db.collection("Tracking").whereField("OrderId", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
+                if error != nil {
+                    print("error getting courier location")
+                    return
+                }
+                for i in querySnapshot!.documentChanges {
+                    //|| .modified
+                    if i.type == .added || i.type == .modified {
+                        let orderID = i.document.get("orderId") as! String
+                        let courierlat = i.document.get("courierLatitude") as! Double
+                        let courierlong = i.document.get("courierLongitude")as! Double
+
+                        self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
+                    }
+                }
+                let success = true
+                DispatchQueue.main.async {
+                    print("inside getCourierLocation in dispatch")
+                    completion(success)
+                }
+                
+            }
+        }
 
     
     
