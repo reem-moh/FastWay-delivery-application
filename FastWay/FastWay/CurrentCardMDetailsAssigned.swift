@@ -201,15 +201,23 @@ struct CurrentCardMDetailsAssigned: View {
                     //RoundedRectangle(cornerRadius: 15)
                     // .frame(width: width(num:45), height:hieght(num: 45))
                     //.foregroundColor(Color(.lightGray))
+                    
                     Button(action: {
                         model.showChat.toggle()
                         
                    }) {
-                       Image("chat")
-                           .resizable()
-                           .aspectRatio(contentMode: .fill)
-                           .frame(width: width(num:50), height: hieght(num:50))
-                           .clipped()
+                        ZStack{
+                            Circle()
+                            .frame(width: width(num:60), height:hieght(num: 60))
+                                .foregroundColor(Color(.white))
+                                .shadow(radius: 1)
+                            Image("chat")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: width(num:50), height: hieght(num:50))
+                                .clipped()
+                        }
+                       
                            //.background(Color(.white))
                    }.padding(1.0)
                }.position(x: width(num:35), y: hieght(num:670))

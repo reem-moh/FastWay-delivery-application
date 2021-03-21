@@ -201,10 +201,7 @@ struct CurrentOrderView: View {
             if model.showOffers {
                 Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
-            //press chat
-            if model.showChat {
-                ChatView(viewRouter: viewRouter, model: model)
-            }
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -296,7 +293,10 @@ struct CurrentOrderView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
-            
+            //press chat
+            if model.showChat {
+                ChatView(viewRouter: viewRouter, model: model)
+            }
         }//end ZStack
     }
     

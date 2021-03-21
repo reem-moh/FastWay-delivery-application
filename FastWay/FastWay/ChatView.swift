@@ -21,7 +21,6 @@ struct ChatView : View {
     
     var body : some View{
         ZStack{
-            
             //Background
             ZStack{
                 
@@ -33,14 +32,14 @@ struct ChatView : View {
                     .offset(y:hieght(num: -100))
                 
                 //CurrentOrderView
-                Text("Chat").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                    .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
+                Text("Chat").font(.custom("Roboto Medium", size: fontSize(num: 25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
                 
                 //back button
                 Group{
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: width(num:45), height:hieght(num: 35))
-                        .foregroundColor(Color(.white))
+                    //RoundedRectangle(cornerRadius: 10)
+                      //  .frame(width: width(num:45), height:hieght(num: 35))
+                        //.foregroundColor(Color(.white))
                     Button(action: {
                         withAnimation(.spring()){
                             model.showChat.toggle()
@@ -55,11 +54,9 @@ struct ChatView : View {
                     }) {
                         Image("arrow_back")
                             .resizable()
-                            .colorInvert()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: width(num:30), height: hieght(num:30))
+                            .frame(width: width(num: 30) , height: hieght(num: 30))
                             .clipped()
-                            .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: width(num:45), y: hieght(num:70))
                 
@@ -73,7 +70,8 @@ struct ChatView : View {
                         .resizable() //add resizable
                         .frame(width: width(num: 375)) //addframe
                         .edgesIgnoringSafeArea(.bottom)
-                        .offset(y:hieght(num:  120))
+                        .offset(y:hieght(num:  65))
+                  
                     VStack{
                         if msgs.count == 0{
                             
@@ -114,11 +112,11 @@ struct ChatView : View {
                                                     .padding(.horizontal)
                                                     .contentShape(Rectangle())
                                                     .gesture(DragGesture(minimumDistance: 20))
-                                                    .padding(.vertical, 5)
+                                                    .padding(.vertical, hieght(num: 5))
                                                     .shadow(radius: 1)
                                                     
                                                     
-                                                }.padding(.bottom,25)//end of for each
+                                                }.padding(.bottom,hieght(num: 25))//end of for each
                                                 
                                                 
                                             }
@@ -126,49 +124,48 @@ struct ChatView : View {
                                         }
                                     }
                                 }
-                                .padding(.top,80)
+                                .padding(.top,hieght(num: 80))
                                 Spacer()
-                            }.padding(.bottom,20)
-                        }
-                        HStack{
-                            Spacer()
-                            TextField("Enter Message", text: self.$txt)
-                                .font(.custom("Roboto Regular", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8)
-                                                .strokeBorder(Color(.gray), lineWidth: 2))
-                                .padding(.top, 10)
-                                .padding(.horizontal, 16)
-                                .offset(y:hieght(num: 10))
-                            Spacer()
-                            Button(action: {
-                                model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
-                                self.txt = ""
-                                
-                            }) {
-                               
-                                Image("Send")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: width(num:45), height: hieght(num:45))
-                                    .clipped()
-                                    
-                                    
-                            }
-                            .offset(y:hieght(num: 10))
-                            Spacer()
+                            }.padding(.bottom,hieght(num: 20))
                         }
                     }
+                    //Enter message
+                    HStack{
+                        Spacer()
+                        TextField("Enter Message", text: self.$txt)
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8)
+                                            .strokeBorder(Color(.gray), lineWidth: 2))
+                            .padding(.top, hieght(num: 10))
+                            .padding(.horizontal, width(num:16))
+                        Spacer()
+                        Button(action: {
+                            model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
+                            self.txt = ""
+                            
+                        }) {
+                           
+                            Image(systemName: "paperplane.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: width(num:45), height: hieght(num:45))
+                                .clipped()
+                                
+                                
+                        }
+                        Spacer()
+                    }
+                    .background(Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).resizable())
+                    .position(x: width(num:UIScreen.main.bounds.width/2),y: hieght(num:700))
                     
-                
-                    
-                    //.background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                
                 }
                 
             }
             
+        }.onTapGesture {
+            self.hideKeyboard()
         }
         
     }

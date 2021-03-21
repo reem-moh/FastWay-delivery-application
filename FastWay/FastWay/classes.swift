@@ -632,17 +632,8 @@ class Order: ObservableObject{
     //send chat
      func sendChatRoom(orderId : String, sender_msg: String){
          let sender_id = UserDefaults.standard.getUderId()
-         let docData: [String: Any] = [
-             "mssg": [
-                 "timeSent": FieldValue.serverTimestamp(),
-                 "senderId":sender_id,
-                "orderId": orderId,
-                    "msg":sender_msg
-             ]
-         ]
-     
-     
-        db.collection("Order").document(orderId).collection("Chat").document().setData(docData, merge: true) { err in
+        db.collection("Order").document(orderId).collection("Chat").addDocument(data: ["timeSent":FieldValue.serverTimestamp(),"senderId":sender_id,"orderId": orderId,"msg":sender_msg])
+        { err in
              if let err = err {
                  print("Error writing document: \(err)")
              } else {
@@ -660,10 +651,10 @@ class Order: ObservableObject{
             }
             for i in querySnapshot!.documentChanges {
                 if i.type == .added {
-                    let orderID = i.document.get("orderId") as! String
-                    let senderID = i.document.get("senderId")as! String
-                    let timeSent = i.document.get("timeSent") as! Timestamp
-                    let msg = i.document.get("msg") as! String
+                    let orderID = i.document.get("orderId") as? String ?? ""
+                    let senderID = i.document.get("senderId")as? String ?? ""
+                    let timeSent = i.document.get("timeSent") as? Timestamp ?? Timestamp(date: Date())
+                    let msg = i.document.get("msg") as? String ?? ""
                     
                     self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
                 }
