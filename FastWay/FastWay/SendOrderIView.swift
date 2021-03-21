@@ -35,7 +35,10 @@ struct SendOrderIView: View {
                 //background image
                 VStack{
                     //background image
-                    Image("Rectangle 49").ignoresSafeArea()
+                    Image("Rectangle 49")
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .ignoresSafeArea()
                     Spacer()
                 }
                 .onAppear(){
@@ -68,6 +71,8 @@ struct SendOrderIView: View {
                 }
                 //ProgressBar
                 Image("progressBar3")
+                    .resizable()
+                    .frame(width: width(num: UIImage(named: "progressBar3")!.size.width ), height: hieght(num: UIImage(named: "progressBar3")!.size.height))
                     .position(x: UIScreen.main.bounds.width/2, y: hieght(num: 140))
                     .offset(x: width(num: 10))
                 //Main Page

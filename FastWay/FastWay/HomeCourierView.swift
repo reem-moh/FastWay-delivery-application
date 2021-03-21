@@ -21,9 +21,16 @@ struct HomeCourierView: View {
             ZStack{
                 
                 //background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num: -100))
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: hieght(num: 25))
-                Image("FASTWAY1").frame(width: width(num: -50), height: hieght(num: -50))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num: -100))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .offset(y: hieght(num: 25))
+                Image("FASTWAY1")
+                    .frame(width: width(num: -50), height: hieght(num: -50))
                     .offset(x:width(num: 180) ,y:hieght(num: 130)).position(x: width(num: 10), y: hieght(num: -60))
                 
             }

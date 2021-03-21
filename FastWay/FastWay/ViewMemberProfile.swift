@@ -30,8 +30,14 @@ struct ViewMemberProfile: View {
             ZStack{
                 
                 //background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:width(num: -100))
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: width(num: 30))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num: -100))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .offset(y: hieght(num: 30))
                 
                 
             }.onAppear(){

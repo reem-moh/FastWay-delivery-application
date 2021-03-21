@@ -28,12 +28,18 @@ struct CurrentOrderCourierView: View {
             HStack{
                 GeometryReader{ geometry in
                     //background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
                     //CurrentOrderView
                     Text("Current Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:100))
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:100))
                     
                 }.edgesIgnoringSafeArea(.all)
                 
@@ -460,7 +466,10 @@ struct CurrentCardCDetailes: View {
                     }.padding(1.0)
                 }.position(x: width(num:50), y: hieght(num:50))
                 //white background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
                 
                 VStack{
                     

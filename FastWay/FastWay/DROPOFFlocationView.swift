@@ -66,7 +66,10 @@ struct DROPOFFlocationView: View {
                 
                 VStack{
                     //background image
-                    Image("Rectangle 49").ignoresSafeArea()
+                    Image("Rectangle 49")
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .ignoresSafeArea()
                     Spacer()
                 }//END VStack
                 .onAppear(){
@@ -102,6 +105,8 @@ struct DROPOFFlocationView: View {
                 //white background
                 Image("Rectangle 48").resizable().aspectRatio(contentMode: .fill).offset(y:hieght(num:45))
                 Image("progressBar2")
+                    .resizable()
+                    .frame(width: width(num: UIImage(named: "progressBar2")!.size.width ), height: hieght(num: UIImage(named: "progressBar2")!.size.height))
                     .position(x: UIScreen.main.bounds.width/2, y: hieght(num: 80))
                     .offset(x: width(num: 10))
                 

@@ -16,8 +16,14 @@ struct HistoryView: View {
         
         ZStack{
             ZStack{
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).offset(y: 30)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y: hieght(num: -100))
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .offset(y: hieght(num: 30))
             }.onAppear(){
                 checkOrders(ID:  UserDefaults.standard.getUderId())
             }
@@ -41,7 +47,7 @@ struct HistoryView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                            }.padding(.horizontal, 14).onTapGesture {
+                            }.padding(.horizontal, width(num: 14)).onTapGesture {
                                 notificationT = .None
                                 viewRouter.currentPage = abuotPage
                             }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)

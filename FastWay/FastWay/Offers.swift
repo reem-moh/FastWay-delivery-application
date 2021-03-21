@@ -29,12 +29,22 @@ struct Offers: View {
             HStack{
                 GeometryReader{ geometry in
                     //background
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49")).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:-100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num: -100))
                     //CurrentOrderView
-                    Text("Offers").font(.custom("Roboto Medium", size: 25)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .multilineTextAlignment(.center).position(x:170 ,y:50).offset(x:20,y:20)
+                    Text("Offers")
+                        .font(.custom("Roboto Medium", size: fontSize(num: 25)))
+                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                        .multilineTextAlignment(.center)
+                        .position(x:width(num: 170) ,y:hieght(num: 50))
+                        .offset(x:width(num: 20),y:hieght(num: 20))
                     //white rectangle
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: 100)
+                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                        .resizable() //add resizable
+                        .frame(width: width(num: 375)) //addframe
+                        .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num: 100))
                     
                 }.edgesIgnoringSafeArea(.all)
                //back
@@ -49,11 +59,9 @@ struct Offers: View {
                     }) {
                         Image("arrow_back")
                             .resizable()
-                            //.colorInvert()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: width(num:30), height: hieght(num:30))
                             .clipped()
-                           // .background(Color(.white))
                     }.padding(1.0)
                     .position(x: width(num:-150), y: hieght(num:5))
                 }
@@ -95,19 +103,7 @@ struct Offers: View {
                         model.updatePage = false
                     }
             })
-            /*.onChange(of: model.cards.count) { value in
-                model.getCards()
-                if notificationT == .DeclineOffer  {
-                    animateAndDelayWithSeconds(0.05) {
-                        self.imgName = "cancelTick"
-                        self.show = true }
-                    animateAndDelayWithSeconds(4) {
-                        self.show = false
-                        model.updatePage = false
-                        notificationT = .None
-                    }
-                }
-            }*/
+            
             
             if model.haveOffers {
                 // Carousel....
@@ -122,15 +118,15 @@ struct Offers: View {
                                         HStack{
                                             OfferCard(viewRouter: viewRouter, card: model.cards[index], animation: animation,Env: CurrentOrdersModel)
                                             Spacer(minLength: 0)
-                                        }//.frame(height: 100)
+                                        }
                                         .padding(.horizontal)
                                         .contentShape(Rectangle())
                                         .gesture(DragGesture(minimumDistance: 20))
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, hieght(num: 5))
                                         .shadow(radius: 1)
                                         
                                         
-                                    }.padding(.bottom,25)//end of for each
+                                    }.padding(.bottom,hieght(num: 25))//end of for each
                                     
                                     
                                 }
@@ -138,9 +134,9 @@ struct Offers: View {
                             }
                         }
                     }
-                    .padding(.top,80)
+                    .padding(.top,hieght(num: 80))
                     Spacer()
-                }.padding(.bottom,80)
+                }.padding(.bottom,hieght(num: 80))
             }else{
                 Text("You haven\'t recieved any offers yet")
             }
@@ -190,7 +186,7 @@ struct OfferCard: View {
             HStack{
                 Image("dollar")
                     .resizable()
-                    .frame(width: 20, height: 20)
+                    .frame(width: width(num: 20), height: hieght(num: 20))
                     .padding(.leading, width(num: 20))
                 Text("\(card.OfferInfo.price) SAR")
                     .font(.body)
@@ -222,7 +218,7 @@ struct OfferCard: View {
                     }
                 }, label: {
                     Text("Accept")
-                        .font(.custom("Roboto Bold", size: 22))
+                        .font(.custom("Roboto Bold", size: fontSize(num: 22)))
                         .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center)
                         .padding(1.0)
@@ -262,7 +258,7 @@ struct OfferCard: View {
                     }
                 }, label: {
                     Text("Decline")
-                        .font(.custom("Roboto Bold", size: 22))
+                        .font(.custom("Roboto Bold", size: fontSize(num: 22)))
                         .foregroundColor(Color("ButtonColor"))
                         .multilineTextAlignment(.center)
                         .padding(1.0)

@@ -76,7 +76,10 @@ struct DetailedOrderOffer: View {
                 
                 
                 //white background
-                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
                 
                 VStack{
                     

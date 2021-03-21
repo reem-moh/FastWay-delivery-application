@@ -37,7 +37,7 @@ struct TextView: UIViewRepresentable {
         // font(.system(size: 18))
         //  .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1))
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 18)//
+        textView.font = .systemFont(ofSize: fontSize(num: 18))//
         textView.delegate = context.coordinator
         // textFieldStyle(background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)))
         

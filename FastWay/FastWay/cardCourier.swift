@@ -29,7 +29,7 @@ struct CardView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 Spacer(minLength: 0)
-            }.padding(.top,15)
+            }.padding(.top,hieght(num: 15))
             //orderDetails
             HStack {
                 Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).padding(.leading)
@@ -37,11 +37,11 @@ struct CardView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.black.opacity(0.5))
-                    .frame(maxWidth: 220, maxHeight: 50, alignment: .leading)
+                    .frame(maxWidth: width(num: 220), maxHeight: hieght(num: 50), alignment: .leading)
                     .animation(.easeIn) //if the user press it it show Detail
                 Spacer(minLength: 0)
                 
-            }.padding(.top,15)
+            }.padding(.top,hieght(num: 15))
             
             //location
             VStack {
@@ -76,7 +76,7 @@ struct CardView: View {
             .padding(20)
             
         }//end vStack
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: width(num: .infinity), maxHeight: hieght(num: .infinity))
         .background(
             card.cardColor
                 .cornerRadius(25)
@@ -122,21 +122,7 @@ class CarouselViewModel: ObservableObject {
     init(){
         makeAnOffer = ""
         checkOrdersForCourier()
-        //retrieve all waiting for offer orders [from collection order]
-        //order.getOrderWaitingForOffer()
-        //retrieve all orders have an offer [from collection order]
         order.getOrder()
-        //get all order id that the courier has offer in order [from collection offer]
-        /*order.getAllOffersFromCourier(){ success in
-            print("inside init ")
-            //if success false return
-            guard success else { return }
-            self.getCards()
-        }*/
-        //order.getOrder()
-        //print("number of oreders inside init: \(order.orders.count)")
-        //getCards()
-        
     }
     
     //return order details
