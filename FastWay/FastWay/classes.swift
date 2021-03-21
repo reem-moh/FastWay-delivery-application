@@ -456,6 +456,7 @@ class Order: ObservableObject{
                 let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
                 let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
+                print("fuhabviuyebvacounuivbiaybci`uybcrutvfacub cuihnavuybyvcxecrftvbyghjk,jminhbgvtcrhjkjminhuby +   \(courierLocation)")
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
@@ -830,7 +831,7 @@ class Order: ObservableObject{
     //function accept offer adds courier id and delivery price to order and deletes offer subcollection
     //add document to Tracking collection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double, courierLocation: CLLocationCoordinate2D){
-        db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice], merge: true)
+        db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice, "courierLatitude": courierLocation.latitude, "courierLongitude": courierLocation.longitude], merge: true)
         
         db.collection("Tracking").document().setData(["orderId": orderID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude])
         

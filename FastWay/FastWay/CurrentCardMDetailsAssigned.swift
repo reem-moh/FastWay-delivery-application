@@ -29,7 +29,7 @@ struct CurrentCardMDetailsAssigned: View {
     var body: some View{
         
         ZStack{
-            
+           
             //map
             MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation: self.$model.selectedCard.orderD.courierLocation, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
