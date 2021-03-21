@@ -94,8 +94,9 @@ struct MapViewTracking : UIViewRepresentable {
             point2.coordinate = drop
             
             let point3 = MKPointAnnotation()
+            if courierLoc != nil{
             point3.subtitle = "Courier"
-            point3.coordinate = courierLoc
+                point3.coordinate = courierLoc}
             
             self.parent.destination = drop
             self.parent.source = pick
