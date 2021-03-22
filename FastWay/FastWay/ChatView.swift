@@ -15,7 +15,7 @@ struct ChatView : View {
     @StateObject var model: CurrentCarouselMViewModel
     @Namespace var animation
 
-    //@State var msgs = [ChatMsg]()
+    @State var msgs = [ChatMsg]()
     @State var txt = ""
     @State var nomsgs = false
     
@@ -90,7 +90,7 @@ struct ChatView : View {
                                         HStack {
                                             ScrollView {
                                                 
-                                                ForEach(model.order.chat) { i in
+                                                ForEach(msgs) { i in
                                                     HStack{
                                                         if i.senderID == UserDefaults.standard.getUderId(){
                                                             
@@ -104,7 +104,11 @@ struct ChatView : View {
                                                         }
                                                         else{
                                                             
-                                                            Text(i.msg).padding().background(Color.green).clipShape(ChatBubble(mymsg: false)).foregroundColor(.white)
+                                                            Text(i.msg)
+                                                                .padding()
+                                                                .background(Color.green)
+                                                                .clipShape(ChatBubble(mymsg: false))
+                                                                .foregroundColor(.white)
                                                             
                                                             Spacer(minLength: 0)
                                                         }
@@ -121,7 +125,7 @@ struct ChatView : View {
                                                 
                                                 
                                             }
-                                            
+
                                         }
                                     }
                                 }
@@ -174,6 +178,7 @@ struct ChatView : View {
     }
     
     func getMsgs(){
+        self.msgs.removeAll()
         model.order.getChatRoom(orderId: model.selectedCard.orderD.id){ success in
             print("inside getMsgs success")
             guard success else { return }
@@ -181,14 +186,15 @@ struct ChatView : View {
                 self.nomsgs = true
             }else{
                 self.nomsgs = false
-                /*for index in model.order.chat{
+                for index in model.order.chat{
+                    print("\(index.msg)")
                     let id = index.id
                     let senderID = index.senderID
                     let timeSent = index.timeSent
                     let msg = index.msg
                     self.msgs.append(ChatMsg(id: id, senderID: senderID, timeSent: timeSent, msg: msg))
 
-                }*/
+                }
             }
         }
         
