@@ -15,7 +15,7 @@ struct ChatView : View {
     @StateObject var model: CurrentCarouselMViewModel
     @Namespace var animation
 
-    @State var msgs = [ChatMsg]()
+    //@State var msgs = [ChatMsg]()
     @State var txt = ""
     @State var nomsgs = false
     
@@ -58,12 +58,17 @@ struct ChatView : View {
                             .frame(width: width(num: 30) , height: hieght(num: 30))
                             .clipped()
                     }.padding(1.0)
-                }.position(x: width(num:45), y: hieght(num:70))
+                }
+                .position(x: width(num:45), y: hieght(num:70))
                 
-            }.edgesIgnoringSafeArea(.all)
+            }
+            .edgesIgnoringSafeArea(.all)
             .onAppear(){
                 self.getMsgs()
             }
+            /*.onChange(of: model.order.chat) { value in
+                self.getMsgs()
+            }*/
             VStack{
                 ZStack{
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
@@ -73,12 +78,8 @@ struct ChatView : View {
                         .offset(y:hieght(num:  65))
                   
                     VStack{
-                        if msgs.count == 0{
-                            
-                            if self.nomsgs{
-                                
-                                Text("No Message")
-                            }
+                        if self.nomsgs{
+                            Text("No Message")
                         }
                         else{
                             // Carousel....
@@ -89,7 +90,7 @@ struct ChatView : View {
                                         HStack {
                                             ScrollView {
                                                 
-                                                ForEach(self.msgs){i in
+                                                ForEach(model.order.chat) { i in
                                                     HStack{
                                                         if i.senderID == UserDefaults.standard.getUderId(){
                                                             
@@ -142,7 +143,9 @@ struct ChatView : View {
                             .padding(.horizontal, width(num:16))
                         Spacer()
                         Button(action: {
-                            model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
+                            if(self.txt != ""){
+                                model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
+                            }
                             self.txt = ""
                             
                         }) {
@@ -175,16 +178,17 @@ struct ChatView : View {
             print("inside getMsgs success")
             guard success else { return }
             if model.order.chat.isEmpty{
-                    self.nomsgs = true
+                self.nomsgs = true
             }else{
-                for index in model.order.chat{
+                self.nomsgs = false
+                /*for index in model.order.chat{
                     let id = index.id
                     let senderID = index.senderID
                     let timeSent = index.timeSent
                     let msg = index.msg
                     self.msgs.append(ChatMsg(id: id, senderID: senderID, timeSent: timeSent, msg: msg))
 
-                }
+                }*/
             }
         }
         
