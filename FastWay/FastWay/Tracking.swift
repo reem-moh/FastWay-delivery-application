@@ -45,6 +45,10 @@ struct MapViewTracking : UIViewRepresentable {
     @Binding var courierLocation : CLLocationCoordinate2D!
     @Binding var distance : String
     @Binding var time : String
+    @Binding var orderid : Order
+    @Binding var orderID : String
+
+
     
     func makeUIView(context: Context) -> MKMapView {
         map.delegate = context.coordinator
@@ -66,6 +70,8 @@ struct MapViewTracking : UIViewRepresentable {
         riyadhCoordinate.latitude = 24.8270610
         riyadhCoordinate.longitude = 46.6551692
         
+        orderid.updateCourierLocation(orderId: orderID, courierLocation: CLLocationCoordinate2D(latitude: riyadhCoordinatetracking.latitude, longitude: riyadhCoordinatetracking.longitude))
+
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
     }

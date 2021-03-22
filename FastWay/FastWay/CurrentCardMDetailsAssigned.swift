@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 //////member
 //Current card M details assigned
+
 struct CurrentCardMDetailsAssigned: View {
     @EnvironmentObject var model : CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
@@ -19,8 +20,9 @@ struct CurrentCardMDetailsAssigned: View {
     @State var alert = false
     @State var distance = ""
     @State var time = ""
-  //  @Binding var courierLocation = riyadhCoordinatetracking
     @State var courierLocationtracking  = ""
+   // var courierLocation = riyadhCoordinatetracking
+    @State var courierLocation : CLLocationCoordinate2D! = riyadhCoordinatetracking
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
@@ -29,14 +31,18 @@ struct CurrentCardMDetailsAssigned: View {
     @State var chat = false
     @State var oneDouble = 0.0
     @State var tDouble = 0.0
+   // var courierLocation = riyadhCoordinatetracking
 
 
     var body: some View{
-        
+
         ZStack{
            
+            
+
+          //  courierLocation
             //map
-            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation:  self.$model.selectedCard.orderD.courierLocation , distance: self.$distance, time: self.$time)
+            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation:  self.$courierLocation , distance: self.$distance, time: self.$time , orderid: self.$model.order , orderID : self.$model.selectedCard.orderD.id )
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
                 .padding(.bottom, hieght(num:0))
