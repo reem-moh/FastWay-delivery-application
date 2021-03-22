@@ -905,6 +905,10 @@ class Order: ObservableObject{
     //updated courier location
         func updateCourierLocation(orderId : String,courierLocation: CLLocationCoordinate2D ) {
             
+            print("inside updateCourierLocation in dispatch")
+            print(courierLocation.latitude)
+            print(courierLocation.longitude)
+
             db.collection("Tracking").document(orderId).setData(["courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
             print("inside updateCourierLocation in dispatch")
 

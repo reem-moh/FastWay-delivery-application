@@ -30,16 +30,32 @@ struct CurrentCardCDetailesNeworder: View {
         ZStack{
             
             //map
-            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
+            Newtracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300)).padding(.bottom, 0)
                 .clipped().position(x: width(num:188),y: hieght(num:100))
                 .offset(y: hieght(num:50))
                 .onAppear(){
                     self.manager.requestAlwaysAuthorization()
+                    print("inside updateCourierLocation in HHHHHJHKHKUHHHHHHHHHHHHH")
+                  //  model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
+                     oneDouble = Double(model.order.traking.courierLocation.longitude)
+                   // self.oneDouble = value
+                    tDouble = Double(model.order.traking.courierLocation.latitude)
+                  // self.tDouble = value
+                    //self.model.getCourierLocation
+                    
+                    model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: CLLocationCoordinate2D(latitude: riyadhCoordinatetracking.latitude, longitude: riyadhCoordinatetracking.longitude))
+                    
+                    /*riyadhCoordinatetracking
+                    model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: CLLocationCoordinate2D(latitude: model.order.traking.courierLocation.latitude, longitude: model.order.traking.courierLocation.longitude))
+               */
+                
                 }
                 .onChange(of: model.order.traking.courierLocation.longitude) { value in
                    // courierLocation = Float(courierLocation.longitude)
+                    print("inside updateCourierLocation in HHHHHJHKHKUHHHHHHHHHHHHH")
+
                      oneDouble = Double(model.order.traking.courierLocation.longitude)
                     self.oneDouble = value
                     tDouble = Double(model.order.traking.courierLocation.latitude)
