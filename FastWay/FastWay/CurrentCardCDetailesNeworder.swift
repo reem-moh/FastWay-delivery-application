@@ -52,7 +52,7 @@ struct CurrentCardCDetailesNeworder: View {
                */
                 
                 }
-                .onChange(of: model.order.traking.courierLocation.longitude) { value in
+            /*    .onChange(of: model.order.traking.courierLocation.longitude) { value in
                    // courierLocation = Float(courierLocation.longitude)
                     print("inside updateCourierLocation in HHHHHJHKHKUHHHHHHHHHHHHH")
 
@@ -63,7 +63,7 @@ struct CurrentCardCDetailesNeworder: View {
                     //self.model.getCourierLocation
                     model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: model.selectedCard.orderD.courierLocation)
                 
-                }
+                }*/
             
             // VStack{
             
@@ -205,7 +205,7 @@ struct CurrentCardCDetailesNeworder: View {
                 }.position(x: width(num:188),y: hieght(num:700))
             }
   
-       }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
+       }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this order"), primaryButton: .default((Text("YES")), action: {
                     notificationT =  .CancelOffer
                     canelOrder()
                     model.notificationMSG = true

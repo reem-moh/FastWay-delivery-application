@@ -808,7 +808,7 @@ class Order: ObservableObject{
                 let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
                 let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
-                print("fuhabviuyebvacounuivbiaybci`uybcrutvfacub cuihnavuybyvcxecrftvbyghjk,jminhbgvtcrhjkjminhuby +   \(courierLocation)")
+              
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
         }
@@ -834,6 +834,9 @@ class Order: ObservableObject{
                     }//delete offer
                 }//loop
             }
+            
+            db.collection("Tracking").document(OrderId).delete()
+            
         }//get documents
         
     }
@@ -909,7 +912,7 @@ class Order: ObservableObject{
             print(courierLocation.latitude)
             print(courierLocation.longitude)
 
-            db.collection("Tracking").document(orderId).setData(["courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
+            db.collection("Tracking").document(orderId).setData(["OrderId": orderId, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
             print("inside updateCourierLocation in dispatch")
 
         }
@@ -929,6 +932,7 @@ class Order: ObservableObject{
                         let orderID = i.document.get("orderId") as! String
                         let courierlat = i.document.get("courierLatitude") as! Double
                         let courierlong = i.document.get("courierLongitude")as! Double
+                        print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
 
                         self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
                     
