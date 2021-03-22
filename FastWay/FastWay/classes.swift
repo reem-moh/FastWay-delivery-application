@@ -199,7 +199,8 @@ struct Offer : Identifiable {
 
 //chat msg
 struct ChatMsg : Identifiable {
-    var id: String //order id of chat (document id)
+    var id: String //msg id of chat
+    var orderId : String
     var senderID : String
     var timeSent : Date
     var msg : String
@@ -463,6 +464,7 @@ class Order: ObservableObject{
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
+            
         }
     }    //retrieve all offers with specific courier id
     func getAllOffersFromCourierInCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
@@ -656,12 +658,19 @@ class Order: ObservableObject{
             }
             for i in querySnapshot!.documentChanges {
                 if i.type == .added {
+                    let id = i.document.documentID
                     let orderID = i.document.get("orderId") as? String ?? ""
                     let senderID = i.document.get("senderId")as? String ?? ""
                     let timeSent = i.document.get("timeSent") as? Timestamp ?? Timestamp(date: Date())
                     let msg = i.document.get("msg") as? String ?? ""
                     
-                    self.chat.append(ChatMsg(id: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
+                    if self.chat.filter({$0.id == id}).count == 0{
+                        self.chat.append(ChatMsg(id: id, orderId: orderID, senderID: senderID, timeSent: timeSent.dateValue(), msg: msg))
+                        print("\(msg) inside filter")
+                    }else{
+                        print("\(msg) outside filter")
+                    }
+                    
                 }
             }
             let success = true

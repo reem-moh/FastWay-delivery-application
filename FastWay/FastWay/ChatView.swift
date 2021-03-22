@@ -37,9 +37,7 @@ struct ChatView : View {
                 
                 //back button
                 Group{
-                    //RoundedRectangle(cornerRadius: 10)
-                      //  .frame(width: width(num:45), height:hieght(num: 35))
-                        //.foregroundColor(Color(.white))
+                   
                     Button(action: {
                         withAnimation(.spring()){
                             model.showChat.toggle()
@@ -66,9 +64,7 @@ struct ChatView : View {
             .onAppear(){
                 self.getMsgs()
             }
-            /*.onChange(of: model.order.chat) { value in
-                self.getMsgs()
-            }*/
+            
             VStack{
                 ZStack{
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
@@ -90,13 +86,13 @@ struct ChatView : View {
                                         HStack {
                                             ScrollView {
                                                 
-                                                ForEach(msgs) { i in
+                                                ForEach(msgs.lazy.indices.reversed(),id: \.self) { i in
                                                     HStack{
-                                                        if i.senderID == UserDefaults.standard.getUderId(){
+                                                        if msgs[i].senderID == UserDefaults.standard.getUderId(){
                                                             
                                                             Spacer(minLength: 0)
                                                             
-                                                            Text(i.msg)
+                                                            Text(msgs[i].msg)
                                                                 .padding()
                                                                 .background(Color.blue)
                                                                 .clipShape(ChatBubble(mymsg: true))
@@ -104,11 +100,11 @@ struct ChatView : View {
                                                         }
                                                         else{
                                                             
-                                                            Text(i.msg)
+                                                            Text(msgs[i].msg)
                                                                 .padding()
-                                                                .background(Color.green)
+                                                                .background(Color.white)
                                                                 .clipShape(ChatBubble(mymsg: false))
-                                                                .foregroundColor(.white)
+                                                                .foregroundColor(.gray)
                                                             
                                                             Spacer(minLength: 0)
                                                         }
@@ -186,14 +182,15 @@ struct ChatView : View {
                 self.nomsgs = true
             }else{
                 self.nomsgs = false
-                for index in model.order.chat{
+                
+                self.msgs = model.order.chat
+                self.msgs.sort {
+                    $0.timeSent > $1.timeSent
+                }
+                print("after msgs assignment")
+                for index in self.msgs{
                     print("\(index.msg)")
-                    let id = index.id
-                    let senderID = index.senderID
-                    let timeSent = index.timeSent
-                    let msg = index.msg
-                    self.msgs.append(ChatMsg(id: id, senderID: senderID, timeSent: timeSent, msg: msg))
-
+                    
                 }
             }
         }
@@ -213,8 +210,4 @@ struct ChatBubble : Shape {
         return Path(path.cgPath)
     }
 }
-/*
 
- 
-
- */
