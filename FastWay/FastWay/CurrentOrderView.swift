@@ -188,6 +188,7 @@ struct CurrentOrderView: View {
                         model.getCards()
                 }
             }
+            
             //Press details
             if model.showCard && model.assigned == false{
                 CurrentCardMDetailes(viewRouter: viewRouter, animation: animation)
@@ -495,6 +496,7 @@ struct CurrentCardMDetailes: View {
                         self.stat = model.selectedCard.orderD.status
                     }
                     .onChange(of: model.selectedCard.orderD.status) { value in
+                        self.model.getCards()
                         self.stat = value
                     }
                 VStack{
