@@ -989,14 +989,46 @@ class Order: ObservableObject{
 //get the updated courier location
 //updated courier location
     func updateCourierLocation(CourierID : String, courierLocation: CLLocationCoordinate2D ) {
-        
         print("inside updateCourierLocation in dispatch")
+            print(courierLocation.latitude)
+            print(courierLocation.longitude)
+        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    db.collection("Tracking").document(document.documentID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
+                    { err in
+                        if let err = err {
+                        print("Error updating courier location updateCourierLocation: \(err)")
+                        } else {
+                        print("courier location successfully updated inside updateCourierLocation!")
+                            
+                        }
+                    
+                }
+                
+            }}
+        
+    }
+        
+        
+        
+        
+    /*    print("inside updateCourierLocation in dispatch")
         print(courierLocation.latitude)
         print(courierLocation.longitude)
-
+        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).getDocuments (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                
+            } else {
+        
         db.collection("Tracking").document(CourierID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
         print("inside updateCourierLocation in dispatch")
-
+            }*/
     }
 
 
