@@ -31,6 +31,7 @@ struct CurrentCardCDetailesNeworder: View {
     @State var showDropOff = false
     @State var showComplete = false
     @State private var changeState = false
+    @State private var State = -1
     
     var body: some View{
         
@@ -192,7 +193,15 @@ struct CurrentCardCDetailesNeworder: View {
                                 default: print("inside switch statement")
                             }
                         }.onTapGesture {
-                            changeState.toggle()
+                            State = -1
+                            if let row = model.order.status.firstIndex(where: {$0 == model.selectedCard.orderD.status}){
+                                State = row + 1
+                                //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
+                                print("inside row the index is: \(row)")
+                                if model.selectedCard.orderD.status != "completed"{
+                                    changeState.toggle()
+                                }
+                            }
                         }
                         
                         
@@ -298,7 +307,7 @@ struct CurrentCardCDetailesNeworder: View {
                 title: Text("Change State"),
                 message: Text("Are you sure you want to change the state of this order?"),
                 primaryButton: .default((Text("Yes")), action: {
-                    model.order.changeState(OrderId: model.selectedCard.orderD.id)
+                    model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State)
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

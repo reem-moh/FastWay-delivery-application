@@ -666,8 +666,8 @@ class Order: ObservableObject{
     }
     }
     //change state of order
-    func changeState(OrderId: String){
-        
+    func changeState(OrderId: String,Status: Int){
+        db.collection("Order").document(OrderId).setData([ "Status": status[Status] ], merge: true)
     }
     //send chat
     func sendChatRoom(orderId : String, sender_msg: String){
@@ -715,11 +715,6 @@ class Order: ObservableObject{
         }
     }
      
-    
-    
-    
-    
-    
     //****************************
     //For Member user
     //****************************
@@ -797,11 +792,6 @@ class Order: ObservableObject{
         return flag
     }
     
-    //////////////////////////////////////////////////////////////////
-    
-    
-    
-    /////////////////////////////////////////////////
     //get all member orders where member id equals the id sent
     func getMemberOrder(Id: String){
         print("\n*******GetMemberOrder*********")
