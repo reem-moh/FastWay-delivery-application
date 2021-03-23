@@ -61,6 +61,7 @@ struct CurrentOrderCourierView: View {
                 }
                 model.showCard = false
                 model.showContent = false
+                model.showChat = false
             }
             
             //Notification
@@ -235,6 +236,11 @@ struct CurrentOrderCourierView: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
+            //press chat
+            if model.showChat {
+                ChatViewCourier(viewRouter: viewRouter, model: model)
+            }
+
             //notification here
             VStack{
                 if show{
@@ -643,6 +649,8 @@ class CurrentCarouselCViewModel: ObservableObject {
     @Published var cancelCardOrderId : String = ""
     @Published var notificationMSG =  false
     @Published var assigned = false
+    //Toggle to show chat
+    @Published var showChat = false
     
     
     

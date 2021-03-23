@@ -182,27 +182,57 @@ struct CurrentCardCDetailesNeworder: View {
                         .shadow(radius: 1)
                       
                        
-                        //make an offer button
-                        Button(action: {
-                            showingPaymentAlert.toggle()
-                        }) {
-                            Text("Cancel order")
-                                .font(.custom("Roboto Bold", size: fontSize(num:22)))
-                                .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                .multilineTextAlignment(.center)
-                                .padding(1.0)
-                                .frame(width: UIScreen.main.bounds.width - 50)
-                                .textCase(.none)
-                            
-
+                        //cancel button
+                        HStack{
+                            Spacer(minLength: 0)
+                            Button(action: {
+                                showingPaymentAlert.toggle()
+                            }) {
+                                Text("Cancel order")
+                                    .font(.custom("Roboto Bold", size: fontSize(num:22)))
+                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                    .multilineTextAlignment(.center)
+                                    .padding(1.0)
+                                    .frame(width: UIScreen.main.bounds.width - 50)
+                                    .textCase(.none)
+                            }
+                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild"))
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width - 84, height: hieght(num: 50)))
+                            .padding(.top,25)
+                            .offset(x: 0)
+                            .padding(.bottom,450)
                         }
-                        .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25)
-                        .offset(x: 0)
-                        .padding(.bottom,450)
+                        
+                        
                         
                     }
                 }.position(x: width(num:188),y: hieght(num:700))
+                
+                //Chat
+                Group{
+                    
+                    
+                    Button(action: {
+                        model.showChat.toggle()
+                        
+                   }) {
+                        ZStack{
+                            Circle()
+                            .frame(width: width(num:60), height:hieght(num: 60))
+                                .foregroundColor(Color(.white))
+                                .shadow(radius: 1)
+                            Image(systemName: "message.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: width(num:50), height: hieght(num:50))
+                                .foregroundColor(Color("ButtonColor"))
+                                //.clipped()
+                        }
+                       
+                           //.background(Color(.white))
+                   }.padding(1.0)
+               }.position(x: width(num:35), y: hieght(num:650))
             }
   
        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this order"), primaryButton: .default((Text("YES")), action: {

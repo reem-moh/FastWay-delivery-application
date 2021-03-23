@@ -209,6 +209,7 @@ struct CurrentCardMDetailsAssigned: View {
                         //CancelButton
                         HStack {
                             if CancelButtonShow {
+                                Spacer(minLength: 0)
                             //Cancel button
                              Button(action: {
                                 CancelOrder.toggle()
@@ -221,7 +222,10 @@ struct CurrentCardMDetailsAssigned: View {
                                     .frame(width: UIScreen.main.bounds.width - 50)
                                     .textCase(.none)
                             }
-                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                             .background(
+                                Image(uiImage: #imageLiteral(resourceName: "LogInFeild"))
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width - 84, height: hieght(num: 50)))
                             .padding(.top,hieght(num:25))
                             .offset(x: width(num:0))
                             .padding(.bottom,hieght(num:450))
@@ -251,16 +255,17 @@ struct CurrentCardMDetailsAssigned: View {
                             .frame(width: width(num:60), height:hieght(num: 60))
                                 .foregroundColor(Color(.white))
                                 .shadow(radius: 1)
-                            Image("chat")
+                            Image(systemName: "message.circle.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: width(num:50), height: hieght(num:50))
-                                .clipped()
+                                .foregroundColor(Color("ButtonColor"))
+                                //.clipped()
                         }
                        
                            //.background(Color(.white))
                    }.padding(1.0)
-               }.position(x: width(num:35), y: hieght(num:670))
+               }.position(x: width(num:35), y: hieght(num:650))
 
 
                 

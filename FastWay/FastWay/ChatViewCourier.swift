@@ -1,18 +1,18 @@
-
-//  ChatView.swift
+//
+//  ChatViewCourier.swift
 //  FastWay
 //
-//  Created by Reem on 19/03/2021.
+//  Created by taif.m on 3/23/21.
 //
 
 import SwiftUI
 import MapKit
 import CoreLocation
 
-struct ChatView : View {
+struct ChatViewCourier: View {
     
     @StateObject var viewRouter: ViewRouter
-    @StateObject var model: CurrentCarouselMViewModel
+    @StateObject var model: CurrentCarouselCViewModel
     @Namespace var animation
 
     @State var msgs = [ChatMsg]()
@@ -127,7 +127,7 @@ struct ChatView : View {
                                 }
                                 .padding(.top,hieght(num: 80))
                                 Spacer()
-                            }.padding(.bottom,hieght(num: 50))
+                            }.padding(.bottom,hieght(num: 20))
                         }
                     }
                     //Enter message
@@ -198,16 +198,4 @@ struct ChatView : View {
     }
 }
 
-
-struct ChatBubble : Shape {
-    
-    var mymsg : Bool
-    
-    func path(in rect: CGRect) -> Path {
-            
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight,mymsg ? .bottomLeft : .bottomRight], cornerRadii: CGSize(width: 16, height: 16))
-        
-        return Path(path.cgPath)
-    }
-}
 
