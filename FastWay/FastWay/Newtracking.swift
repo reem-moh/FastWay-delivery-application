@@ -12,7 +12,6 @@ import CoreLocation
 //courierrrrr
 //Current card c details New order
 var riyadhCoordinatetracking = CLLocationCoordinate2D()
-
 struct Newtracking: UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -22,7 +21,7 @@ struct Newtracking: UIViewRepresentable {
     @Binding var destination : CLLocationCoordinate2D!
     @Binding var distance : String
     @Binding var time : String
-   // @Binding var orderid : String
+    @Binding var CourierID : String
 
     
     func makeUIView(context: Context) -> MKMapView {
@@ -50,9 +49,9 @@ struct Newtracking: UIViewRepresentable {
         //riyadhCoordinatetracking.longitude =
         
         
-        /*
-        model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: CLLocationCoordinate2D(latitude: model.order.traking.courierLocation.latitude, longitude: model.order.traking.courierLocation.longitude))
-*/
+    
+    updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
+
         
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)

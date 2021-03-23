@@ -47,7 +47,7 @@ struct CurrentCardMDetailsAssigned: View {
 
           //  courierLocation
             //map
-            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation:  self.$courierLocation , distance: self.$distance, time: self.$time , orderid: self.$model.order , orderID : self.$model.selectedCard.orderD.id )
+            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation: self.$courierLocation , distance: self.$distance, time: self.$time, CourierID: self.$model.selectedCard.orderD.courierId )
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
                 .padding(.bottom, hieght(num:0))
@@ -56,10 +56,10 @@ struct CurrentCardMDetailsAssigned: View {
                 .offset(y: hieght(num:50))
                 .onAppear(){
                     self.manager.requestAlwaysAuthorization()
-                    model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
+                    getCourierLocation(CourierID: model.selectedCard.orderD.courierId)
 
                 }
-                .onChange(of: model.order.traking.courierLocation.longitude) { value in
+            /*    .onChange(of: model.order.traking.courierLocation.longitude) { value in
                    // courierLocation = Float(courierLocation.longitude)
                      oneDouble = Double(model.order.traking.courierLocation.longitude)
                     self.oneDouble = value
@@ -67,7 +67,7 @@ struct CurrentCardMDetailsAssigned: View {
                    self.tDouble = value
                     //self.model.getCourierLocation
                     model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
-                }
+                }*/
                 /*.onAppear {
                     
                    self.manager.requestAlwaysAuthorization()

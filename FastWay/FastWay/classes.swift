@@ -222,7 +222,8 @@ class Order: ObservableObject{
     @Published var offers: [Offer] = [] // retrieve offer for specific order
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
-    
+   // @Published var riyadhCoordinatetracking = CLLocationCoordinate2D()
+
     @Published var traking: Tracking = Tracking(id: "", courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
     
     @Published var chat: [ChatMsg] = [] //for messages in chat
@@ -909,7 +910,7 @@ class Order: ObservableObject{
                 }//loop
             }
             
-            db.collection("Tracking").document(OrderId).delete()
+           // db.collection("Tracking").document(CourierID).delete()
             
         }//get documents
         
@@ -920,7 +921,7 @@ class Order: ObservableObject{
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double, courierLocation: CLLocationCoordinate2D){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice, "courierLatitude": courierLocation.latitude, "courierLongitude": courierLocation.longitude], merge: true)
         
-        db.collection("Tracking").document().setData(["orderId": orderID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude])
+        db.collection("Tracking").document().setData(["CourierID": courierID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude])
         
         db.collection("Offers").whereField("OrderID", isEqualTo: orderID).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -978,55 +979,55 @@ class Order: ObservableObject{
 
    }*/
     
-    //get the updated courier location
-    //updated courier location
-        func updateCourierLocation(orderId : String,courierLocation: CLLocationCoordinate2D ) {
-            
-            print("inside updateCourierLocation in dispatch")
-            print(courierLocation.latitude)
-            print(courierLocation.longitude)
 
-            db.collection("Tracking").document(orderId).setData(["OrderId": orderId, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
-            print("inside updateCourierLocation in dispatch")
-
-        }
-
-
-
-        func getCourierLocation(orderId : String){
-
-            db.collection("Tracking").whereField("OrderId", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
-                if error != nil {
-                    print("error getting courier location")
-                    return
-                }
-                for i in querySnapshot!.documentChanges {
-                    //|| .modified
-                    if i.type == .added || i.type == .modified {
-                        let orderID = i.document.get("orderId") as? String ?? ""
-                        let courierlat = i.document.get("courierLatitude") as? Double ?? 0.0
-                        let courierlong = i.document.get("courierLongitude")as? Double ?? 0.0
-                        print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
-
-                        self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
-                    
-                    }
-                }
-              //  let success = true
-             //   DispatchQueue.main.async {
-               //     print("inside getCourierLocation in dispatch")
-                   // completion(success)
-             //   }
-                
-            }
-        }
 
     
     
 
 }
 
+//get the updated courier location
+//updated courier location
+    func updateCourierLocation(CourierID : String, courierLocation: CLLocationCoordinate2D ) {
+        
+        print("inside updateCourierLocation in dispatch")
+        print(courierLocation.latitude)
+        print(courierLocation.longitude)
 
+        db.collection("Tracking").document(CourierID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
+        print("inside updateCourierLocation in dispatch")
+
+    }
+
+
+
+    func getCourierLocation(CourierID : String){
+
+        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).addSnapshotListener { (querySnapshot, error) in
+            if error != nil {
+                print("error getting courier location")
+                return
+            }
+            for i in querySnapshot!.documentChanges {
+                //|| .modified
+                if i.type == .added || i.type == .modified {
+                    let orderID = i.document.get("orderId") as? String ?? ""
+                    let courierlat = i.document.get("courierLatitude") as? Double ?? 0.0
+                    let courierlong = i.document.get("courierLongitude")as? Double ?? 0.0
+                    print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
+riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong)
+                  //  self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
+                
+                }
+            }
+          //  let success = true
+         //   DispatchQueue.main.async {
+           //     print("inside getCourierLocation in dispatch")
+               // completion(success)
+         //   }
+            
+        }
+    }
 
 //Date extension to calculate time intervals
 extension Date {
