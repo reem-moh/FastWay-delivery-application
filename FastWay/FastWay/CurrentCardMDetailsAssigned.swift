@@ -47,6 +47,9 @@ struct CurrentCardMDetailsAssigned: View {
 
           //  courierLocation
             //map
+            
+           // getCourierLocation(CourierID: model.selectedCard.orderD.courierId)
+
             MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation: self.$courierLocation , distance: self.$distance, time: self.$time, CourierID: self.$model.selectedCard.orderD.courierId )
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
@@ -68,10 +71,8 @@ struct CurrentCardMDetailsAssigned: View {
                     //self.model.getCourierLocation
                     model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
                 }*/
-                /*.onAppear {
-                    
-                   self.manager.requestAlwaysAuthorization()
-                }
+            
+              /*
                 .onChange(of: model.selectedCard.orderD.courierLocation, perform: { value in
              if value {
                  if notificationT == .CancelOffer  {

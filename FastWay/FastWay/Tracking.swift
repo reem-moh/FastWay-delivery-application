@@ -71,8 +71,15 @@ struct MapViewTracking : UIViewRepresentable {
         riyadhCoordinate.longitude = 46.6551692
         
         UIView.animate(withDuration: 0.3) {
-           // coordinate = updatedPosition
+            
             getCourierLocation(CourierID: CourierID)
+            print("ooooooooooooooooooooooooooooooooooooooo")
+            print(riyadhCoordinatetracking.latitude)
+            print(riyadhCoordinatetracking.longitude)
+            
+           // coordinate = riyadhCoordinatetracking
+            // coordinate = updatedPosition
+
 
         }
     
