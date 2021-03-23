@@ -11,7 +11,8 @@ import CoreLocation
  
 //courierrrrr
 //Current card c details New order
-var riyadhCoordinatetracking = CLLocationCoordinate2D()
+//@objc
+dynamic var riyadhCoordinatetracking = CLLocationCoordinate2D()
 struct Newtracking: UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -47,15 +48,14 @@ struct Newtracking: UIViewRepresentable {
         
         riyadhCoordinatetracking = map.userLocation.coordinate
         //riyadhCoordinatetracking.longitude =
-        
-        
-    
+     
     updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
 
         
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
     }
+    
     
     func makeCoordinator() -> Coordinator {
         

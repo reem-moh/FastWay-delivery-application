@@ -70,7 +70,13 @@ struct MapViewTracking : UIViewRepresentable {
         riyadhCoordinate.latitude = 24.8270610
         riyadhCoordinate.longitude = 46.6551692
         
-        getCourierLocation(CourierID: CourierID)
+        UIView.animate(withDuration: 0.3) {
+           // coordinate = updatedPosition
+            getCourierLocation(CourierID: CourierID)
+
+        }
+    
+      //  getCourierLocation(CourierID: CourierID)
 
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
