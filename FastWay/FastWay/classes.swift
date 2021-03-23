@@ -241,7 +241,7 @@ class Order: ObservableObject{
     var setPick: Bool
     var setDrop: Bool
     var setDetails: Bool
-    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned", "completed"]
+    var status: [String] = ["waiting for offer", "cancled","have an offer","assigned","pick Up","on The Way" , "drop off", "completed"]
     
     init(){
         self.pickUP =  CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)

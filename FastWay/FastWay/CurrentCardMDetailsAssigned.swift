@@ -32,7 +32,12 @@ struct CurrentCardMDetailsAssigned: View {
     @State var oneDouble = 0.0
     @State var tDouble = 0.0
    // var courierLocation = riyadhCoordinatetracking
-
+    //for status
+    @State var showAssign = false
+    @State var showPickUp = false
+    @State var showOnTheWay = false
+    @State var showDropOff = false
+    @State var showComplete = false
 
     var body: some View{
 
@@ -139,6 +144,58 @@ struct CurrentCardMDetailsAssigned: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
+                        }
+                        //Status
+                        ZStack{
+                            //white background
+                            RoundedRectangle(cornerRadius: 15)
+                                .padding()
+                                .frame(width: width(num:350), height: hieght(num:320))
+                                .foregroundColor(.white)
+                                .shadow(radius: 1)
+                            //status of the order
+                            VStack{
+                                Spacer()
+                                Group{
+                                    HStack{
+                                        showAssign || showPickUp || showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")) : Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showPickUp || showOnTheWay||showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                }
+                                
+                                Group{
+                                    HStack{
+                                        showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("arrived at drop of location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                }
+                            }
+                        }.onAppear(){
+                            switch model.selectedCard.orderD.status {
+                                case "assigned" : showAssign.toggle()
+                                case "pick Up" : showPickUp.toggle()
+                                case "on The Way" : showOnTheWay.toggle()
+                                case "drop off": showDropOff.toggle()
+                                case "completed": showComplete.toggle()
+                                default: print("inside switch statement")
+                            }
                         }
                         
                         //pick up

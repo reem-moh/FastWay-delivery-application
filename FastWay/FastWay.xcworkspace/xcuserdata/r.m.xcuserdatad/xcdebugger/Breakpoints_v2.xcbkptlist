@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "699"
             endingLineNumber = "699"
-            landmarkName = "setpickUPAndpickUpDetails(pickUP:pickUpBulding:pickUpFloor:pickUpRoom:)"
+            landmarkName = "getChatRoom(orderId:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
