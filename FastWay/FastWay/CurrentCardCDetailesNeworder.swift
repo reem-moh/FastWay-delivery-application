@@ -24,6 +24,13 @@ struct CurrentCardCDetailesNeworder: View {
     @State var stat = ""
     @State var oneDouble = 0.0
     @State var tDouble = 0.0
+    //for status
+    @State var showAssign = false
+    @State var showPickUp = false
+    @State var showOnTheWay = false
+    @State var showDropOff = false
+    @State var showComplete = false
+    @State private var changeState = false
     
     var body: some View{
         
@@ -104,6 +111,7 @@ struct CurrentCardCDetailesNeworder: View {
                 VStack{
                     
                     ScrollView{
+                        //time && price
                         HStack{
                             Image(systemName: "clock")
                                 .foregroundColor(Color.black.opacity(0.5))
@@ -132,20 +140,61 @@ struct CurrentCardCDetailesNeworder: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
-                        
-                        if model.selectedCard.orderD.status == ""{
-                            HStack{
-                                Text("New order")
-                                    .foregroundColor(.green)
-                                    .bold()
-                                    .padding(.leading, width(num:20))
-                                DotView(frame: 15)
-                                DotView(delay: 0.2, frame: 15)
-                                DotView(delay: 0.4, frame: 15)
-        
-                            Spacer(minLength: 0)
+                        //Status
+                        ZStack{
+                            //white background
+                            RoundedRectangle(cornerRadius: 15)
+                                .padding()
+                                .frame(width: width(num:350), height: hieght(num:320))
+                                .foregroundColor(.white)
+                                .shadow(radius: 1)
+                            //status of the order
+                            VStack{
+                                Spacer()
+                                Group{
+                                    HStack{
+                                        showAssign || showPickUp || showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")) : Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showPickUp || showOnTheWay||showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                }
+                                
+                                Group{
+                                    HStack{
+                                        showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("arrived at drop of location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                    HStack{
+                                        showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }
+                                    Spacer()
+                                }
                             }
+                        }.onAppear(){
+                            switch model.selectedCard.orderD.status {
+                                case "assigned" : showAssign.toggle()
+                                case "pick Up" : showPickUp.toggle()
+                                case "on The Way" : showOnTheWay.toggle()
+                                case "drop off": showDropOff.toggle()
+                                case "completed": showComplete.toggle()
+                                default: print("inside switch statement")
+                            }
+                        }.onTapGesture {
+                            changeState.toggle()
                         }
+                        
                         
                         //pick up
                         ZStack{
@@ -235,7 +284,8 @@ struct CurrentCardCDetailesNeworder: View {
                }.position(x: width(num:35), y: hieght(num:650))
             }
   
-       }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this order"), primaryButton: .default((Text("YES")), action: {
+       }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this order"), primaryButton: .default((Text("YES")), action: {
                     notificationT =  .CancelOffer
                     canelOrder()
                     model.notificationMSG = true
@@ -243,7 +293,15 @@ struct CurrentCardCDetailesNeworder: View {
                     model.showContent = false
                    }) , secondaryButton: .cancel((Text("NO"))))
 
-        }
+        }.alert(isPresented: $changeState) {
+            Alert(
+                title: Text("Change State"),
+                message: Text("Are you sure you want to change the state of this order?"),
+                primaryButton: .default((Text("Yes")), action: {
+                    model.order.changeState(OrderId: model.selectedCard.orderD.id)
+                }) ,
+                secondaryButton: .cancel((Text("No")))
+            )}//end alert
         
     }// end body
     

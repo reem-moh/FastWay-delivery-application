@@ -495,7 +495,8 @@ class Order: ObservableObject{
                 }
             }
         }
-    }    //retrieve all offers with specific courier id
+    }
+    //retrieve all offers with specific courier id
     func getAllOffersFromCourierInCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         self.collectAllOffersForCourier.removeAll()
         let id = UserDefaults.standard.getUderId()
@@ -664,19 +665,22 @@ class Order: ObservableObject{
         
     }
     }
-    
+    //change state of order
+    func changeState(OrderId: String){
+        
+    }
     //send chat
-     func sendChatRoom(orderId : String, sender_msg: String){
-         let sender_id = UserDefaults.standard.getUderId()
-        db.collection("Order").document(orderId).collection("Chat").addDocument(data: ["timeSent":FieldValue.serverTimestamp(),"senderId":sender_id,"orderId": orderId,"msg":sender_msg])
-        { err in
-             if let err = err {
-                 print("Error writing document: \(err)")
-             } else {
-                 print("Document successfully written!")
-             }
-         }
-     }
+    func sendChatRoom(orderId : String, sender_msg: String){
+        let sender_id = UserDefaults.standard.getUderId()
+    db.collection("Order").document(orderId).collection("Chat").addDocument(data: ["timeSent":FieldValue.serverTimestamp(),"senderId":sender_id,"orderId": orderId,"msg":sender_msg])
+    { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
     //retrieve chat
     func getChatRoom(orderId : String, completion: @escaping (_ success: Bool) -> Void){
         self.chat.removeAll()
