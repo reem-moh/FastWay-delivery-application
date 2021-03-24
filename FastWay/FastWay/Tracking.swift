@@ -66,27 +66,27 @@ struct MapViewTracking : UIViewRepresentable {
          riyadhCoordinate.latitude = 24.72640308847297
          riyadhCoordinate.longitude = 46.638332536327816
         
+        
+        
         //ghaida location
        // riyadhCoordinate.latitude = 24.8270610
       //  riyadhCoordinate.longitude = 46.6551692
         
-       // UIView.animate(withDuration: 0.3) {
-            
-          //  getCourierLocation(CourierID: CourierID)
-        //    let c = makeCoordinator()
-           // c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
-         //   print("ooooooooooooooooooooooooooooooooooooooo")
-        //    print(riyadhCoordinatetracking.latitude)
-         //   print(riyadhCoordinatetracking.longitude)
-            
-           // coordinate = riyadhCoordinatetracking
-            // coordinate = updatedPosition
-
-
-      //  }
+    //  let c = makeCoordinator()
+        //   c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
+        print("ooooooooooooooooooooooooooooooooooooooo")
+       print(riyadhCoordinatetracking.latitude)
+    print(riyadhCoordinatetracking.longitude)
         
-        updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
-        getCourierLocation(CourierID: CourierID)
+        
+        UIView.animate(withDuration: 0.3) {
+            
+            getCourierLocation(CourierID: CourierID)
+
+       }
+        
+     //   updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
+      // getCourierLocation(CourierID: CourierID)
 
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
@@ -121,10 +121,10 @@ struct MapViewTracking : UIViewRepresentable {
             point4.subtitle = "-off"
             point4.coordinate = point
            */
-           // let point3 = MKPointAnnotation()
+            let point3 = MKPointAnnotation()
            // if courierLoc != nil{
-          //  point3.subtitle = "Courier"
-             //   point3.coordinate = courierLoc
+            point3.subtitle = "Courier"
+            point3.coordinate = courierLoc
                 
             //}
             
@@ -134,7 +134,8 @@ struct MapViewTracking : UIViewRepresentable {
             
             self.parent.map.addAnnotation(point1)
             self.parent.map.addAnnotation(point2)
-           // self.parent.map.addAnnotation(point3)
+            self.parent.map.removeAnnotation(point3)
+            self.parent.map.addAnnotation(point3)
             //self.parent.map.addAnnotation(point4)
 
 
