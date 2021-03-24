@@ -649,8 +649,8 @@ class Order: ObservableObject{
         }
     }
     
-    //get status for order //, completion: @escaping (_ success: Bool) -> Void
-    func getStatus(courierId: String, memberId: String, order: String) {
+    //get status for order //
+    func getStatus(courierId: String, memberId: String, order: String, completion: @escaping (_ success: Bool) -> Void) {
         
         
         db.collection("Order").whereField("MemberID", isEqualTo: memberId).whereField("CourierID", isEqualTo: courierId).whereField("orderDetails", isEqualTo: order).addSnapshotListener { (querySnapshot, error) in
@@ -676,11 +676,11 @@ class Order: ObservableObject{
                 }
             }
             
-            /*let success = true
+            let success = true
             DispatchQueue.main.async {
                 print("inside getStatus in dispatch")
                 completion(success)
-            }*/
+            }
             
         }
         

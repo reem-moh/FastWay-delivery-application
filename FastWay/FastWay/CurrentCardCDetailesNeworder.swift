@@ -32,6 +32,7 @@ struct CurrentCardCDetailesNeworder: View {
     @State var showComplete = false
     @State private var changeState = false
     @State private var State = -1
+    @State var liveS = ""
 
     var body: some View{
         
@@ -166,7 +167,7 @@ struct CurrentCardCDetailesNeworder: View {
                                     Spacer()
                                     //pick up
                                     HStack{
-                                        Image(systemName:  model.order.liveStatus == model.order.status[4] || model.order.liveStatus == model.order.status[5] || model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                        Image(systemName:  self.liveS  == model.order.status[4] || self.liveS  == model.order.status[5] || self.liveS  == model.order.status[6] || self.liveS  == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
@@ -184,11 +185,12 @@ struct CurrentCardCDetailesNeworder: View {
                                         }else{
                                             print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
                                         }
+                                        self.liveS = model.order.liveStatus
                                     }
                                     Spacer()
                                     //on the way
                                     HStack{
-                                        Image(systemName: model.order.liveStatus == model.order.status[5] || model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                        Image(systemName: self.liveS == model.order.status[5] || self.liveS == model.order.status[6] || self.liveS == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
@@ -206,6 +208,7 @@ struct CurrentCardCDetailesNeworder: View {
                                         }else{
                                             print("model.order.liveStatus State = 5: \(model.order.liveStatus)")
                                         }
+                                        self.liveS = model.order.liveStatus
                                     }
                                     Spacer()
                                 }
@@ -213,7 +216,7 @@ struct CurrentCardCDetailesNeworder: View {
                                 Group{
                                     //drop off
                                     HStack{
-                                        Image(systemName: model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7]  ? "checkmark.circle.fill" : "checkmark.circle")
+                                        Image(systemName: self.liveS == model.order.status[6] || self.liveS == model.order.status[7]  ? "checkmark.circle.fill" : "checkmark.circle")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
@@ -230,11 +233,12 @@ struct CurrentCardCDetailesNeworder: View {
                                         }else{
                                             print("model.order.liveStatus State = 6: \(model.order.liveStatus)")
                                         }
+                                        self.liveS = model.order.liveStatus
                                     }
                                     Spacer()
                                     //delivered
                                     HStack{
-                                        Image(systemName: model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                        Image(systemName: self.liveS == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
@@ -251,26 +255,22 @@ struct CurrentCardCDetailesNeworder: View {
                                         }else{
                                             print("model.order.liveStatus State = 7: \(model.order.liveStatus)")
                                         }
+                                        self.liveS = model.order.liveStatus
                                     }
                                     Spacer()
                                 }
                             }
                         }.onAppear(){
-                            model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails)/*{ success in
+                            model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
                                 print("after calling method getStatus in success")
+                                self.liveS = model.order.liveStatus
                                 guard success else { return }
-                            }*/
-                        }/*.onTapGesture {
-                            State = -1
-                            if let row = model.order.status.firstIndex(where: {$0 == model.selectedCard.orderD.status}){
-                                State = row + 1
-                                //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
-                                print("inside row the index is: \(row)")
-                                if model.selectedCard.orderD.status != "completed"{
-                                    changeState.toggle()
-                                }
                             }
-                        }*/
+                            self.liveS = model.order.liveStatus
+                        }
+                        .onChange(of: model.order.liveStatus) { value in
+                            self.liveS = value
+                        }
                         
                         
                         //pick up
@@ -378,11 +378,12 @@ struct CurrentCardCDetailesNeworder: View {
                     model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
                         print("after calling method changeState in success")
                         guard success else { return }
-                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails)/*{ success in
+                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
                             print("after calling method getStatus in success")
+                            self.liveS = model.order.liveStatus
                             guard success else { return }
-                        }*/
-                        
+                        }
+                        self.liveS = model.order.liveStatus
                     }
                 }) ,
                 secondaryButton: .cancel((Text("No")))
