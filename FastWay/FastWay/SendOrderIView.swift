@@ -67,7 +67,7 @@ struct SendOrderIView: View {
                 //Send order
                 VStack{
                     Text("Send order ").font(.custom("Roboto Medium", size: fontSize(num: 25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:width(num: 0) ,y:hieght(num: -360))
+                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading,width(num: 12.0) ).offset(x:width(num: 0) ,y:hieght(num: -360))
                 }
                 //ProgressBar
                 Image("progressBar3")
@@ -80,7 +80,7 @@ struct SendOrderIView: View {
                     //Order Details
                     Group{
                         Text("Order Details ").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x: width(num: -125),y:hieght(num: -50))
+                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading,width(num: 12.0) ).offset(x: width(num: -125),y:hieght(num: -50))
                         
                         
                         if error{
@@ -99,11 +99,11 @@ struct SendOrderIView: View {
                     //Payment method
                     Group{
                         Text("Payment method").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x: width(num: -110),y:hieght(num: -35))
+                            .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading,width(num: 12.0) ).offset(x: width(num: -110),y:hieght(num: -35))
                         Text("Cash on Delivery").frame(width: width(num: 330), height:  hieght(num: 30))
                             .font(.system(size: fontSize(num: 18)))
                             .padding(12).offset(x: width(num: -100),y:hieght(num: 0))
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)) .keyboardType(.emailAddress).padding(.horizontal, 11.0).offset(x: width(num: 0),y:hieght(num: -40))
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)) .keyboardType(.emailAddress).padding(.horizontal,width(num: 11.0) ).offset(x: width(num: 0),y:hieght(num: -40))
                     }
                     //Add new Order Button
                     Group{
@@ -133,7 +133,7 @@ struct SendOrderIView: View {
                             Text("Send order").font(.custom("Roboto Bold", size: 22)).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: width(num: 0),y:hieght(num: 10))
+                        .padding(.top,hieght(num: 25) ).offset(x: width(num: 0),y:hieght(num: 10))
                         
                     }
                 }.offset(y:hieght(num: 20))

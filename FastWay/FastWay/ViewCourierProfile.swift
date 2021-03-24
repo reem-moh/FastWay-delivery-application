@@ -57,7 +57,7 @@ struct ViewCourierProfile: View {
                     
                     Image("profileC")
                         .font(.system(size: fontSize(num: 56.0)))
-                        .padding(.bottom,50)
+                        .padding(.bottom,hieght(num: 50) )
                         .offset(x:width(num: -12) ,y:hieght(num: 45))
                     
                     Spacer()
@@ -104,7 +104,7 @@ struct ViewCourierProfile: View {
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal,width(num: 16) )
                             //print("email \((self.member.email))")
                             
                             //phone field

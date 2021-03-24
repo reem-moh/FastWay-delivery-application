@@ -96,7 +96,7 @@ struct DROPOFFlocationView: View {
                     
                     
                     Text("Drop off location ").font(.custom("Roboto Medium", size: fontSize(num: 25) )).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, 12.0).offset(x:width(num: 0) ,y:hieght(num: -735))
+                        .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading,width(num: 12.0) ).offset(x:width(num: 0) ,y:hieght(num: -735))
                     
                     
                     
@@ -360,7 +360,7 @@ struct DROPOFFlocationView: View {
                         TextField("room numbers , more details...", text: $room.text)
                             .font(.system(size: fontSize(num: 18))).foregroundColor(.black)
                             .padding(12)
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, 14).offset(x: width(num: 0),y:hieght(num: 0))
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal,width(num: 14) ).offset(x: width(num: 0),y:hieght(num: 0))
                         
                     }}
                 
@@ -399,7 +399,7 @@ struct DROPOFFlocationView: View {
                         Text("Next").font(.custom("Roboto Bold", size: fontSize(num: 22) )).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50)
                     }
                     .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                    .padding(.top,25)
+                    .padding(.top,hieght(num: 25) )
                     //END NEXT
                     
                     

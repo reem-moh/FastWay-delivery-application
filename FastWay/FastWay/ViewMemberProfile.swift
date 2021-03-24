@@ -57,7 +57,7 @@ struct ViewMemberProfile: View {
                     Spacer()
                     Spacer()
                     
-                    Image("profileM").font(.system(size: fontSize(num: 56.0))).padding(.bottom,50).offset(x:width(num: -12) ,y:hieght(num: 45))
+                    Image("profileM").font(.system(size: fontSize(num: 56.0))).padding(.bottom, hieght(num: 50) ).offset(x:width(num: -12) ,y:hieght(num: 45))
                     
                     Spacer()
                     Spacer()
@@ -89,7 +89,7 @@ struct ViewMemberProfile: View {
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                             
                             //email field
                             Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
@@ -103,7 +103,7 @@ struct ViewMemberProfile: View {
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                             //print("email \((self.member.email))")
                             
                             //phone field
@@ -118,13 +118,13 @@ struct ViewMemberProfile: View {
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                             //print("Phone number \(self.member.phoneNo)")
                             
                             //Password
                             Group {
                                 Text("Change the Password").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                    .multilineTextAlignment(.center).offset(x: width(num: 18) ,y: hieght(num: 10)).padding(.bottom,-20)
+                                    .multilineTextAlignment(.center).offset(x: width(num: 18) ,y: hieght(num: 10)).padding(.bottom,hieght(num: -20) )
                                 
                                 //current password
                                 Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
@@ -134,21 +134,21 @@ struct ViewMemberProfile: View {
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                                 //New Pass
                                 SecureField("New Password", text: $newPassword)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                                 //reNew pass
                                 SecureField("Repeat New Password", text: $reNewPassword)
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal, 16)
+                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                                 
                             }// end group password
                             
@@ -161,9 +161,9 @@ struct ViewMemberProfile: View {
                             Text("Log out").font(.custom("Roboto Bold", size: fontSize(num: 22))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25).offset(x: width(num: 24)).padding(.bottom,100)
+                        .padding(.top,hieght(num: 25) ).offset(x: width(num: 24)).padding(.bottom,hieght(num: 100) )
                         
-                    }.padding(.bottom, 60) //VStack
+                    }.padding(.bottom,hieght(num: 60) ) //VStack
                     
                 }//scrollview
                 
@@ -190,7 +190,7 @@ struct ViewMemberProfile: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
+                                }.padding(.horizontal,width(num: 14) ).onTapGesture {
                                     notificationT = .None
                                     viewRouter.currentPage = .AboutUs
                                 }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
