@@ -73,6 +73,8 @@ struct MapViewTracking : UIViewRepresentable {
         UIView.animate(withDuration: 0.3) {
             
             getCourierLocation(CourierID: CourierID)
+            let c = makeCoordinator()
+            c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
             print("ooooooooooooooooooooooooooooooooooooooo")
             print(riyadhCoordinatetracking.latitude)
             print(riyadhCoordinatetracking.longitude)

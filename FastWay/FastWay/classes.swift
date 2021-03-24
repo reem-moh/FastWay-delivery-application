@@ -228,6 +228,8 @@ class Order: ObservableObject{
     
     @Published var chat: [ChatMsg] = [] //for messages in chat
     
+    @Published var liveStatus = ""
+    
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
     var pickUpFloor: Int
@@ -465,36 +467,7 @@ class Order: ObservableObject{
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
-            for i in querySnapshot!.documentChanges {
-                if i.type == .modified{
-                    let orderId = i.document.documentID
-                    //pickUp location
-                    let PickUpLatitude = i.document.get("PickUpLatitude") as? Double ?? 0.0
-                    let PickUpLongitude = i.document.get("PickUpLongitude") as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = i.document.get("pickUpBulding") as? Int ?? 0
-                    let pickupFloor = i.document.get("pickUpFloor") as? Int ?? 0
-                    let pickupRoom = i.document.get("pickUpRoom") as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = i.document.get("DropOffLatitude") as? Double ?? 0.0
-                    let DropOffLongitude = i.document.get("DropOffLongitude") as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = i.document.get("dropOffBulding") as? Int ?? 0
-                    let dropoffFloor = i.document.get("dropOffFloor") as? Int ?? 0
-                    let dropoffRoom = i.document.get("dropOffRoom") as? String ?? ""
-                    let orderDetails = i.document.get("orderDetails") as? String ?? ""
-                    let assigned = (i.document.get("Assigned") as? String ?? "" == "true" ? true : false)
-                    let MemberID = i.document.get("MemberID") as? String ?? ""
-                    let state = i.document.get("Status") as? String ?? ""
-                    let createdAt = i.document.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
-                    let price = i.document.get("DeliveryPrice") as? Int ?? 0
-                    
-                    //find the index of the modified order and assign the new values
-                    if let row = self.CourierOrderOfferedAssign.firstIndex(where: {$0.id == orderId}) {
-                        self.CourierOrderOfferedAssign[row] = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    }
-                }
-            }
+            
         }
     }
     //retrieve all offers with specific courier id
@@ -667,9 +640,37 @@ class Order: ObservableObject{
     }
     }
     //change state of order
-    func changeState(OrderId: String,Status: Int){
+    func changeState(OrderId: String, Status: Int){ //index of status array
         db.collection("Order").document(OrderId).setData([ "Status": status[Status] ], merge: true)
     }
+    
+    //get status for order
+    func getStatus(orderId: String) {
+        
+        
+        db.collection("Order").whereField("OrderID", isEqualTo: orderId).addSnapshotListener { (querySnapshot, error) in
+            if error != nil {
+                print("error getting status")
+                return
+            }
+            var j = 0
+            for i in querySnapshot!.documentChanges {
+                if i.type == .modified {
+                    self.liveStatus = i.document.get("Status") as? String ?? ""
+                    print("\n\nLive status \(self.liveStatus) \(j)")
+                    j = j+1
+                }
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     //send chat
     func sendChatRoom(orderId : String, sender_msg: String){
         let sender_id = UserDefaults.standard.getUderId()
@@ -845,47 +846,7 @@ class Order: ObservableObject{
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
-            for i in querySnapshot!.documentChanges {
-                if i.type == .modified{
-                    print("\n\nin doc changes \(i.document.data())\n\n")
-                    let orderId = i.document.documentID
-                    //pickUp location
-                    let PickUpLatitude = i.document.get("PickUpLatitude") as? Double ?? 0.0
-                    let PickUpLongitude = i.document.get("PickUpLongitude") as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = i.document.get("pickUpBulding") as? Int ?? 0
-                    let pickupFloor = i.document.get("pickUpFloor") as? Int ?? 0
-                    let pickupRoom = i.document.get("pickUpRoom") as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = i.document.get("DropOffLatitude") as? Double ?? 0.0
-                    let DropOffLongitude = i.document.get("DropOffLongitude") as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = i.document.get("dropOffBulding") as? Int ?? 0
-                    let dropoffFloor = i.document.get("dropOffFloor") as? Int ?? 0
-                    let dropoffRoom = i.document.get("dropOffRoom") as? String ?? ""
-                    let orderDetails = i.document.get("orderDetails") as? String ?? ""
-                    let assigned = (i.document.get("Assigned") as? String ?? "" == "true" ? true : false)
-                    let MemberID = i.document.get("MemberID") as? String ?? ""
-                    let state = i.document.get("Status") as? String ?? ""
-                    let createdAt = i.document.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
-                    
-                    var deliveryPrice = 0
-                    var courierId = ""
-                    
-                    if assigned{ // if the order is assigned and both value are created in db
-                        deliveryPrice = i.document.get("DeliveryPrice") as? Int ?? 0
-                        courierId = i.document.get("CourierID") as? String ?? ""
-                        print("\n\n in doc changes pric \(deliveryPrice) \n\n")
-                    }
-                    
-                    //add tracking here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    
-                    //find the index of the modified order and assign the new values
-                    if let row = self.memberOrder.firstIndex(where: {$0.id == orderId}) {
-                        self.memberOrder[row] = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:courierId ,deliveryPrice:deliveryPrice, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    }
-                }
-            }
+            
         }
     }
 
