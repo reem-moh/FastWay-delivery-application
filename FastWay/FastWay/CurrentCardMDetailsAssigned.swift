@@ -38,6 +38,9 @@ struct CurrentCardMDetailsAssigned: View {
     @State var showOnTheWay = false
     @State var showDropOff = false
     @State var showComplete = false
+    @State private var changeState = false
+    @State private var State = -1
+    @State var liveS = ""
 
     var body: some View{
 
@@ -158,45 +161,75 @@ struct CurrentCardMDetailsAssigned: View {
                             VStack{
                                 Spacer()
                                 Group{
+                                    //Assign
                                     HStack{
-                                        showAssign || showPickUp || showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")) : Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        
+                                        Image(systemName: "checkmark.circle.fill" )
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
                                         Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
+                                    //pick up
                                     HStack{
-                                        showPickUp || showOnTheWay||showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName:  self.liveS  == model.order.status[4] || self.liveS  == model.order.status[5] || self.liveS  == model.order.status[6] || self.liveS  == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+                                        
                                         Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
+                                    //on the way
                                     HStack{
-                                        showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName: self.liveS == model.order.status[5] || self.liveS == model.order.status[6] || self.liveS == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+    
                                         Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                 }
                                 
                                 Group{
+                                    //drop off
                                     HStack{
-                                        showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
-                                        Text("arrived at drop of location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Image(systemName: self.liveS == model.order.status[6] || self.liveS == model.order.status[7]  ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+                                        Text("arrived at drop off location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
+                                    //delivered
                                     HStack{
-                                        showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName: self.liveS == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
                                         Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                 }
                             }
-                        }.onAppear(){
-                            switch model.selectedCard.orderD.status {
-                                case "assigned" : showAssign.toggle()
-                                case "pick Up" : showPickUp.toggle()
-                                case "on The Way" : showOnTheWay.toggle()
-                                case "drop off": showDropOff.toggle()
-                                case "completed": showComplete.toggle()
-                                default: print("inside switch statement")
+                        }
+                        .onAppear(){
+                            model.order.getStatus(courierId: model.selectedCard.orderD.courierId, memberId: UserDefaults.standard.getUderId(), order: model.selectedCard.orderD.orderDetails){ success in
+                                print("after calling method getStatus in success")
+                                self.liveS = model.order.liveStatus
+                                guard success else { return }
                             }
+                            self.liveS = model.order.liveStatus
+                        }
+                        .onChange(of: model.order.liveStatus) { value in
+                            self.liveS = value
                         }
                         
                         //pick up
