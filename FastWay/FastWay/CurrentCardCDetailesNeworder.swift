@@ -202,9 +202,9 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                            print("model.order.liveStatus State = 5: \(model.order.liveStatus) row: \(row)")
                                         }else{
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
+                                            print("model.order.liveStatus State = 5: \(model.order.liveStatus)")
                                         }
                                     }
                                     Spacer()
@@ -226,9 +226,9 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                            print("model.order.liveStatus State = 6: \(model.order.liveStatus) row: \(row)")
                                         }else{
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
+                                            print("model.order.liveStatus State = 6: \(model.order.liveStatus)")
                                         }
                                     }
                                     Spacer()
@@ -247,19 +247,19 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                            print("model.order.liveStatus State = 7: \(model.order.liveStatus) row: \(row)")
                                         }else{
-                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
+                                            print("model.order.liveStatus State = 7: \(model.order.liveStatus)")
                                         }
                                     }
                                     Spacer()
                                 }
                             }
                         }.onAppear(){
-                            model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
+                            model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails)/*{ success in
                                 print("after calling method getStatus in success")
                                 guard success else { return }
-                            }
+                            }*/
                         }/*.onTapGesture {
                             State = -1
                             if let row = model.order.status.firstIndex(where: {$0 == model.selectedCard.orderD.status}){
@@ -378,10 +378,10 @@ struct CurrentCardCDetailesNeworder: View {
                     model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
                         print("after calling method changeState in success")
                         guard success else { return }
-                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
+                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails)/*{ success in
                             print("after calling method getStatus in success")
                             guard success else { return }
-                        }
+                        }*/
                         
                     }
                 }) ,

@@ -70,20 +70,20 @@ struct MapViewTracking : UIViewRepresentable {
        // riyadhCoordinate.latitude = 24.8270610
       //  riyadhCoordinate.longitude = 46.6551692
         
-        UIView.animate(withDuration: 0.3) {
+       // UIView.animate(withDuration: 0.3) {
             
-            getCourierLocation(CourierID: CourierID)
-            let c = makeCoordinator()
-            c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
-            print("ooooooooooooooooooooooooooooooooooooooo")
-            print(riyadhCoordinatetracking.latitude)
-            print(riyadhCoordinatetracking.longitude)
+          //  getCourierLocation(CourierID: CourierID)
+        //    let c = makeCoordinator()
+           // c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
+         //   print("ooooooooooooooooooooooooooooooooooooooo")
+        //    print(riyadhCoordinatetracking.latitude)
+         //   print(riyadhCoordinatetracking.longitude)
             
            // coordinate = riyadhCoordinatetracking
             // coordinate = updatedPosition
 
 
-        }
+      //  }
     
       //  getCourierLocation(CourierID: CourierID)
 
@@ -120,20 +120,20 @@ struct MapViewTracking : UIViewRepresentable {
             point4.subtitle = "-off"
             point4.coordinate = point
            */
-            let point3 = MKPointAnnotation()
+           // let point3 = MKPointAnnotation()
            // if courierLoc != nil{
-            point3.subtitle = "Courier"
-                point3.coordinate = courierLoc
+          //  point3.subtitle = "Courier"
+             //   point3.coordinate = courierLoc
                 
             //}
             
             self.parent.destination = drop
             self.parent.source = pick
-            self.parent.courierLocation = courierLoc
+        //    self.parent.courierLocation = courierLoc
             
             self.parent.map.addAnnotation(point1)
             self.parent.map.addAnnotation(point2)
-            self.parent.map.addAnnotation(point3)
+           // self.parent.map.addAnnotation(point3)
             //self.parent.map.addAnnotation(point4)
 
 
