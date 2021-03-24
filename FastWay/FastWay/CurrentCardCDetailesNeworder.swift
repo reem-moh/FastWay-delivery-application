@@ -176,14 +176,14 @@ struct CurrentCardCDetailesNeworder: View {
                                     }.onTapGesture {
                                         State = 4
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
-                                        print("model.order.liveStatus: \(model.order.liveStatus)")
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
                                                 changeState.toggle()
                                             }
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                        }else{
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
                                         }
-                                        changeState.toggle()
-                                        
                                     }
                                     Spacer()
                                     //on the way
@@ -202,6 +202,9 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                        }else{
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
                                         }
                                     }
                                     Spacer()
@@ -223,8 +226,10 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                        }else{
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
                                         }
-                                        changeState.toggle()
                                     }
                                     Spacer()
                                     //delivered
@@ -242,6 +247,9 @@ struct CurrentCardCDetailesNeworder: View {
                                             if row < State {
                                                 changeState.toggle()
                                             }
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
+                                        }else{
+                                            print("model.order.liveStatus State = 4: \(model.order.liveStatus)")
                                         }
                                     }
                                     Spacer()
