@@ -228,7 +228,7 @@ class Order: ObservableObject{
     
     @Published var chat: [ChatMsg] = [] //for messages in chat
     
-    @Published var liveStatus = ""
+    @Published var liveStatus = "assigned"
     
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
@@ -640,8 +640,13 @@ class Order: ObservableObject{
     }
     }
     //change state of order
-    func changeState(OrderId: String, Status: Int){ //index of status array
+    func changeState(OrderId: String, Status: Int, completion: @escaping (_ success: Bool) -> Void){ //index of status array
         db.collection("Order").document(OrderId).setData([ "Status": status[Status] ], merge: true)
+        let success = true
+        DispatchQueue.main.async {
+            print("inside getStatus in dispatch changeState")
+            completion(success)
+        }
     }
     
     //get status for order
@@ -655,7 +660,8 @@ class Order: ObservableObject{
             }
             var j = 0
             for i in querySnapshot!.documentChanges {
-                if i.type == .modified {
+                print("inside for loop getStatus")
+                if i.type == .modified || i.type == .added{
                     self.liveStatus = i.document.get("Status") as? String ?? ""
                     print("\n\nLive status \(self.liveStatus) \(j)")
                     j = j+1

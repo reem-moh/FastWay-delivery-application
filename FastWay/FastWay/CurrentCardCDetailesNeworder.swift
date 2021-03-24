@@ -153,46 +153,106 @@ struct CurrentCardCDetailesNeworder: View {
                             VStack{
                                 Spacer()
                                 Group{
+                                    //Assign
                                     HStack{
-                                        showAssign || showPickUp || showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")) : Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        
+                                        Image(systemName: "checkmark.circle.fill" )
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
                                         Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
+                                    //pick up
                                     HStack{
-                                        showPickUp || showOnTheWay||showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName:  model.order.liveStatus == model.order.status[4] || model.order.liveStatus == model.order.status[5] || model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+                                        
                                         Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }.onTapGesture {
+                                        State = 4
+                                        //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
+                                        print("model.order.liveStatus: \(model.order.liveStatus)")
+                                        if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
+                                            if row < State {
+                                                changeState.toggle()
+                                            }
+                                        }
+                                        changeState.toggle()
+                                        
                                     }
                                     Spacer()
+                                    //on the way
                                     HStack{
-                                        showOnTheWay || showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName: model.order.liveStatus == model.order.status[5] || model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+    
                                         Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }.onTapGesture {
+                                        State = 5
+                                        //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
+                                        if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
+                                            if row < State {
+                                                changeState.toggle()
+                                            }
+                                        }
                                     }
                                     Spacer()
                                 }
                                 
                                 Group{
+                                    //drop off
                                     HStack{
-                                        showDropOff||showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
-                                        Text("arrived at drop of location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Image(systemName: model.order.liveStatus == model.order.status[6] || model.order.liveStatus == model.order.status[7]  ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
+                                        Text("arrived at drop off location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }.onTapGesture {
+                                        State = 6
+                                        //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
+                                        if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
+                                            if row < State {
+                                                changeState.toggle()
+                                            }
+                                        }
+                                        changeState.toggle()
                                     }
                                     Spacer()
+                                    //delivered
                                     HStack{
-                                        showComplete ? Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")): Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                                        Image(systemName: model.order.liveStatus == model.order.status[7] ? "checkmark.circle.fill" : "checkmark.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num:30), height: hieght(num:30))
+                                            .foregroundColor(Color("ButtonColor"))
                                         Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                    }.onTapGesture {
+                                        State = 7
+                                        //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
+                                        if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
+                                            if row < State {
+                                                changeState.toggle()
+                                            }
+                                        }
                                     }
                                     Spacer()
                                 }
                             }
                         }.onAppear(){
-                            switch model.selectedCard.orderD.status {
-                                case "assigned" : showAssign.toggle()
-                                case "pick Up" : showPickUp.toggle()
-                                case "on The Way" : showOnTheWay.toggle()
-                                case "drop off": showDropOff.toggle()
-                                case "completed": showComplete.toggle()
-                                default: print("inside switch statement")
+                            model.order.getStatus(orderId: model.selectedCard.orderD.id){ success in
+                                print("after calling method getStatus in success")
+                                guard success else { return }
                             }
-                        }.onTapGesture {
+                        }/*.onTapGesture {
                             State = -1
                             if let row = model.order.status.firstIndex(where: {$0 == model.selectedCard.orderD.status}){
                                 State = row + 1
@@ -202,7 +262,7 @@ struct CurrentCardCDetailesNeworder: View {
                                     changeState.toggle()
                                 }
                             }
-                        }
+                        }*/
                         
                         
                         //pick up
@@ -307,7 +367,15 @@ struct CurrentCardCDetailesNeworder: View {
                 title: Text("Change State"),
                 message: Text("Are you sure you want to change the state of this order?"),
                 primaryButton: .default((Text("Yes")), action: {
-                    model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State)
+                    model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
+                        print("after calling method changeState in success")
+                        guard success else { return }
+                        model.order.getStatus(orderId: model.selectedCard.orderD.id){ success in
+                            print("after calling method getStatus in success")
+                            guard success else { return }
+                        }
+                        
+                    }
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert
@@ -324,6 +392,7 @@ struct CurrentCardCDetailesNeworder: View {
             //}//end with animation
         }
     }
+
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
