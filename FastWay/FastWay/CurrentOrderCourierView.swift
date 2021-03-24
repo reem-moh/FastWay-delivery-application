@@ -680,7 +680,10 @@ class CurrentCarouselCViewModel: ObservableObject {
         
         for index in order.CourierOrderOfferedAssign {
             print("index in loop assign \(index.orderDetails)")
-            cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            if index.status != "cancled" {
+                cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+            }
+            
         }
         cards.sort {
             $0.orderD.createdAt < $1.orderD.createdAt

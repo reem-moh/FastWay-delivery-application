@@ -248,7 +248,7 @@ struct CurrentCardCDetailesNeworder: View {
                                 }
                             }
                         }.onAppear(){
-                            model.order.getStatus(orderId: model.selectedCard.orderD.id){ success in
+                            model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
                                 print("after calling method getStatus in success")
                                 guard success else { return }
                             }
@@ -370,7 +370,7 @@ struct CurrentCardCDetailesNeworder: View {
                     model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
                         print("after calling method changeState in success")
                         guard success else { return }
-                        model.order.getStatus(orderId: model.selectedCard.orderD.id){ success in
+                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
                             print("after calling method getStatus in success")
                             guard success else { return }
                         }
