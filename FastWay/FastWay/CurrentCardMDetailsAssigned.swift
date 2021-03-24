@@ -20,9 +20,9 @@ struct CurrentCardMDetailsAssigned: View {
     @State var alert = false
     @State var distance = ""
     @State var time = ""
-    @State var courierLocationtracking  = ""
+ //   @State var courierLocationtracking  = ""
    // var courierLocation = riyadhCoordinatetracking
-    @State var courierLocation : CLLocationCoordinate2D! = riyadhCoordinatetracking
+   // @State var courierLocation : CLLocationCoordinate2D! = riyadhCoordinatetracking
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
@@ -53,7 +53,7 @@ struct CurrentCardMDetailsAssigned: View {
             
            // getCourierLocation(CourierID: model.selectedCard.orderD.courierId)
 
-            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, courierLocation: self.$courierLocation , distance: self.$distance, time: self.$time, CourierID: self.$model.selectedCard.orderD.courierId )
+            MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time, CourierID: self.$model.selectedCard.orderD.courierId )
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
                 .padding(.bottom, hieght(num:0))

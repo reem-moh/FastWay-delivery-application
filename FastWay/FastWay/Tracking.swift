@@ -35,6 +35,8 @@ struct ContentView_Previews: PreviewProvider {
 }*/
 //////member
 //Current card M details assigned
+var myTimer: Timer!
+
 struct MapViewTracking : UIViewRepresentable {
     
     @Binding var map : MKMapView
@@ -42,11 +44,13 @@ struct MapViewTracking : UIViewRepresentable {
     @Binding var alert : Bool
     @Binding var source : CLLocationCoordinate2D!
     @Binding var destination : CLLocationCoordinate2D!
-    @Binding var courierLocation : CLLocationCoordinate2D!
+   // @Binding var courierLocation : CLLocationCoordinate2D!
     @Binding var distance : String
     @Binding var time : String
     @Binding var CourierID : String
 
+
+    @State  var point3 = MKPointAnnotation()
 
 
     
@@ -55,11 +59,26 @@ struct MapViewTracking : UIViewRepresentable {
         manager.delegate = context.coordinator as CLLocationManagerDelegate
        map.showsUserLocation = true
         let c = makeCoordinator()
-        c.tap(pick: source, drop: destination, courierLoc: courierLocation)
+        c.tap(pick: source, drop: destination)
+        
+        point3.subtitle = "Courier"
+        point3.coordinate = riyadhCoordinatetracking
+    //   map.removeAnnotation(point3)
+       map.addAnnotation(point3)
+        
+
         return map
     }
     
+    
+    
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        point3.subtitle = "Courier"
+        point3.coordinate = riyadhCoordinatetracking
+    //   map.removeAnnotation(point3)
+       map.addAnnotation(point3)
+        
+        
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         var riyadhCoordinate = CLLocationCoordinate2D()
         //campus  location
@@ -72,26 +91,33 @@ struct MapViewTracking : UIViewRepresentable {
        // riyadhCoordinate.latitude = 24.8270610
       //  riyadhCoordinate.longitude = 46.6551692
         
-    //  let c = makeCoordinator()
-        //   c.tap(pick: source, drop: destination, courierLoc: riyadhCoordinatetracking)
-        print("ooooooooooooooooooooooooooooooooooooooo")
-       print(riyadhCoordinatetracking.latitude)
+        let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
+        uiView.setRegion(region, animated: true)
+        
+//no need we can delete them
+    print("ooooooooooooooooooooooooooooooooooooooo")
+    print(riyadhCoordinatetracking.latitude)
     print(riyadhCoordinatetracking.longitude)
         
         
-        UIView.animate(withDuration: 0.3) {
             
             getCourierLocation(CourierID: CourierID)
 
+
+ 
+        myTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false){ timer in
+            map.removeAnnotation(point3)
+            getCourierLocation(CourierID: CourierID)
+            point3.coordinate = riyadhCoordinatetracking
+            print("timer fired!")
+            map.addAnnotation(point3)
+           // timer.invalidate()
        }
         
-     //   updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
-      // getCourierLocation(CourierID: CourierID)
-
-        let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
-        uiView.setRegion(region, animated: true)
+        
+        
     }
-    
+
     func makeCoordinator() -> Coordinator {
         
         return MapViewTracking.Coordinator(parent1: self)
@@ -106,7 +132,7 @@ struct MapViewTracking : UIViewRepresentable {
             parent = parent1
         }
         
-        func tap(pick: CLLocationCoordinate2D!, drop: CLLocationCoordinate2D!, courierLoc :CLLocationCoordinate2D!){
+        func tap(pick: CLLocationCoordinate2D!, drop: CLLocationCoordinate2D!){
             let point1 = MKPointAnnotation()
             point1.subtitle = "Pick-up"
             point1.coordinate = pick
@@ -121,21 +147,18 @@ struct MapViewTracking : UIViewRepresentable {
             point4.subtitle = "-off"
             point4.coordinate = point
            */
-            let point3 = MKPointAnnotation()
-           // if courierLoc != nil{
-            point3.subtitle = "Courier"
-            point3.coordinate = courierLoc
+            
                 
             //}
             
             self.parent.destination = drop
             self.parent.source = pick
-        //    self.parent.courierLocation = courierLoc
+        // self.parent.courierLocation = courierLoc
             
             self.parent.map.addAnnotation(point1)
             self.parent.map.addAnnotation(point2)
-            self.parent.map.removeAnnotation(point3)
-            self.parent.map.addAnnotation(point3)
+            
+
             //self.parent.map.addAnnotation(point4)
 
 
