@@ -84,8 +84,9 @@ struct MapViewTracking : UIViewRepresentable {
 
 
       //  }
-    
-      //  getCourierLocation(CourierID: CourierID)
+        
+        updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
+        getCourierLocation(CourierID: CourierID)
 
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         uiView.setRegion(region, animated: true)
