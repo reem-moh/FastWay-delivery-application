@@ -297,7 +297,7 @@ struct CurrentCardCView: View {
                 Spacer(minLength: 0)
 
             //Time
-                Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                Image(uiImage: #imageLiteral(resourceName: "money"))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.leading)
                     
@@ -308,7 +308,6 @@ struct CurrentCardCView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 
-            
                 
                 Spacer(minLength: 0)
             }.padding(.top,15)
@@ -360,7 +359,11 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                       
-                    }else if self.stat == "assigned"{
+                    }else
+                
+    
+                    if self.stat == "assigned"
+                    {
                         Text("assigned")
                         .bold()
                         .foregroundColor(.white)
@@ -378,7 +381,22 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
 
                         
+                    }else{
+                        
+                        Text("Details")
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+
+                        
                     }
+                    
                     Image(systemName: "arrow.right")
                 }
             }
@@ -495,10 +513,12 @@ struct CurrentCardCDetailes: View {
                             Spacer(minLength: 0)
 
                             
-                            Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)
+                            
                             
                             Text("\(model.selectedCard.orderD.deliveryPrice) SR")
                                 .font(.body)
@@ -521,6 +541,11 @@ struct CurrentCardCDetailes: View {
                             Spacer(minLength: 0)
                             }
                         }
+                        else {
+                        Text("Details")
+                        Spacer(minLength: 0)
+                        }
+                        
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)

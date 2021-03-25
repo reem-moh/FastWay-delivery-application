@@ -27,12 +27,12 @@ struct EntireMapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         var riyadhCoordinate = CLLocationCoordinate2D()
         //campus  location
-        riyadhCoordinate.latitude = 24.72640308847297
-         riyadhCoordinate.longitude = 46.638332536327816
+      //  riyadhCoordinate.latitude = 24.72640308847297
+       //  riyadhCoordinate.longitude = 46.638332536327816
         
         //ghaida location
-      //  riyadhCoordinate.latitude = 24.8270610
-       // riyadhCoordinate.longitude = 46.6551692
+        riyadhCoordinate.latitude = 24.8270610
+        riyadhCoordinate.longitude = 46.6551692
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         mapView.setRegion(region, animated: true)
         

@@ -129,7 +129,8 @@ struct CurrentCardCDetailesNeworder: View {
                             Spacer(minLength: 0)
 
                             
-                            Image(uiImage: #imageLiteral(resourceName: "dollar"))
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)

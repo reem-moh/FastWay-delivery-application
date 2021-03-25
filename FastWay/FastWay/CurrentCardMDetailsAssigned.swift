@@ -281,7 +281,7 @@ struct CurrentCardMDetailsAssigned: View {
                         //order price:
                         ZStack(alignment: .top){
                             if model.selectedCard.orderD.status == order.status[3]{
-                                Image(uiImage: #imageLiteral(resourceName: "dollar")).offset(x: width(num:-130), y: hieght(num: 4))
+                                Image(uiImage: #imageLiteral(resourceName: "money")).offset(x: width(num:-130), y: hieght(num: 4))
                                 //here Price
                                 HStack() {
                                     Text("\(model.selectedCard.orderD.deliveryPrice)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
