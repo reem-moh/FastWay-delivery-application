@@ -92,6 +92,7 @@
 		C2A006D625CF24C60010C126 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		C2C26EB125CABEA500505716 /* HomeCourierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCourierView.swift; sourceTree = "<group>"; };
 		C2E20EF425EABFD2009CAE56 /* Offers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offers.swift; sourceTree = "<group>"; };
+		C2E48F1F260D244C00B56705 /* FastWay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FastWay.entitlements; sourceTree = "<group>"; };
 		C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMemberView.swift; sourceTree = "<group>"; };
 		F4A975CAC4078662B4232E56 /* Pods-FastWay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastWay.release.xcconfig"; path = "Target Support Files/Pods-FastWay/Pods-FastWay.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +138,7 @@
 		589433EA25C8F61F00E19E18 /* FastWay */ = {
 			isa = PBXGroup;
 			children = (
+				C2E48F1F260D244C00B56705 /* FastWay.entitlements */,
 				589433EB25C8F61F00E19E18 /* FastWayApp.swift */,
 				C2A006C125CF1F1A0010C126 /* MotherView.swift */,
 				C2A006C525CF1F590010C126 /* Helper.swift */,
@@ -476,10 +478,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FastWay/FastWay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FastWay/Preview Content\"";
-				DEVELOPMENT_TEAM = W2HV5HSKMW;
+				DEVELOPMENT_TEAM = 58YRN48MWX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = FastWay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -501,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FastWay/FastWay.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FastWay/Preview Content\"";
