@@ -33,12 +33,6 @@ struct HomeCourierView: View {
                     .frame(width: width(num: -50), height: hieght(num: -50))
                     .offset(x:width(num: 180) ,y:hieght(num: 130)).position(x: width(num: 10), y: hieght(num: -60))
                 
-            }.onAppear() {
-                getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                    print("after calling method get notification")
-                    
-                    guard success else { return }
-                }
             }
             
             //inside the page
@@ -164,7 +158,13 @@ struct HomeCourierView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack bar menu
-            
+            .onAppear() {
+                getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                    print("after calling method get notification")
+                    
+                    guard success else { return }
+                }
+            }
             
         }//end ZStack
         

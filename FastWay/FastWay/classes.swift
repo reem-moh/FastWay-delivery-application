@@ -1004,11 +1004,11 @@ func addNotificationMember (memberId: String, title: String, content: String, co
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
-                print("Document successfully written!")
+                print("\n\nNOTIFICATIOM successfully written!\n\n")
             }
         let success = true
         DispatchQueue.main.async {
-            print("inside getStatus in dispatch")
+            print("inside NOTIFICATION in dispatch")
             completion(success)
         }
         }
@@ -1023,11 +1023,11 @@ func addNotificationCourier (courierId: String, title: String, content: String, 
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
-                print("Document successfully written!")
+                print("\n\nNOTIFICATION successfully written!\n\n")
             }
         let success = true
         DispatchQueue.main.async {
-            print("inside getStatus in dispatch")
+            print("inside NOTIFICATION in dispatch")
             completion(success)
         }
         }
@@ -1047,7 +1047,7 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
             if i.type == .added {
                 let title = i.document.get("Title") as? String ?? ""
                 let nContent = i.document.get("Content")as? String ?? ""
-                
+                print("\(nContent) notification M")
                 let center = UNUserNotificationCenter.current()
 
                     let addRequest = {
@@ -1056,7 +1056,7 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
                         content.subtitle = nContent
                         content.sound = UNNotificationSound.default
 
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
                         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                         center.add(request)
@@ -1064,26 +1064,29 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
                 center.getNotificationSettings { settings in
                     if settings.authorizationStatus == .authorized {
                         addRequest()
+                        print("\n\nNotification success C\n\n")
                     } else {
                         center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                             if success {
                                 addRequest()
+                                print("\n\nNotification success C\n\n")
                             } else {
                                 print("ERROR NOT Authorize notificatio M")
                             }
                         }
                     }
                 }
-                let success = true
-                DispatchQueue.main.async {
-                    print("inside getChatRoom in dispatch")
-                    db.collection("Member").document(memberId).collection("Notification").document(i.document.documentID).delete { err in
-                        if err != nil {
-                            print("ERROR deleting Notification MEMBER!!!!!!!!!!\n\n")
-                        }
+                
+            }
+            let success = true
+            DispatchQueue.main.async {
+                print("inside NOTIFICATION in dispatch")
+                db.collection("Member").document(memberId).collection("Notification").document(i.document.documentID).delete { err in
+                    if err != nil {
+                        print("ERROR deleting Notification MEMBER!!!!!!!!!!\n\n")
                     }
-                    completion(success)
                 }
+                completion(success)
             }
         }
         
@@ -1098,11 +1101,13 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
             print("error getting msg")
             return
         }
+
         for i in querySnapshot!.documentChanges {
             if i.type == .added {
+                
                 let title = i.document.get("Title") as? String ?? ""
                 let nContent = i.document.get("Content")as? String ?? ""
-                
+                print("\(nContent) notification C")
                 let center = UNUserNotificationCenter.current()
 
                     let addRequest = {
@@ -1111,7 +1116,7 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                         content.subtitle = nContent
                         content.sound = UNNotificationSound.default
 
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
                         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                         center.add(request)
@@ -1119,10 +1124,12 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                 center.getNotificationSettings { settings in
                     if settings.authorizationStatus == .authorized {
                         addRequest()
+                        print("\n\nNotification success C\n\n")
                     } else {
                         center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                             if success {
                                 addRequest()
+                                print("\n\nNotification success C\n\n")
                             } else {
                                 print("ERROR NOT Authorize notificatio C")
                             }
@@ -1130,18 +1137,21 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                     }
                 }
               
-                let success = true
-                DispatchQueue.main.async {
-                    print("inside getChatRoom in dispatch")
-                    db.collection("Courier").document(courierId).collection("Notification").document(i.document.documentID).delete { err in
-                        if err != nil {
-                            print("ERROR deleting Notification COURIER!!!!!!!!!!\n\n")
-                        }
+                
+            }
+            
+            let success = true
+            DispatchQueue.main.async {
+                print("inside NOTIFICATION in dispatch")
+                db.collection("Courier").document(courierId).collection("Notification").document(i.document.documentID).delete { err in
+                    if err != nil {
+                        print("ERROR deleting Notification COURIER!!!!!!!!!!\n\n")
                     }
-                    completion(success)
                 }
+                completion(success)
             }
         }
+        
         
         
     }
