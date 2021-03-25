@@ -184,7 +184,7 @@ struct OfferCard: View {
             }.padding(.top, hieght(num: 7))
             
             HStack{
-                Image("dollar")
+                Image("money")
                     .resizable()
                     .frame(width: width(num: 20), height: hieght(num: 20))
                     .padding(.leading, width(num: 20))
