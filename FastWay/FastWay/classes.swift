@@ -892,7 +892,6 @@ class Order: ObservableObject{
                 }//loop
             }
             
-           // db.collection("Tracking").document(CourierID).delete()
             
         }//get documents
         
@@ -924,43 +923,7 @@ class Order: ObservableObject{
         
     }
     
-    /*   func updateCourierLocation(Id: String) {
-           db.collection("Tracking").whereField("OrderId", isEqualTo: Id).getDocuments(){ (querySnapshot, err) in
-               if let err = err {
-                   print("Error getting documents inside cancle order: \(err)")
-               } else {
-                   for document in querySnapshot!.documents {
-                       print("inside cancelOrder: offerId:\(document.documentID) =>Data \(document.data())")
-                       db.collection("Offers").document(document.documentID).delete() { err in
-                           if let err = err {
-                               print("Error removing offer inside cancelOrder: \(err)")
-                           } else {
-                               print("offer successfully delete inside cancelOrder!")
-                           }
-                       }//delete offer
-                   }//loop
-               }
-           
-           let db = Firestore.firestore()
-           let locman = CLLocationManager()
-           locman.requestWhenInUseAuthorization()
-           var loc:CLLocation!
-           if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways{
-               loc = locman.location
-           }
-           let lat:Double = loc.coordinate.latitude
-           let long:Double = loc.coordinate.longitude
-           let geo = GeoPoint.init(latitude: lat, longitude: long)
-
-           let currentUID = currentUserUID
-           let val = db.collection("users").whereField("uid", isEqualTo: currentUserUID)
-
-           db.collection("users").document(val).updateData(["currentUserLocation" : geo])
-
-       }
-
-   }*/
-    
+ 
 
 
     
@@ -998,19 +961,7 @@ class Order: ObservableObject{
         
         
         
-        
-    /*    print("inside updateCourierLocation in dispatch")
-        print(courierLocation.latitude)
-        print(courierLocation.longitude)
-        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).getDocuments (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                
-            } else {
-        
-        db.collection("Tracking").document(CourierID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
-        print("inside updateCourierLocation in dispatch")
-            }*/
+   
     }
 
 

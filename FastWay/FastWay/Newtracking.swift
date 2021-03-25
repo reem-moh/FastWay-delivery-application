@@ -47,7 +47,6 @@ struct Newtracking: UIViewRepresentable {
         riyadhCoordinate.longitude = 46.6551692
         
         riyadhCoordinatetracking = map.userLocation.coordinate
-        //riyadhCoordinatetracking.longitude =
      
     updateCourierLocation(CourierID: CourierID, courierLocation: riyadhCoordinatetracking)
 
