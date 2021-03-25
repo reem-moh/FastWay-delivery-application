@@ -151,14 +151,28 @@ struct CurrentCardMDetailsAssigned: View {
                         }
                         //Status
                         ZStack{
-                            //white background
-                            RoundedRectangle(cornerRadius: 15)
-                                .padding()
-                                .frame(width: width(num:350), height: hieght(num:320))
-                                .foregroundColor(.white)
-                                .shadow(radius: 1)
+                            VStack{
+                                HStack{
+                                    Text("Status of the order:")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(Color.black.opacity(0.5))
+                                        .animation(.easeIn)
+                                        .offset(x: width(num:10), y: hieght(num:10))
+                                    Spacer(minLength: 0)
+                                }
+                                
+                                //white background
+                                RoundedRectangle(cornerRadius: 15)
+                                    .padding()
+                                    .frame(width: width(num:350), height: hieght(num:350))
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 1)
+                            }
+                            
                             //status of the order
                             VStack{
+                                Spacer()
                                 Spacer()
                                 Group{
                                     //Assign
