@@ -37,6 +37,7 @@ struct MapViewTracking : UIViewRepresentable {
         let c = makeCoordinator()
         c.tap(pick: source, drop: destination)
         
+       // c.MapViewTracking(MapViewTracking: map, viewForAnnotation: )
         point3.subtitle = "Courier"
         point3.coordinate = riyadhCoordinatetracking
     //   map.removeAnnotation(point3)
