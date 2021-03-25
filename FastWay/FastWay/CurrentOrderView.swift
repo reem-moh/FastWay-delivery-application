@@ -682,6 +682,7 @@ struct CurrentCardMDetailes: View {
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
                     model.showContent = false
+                    
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

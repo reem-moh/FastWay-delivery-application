@@ -375,6 +375,12 @@ struct CurrentCardMDetailsAssigned: View {
                     //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
                     model.showContent = false
+                    //send notification to courier
+                    addNotificationCourier(courierId: model.selectedCard.orderD.courierId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the member"){ success in
+                        print("after calling method add notification (cancel order)")
+                        
+                        guard success else { return }
+                    }
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestore
 import Combine
 import MapKit
+import UserNotifications
 
 
 let db = Firestore.firestore()
@@ -1042,6 +1043,178 @@ riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitud
             
         }
     }
+
+
+//add notification to DB
+//call this function when you want to send a notification to member
+func addNotificationMember (memberId: String, title: String, content: String, completion: @escaping (_ success: Bool) -> Void){
+    db.collection("Member").document(memberId).collection("Notification").addDocument(data: ["Title": title, "Content": content])
+    { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        let success = true
+        DispatchQueue.main.async {
+            print("inside getStatus in dispatch")
+            completion(success)
+        }
+        }
+    
+}
+
+//call this function when you want to send a notification to courier
+func addNotificationCourier (courierId: String, title: String, content: String, completion: @escaping (_ success: Bool) -> Void){
+
+    db.collection("Courier").document(courierId).collection("Notification").addDocument(data: ["Title": title, "Content": content])
+    { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        let success = true
+        DispatchQueue.main.async {
+            print("inside getStatus in dispatch")
+            completion(success)
+        }
+        }
+
+}
+
+
+//get notification from DB
+//call this function when you want to show a notification to member
+func getNotificationMember(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
+    db.collection("Member").document(memberId).collection("Notification").addSnapshotListener { (querySnapshot, error) in
+        if error != nil {
+            print("error getting msg")
+            return
+        }
+        for i in querySnapshot!.documentChanges {
+            if i.type == .added {
+                let title = i.document.get("Title") as? String ?? ""
+                let nContent = i.document.get("Content")as? String ?? ""
+                
+                let center = UNUserNotificationCenter.current()
+
+                    let addRequest = {
+                        let content = UNMutableNotificationContent()
+                        content.title = title
+                        content.subtitle = nContent
+                        content.sound = UNNotificationSound.default
+
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                        center.add(request)
+                    }
+                center.getNotificationSettings { settings in
+                    if settings.authorizationStatus == .authorized {
+                        addRequest()
+                    } else {
+                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                            if success {
+                                addRequest()
+                            } else {
+                                print("ERROR NOT Authorize notificatio M")
+                            }
+                        }
+                    }
+                }
+                let success = true
+                DispatchQueue.main.async {
+                    print("inside getChatRoom in dispatch")
+                    db.collection("Member").document(memberId).collection("Notification").document(i.document.documentID).delete { err in
+                        if err != nil {
+                            print("ERROR deleting Notification MEMBER!!!!!!!!!!\n\n")
+                        }
+                    }
+                    completion(success)
+                }
+            }
+        }
+        
+        
+    }
+}
+
+//call this function when you want to show a notification to courier
+func getNotificationCourier(courierId: String, completion: @escaping (_ success: Bool) -> Void) {
+    db.collection("Courier").document(courierId).collection("Notification").addSnapshotListener { (querySnapshot, error) in
+        if error != nil {
+            print("error getting msg")
+            return
+        }
+        for i in querySnapshot!.documentChanges {
+            if i.type == .added {
+                let title = i.document.get("Title") as? String ?? ""
+                let nContent = i.document.get("Content")as? String ?? ""
+                
+                let center = UNUserNotificationCenter.current()
+
+                    let addRequest = {
+                        let content = UNMutableNotificationContent()
+                        content.title = title
+                        content.subtitle = nContent
+                        content.sound = UNNotificationSound.default
+
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                        center.add(request)
+                    }
+                center.getNotificationSettings { settings in
+                    if settings.authorizationStatus == .authorized {
+                        addRequest()
+                    } else {
+                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                            if success {
+                                addRequest()
+                            } else {
+                                print("ERROR NOT Authorize notificatio C")
+                            }
+                        }
+                    }
+                }
+              
+                let success = true
+                DispatchQueue.main.async {
+                    print("inside getChatRoom in dispatch")
+                    db.collection("Courier").document(courierId).collection("Notification").document(i.document.documentID).delete { err in
+                        if err != nil {
+                            print("ERROR deleting Notification COURIER!!!!!!!!!!\n\n")
+                        }
+                    }
+                    completion(success)
+                }
+            }
+        }
+        
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Date extension to calculate time intervals
 extension Date {
