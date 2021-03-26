@@ -184,10 +184,10 @@ struct DetailedOrderOffer: View {
                                             Button(action: {
                                                 self.expand.toggle()
                                                 offer = i
-                                                offerList="\(i) SAR"
+                                                offerList="\(i) SR"
                                             })
                                             {
-                                                Text("\(i) SAR").padding(5)
+                                                Text("\(i) SR").padding(5)
                                             }
                                             .foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                             .frame(width: width(num:297), height: hieght(num:30))

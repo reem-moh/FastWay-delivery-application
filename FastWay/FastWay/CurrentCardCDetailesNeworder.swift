@@ -127,6 +127,7 @@ struct CurrentCardCDetailesNeworder: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
+                          
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
 
