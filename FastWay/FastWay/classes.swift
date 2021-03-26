@@ -1082,11 +1082,11 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
             let success = true
             DispatchQueue.main.async {
                 print("inside NOTIFICATION in dispatch")
-                /*db.collection("Member").document(memberId).collection("Notification").document(i.document.documentID).delete { err in
+                db.collection("Member").document(memberId).collection("Notification").document(i.document.documentID).delete { err in
                     if err != nil {
                         print("ERROR deleting Notification MEMBER!!!!!!!!!!\n\n")
                     }
-                }*/
+                }
                 completion(success)
             }
         }
@@ -1114,10 +1114,10 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                     let addRequest = {
                         let content = UNMutableNotificationContent()
                         content.title = title
-                        content.subtitle = nContent
+                        content.body = nContent
                         content.sound = UNNotificationSound.default
 
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
 
                         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                         print("\n\nin addRequest C\n\n")
@@ -1145,17 +1145,26 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
             let success = true
             DispatchQueue.main.async {
                 print("inside NOTIFICATION in dispatch")
-               /* db.collection("Courier").document(courierId).collection("Notification").document(i.document.documentID).delete { err in
+                db.collection("Courier").document(courierId).collection("Notification").document(i.document.documentID).delete { err in
                     if err != nil {
                         print("ERROR deleting Notification COURIER!!!!!!!!!!\n\n")
                     }
-                }*/
+                }
                 completion(success)
             }
         }
         
         
         
+    }
+}
+
+
+
+//for in-app notification
+class NotificationDelegate: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .banner, .sound])
     }
 }
 

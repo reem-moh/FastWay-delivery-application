@@ -12,6 +12,8 @@ struct HomeCourierView: View {
     
     
     @StateObject var viewRouter: ViewRouter
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     @State var show = false
     @State var imgName = "shoppingCart"
     var body: some View {
@@ -160,11 +162,17 @@ struct HomeCourierView: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack bar menu
             .onAppear() {
+                
+                //for the in app notification
+                //call it before get notification
+                UNUserNotificationCenter.current().delegate = delegate
+                
                 getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
                     print("after calling method get notification")
                     
                     guard success else { return }
                 }
+                
             }
             
         }//end ZStack
