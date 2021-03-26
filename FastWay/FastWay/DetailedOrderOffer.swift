@@ -98,6 +98,20 @@ struct DetailedOrderOffer: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y:hieght(num: 10))
                             Spacer(minLength: 0)
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: width(num:10), y: hieght(num:10))
+                                .padding(.leading)
+                            
+                            
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))
+                            Spacer(minLength: 0)
                         }
                         //pick up
                         ZStack{

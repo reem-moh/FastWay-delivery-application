@@ -306,7 +306,7 @@ struct CurrentCardCView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
 
-            //Time
+            //price
                 Image(uiImage: #imageLiteral(resourceName: "money"))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.leading)
