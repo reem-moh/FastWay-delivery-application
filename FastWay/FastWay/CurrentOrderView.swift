@@ -338,7 +338,11 @@ struct CurrentCardMView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 Spacer(minLength: 0)
-                
+                Spacer(minLength: 0)
+                Spacer(minLength: 0)
+                Spacer(minLength: 0)
+                Spacer(minLength: 0)
+
                 //price
                     Image(uiImage: #imageLiteral(resourceName: "money"))
                         .foregroundColor(Color.black.opacity(0.5))
@@ -557,7 +561,11 @@ struct CurrentCardMDetailes: View {
                             
                             
                             Spacer(minLength: 0)
-                            
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
                             //price
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
@@ -572,7 +580,6 @@ struct CurrentCardMDetailes: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
-                            Spacer(minLength: 0)
                         }
                         
                         
