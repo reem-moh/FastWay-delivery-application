@@ -338,6 +338,13 @@ struct CurrentCardCDetailesNeworder: View {
                             Spacer(minLength: 0)
                             Button(action: {
                                 showingPaymentAlert.toggle()
+                                model.order.cancelOrder(OrderId:  model.selectedCard.orderD.id)
+                                notificationT =  .CancelOffer
+                                canelOrder()
+                                model.notificationMSG = true
+                                model.showCard = false
+                                model.showContent = false
+                               
                             }) {
                                 Text("Cancel order")
                                     .font(.custom("Roboto Bold", size: fontSize(num:22)))
