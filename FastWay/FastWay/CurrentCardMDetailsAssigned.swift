@@ -41,7 +41,9 @@ struct CurrentCardMDetailsAssigned: View {
     @State private var changeState = false
     @State private var State = -1
     @State var liveS = ""
-
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
+    
     var body: some View{
 
         ZStack{
@@ -411,6 +413,13 @@ struct CurrentCardMDetailsAssigned: View {
                 }else {
                     CancelButtonShow = true
                 }
+            }
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
             }
 
         }

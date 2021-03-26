@@ -85,18 +85,21 @@ struct AboutUs: View {
             }.edgesIgnoringSafeArea(.all)//zstack bar menu
         }//ZStack
         .onAppear() {
-            
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
             if UserDefaults.standard.getUderType() == "C"{
-                //for the in app notification
-                //call it before get notification
-                UNUserNotificationCenter.current().delegate = delegate
                 getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
                     print("after calling method get notification")
                     guard success else { return }
                 }
+            }else if UserDefaults.standard.getUderType() == "M"{
+                getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                     print("after calling method get notification")
+                     guard success else { return }
+                 }
             }
-            
-            
+
         }
         
     }//body

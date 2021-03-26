@@ -17,7 +17,8 @@ struct CurrentOrderView: View {
     //for notification
     @State var show = false
     @State var imgName = "shoppingCart"
-    
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     
     var body: some View {
@@ -299,6 +300,15 @@ struct CurrentOrderView: View {
                 ChatView(viewRouter: viewRouter, model: model)
             }
         }//end ZStack
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     }
     
 }
@@ -309,6 +319,9 @@ struct CurrentCardMView: View {
     var card: Card
     var animation: Namespace.ID
     @State var stat = ""
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
+    
     var body: some View {
         
         //Card
@@ -425,6 +438,15 @@ struct CurrentCardMView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     }
 }
 
@@ -441,6 +463,8 @@ struct CurrentCardMDetailes: View {
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     var body: some View{
         
@@ -700,7 +724,13 @@ struct CurrentCardMDetailes: View {
                     CancelButtonShow = false
                 }
             }
-
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
         }
         
     }// end body
