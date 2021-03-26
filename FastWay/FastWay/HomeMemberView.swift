@@ -14,6 +14,8 @@ struct HomeMemberView: View {
     let abuotPage: Page = .AboutUs
     @State var show = false
     @State var imgName = "Tick"
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     var body: some View {
         ZStack{
             //Background
@@ -166,6 +168,14 @@ struct HomeMemberView: View {
                     
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
+        }.onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
         }
     
     }

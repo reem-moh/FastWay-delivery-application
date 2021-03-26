@@ -46,16 +46,15 @@ struct DROPOFFlocationView: View {
     @State var expandFloor = false
     @State var expand = false
     @State var buldingNum = 0
-    
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     var columns = Array(repeating: GridItem(.flexible()), count: 1)
     @State var text = ""
     
     
     var body: some View {
-        
-        
-        
+
         ZStack{
             
             
@@ -421,16 +420,16 @@ struct DROPOFFlocationView: View {
             
             
         }//END ZStack
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
+  
     }//END BODY
     
     

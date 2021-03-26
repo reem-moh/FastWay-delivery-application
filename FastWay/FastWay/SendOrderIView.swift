@@ -25,6 +25,8 @@ struct SendOrderIView: View {
     
     //Navg bar
     @StateObject var viewRouter: ViewRouter
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     
     var body: some View {
@@ -151,6 +153,15 @@ struct SendOrderIView: View {
                   })
             )
          }
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
        
            
     }
