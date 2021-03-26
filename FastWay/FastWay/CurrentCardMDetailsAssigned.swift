@@ -150,6 +150,9 @@ struct CurrentCardMDetailsAssigned: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                           
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
                                 .foregroundColor(Color.black.opacity(0.5))

@@ -127,6 +127,7 @@ struct CurrentCardCDetailesNeworder: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
+                          
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
 
@@ -400,6 +401,13 @@ struct CurrentCardCDetailesNeworder: View {
                     model.notificationMSG = true
                     model.showCard = false
                     model.showContent = false
+                    //send notification to member
+                    addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
+                        print("after calling method add notification (cancel order)")
+                        
+                        guard success else { return }
+                    }
+            
                    }) , secondaryButton: .cancel((Text("NO"))))
 
         }.alert(isPresented: $changeState) {

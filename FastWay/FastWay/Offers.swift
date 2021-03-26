@@ -198,7 +198,11 @@ struct OfferCard: View {
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             }.padding(.top, hieght(num: 7))
             
+
             HStack{
+                
+               
+                
                 Image("money")
                     .resizable()
                     .frame(width: width(num: 20), height: hieght(num: 20))
@@ -208,7 +212,11 @@ struct OfferCard: View {
                     .fontWeight(.regular)
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
+                
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+
+
+
             }.padding(.top, hieght(num: 15))
             
             HStack{

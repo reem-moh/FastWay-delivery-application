@@ -98,6 +98,10 @@ struct DetailedOrderOffer: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y:hieght(num: 10))
                             Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
                                 .foregroundColor(Color.black.opacity(0.5))
@@ -180,10 +184,10 @@ struct DetailedOrderOffer: View {
                                             Button(action: {
                                                 self.expand.toggle()
                                                 offer = i
-                                                offerList="\(i) SAR"
+                                                offerList="\(i) SR"
                                             })
                                             {
-                                                Text("\(i) SAR").padding(5)
+                                                Text("\(i) SR").padding(5)
                                             }
                                             .foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                             .frame(width: width(num:297), height: hieght(num:30))
@@ -208,6 +212,13 @@ struct DetailedOrderOffer: View {
                                 order.addOffer(OrderId: model.selectedCard.orderD.id, memberID: model.selectedCard.orderD.memberId, price: offer , locationLatiude: map.userLocation.coordinate.latitude,locationLongitude:map.userLocation.coordinate.longitude )
                                 
                                 model.makeAnOffer = model.selectedCard.orderD.id
+                                
+                                //send notification to member
+                                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "There is an offer for This order \(model.selectedCard.orderD.orderDetails.suffix(20))"){ success in
+                                    print("after calling method add notification (make an offer)")
+                                    
+                                    guard success else { return }
+                                }
                                 
                             }
                        }) {
