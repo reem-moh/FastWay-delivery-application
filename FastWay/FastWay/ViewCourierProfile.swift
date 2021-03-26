@@ -19,6 +19,8 @@ struct ViewCourierProfile: View {
     @State var reNewPassword = ""
     
     @StateObject var viewRouter: ViewRouter
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     
     var body: some View {
@@ -206,7 +208,16 @@ struct ViewCourierProfile: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
-        }//zstack
+        }//zstack.
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     } //body
     
     

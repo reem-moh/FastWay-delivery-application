@@ -33,6 +33,8 @@ struct CurrentCardCDetailesNeworder: View {
     @State private var changeState = false
     @State private var State = -1
     @State var liveS = ""
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
 
     var body: some View{
         
@@ -411,6 +413,15 @@ struct CurrentCardCDetailesNeworder: View {
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
         
     }// end body
     

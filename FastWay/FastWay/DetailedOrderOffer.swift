@@ -26,6 +26,8 @@ struct DetailedOrderOffer: View {
     @State var checkOffer : Bool = false
     @State var show = false
     @State var checkCourierLocation : Bool = false
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
 
     var body: some View{
         
@@ -214,6 +216,15 @@ struct DetailedOrderOffer: View {
             // }
             
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
         
     }
     

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AboutUs: View {
     @StateObject var viewRouter: ViewRouter
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     //let abuotPage: Page = .AboutUs
     var body: some View {
         ZStack{
@@ -82,6 +84,20 @@ struct AboutUs: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack bar menu
         }//ZStack
+        .onAppear() {
+            
+            if UserDefaults.standard.getUderType() == "C"{
+                //for the in app notification
+                //call it before get notification
+                UNUserNotificationCenter.current().delegate = delegate
+                getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                    print("after calling method get notification")
+                    guard success else { return }
+                }
+            }
+            
+            
+        }
         
     }//body
     

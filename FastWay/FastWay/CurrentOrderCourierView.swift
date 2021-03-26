@@ -18,7 +18,8 @@ struct CurrentOrderCourierView: View {
     //for notification
     @State var show = false
     @State var imgName = "shoppingCart"
-
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
 
     
     var body: some View {
@@ -266,6 +267,15 @@ struct CurrentOrderCourierView: View {
 
             
         }//end ZStack
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     }
     
 }

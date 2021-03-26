@@ -13,6 +13,8 @@ struct DeliverOrderView: View{
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CarouselViewModel
     @Namespace var animation
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     var body: some View {
         
@@ -196,6 +198,15 @@ struct DeliverOrderView: View{
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//end ZStack
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     }//end Body
     
 }
