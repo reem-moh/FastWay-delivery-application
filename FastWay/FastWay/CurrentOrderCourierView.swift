@@ -288,6 +288,9 @@ struct CurrentCardCView: View {
     //@State var StateACCEPT = false
     @State var StateWaiting = true
     @State var stat = ""
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
+    
     var body: some View {
         
         //Card
@@ -440,6 +443,15 @@ struct CurrentCardCView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
+        }
     }
 }
 
@@ -457,7 +469,8 @@ struct CurrentCardCDetailes: View {
     @State var expand = false
     @State private var showingPaymentAlert = false
     @State var stat = ""
-
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
     
     var body: some View{
         
@@ -610,13 +623,24 @@ struct CurrentCardCDetailes: View {
                     }
                 }.position(x: width(num:188),y: hieght(num:700))
             }
-        }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
+        }
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
                     notificationT =  .CancelOffer
                     canelOffer()
                     model.notificationMSG = true
                     model.showCard = false
                     model.showContent = false
             }) , secondaryButton: .cancel((Text("NO"))))
+        }
+        .onAppear(){
+            //for the in app notification
+            //call it before get notification
+            UNUserNotificationCenter.current().delegate = delegate
+            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                print("after calling method get notification")
+                guard success else { return }
+            }
         }
         
     }// end body
