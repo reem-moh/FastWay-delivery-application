@@ -903,7 +903,7 @@ class Order: ObservableObject{
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double, courierLocation: CLLocationCoordinate2D){
         db.collection("Order").document(orderID).setData([ "Status": status[3], "Assigned": "true", "CourierID": courierID, "DeliveryPrice": deliveryPrice, "courierLatitude": courierLocation.latitude, "courierLongitude": courierLocation.longitude], merge: true)
         
-        db.collection("Tracking").document().setData(["CourierID": courierID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude])
+        db.collection("Tracking").document(courierID).setData(["CourierID": courierID,"courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude], merge: true)
         
         db.collection("Offers").whereField("OrderID", isEqualTo: orderID).getDocuments() { (querySnapshot, err) in
             if let err = err {
