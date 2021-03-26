@@ -338,6 +338,22 @@ struct CurrentCardMView: View {
                     .foregroundColor(Color.black.opacity(0.5))
                     .animation(.easeIn)
                 Spacer(minLength: 0)
+                
+                //price
+                    Image(uiImage: #imageLiteral(resourceName: "money"))
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .padding(.leading)
+                        
+                    Text("\(model.orderPreview(c: card).deliveryPrice) SR")
+                        
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .animation(.easeIn)
+                    
+                    
+                    Spacer(minLength: 0)
+                
             }.padding(.top,hieght(num:15))
             //orderDetailes
             HStack {
@@ -538,6 +554,24 @@ struct CurrentCardMDetailes: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
+                            
+                            
+                            Spacer(minLength: 0)
+                            
+                            //price
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: width(num:10), y: hieght(num:10))
+                                .padding(.leading)
+                            
+                            
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                         }
                         
@@ -638,6 +672,7 @@ struct CurrentCardMDetailes: View {
                         //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         
                         /////
+                        /*
                         //order price:
                         ZStack(alignment: .top){
                             if model.selectedCard.orderD.status == order.status[3]{
@@ -658,6 +693,7 @@ struct CurrentCardMDetailes: View {
                         .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         ///
                         //////
+                         */
                         
                         HStack {
                             if CancelButtonShow {

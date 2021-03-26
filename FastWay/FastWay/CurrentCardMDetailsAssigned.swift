@@ -150,6 +150,20 @@ struct CurrentCardMDetailsAssigned: View {
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: width(num:10), y: hieght(num:10))
+                                .padding(.leading)
+                            
+                            
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))
+                            Spacer(minLength: 0)
                         }
                         //Status
                         ZStack{
@@ -295,6 +309,7 @@ struct CurrentCardMDetailsAssigned: View {
                         .shadow(radius: 1)
                         //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         //order price:
+                        /*
                         ZStack(alignment: .top){
                             if model.selectedCard.orderD.status == order.status[3]{
                                 Image(uiImage: #imageLiteral(resourceName: "money")).offset(x: width(num:-130), y: hieght(num: 4))
@@ -313,6 +328,8 @@ struct CurrentCardMDetailsAssigned: View {
                         .shadow(radius: 1)
                         .padding(.top, hieght(num: 10))
                         .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
+                        
+                        */
                         //CancelButton
                         HStack {
                             if CancelButtonShow {
