@@ -27,8 +27,6 @@ struct MapViewTracking : UIViewRepresentable {
 
 
     @State  var point3 = MKPointAnnotation()
-
-
     
     func makeUIView(context: Context) -> MKMapView {
         map.delegate = context.coordinator
@@ -37,11 +35,9 @@ struct MapViewTracking : UIViewRepresentable {
         let c = makeCoordinator()
         c.tap(pick: source, drop: destination)
         
-       // c.MapViewTracking(MapViewTracking: map, viewForAnnotation: )
         point3.subtitle = "Courier"
         point3.coordinate = riyadhCoordinatetracking
-    //   map.removeAnnotation(point3)
-       map.addAnnotation(point3)
+        map.addAnnotation(point3)
         
 
         return map
@@ -52,7 +48,6 @@ struct MapViewTracking : UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         point3.subtitle = "Courier"
         point3.coordinate = riyadhCoordinatetracking
-    //   map.removeAnnotation(point3)
        map.addAnnotation(point3)
         
         
@@ -76,14 +71,17 @@ struct MapViewTracking : UIViewRepresentable {
     print("ooooooooooooooooooooooooooooooooooooooo")
     print(riyadhCoordinatetracking.latitude)
     print(riyadhCoordinatetracking.longitude)
+        
         getCourierLocation(CourierID: CourierID)
 
         
         
                myTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true){ timer in
-                   map.removeAnnotation(point3)
-                   getCourierLocation(CourierID: CourierID)
-                   point3.coordinate = riyadhCoordinatetracking
+                UIView.animate(withDuration: 0.3) {
+                    map.removeAnnotation(point3)
+                    getCourierLocation(CourierID: CourierID)
+                    point3.coordinate = riyadhCoordinatetracking }
+                  
                    print("timer fired!")
                    map.addAnnotation(point3)
                   // timer.invalidate()
@@ -139,7 +137,7 @@ struct MapViewTracking : UIViewRepresentable {
             }
         }
         
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+       /* func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             //manager.update
             let location = locations.last
             let point = MKPointAnnotation()
@@ -163,105 +161,27 @@ struct MapViewTracking : UIViewRepresentable {
                 let region = MKCoordinateRegion(center: location!.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
                 self.parent.map.region = region
             }
+        }*/
+        
+       func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation as! NSObject == mapView.userLocation {
+            return nil
         }
-        
-        
-        ///////// ///////     custom annotation views
-        
-        func MapViewTracking(MapViewTracking: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-            if !(annotation is CustomPointAnnotation) {
-                //Check for CustomPointAnnotation (not MKPointAnnotation)
-                //because the code below assumes CustomPointAnnotation.
+            
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "TESTING NOTE")
+            if ( annotation.coordinate.latitude == riyadhCoordinatetracking.latitude && annotation.coordinate.longitude == riyadhCoordinatetracking.longitude ){
+                
+            annotationView.canShowCallout = true
+            annotationView.image = UIImage(named: "profileC")
+            let size = CGSize(width: 40, height: 40)
+            annotationView.image = UIGraphicsImageRenderer(size:size).image {
+                _ in annotationView.image!.draw(in:CGRect(origin:.zero, size:size))}
+        }
+            else{
                 return nil
             }
-            var _:Bool
-
-            let reuseId = "test"
-            var anView = MapViewTracking.dequeueReusableAnnotationView(withIdentifier: reuseId)
-            if anView == nil {
-                anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-                anView?.canShowCallout = true
-
-                //Create and add UILabel only when actually creating MKAnnotationView...
-                let nameLbl: UILabel! = UILabel(frame: CGRect(x: -24, y: 40, width: 100, height: 30))
-                nameLbl.tag = 42    //set tag on it so we can easily find it later
-                nameLbl.textColor = UIColor.black
-                nameLbl.font = UIFont(name: "Atari Classic Extrasmooth", size: 10)
-                nameLbl.textAlignment = NSTextAlignment.center
-                anView?.addSubview(nameLbl)
-            }
-            else {
-                anView?.annotation = annotation
-            }
-
-            let cpa = annotation as! CustomPointAnnotation
-            anView?.image = cpa.image
-
-            //NOTE: Setting selected property directly on MKAnnotationView
-            //      is not recommended.
-            //      See documentation for the property.
-            //      Instead, call MKMapView.selectAnnotation method
-            //      in the didAddAnnotationViews delegate method.
-            if cpa.toBeTriggered == true {
-                anView?.isSelected = true
-            }
-
-            //Get a reference to the UILabel already on the view
-            //and set its text...
-            if let nameLbl = anView?.viewWithTag(42) as? UILabel {
-                nameLbl.text = cpa.nickName
-            }
-
-            return anView
+                return annotationView
         }
-        
-        class CustomPointAnnotation: MKPointAnnotation {
-            var image: UIImage!
-            var toBeTriggered: Bool = false
-            var selected: Bool = false
-            var nickName: String!
-        }
-        
-        
     }
-    
-    
-  
-    //////////////////////////////////////////////////////////
-    
-    /*
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if let annotation = annotation as? Food {
-            if annotation == mapView.userLocation {
-                return nil
-            }
-            let identifier = "pin"
-            var view: MKAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            {
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            } else {
-                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 45, height: 45))
-                imageView.image = UIImage(named:"picture")
-                imageView.layer.cornerRadius = imageView.layer.frame.size.width / 2
-
-                imageView.layer.borderWidth = 1.5
-                imageView.layer.borderColor = UIColor(red: 230/255, green: 39/255, blue: 39/255, alpha: 1).cgColor
-                imageView.layer.masksToBounds = true
-                view.addSubview(imageView)
-
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x:  16, y: 16)
-                view.layer.anchorPoint = CGRect(origin: 16 , size: 16)
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-            }
-            return view
-        }
-        return nil
-    }
- */
-    
-    
 }
