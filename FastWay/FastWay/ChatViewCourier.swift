@@ -161,6 +161,9 @@ struct ChatViewCourier: View {
                                 
                         }
                         Spacer()
+                        Spacer()
+                        Spacer()
+                        Spacer()
                     }
                     .background(Image(uiImage: #imageLiteral(resourceName: "Rectangle 48")).resizable())
                     .position(x: width(num:UIScreen.main.bounds.width/2),y: hieght(num:700))
