@@ -443,15 +443,6 @@ struct CurrentCardCView: View {
                 }//end dispatch
             }//end with animation
         }//end on tap gesture
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }
-        }
     }
 }
 
@@ -632,15 +623,6 @@ struct CurrentCardCDetailes: View {
                     model.showCard = false
                     model.showContent = false
             }) , secondaryButton: .cancel((Text("NO"))))
-        }
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }
         }
         
     }// end body
