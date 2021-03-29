@@ -20,7 +20,9 @@ struct CurrentCardCDetailesNeworder: View {
     @State var time = ""
     @State var expandOffer = false
     @State var expand = false
-    @State private var showingPaymentAlert = false
+    @State private var showingAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     @State var stat = ""
     @State var oneDouble = 0.0
     @State var tDouble = 0.0
@@ -197,7 +199,9 @@ struct CurrentCardCDetailesNeworder: View {
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
-                                                changeState.toggle()
+                                                alertTitle = "Change State"
+                                                alertMessage = "Are you sure you want to change the state of this order?"
+                                                showingAlert.toggle()
                                             }
                                             print("model.order.liveStatus State = 4: \(model.order.liveStatus) row: \(row)")
                                         }else{
@@ -338,13 +342,10 @@ struct CurrentCardCDetailesNeworder: View {
                         HStack{
                             Spacer(minLength: 0)
                             Button(action: {
-                                showingPaymentAlert.toggle()
-                                model.order.cancelOrder(OrderId:  model.selectedCard.orderD.id)
-                                notificationT =  .CancelOffer
-                                canelOrder()
-                                model.notificationMSG = true
-                                model.showCard = false
-                                model.showContent = false
+                                alertTitle = "Order confirmed"
+                                alertMessage = "Are you sure you want cancel this order"
+                                showingAlert.toggle()
+                               
                                
                             }) {
                                 Text("Cancel order")
@@ -394,54 +395,41 @@ struct CurrentCardCDetailesNeworder: View {
                }.position(x: width(num:35), y: hieght(num:650))
             }
   
-       }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        .alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this order"), primaryButton: .default((Text("YES")), action: {
-                    notificationT =  .CancelOffer
-                    canelOrder()
-                    model.notificationMSG = true
-                    model.showCard = false
-                    model.showContent = false
-                    //send notification to member
-                    addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
-                        print("after calling method add notification (cancel order)")
-                        
+       }.edgesIgnoringSafeArea(.all)
+        .alert(isPresented: $showingAlert) {Alert(title: Text(alertTitle), message: Text(alertMessage), primaryButton: .default((Text("YES")), action: {
+            if alertTitle == "Order confirmed"{
+                model.order.cancelOrder(OrderId:  model.selectedCard.orderD.id)
+                notificationT =  .CancelOrder
+                model.notificationMSG = true
+                model.showCard = false
+                model.showContent = false
+                
+                //send notification to member
+                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
+                    print("after calling method add notification (cancel order)")
+                    
+                    guard success else { return }
+                }
+            }
+            else {
+                model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
+                    print("after calling method changeState in success")
+                    guard success else { return }
+                    model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
+                        print("after calling method getStatus in success")
+                        self.liveS = model.order.liveStatus
                         guard success else { return }
                     }
+                    self.liveS = model.order.liveStatus
+                }
+            }
+
             
                    }) , secondaryButton: .cancel((Text("NO"))))
 
-        }.alert(isPresented: $changeState) {
-            Alert(
-                title: Text("Change State"),
-                message: Text("Are you sure you want to change the state of this order?"),
-                primaryButton: .default((Text("Yes")), action: {
-                    model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
-                        print("after calling method changeState in success")
-                        guard success else { return }
-                        model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
-                            print("after calling method getStatus in success")
-                            self.liveS = model.order.liveStatus
-                            guard success else { return }
-                        }
-                        self.liveS = model.order.liveStatus
-                    }
-                }) ,
-                secondaryButton: .cancel((Text("No")))
-            )}//end alert
+        }
         
     }// end body
-    
-    func canelOrder(){
-        
-        model.cancelCardOrderId = model.selectedCard.orderD.id
-        model.order.cancelOffer(CourierID: model.selectedCard.orderD.courierId, OrderId: model.selectedCard.orderD.id, MemberID: model.selectedCard.orderD.memberId, Price: model.selectedCard.orderD.deliveryPrice)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            //withAnimation(.easeIn){
-            model.getCards()
-            //}//end with animation
-        }
-    }
-
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""
