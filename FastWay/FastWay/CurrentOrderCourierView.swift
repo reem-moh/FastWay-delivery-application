@@ -90,9 +90,13 @@ struct CurrentOrderCourierView: View {
                 }
             })
 
-            // Carousel....
+            // Carousel...
+            
             VStack{
                 Spacer()
+                if model.cards.count == 0 {
+                    Text("you do not have any current order yet")
+                }else{
                 ZStack{
                     GeometryReader{ geometry in
                         HStack {
@@ -118,6 +122,7 @@ struct CurrentOrderCourierView: View {
                         }
                     }
                 }.padding(.top,80)
+                }
                 Spacer()
             }.padding(.bottom,80)
             
