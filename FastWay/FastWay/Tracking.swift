@@ -77,10 +77,11 @@ struct MapViewTracking : UIViewRepresentable {
         
         
                myTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true){ timer in
-                UIView.animate(withDuration: 0.3) {
+               // UIView.animate(withDuration: 0.3) {
                     map.removeAnnotation(point3)
                     getCourierLocation(CourierID: CourierID)
-                    point3.coordinate = riyadhCoordinatetracking }
+                    point3.coordinate = riyadhCoordinatetracking
+                // }
                   
                    print("timer fired!")
                    map.addAnnotation(point3)
