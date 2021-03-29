@@ -146,10 +146,21 @@ struct ChatView : View {
                         Spacer()
                         Button(action: {
                             if(self.txt != ""){
+                                
+                                
                                 model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
+                                
+                                //send notification to member
+                                addNotificationCourier(courierId: model.selectedCard.orderD.courierId, title: "New Message ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has New Message from the courier"){ success in
+                                    print("after calling method add notification (New Message)")
+                                    
+                                    guard success else { return }
+                                }
+                                
                             }
                             self.txt = ""
-                            
+                         
+                          
                         }) {
                            
                             Image(systemName: "paperplane.circle.fill")
