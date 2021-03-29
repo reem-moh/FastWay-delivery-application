@@ -224,7 +224,9 @@ struct CurrentCardCDetailesNeworder: View {
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
-                                                changeState.toggle()
+                                                alertTitle = "Change State"
+                                                alertMessage = "Are you sure you want to change the state of this order?"
+                                                showingAlert.toggle()
                                             }
                                             print("model.order.liveStatus State = 5: \(model.order.liveStatus) row: \(row)")
                                         }else{
@@ -249,7 +251,9 @@ struct CurrentCardCDetailesNeworder: View {
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
-                                                changeState.toggle()
+                                                alertTitle = "Change State"
+                                                alertMessage = "Are you sure you want to change the state of this order?"
+                                                showingAlert.toggle()
                                             }
                                             print("model.order.liveStatus State = 6: \(model.order.liveStatus) row: \(row)")
                                         }else{
@@ -271,7 +275,9 @@ struct CurrentCardCDetailesNeworder: View {
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
-                                                changeState.toggle()
+                                                alertTitle = "Change State"
+                                                alertMessage = "Are you sure you want to change the state of this order?"
+                                                showingAlert.toggle()
                                             }
                                             print("model.order.liveStatus State = 7: \(model.order.liveStatus) row: \(row)")
                                         }else{
