@@ -428,7 +428,7 @@ struct CurrentCardCDetailesNeworder: View {
                     }
                     self.liveS = model.order.liveStatus
                 }
-                if(State == 7 ){
+                if(State == 6 ){
                     //send notification to member
                     addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order  arrived  ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has been arrived by the courier"){ success in
                         print("after calling method add notification (Order  arrived )")
