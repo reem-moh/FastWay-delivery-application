@@ -89,10 +89,10 @@ struct AboutUs: View {
             //call it before get notification
             UNUserNotificationCenter.current().delegate = delegate
             if UserDefaults.standard.getUderType() == "C"{
-                getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                /*getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
                     print("after calling method get notification")
                     guard success else { return }
-                }
+                }*/
             }else if UserDefaults.standard.getUderType() == "M"{
                 getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
                      print("after calling method get notification")

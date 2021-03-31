@@ -1234,6 +1234,7 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
                 let title = i.document.get("Title") as? String ?? ""
                 let nContent = i.document.get("Content")as? String ?? ""
                 print("\(nContent) notification M")
+                
                 let center = UNUserNotificationCenter.current()
 
                     let addRequest = {

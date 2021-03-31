@@ -148,7 +148,7 @@ struct Offers: View {
         .onAppear(){
             //for the in app notification
             //call it before get notification
-            UNUserNotificationCenter.current().delegate = delegate
+           // UNUserNotificationCenter.current().delegate = delegate
                 /*getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
                 print("after calling method get notification")
                 guard success else { return }

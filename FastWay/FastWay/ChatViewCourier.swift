@@ -149,11 +149,11 @@ struct ChatViewCourier: View {
                                 model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
                             
                                 //send notification to member
-                                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "New Message ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has New Message from the member"){ success in
+                                /*addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "New Message ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has New Message from the member"){ success in
                                     print("after calling method add notification (New Message)")
                                     
                                     guard success else { return }
-                                }
+                                }*/
                             }
                             self.txt = ""
                             
