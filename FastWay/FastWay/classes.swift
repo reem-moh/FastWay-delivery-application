@@ -408,7 +408,7 @@ class Order: ObservableObject{
                 
             })
             
-            for i in querySnapshot!.documentChanges {
+            /*for i in querySnapshot!.documentChanges {
                 print("inside for loop getStatus")
                 if i.type == .modified || i.type == .added{
                     let data = i.document
@@ -442,7 +442,7 @@ class Order: ObservableObject{
                     }
                     
                 }
-            }
+            }*/
         }
     }
     //add offer for specific order in Delivery request
@@ -467,11 +467,11 @@ class Order: ObservableObject{
         print(" CCCChhhhhhhhhhhhjhhjjkjkjkjkjkjkjjkjkjjkjkjjkjkjkjkjjkjkjkkj documents")
         self.CourierOrderOfferedAssign.removeAll()
         db.collection("Order").whereField("CourierID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-            guard (querySnapshot?.documents) != nil else {
+            guard let documents = querySnapshot?.documents else {
                 print("No order CCCChhhhhhhhhhhhjhhjjkjkjkjkjkjkjjkjkjjkjkjjkjkjkjkjjkjkjkkj documents")
                 return
             }
-            /*self.CourierOrderOfferedAssign = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+            self.CourierOrderOfferedAssign = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
@@ -502,9 +502,9 @@ class Order: ObservableObject{
                 
               
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-            })*/
+            })
             
-            for i in querySnapshot!.documentChanges {
+            /*for i in querySnapshot!.documentChanges {
                 print("inside for loop getStatus")
                 if i.type == .modified || i.type == .added{
                     let data = i.document
@@ -543,7 +543,7 @@ class Order: ObservableObject{
                     }
                     
                 }
-            }
+            }*/
         }
     }
     //retrieve all offers with specific courier id
@@ -590,11 +590,11 @@ class Order: ObservableObject{
     func getOrderForCourierCurrentOrder(completion: @escaping (_ success: Bool) -> Void) {
         db.collection("Order").whereField("Status", isEqualTo: status[2])
             .addSnapshotListener { (querySnapshot, error) in
-                guard (querySnapshot?.documents) != nil else {
+                guard let documents = querySnapshot?.documents else {
                     print("No order CCCC documents")
                     return
                 }
-                /*self.CourierOrderOfferedWaiting = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+                self.CourierOrderOfferedWaiting = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                     let data = queryDocumentSnapshot.data()
                     let orderId = queryDocumentSnapshot.documentID
                     
@@ -632,8 +632,8 @@ class Order: ObservableObject{
                     
                     let newOrder =  OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "" ,courierId: "" ,deliveryPrice: 0, isAdded: false, createdAt: Date(), status: "")
                     return newOrder
-                })*/
-                for i in querySnapshot!.documentChanges {
+                })
+                /*for i in querySnapshot!.documentChanges {
                     print("inside for loop getStatus")
                     if i.type == .modified || i.type == .added{
                         let data = i.document
@@ -678,7 +678,7 @@ class Order: ObservableObject{
                         }
                         
                     }
-                }
+                }*/
                 
                 let success = true
                 DispatchQueue.main.async {
@@ -713,7 +713,9 @@ class Order: ObservableObject{
                 print("order :\(offerId) + \(memberID) ")
                 return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: courierID), price: Price, courierLocation: courierLocation)
             })*/
+            self.offers.removeAll()
             for i in querySnapshot!.documentChanges {
+               
                 print("inside for loop getStatus")
                 if i.type == .added{
                     let data = i.document
@@ -961,11 +963,11 @@ class Order: ObservableObject{
     func getMemberOrder(Id: String){
         print("\n*******GetMemberOrder*********")
         db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
-            guard (querySnapshot?.documents) != nil else {
+            guard let documents = querySnapshot?.documents else {
                 print("No order documents")
                 return
             }
-            /*self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+            self.memberOrder = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 print(queryDocumentSnapshot.data())
                 let data = queryDocumentSnapshot.data()
                 let uid = queryDocumentSnapshot.documentID
@@ -1007,8 +1009,8 @@ class Order: ObservableObject{
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
               
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-            })*/
-            for i in querySnapshot!.documentChanges {
+            })
+            /*for i in querySnapshot!.documentChanges {
                 print("inside for loop getStatus")
                 if i.type == .modified || i.type == .added{
                     let data = i.document
@@ -1058,7 +1060,7 @@ class Order: ObservableObject{
                         self.memberOrder.append(orderChange)
                     }
                 }
-            }
+            }*/
             
         }
     }
