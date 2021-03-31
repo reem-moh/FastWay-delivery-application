@@ -283,6 +283,14 @@ struct SignUPView: View {
                                 UserDefaults.standard.setIsLoggedIn(value: true)
                                 UserDefaults.standard.setUserId(Id: id)
                                 UserDefaults.standard.setUserType(Type: "C")
+                                //call setToken
+                                DispatchQueue.main.async {
+                                    registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                                        print("in success registerTokenCourier")
+                                        
+                                        guard success else { return }
+                                    }
+                                }
                                 notificationT = .SignUp
                                 viewRouter.currentPage = .HomePageC
                             }else{
@@ -296,6 +304,14 @@ struct SignUPView: View {
                                     UserDefaults.standard.setIsLoggedIn(value: true)
                                     UserDefaults.standard.setUserId(Id: id)
                                     UserDefaults.standard.setUserType(Type: "M")
+                                    //call setToken
+                                    DispatchQueue.main.async {
+                                        registerTokenMember(memberId: UserDefaults.standard.getUderId()){ success in
+                                            print("in success registerTokenMember")
+                                            
+                                            guard success else { return }
+                                        }
+                                    }
                                     notificationT = .SignUp
                                     viewRouter.currentPage = .HomePageM
                                 }else{

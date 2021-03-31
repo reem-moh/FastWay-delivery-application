@@ -205,12 +205,27 @@ struct LoginView: View {
                             print("Member")
                             UserDefaults.standard.setUserType(Type: "M")
                             //call setToken
+                            DispatchQueue.main.async {
+                                registerTokenMember(memberId: UserDefaults.standard.getUderId()){ success in
+                                    print("in success registerTokenMember")
+                                    
+                                    guard success else { return }
+                                }
+                            }
+                            
                             notificationT = .LogIn
                             viewRouter.currentPage = .HomePageM
                         } else {
                             print("Courier")
                             UserDefaults.standard.setUserType(Type: "C")
                             //call setToken
+                            DispatchQueue.main.async {
+                                registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                                    print("in success registerTokenCourier")
+                                    
+                                    guard success else { return }
+                                }
+                            }
                             notificationT = .LogIn
                             viewRouter.currentPage = .HomePageC
                         }

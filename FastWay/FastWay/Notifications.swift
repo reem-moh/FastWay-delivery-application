@@ -24,7 +24,7 @@ let ReceiverFCMToken = "Physical_Phone_Receiver_FCMToken_String"
 // Firebase -> Project settings -> Cloud messaging -> Legacy server key
 let legacyServerKey = "AAAA6oq0MN0:APA91bGeP_sOn5foiNlseAZ1YDUef2OOA9g1kST7MHR3gxjM2wyhHhpvxOmm03vuMRebZN56C6KuYJP-7RhaPlQ0yGh1ZICJ2rQ03-NYAiUwR1BXA8X3H6_LOybm2_VPNqYGdQdmaHPb"
 
-struct ContentView: View {
+/*struct ContentView: View {
     @State private var fcmTokenMessage = "fcmTokenMessage"
     @State private var instanceIDTokenMessage = "instanceIDTokenMessage"
     
@@ -49,7 +49,7 @@ struct ContentView: View {
         }
     }
     
-    }
+    }*/
 
 func sendMessageTouser(to token: String, title: String, body: String) {
     print("sendMessageTouser()")
@@ -78,7 +78,7 @@ func sendMessageTouser(to token: String, title: String, body: String) {
     task.resume()
 }
 
-func handleLogTokenTouch(){
+/*func handleLogTokenTouch(){
     // [START log_fcm_reg_token]
     let token = Messaging.messaging().fcmToken
     print("FCM token: \(token ?? "")")
@@ -98,6 +98,88 @@ func handleLogTokenTouch(){
       }
     }
     // [END log_iid_reg_token]
+}*/
+
+func registerTokenMember(memberId: String, completion: @escaping (_ success: Bool) -> Void){ //index of status array
+    let token = Messaging.messaging().fcmToken
+    print("FCM token: \(token ?? "")")
+    
+    db.collection("Member").document(memberId).setData([ "Token": token ?? "" ], merge: true)
+    let success = true
+    DispatchQueue.main.async {
+        print("inside registerTokenMember in dispatch ")
+        completion(success)
+    }
+}
+
+func registerTokenCourier(courierId: String, completion: @escaping (_ success: Bool) -> Void){ //index of status array
+    let token = Messaging.messaging().fcmToken
+    print("FCM token: \(token ?? "")")
+    
+    db.collection("Courier").document(courierId).setData([ "Token": token ?? "" ], merge: true)
+    let success = true
+    DispatchQueue.main.async {
+        print("inside registerTokenCourier in dispatch ")
+        completion(success)
+    }
+}
+
+
+func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+    
+    var tokenM = ""
+    db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
+        guard let doc = querySnapshot else{
+            print("no member document")
+            return
+        }
+        guard let data = doc.data() else {
+            print("no member data")
+            return
+        }
+        //assign values from db to variables
+        tokenM = data["Token"] as? String ?? ""
+        
+        
+        
+    } //listener
+    let success = true
+    DispatchQueue.main.async {
+        print("tokenM \(tokenM)")
+        print("inside registerTokenMember in dispatch ")
+        completion(success)
+    }
+    
+    return tokenM
+}
+
+
+func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+    
+    var tokenC = ""
+    db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
+        guard let doc = querySnapshot else{
+            print("no courier document")
+            return
+        }
+        guard let data = doc.data() else {
+            print("no courier data")
+            return
+        }
+        //assign values from db to variables
+        tokenC = data["Token"] as? String ?? ""
+        
+        
+        
+    } //listener
+    let success = true
+    DispatchQueue.main.async {
+        print("tokenC \(tokenC)")
+        print("inside registerTokenMember in dispatch ")
+        completion(success)
+    }
+    
+    return tokenC
 }
 
 
