@@ -110,8 +110,8 @@
             filePath = "FastWay/classes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "850"
-            endingLineNumber = "850"
+            startingLineNumber = "845"
+            endingLineNumber = "845"
             landmarkName = "sendChatRoom(orderId:sender_msg:)"
             landmarkType = "7">
          </BreakpointContent>

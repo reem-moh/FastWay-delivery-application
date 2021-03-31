@@ -504,9 +504,9 @@ class Order: ObservableObject{
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
-            /*for i in querySnapshot!.documentChanges {
-                print("inside for loop getStatus")
-                if i.type == .modified || i.type == .added{
+            for i in querySnapshot!.documentChanges {
+                print("inside for loop getCourierOrderAssign")
+                if i.type == .modified{
                     let data = i.document
                     let orderId = i.document.documentID
                     //pickUp location
@@ -535,15 +535,13 @@ class Order: ObservableObject{
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
 
                     let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    if i.type == .modified{
-                        let index = self.CourierOrderOfferedAssign.firstIndex{$0.id == OrderChanges.id}
-                        self.CourierOrderOfferedAssign[index ?? 0] = OrderChanges
-                    }else{
-                        self.CourierOrderOfferedAssign.append(OrderChanges)
-                    }
+                   
+                    let index = self.CourierOrderOfferedAssign.firstIndex{$0.id == OrderChanges.id}
+                    self.CourierOrderOfferedAssign[index ?? 0] = OrderChanges
+                    
                     
                 }
-            }*/
+            }
         }
     }
     //retrieve all offers with specific courier id
@@ -633,9 +631,9 @@ class Order: ObservableObject{
                     let newOrder =  OrderDetails(id: "", pickUP: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "" ,courierId: "" ,deliveryPrice: 0, isAdded: false, createdAt: Date(), status: "")
                     return newOrder
                 })
-                /*for i in querySnapshot!.documentChanges {
+                for i in querySnapshot!.documentChanges {
                     print("inside for loop getStatus")
-                    if i.type == .modified || i.type == .added{
+                    if i.type == .modified{
                         let data = i.document
                         let orderId = i.document.documentID
                         
@@ -670,16 +668,13 @@ class Order: ObservableObject{
 
                         let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId ,deliveryPrice: price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                         
-                        if i.type == .modified{
-                            let index = self.CourierOrderOfferedWaiting.firstIndex{$0.id == OrderChanges.id}
-                            self.CourierOrderOfferedWaiting[index ?? 0] = OrderChanges
-                        }else {
-                            self.CourierOrderOfferedWaiting.append(OrderChanges)
-                        }
+                  
+                        let index = self.CourierOrderOfferedWaiting.firstIndex{$0.id == OrderChanges.id}
+                        self.CourierOrderOfferedWaiting[index ?? 0] = OrderChanges
+                        
                         
                     }
-                }*/
-                
+                }
                 let success = true
                 DispatchQueue.main.async {
                     print("inside getOrderForCourierCurrentOrder in dispatch")
@@ -1010,9 +1005,9 @@ class Order: ObservableObject{
               
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
-            /*for i in querySnapshot!.documentChanges {
+            for i in querySnapshot!.documentChanges {
                 print("inside for loop getStatus")
-                if i.type == .modified || i.type == .added{
+                if i.type == .modified {
                     let data = i.document
                     let uid = i.document.documentID
                     //pickUp location
@@ -1053,14 +1048,12 @@ class Order: ObservableObject{
                     let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
                   
                     let orderChange =  OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    if i.type == .modified{
-                        let index = self.memberOrder.firstIndex{$0.id == orderChange.id}
-                        self.memberOrder[index ?? 0] = orderChange
-                    }else{
-                        self.memberOrder.append(orderChange)
-                    }
+           
+                    let index = self.memberOrder.firstIndex{$0.id == orderChange.id}
+                    self.memberOrder[index ?? 0] = orderChange
+                    
                 }
-            }*/
+            }
             
         }
     }
