@@ -825,7 +825,42 @@ class Order: ObservableObject{
         
     }
     
-    
+    //get status for order //
+    func getStatusNotAssigned(memberId: String, order: String, completion: @escaping (_ success: Bool) -> Void) {
+        
+        
+        db.collection("Order").whereField("MemberID", isEqualTo: memberId).whereField("orderDetails", isEqualTo: order).addSnapshotListener { (querySnapshot, error) in
+            if error != nil {
+                print("error getting status")
+                return
+            }
+            var h = 0
+            print("\n\nstatus doc count \(querySnapshot!.documents.count)") //should be 1
+            for doc in querySnapshot!.documents{
+                let data = doc.data()
+                self.liveStatus = data["Status"] as? String ?? ""
+                print("\n\nLive status \(self.liveStatus) \(h)")
+                h = h+1
+            }
+            var j = 0
+            for i in querySnapshot!.documentChanges {
+                print("inside for loop getStatus")
+                if i.type == .modified{
+                    self.liveStatus = i.document.get("Status") as? String ?? ""
+                    print("\n\nLive status \(self.liveStatus) \(j)")
+                    j = j+1
+                }
+            }
+            
+            let success = true
+            DispatchQueue.main.async {
+                print("inside getStatus in dispatch")
+                completion(success)
+            }
+            
+        }
+        
+    }
     
     
     

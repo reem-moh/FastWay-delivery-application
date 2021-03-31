@@ -435,12 +435,14 @@ struct CurrentCardMView: View {
             .foregroundColor(Color.gray.opacity(0.9))
             .padding(20)
             .onAppear(){
-                model.getCards()
-                self.stat = model.orderPreview(c: card).status
+                model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
+                    print("Live status for cards")
+                }
+                self.stat = model.order.liveStatus
             }
-            .onChange(of: model.orderPreview(c: card).status) { value in
-                model.getCards()
+            .onChange(of: model.order.liveStatus) { value in
                 self.stat = value
+                model.getCards()
                 
             }
             
