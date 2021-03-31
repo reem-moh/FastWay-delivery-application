@@ -153,6 +153,10 @@ struct CurrentOrderView: View {
             // Carousel....
             VStack{
                 Spacer()
+                if model.cards.isEmpty{
+                    Text("there are no current order")
+                }
+                else{
                 ZStack{
                     GeometryReader{ geometry in
                         HStack {
@@ -178,6 +182,7 @@ struct CurrentOrderView: View {
                         }
                     }
                 }.padding(.top,hieght(num:80))
+                }
                 Spacer()
             }
             .padding(.bottom,hieght(num:80))
