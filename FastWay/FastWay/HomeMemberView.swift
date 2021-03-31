@@ -161,7 +161,8 @@ struct HomeMemberView: View {
                             }.offset(y:hieght(num: -geometry.size.height/8/2))
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
                         }
-                        .frame(width: width(num:geometry.size.width), height: hieght(num:geometry.size.height/8))
+                        .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        //.frame(width: width(num:geometry.size.width), height: hieght(num:geometry.size.height/8))
                         .background(Color("TabBarBackground").shadow(radius: 2))
                     }
                     // }
@@ -171,11 +172,11 @@ struct HomeMemberView: View {
         }.onAppear(){
             //for the in app notification
             //call it before get notification
-            UNUserNotificationCenter.current().delegate = delegate
+           /* UNUserNotificationCenter.current().delegate = delegate
            getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
                 print("after calling method get notification")
                 guard success else { return }
-            }
+            }*/
         }
     
     }
