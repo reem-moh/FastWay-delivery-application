@@ -85,7 +85,7 @@ struct MapViewTracking : UIViewRepresentable {
                     point3.coordinate = riyadhCoordinatetracking
                 // }
                   
-                   print("timer fired!")
+                   //print("timer fired!")
                    map.addAnnotation(point3)
                   // timer.invalidate()
               }

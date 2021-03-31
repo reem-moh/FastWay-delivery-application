@@ -245,6 +245,10 @@ struct AddNewOrderView: View {
                         }
                         
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                    .onTapGesture {
+                        self.expand.toggle()
+                        self.expandFloor = false
+                    }
                     
                     
                     
@@ -331,6 +335,10 @@ struct AddNewOrderView: View {
                             }.offset(x: width(num: -10), y: hieght(num: 10.0))
                         }
                     }.padding().background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).colorMultiply(.init(#colorLiteral(red: 0.9654662013, green: 0.9606762528, blue: 0.9605932832, alpha: 1)))
+                    .onTapGesture {
+                        self.expandFloor.toggle()
+                        self.expand = false
+                    }
                     
                     
                 }//END Floor
