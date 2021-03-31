@@ -175,7 +175,7 @@ struct MapViewTracking : UIViewRepresentable {
                 
             annotationView.canShowCallout = true
             annotationView.image = UIImage(named: "profileC")
-            let size = CGSize(width: 40, height: 40)
+            let size = CGSize(width: 25, height: 25)
             annotationView.image = UIGraphicsImageRenderer(size:size).image {
                 _ in annotationView.image!.draw(in:CGRect(origin:.zero, size:size))}
         }
