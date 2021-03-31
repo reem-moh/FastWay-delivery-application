@@ -410,9 +410,9 @@ struct CurrentCardCDetailesNeworder: View {
                 model.showCard = false
                 model.showContent = false
                 //send notification to member
-                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
+                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
                     print("after calling method add notification (cancel order)")
-                    viewRouter.currentPage = .HomePageC
+                    //viewRouter.currentPage = .HomePageC
 
                     guard success else { return }
                 }
