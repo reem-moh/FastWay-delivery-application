@@ -184,7 +184,7 @@ struct HomeMemberView: View {
             
             
             
-            sendMessageTouser(to: getMemberToken(memberId: <#T##String#>){ success in
+            sendMessageTouser(to: getMemberToken(memberId: UserDefaults.standard.getUderId()){ success in
                 print("After getMemberToken in send")
                 guard success else { return }
             }, title: "Test N", body: "Test notitification")
