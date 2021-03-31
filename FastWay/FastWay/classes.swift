@@ -1194,7 +1194,7 @@ func addNotificationMember (memberId: String, title: String, content: String, co
             }
         let success = true
         DispatchQueue.main.async {
-            print("inside NOTIFICATION in dispatch")
+            print("inside NOTIFICATION M in dispatch")
             completion(success)
         }
         }
@@ -1209,11 +1209,11 @@ func addNotificationCourier (courierId: String, title: String, content: String, 
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
-                print("\n\nNOTIFICATION successfully written!\n\n")
+                print("\n\nNOTIFICATION C successfully written!\n\n")
             }
         let success = true
         DispatchQueue.main.async {
-            print("inside NOTIFICATION in dispatch")
+            print("inside NOTIFICATION C in dispatch")
             completion(success)
         }
         }

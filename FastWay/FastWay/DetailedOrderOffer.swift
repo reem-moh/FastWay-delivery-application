@@ -215,7 +215,7 @@ struct DetailedOrderOffer: View {
                                 model.makeAnOffer = model.selectedCard.orderD.id
                                 
                                 //send notification to member
-                                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "There is an offer for This order \(model.selectedCard.orderD.orderDetails.suffix(20))"){ success in
+                                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "There is a new offer for This order \(model.selectedCard.orderD.orderDetails.suffix(20))"){ success in
                                     print("after calling method add notification (make an offer)")
                                     
                                     guard success else { return }
