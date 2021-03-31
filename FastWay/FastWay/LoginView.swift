@@ -204,11 +204,13 @@ struct LoginView: View {
                         if let document = document, document.exists {
                             print("Member")
                             UserDefaults.standard.setUserType(Type: "M")
+                            //call setToken
                             notificationT = .LogIn
                             viewRouter.currentPage = .HomePageM
                         } else {
                             print("Courier")
                             UserDefaults.standard.setUserType(Type: "C")
+                            //call setToken
                             notificationT = .LogIn
                             viewRouter.currentPage = .HomePageC
                         }
