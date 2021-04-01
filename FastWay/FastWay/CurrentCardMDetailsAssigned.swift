@@ -311,6 +311,7 @@ struct CurrentCardMDetailsAssigned: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
+                        .padding(.bottom,hieght(num:CancelButtonShow ? 4 : 450))
                         //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         //order price:
                         /*
