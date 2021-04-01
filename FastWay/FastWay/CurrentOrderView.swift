@@ -444,6 +444,7 @@ struct CurrentCardMView: View {
             }
             .onChange(of: model.orderPreview(c: card).status) { value in
                 model.getCards()
+                self.stat = model.orderPreview(c: card).status
                 
             }
             
