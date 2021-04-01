@@ -127,20 +127,23 @@ func registerTokenCourier(courierId: String, completion: @escaping (_ success: B
 
 
 
-
+struct n : Identifiable {
+    var id = ""
+    var token = ""
+}
 
 
 
 
 class Not : ObservableObject{
-    @Published var tokenM = ""
-    @Published var tokenC = ""
+    @Published var tokenM = n()
+    @Published var tokenC = n()
     
     
     init() {
         //
     }
-    func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+    func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
         
         //var tokenM = ""
         db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
@@ -153,26 +156,26 @@ class Not : ObservableObject{
                 return
             }
             //assign values from db to variables
-            self.tokenM = data["Token"] as? String ?? ""
-            
+            let tM = data["Token"] as? String ?? ""
+            self.tokenM = n(token: tM)
             
             
         } //listener
         let success = true
         DispatchQueue.main.async {
-            print("tokenM \(self.tokenM)")
+            print("tokenM \(self.tokenM.token)")
             print("inside registerTokenMember in dispatch ")
             completion(success)
         }
         
-        return self.tokenM
+        
     }
     
     
     
     
     
-    func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+    func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) {
         
         //var tokenC = ""
         db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
@@ -185,20 +188,19 @@ class Not : ObservableObject{
                 return
             }
             //assign values from db to variables
-            self.tokenC = data["Token"] as? String ?? ""
-            
+            let tC = data["Token"] as? String ?? ""
+            self.tokenC = n(token: tC)
             
             
         } //listener
         let success = true
         DispatchQueue.main.async {
-            print("tokenC \(self.tokenC)")
+            print("tokenC \(self.tokenC.token)")
             print("inside registerTokenMember in dispatch ")
             completion(success)
         }
         
-        return self.tokenC
-    }
+            }
 
 }
 

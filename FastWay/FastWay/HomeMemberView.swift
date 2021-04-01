@@ -183,11 +183,11 @@ struct HomeMemberView: View {
             
             
             
-            
-            sendMessageTouser(to: notify.getMemberToken(memberId: UserDefaults.standard.getUderId()){ success in
+            notify.getMemberToken(memberId: UserDefaults.standard.getUderId()){ success in
                 print("After getMemberToken in send")
                 guard success else { return }
-            }, title: "Test N", body: "Test notitification")
+            }
+            sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "Test N", body: "Test notitification")
         }
     
     }
