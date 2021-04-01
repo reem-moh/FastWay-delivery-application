@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 
 struct DetailedOrderOffer: View {
+    @ObservedObject var notify = Not()
     @EnvironmentObject var model: CarouselViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -220,6 +221,12 @@ struct DetailedOrderOffer: View {
                                     
                                     guard success else { return }
                                 }*/
+                                notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
+                                    print("After getMemberToken in send")
+                                    guard success else { return }
+                                }
+                                //change token
+                                sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
                                 
                             }
                        }) {

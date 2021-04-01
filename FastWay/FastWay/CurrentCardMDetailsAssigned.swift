@@ -12,6 +12,7 @@ import CoreLocation
 //Current card M details assigned
 
 struct CurrentCardMDetailsAssigned: View {
+    @ObservedObject var notify = Not()
     @EnvironmentObject var model : CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -417,6 +418,12 @@ struct CurrentCardMDetailsAssigned: View {
                         
                         guard success else { return }
                     }*/
+                    notify.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
+                        print("After getMemberToken in send")
+                        guard success else { return }
+                    }
+                    //change token
+                    sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

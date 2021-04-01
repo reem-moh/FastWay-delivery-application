@@ -178,16 +178,6 @@ struct HomeMemberView: View {
                 guard success else { return }
             }*/
             
-            
-            
-            
-            
-            
-            notify.getMemberToken(memberId: UserDefaults.standard.getUderId()){ success in
-                print("After getMemberToken in send")
-                guard success else { return }
-            }
-            sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "Test N", body: "Test notitification")
         }
     
     }

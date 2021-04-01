@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 
 struct ChatView : View {
-    
+    @ObservedObject var notify = Not()
     @StateObject var viewRouter: ViewRouter
     @StateObject var model: CurrentCarouselMViewModel
     @Namespace var animation
@@ -156,6 +156,12 @@ struct ChatView : View {
                                     
                                     guard success else { return }
                                 }*/
+                                notify.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
+                                    print("After getMemberToken in send")
+                                    guard success else { return }
+                                }
+                                //change token
+                                sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "New Message", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new message from the member")
                                 
                             }
                             self.txt = ""

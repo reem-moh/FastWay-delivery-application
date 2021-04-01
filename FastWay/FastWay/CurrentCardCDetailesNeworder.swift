@@ -10,6 +10,7 @@ import MapKit
 //courierrrrr
 //Current card c details New order
 struct CurrentCardCDetailesNeworder: View {
+    @ObservedObject var notify = Not()
     @EnvironmentObject var model : CurrentCarouselCViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -410,12 +411,18 @@ struct CurrentCardCDetailesNeworder: View {
                 model.showCard = false
                 model.showContent = false
                 //send notification to member
-                addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
+                /*addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
                     print("after calling method add notification (cancel order)")
                     //viewRouter.currentPage = .HomePageC
 
                     guard success else { return }
+                }*/
+                notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
+                    print("After getMemberToken in send")
+                    guard success else { return }
                 }
+                //change token
+                sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
             }
             else {
                 model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
