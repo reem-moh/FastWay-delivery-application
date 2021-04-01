@@ -1042,7 +1042,7 @@ class Order: ObservableObject{
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             //self.memberOrder.removeAll()
-            for i in querySnapshot!.documentChanges {
+            /*for i in querySnapshot!.documentChanges {
                 print("inside for loop getStatus getMemberOrder")
                 if i.type == .modified{
                     let data = i.document
@@ -1148,7 +1148,7 @@ class Order: ObservableObject{
                         }
                 }*/
                 
-            }
+            }*/
             
         }
     }
