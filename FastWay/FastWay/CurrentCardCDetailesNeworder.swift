@@ -417,12 +417,13 @@ struct CurrentCardCDetailesNeworder: View {
 
                     guard success else { return }
                 }*/
+                
                 notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
                     print("After getMemberToken in send")
                     guard success else { return }
                 }
                 //change token
-                sendMessageTouser(to: "cohsf8P_gEqwvXW-2vdxmw:APA91bHiigm11qhfRlwD_tivPG8f_LYdqHC0lcywb4E8qGoWJDhJIaFt_yNCcNQ4GcQqevSlvKokn2YeUMc_oRISLf8eZeyUYDuPsrOnc1faMV6dqDqxwDvez1_bHSFitC3aNuG5675v", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
+                sendMessageTouser(to: "dJ_F6qMpekFKm5wdR_TE3f:APA91bH36PkPOTZazaJSBNNl7TxpwnEfriFiat-Y_e4RqXgz7yrqIoioKXclg4heVORBg5i-JQgr6h_aKhotX-SVKIUwL9kmOuzKq09Tvt1KnweVQJIJmPTKmXGbeGzIuYU3dMaS9k-b", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
             }
             else {
                 model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
@@ -442,6 +443,12 @@ struct CurrentCardCDetailesNeworder: View {
                         
                         guard success else { return }
                     }*/
+                    notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
+                        print("After getMemberToken in send")
+                        guard success else { return }
+                    }
+                    //change token
+                    sendMessageTouser(to: "dJ_F6qMpekFKm5wdR_TE3f:APA91bH36PkPOTZazaJSBNNl7TxpwnEfriFiat-Y_e4RqXgz7yrqIoioKXclg4heVORBg5i-JQgr6h_aKhotX-SVKIUwL9kmOuzKq09Tvt1KnweVQJIJmPTKmXGbeGzIuYU3dMaS9k-b", title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
                 }
             }
 
