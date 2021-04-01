@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,8 @@
 		589C42D625C9956E009D6B45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D525C9956E009D6B45 /* LoginView.swift */; };
 		589C42DA25C9B2B6009D6B45 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42D925C9B2B6009D6B45 /* RadioButton.swift */; };
 		589C42FC25CBA651009D6B45 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589C42FB25CBA651009D6B45 /* classes.swift */; };
+		58B0D34E261556290097EE8E /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
+		58B0D34F261556290097EE8E /* Pods_FastWay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		58B5F55225D9726B00D4C099 /* Maps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55125D9726B00D4C099 /* Maps.swift */; };
 		58B5F55925D9859500D4C099 /* EntireMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55825D9859500D4C099 /* EntireMapView.swift */; };
 		58B5F55C25DBF55200D4C099 /* DetailedOrderOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */; };
@@ -46,8 +48,21 @@
 		C2C26EB225CABEA500505716 /* HomeCourierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C26EB125CABEA500505716 /* HomeCourierView.swift */; };
 		C2E20EF525EABFD2009CAE56 /* Offers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E20EF425EABFD2009CAE56 /* Offers.swift */; };
 		C2FBE49725CCBC0700899B3F /* HomeMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FBE49625CCBC0700899B3F /* HomeMemberView.swift */; };
-		F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A521735E255EEE842E224EDC /* Pods_FastWay.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B0D350261556290097EE8E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				58B0D34F261556290097EE8E /* Pods_FastWay.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		15875B8F26052A95001ABBC2 /* Newtracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newtracking.swift; sourceTree = "<group>"; };
@@ -71,6 +86,7 @@
 		589C42D525C9956E009D6B45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		589C42D925C9B2B6009D6B45 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		589C42FB25CBA651009D6B45 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
+		58B0D343261549880097EE8E /* FirebaseMessaging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseMessaging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B5F55125D9726B00D4C099 /* Maps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maps.swift; sourceTree = "<group>"; };
 		58B5F55825D9859500D4C099 /* EntireMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntireMapView.swift; sourceTree = "<group>"; };
 		58B5F55B25DBF55200D4C099 /* DetailedOrderOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedOrderOffer.swift; sourceTree = "<group>"; };
@@ -101,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9C18FBA199551DEF8E04400 /* Pods_FastWay.framework in Frameworks */,
+				58B0D34E261556290097EE8E /* Pods_FastWay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +127,7 @@
 		0AE68516249F89B3C6E87DD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				58B0D343261549880097EE8E /* FirebaseMessaging.framework */,
 				A521735E255EEE842E224EDC /* Pods_FastWay.framework */,
 			);
 			name = Frameworks;
@@ -210,12 +227,15 @@
 				589433E525C8F61F00E19E18 /* Frameworks */,
 				589433E625C8F61F00E19E18 /* Resources */,
 				9C6FDEE1ED945E62C709343E /* [CP] Embed Pods Frameworks */,
+				58B0D350261556290097EE8E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = FastWay;
+			packageProductDependencies = (
+			);
 			productName = FastWay;
 			productReference = 589433E825C8F61F00E19E18 /* FastWay.app */;
 			productType = "com.apple.product-type.application";
@@ -243,6 +263,9 @@
 				Base,
 			);
 			mainGroup = 589433DF25C8F61F00E19E18;
+			packageReferences = (
+				58B0D34926154EE40097EE8E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 589433E925C8F61F00E19E18 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -544,6 +567,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		58B0D34926154EE40097EE8E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 589433E025C8F61F00E19E18 /* Project object */;
 }

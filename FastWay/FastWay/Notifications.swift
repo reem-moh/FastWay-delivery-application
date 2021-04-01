@@ -125,66 +125,82 @@ func registerTokenCourier(courierId: String, completion: @escaping (_ success: B
 }
 
 
-func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+
+
+
+
+
+
+
+class Not : ObservableObject{
+    @Published var tokenM = ""
+    @Published var tokenC = ""
     
-    var tokenM = ""
-    db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
-        guard let doc = querySnapshot else{
-            print("no member document")
-            return
+    
+    init() {
+        //
+    }
+    func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+        
+        //var tokenM = ""
+        db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                print("no member document")
+                return
+            }
+            guard let data = doc.data() else {
+                print("no member data")
+                return
+            }
+            //assign values from db to variables
+            self.tokenM = data["Token"] as? String ?? ""
+            
+            
+            
+        } //listener
+        let success = true
+        DispatchQueue.main.async {
+            print("tokenM \(self.tokenM)")
+            print("inside registerTokenMember in dispatch ")
+            completion(success)
         }
-        guard let data = doc.data() else {
-            print("no member data")
-            return
-        }
-        //assign values from db to variables
-        tokenM = data["Token"] as? String ?? ""
         
-        
-        
-    } //listener
-    let success = true
-    DispatchQueue.main.async {
-        print("tokenM \(tokenM)")
-        print("inside registerTokenMember in dispatch ")
-        completion(success)
+        return self.tokenM
     }
     
-    return tokenM
-}
-
-
-func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
     
-    var tokenC = ""
-    db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
-        guard let doc = querySnapshot else{
-            print("no courier document")
-            return
+    
+    
+    
+    func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) -> String {
+        
+        //var tokenC = ""
+        db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                print("no courier document")
+                return
+            }
+            guard let data = doc.data() else {
+                print("no courier data")
+                return
+            }
+            //assign values from db to variables
+            self.tokenC = data["Token"] as? String ?? ""
+            
+            
+            
+        } //listener
+        let success = true
+        DispatchQueue.main.async {
+            print("tokenC \(self.tokenC)")
+            print("inside registerTokenMember in dispatch ")
+            completion(success)
         }
-        guard let data = doc.data() else {
-            print("no courier data")
-            return
-        }
-        //assign values from db to variables
-        tokenC = data["Token"] as? String ?? ""
         
-        
-        
-    } //listener
-    let success = true
-    DispatchQueue.main.async {
-        print("tokenC \(tokenC)")
-        print("inside registerTokenMember in dispatch ")
-        completion(success)
+        return self.tokenC
     }
-    
-    return tokenC
+
 }
-
-
-
-
 
 
 
