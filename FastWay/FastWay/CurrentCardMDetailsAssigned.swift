@@ -438,7 +438,7 @@ struct CurrentCardMDetailsAssigned: View {
                     self.CancelButtonShow.toggle()
                     CancelButtonShow = true
                 }else {
-                    CancelButtonShow = true
+                    CancelButtonShow = false
                 }
             }
             /*
