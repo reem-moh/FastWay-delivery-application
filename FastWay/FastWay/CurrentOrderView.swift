@@ -208,6 +208,7 @@ struct CurrentOrderView: View {
             }
             //Press deliver details
             if model.showOffers {
+                
                 Offers(viewRouter: viewRouter, CurrentOrdersModel: model, orderID: model.selectedCard.orderD.id, status: model.selectedCard.orderD.status,pickupLocation: model.selectedCard.orderD.pickUP, Offers: model.order.offers).environmentObject(OfferModel)
             }
             
@@ -598,14 +599,16 @@ struct CurrentCardMDetailes: View {
                             .padding(20)
                             .onTapGesture {
                                withAnimation(.spring()){
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                 model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
                                     print("inside getOrderForCourierCurrentOrder success")
                                     guard success else { return }
                                     model.getCards()
                                 }
+                                }
                             
                                 
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     withAnimation(.easeIn){
                                      model.showOffers = true
                                     }//end with animation

@@ -476,7 +476,7 @@ class Order: ObservableObject{
         print("\n*******addOffer*********")
         let CourierId = UserDefaults.standard.getUderId()
         //change the state of order to have an offer
-        db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true){ err in
+        db.collection("Order").document(OrderId).setData([ "Status": "have an offer"], merge: true){ err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
