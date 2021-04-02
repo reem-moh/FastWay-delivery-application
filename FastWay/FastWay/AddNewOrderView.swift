@@ -195,11 +195,14 @@ struct AddNewOrderView: View {
                             }){
                                 TextField("Search Building here", text: $text).font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(.black).multilineTextAlignment(.leading).frame(width:width(num: 295) , height:hieght(num: 6))
                             }
-                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width:width(num: 13) , height: hieght(num: 6))
-                        }.onTapGesture {
+                            Image(systemName: expand ? "chevron.up" : "chevron.down").resizable().frame(width:width(num: 13) , height: hieght(num: 6)).onTapGesture {
+                                self.expand.toggle()
+                                self.expandFloor = false
+                            }
+                        }/*.onTapGesture {
                             self.expand.toggle()
                             self.expandFloor = false
-                        }
+                        }*/
                         if (expand && !expandFloor) {
                             Group {
                                 ScrollView {
@@ -345,9 +348,6 @@ struct AddNewOrderView: View {
                 
                 
                 
-                
-                
-                
                 VStack(spacing: -10){
                     
                     //Show Error message if the ROOM feild empty
@@ -373,8 +373,6 @@ struct AddNewOrderView: View {
                     
                     //NEXT
                     Button(action: {
-                        print("helooooooo")
-                        
                         location = pickAndDrop
                         self.PICKUPlocation()
                         self.PICKUPlocationBuilding()
@@ -426,24 +424,6 @@ struct AddNewOrderView: View {
             
             
         }//END ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-           /* UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
     }//END BODY
     
