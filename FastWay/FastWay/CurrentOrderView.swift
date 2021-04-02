@@ -164,8 +164,10 @@ struct CurrentOrderView: View {
                                 
                                 ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
                                     HStack{
-                                        CurrentCardMView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
+                                        if(index < model.cards.count){
+                                            CurrentCardMView(card: model.cards[index], animation: animation)
+                                            Spacer(minLength: 0)
+                                        }
                                     }//.frame(height: 100)
                                     .padding(.horizontal)
                                     .contentShape(Rectangle())

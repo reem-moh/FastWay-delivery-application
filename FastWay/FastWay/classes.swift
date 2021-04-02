@@ -468,41 +468,7 @@ class Order: ObservableObject{
                 
             })
             
-            /*for i in querySnapshot!.documentChanges {
-                print("inside for loop getStatus")
-                if i.type == .modified || i.type == .added{
-                    let data = i.document
-                    let OrderId = i.document.documentID
-                    let state = data.get("Status") as? String ?? ""
-                    //pickUp location
-                    let PickUpLatitude = data.get("PickUpLatitude") as? Double ?? 0.0
-                    let PickUpLongitude = data.get("PickUpLongitude") as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = data.get("pickUpBulding") as? Int ?? 0
-                    let pickupFloor = data.get("pickUpFloor") as? Int ?? 0
-                    let pickupRoom = data.get("pickUpRoom") as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = data.get("DropOffLatitude") as? Double ?? 0.0
-                    let DropOffLongitude = data.get("DropOffLongitude") as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = data.get("dropOffBulding") as? Int ?? 0
-                    let dropoffFloor = data.get("dropOffFloor") as? Int ?? 0
-                    let dropoffRoom = data.get("dropOffRoom") as? String ?? ""
-                    let orderDetails = data.get("orderDetails") as? String ?? ""
-                    let assigned = data.get("Assigned") as? String ?? "" == "true" ? true : false
-                    let MemberID = data.get("MemberID") as? String ?? ""
-                    let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
-                    
-                    let OrderChanges = OrderDetails(id: OrderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    if i.type == .modified{
-                        let index = self.orders.firstIndex{$0.id == OrderChanges.id}
-                        self.orders[index ?? 0] = OrderChanges
-                    }else{
-                        self.orders.append(OrderChanges)
-                    }
-                    
-                }
-            }*/
+       
         }
     }
     //add offer for specific order in Delivery request
@@ -510,17 +476,24 @@ class Order: ObservableObject{
         print("\n*******addOffer*********")
         let CourierId = UserDefaults.standard.getUderId()
         //change the state of order to have an offer
-        db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true)
-        //create document inside offer collection
-        var doc: DocumentReference? = nil
-        doc = db.collection("Offers").addDocument(data:
-                                                    ["OrderID": OrderId,"MemberID": memberID,"CourierID" : CourierId ,"Price": price,"CourierLatitude": locationLatiude,"CourierLongitude":locationLongitude]) { err in
+        db.collection("Order").document(OrderId).setData([ "Status": status[2]], merge: true){ err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                print("Document added with ID: \(doc!.documentID)")
+                print("Status changed in add offer")
+                //create document inside offer collection
+                var doc: DocumentReference? = nil
+                doc = db.collection("Offers").addDocument(data:
+                                                            ["OrderID": OrderId,"MemberID": memberID,"CourierID" : CourierId ,"Price": price,"CourierLatitude": locationLatiude,"CourierLongitude":locationLongitude]) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        print("Document added with ID: \(doc!.documentID)")
+                    }
+                }
             }
         }
+        
     }
     //current order for courier [state = assign]
     func getCourierOrderAssign(Id: String){
