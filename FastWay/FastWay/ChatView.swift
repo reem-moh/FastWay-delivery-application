@@ -33,33 +33,48 @@ struct ChatView : View {
                     .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                     .offset(y:hieght(num: -100))
                 
-                //CurrentOrderView
-                Text("Chat").font(.custom("Roboto Medium", size: fontSize(num: 25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                    .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
-                
-                //back button
-                Group{
-                   
-                    Button(action: {
-                        withAnimation(.spring()){
-                            model.showChat.toggle()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                withAnimation(.easeIn){
-                                    model.showChat = false
-                                    
+               
+                HStack {
+                                    Spacer()
+                                    Spacer()
+                                    Spacer()
+                                    Spacer()
+                                    Button(action: {
+                                        withAnimation(.spring()){
+                                            model.showChat.toggle()
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                withAnimation(.easeIn){
+                                                    model.showChat = false
+                                                    
+                                                }
+                                            }
+                                            
+                                        }
+                                    }) {
+                                        Image("arrow_back")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: width(num: 30) , height: hieght(num: 30))
+                                            .clipped()
+                                            //.offset(y: hieght(num:20))
+                                            .padding(1.0)
+                                            .position(y:hieght(num:70))
+                                    }
+                                    Image("profileC")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 55,height:55)
+                                        //.font(.system(size: fontSize(num: 56.0)))
+                                        .position(x: width(num: -50), y:hieght(num:70))
+                                    Text("\(model.order.nameSender)")
+                                        //.font(.body, size: fontSize(num: 25))
+                                        //.font(.body)
+                                        .font(.system(size: fontSize(num: 26)))
+                                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                        .multilineTextAlignment(.center)
+                                        .position(x: width(num: -90),y:hieght(num:70))
+                                    Spacer(minLength: 0)
                                 }
-                            }
-                            
-                        }
-                    }) {
-                        Image("arrow_back")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: width(num: 30) , height: hieght(num: 30))
-                            .clipped()
-                    }.padding(1.0)
-                }
-                .position(x: width(num:45), y: hieght(num:70))
                 
             }
             .edgesIgnoringSafeArea(.all)
@@ -70,6 +85,9 @@ struct ChatView : View {
                         print("After getMemberToken in send \(self.courier.courier.token)")
                         guard success else { return }
                     }*/
+                }
+                model.order.getCourierName(courierId: model.selectedCard.orderD.courierId) { success in
+                    print("\n\n\n\n\n\n\n\nchange name in msg \(model.order.nameSender)")
                 }
             }
             
@@ -96,28 +114,45 @@ struct ChatView : View {
                                                 
                                                 ForEach(msgs.lazy.indices.reversed(),id: \.self) { i in
                                                     HStack{
-                                                        if msgs[i].senderID == UserDefaults.standard.getUderId(){
-                                                            
-                                                            Spacer(minLength: 0)
-                                                            
-                                                            Text(msgs[i].msg)
-                                                                .padding()
-                                                                .background(Color.blue)
-                                                                .clipShape(ChatBubble(mymsg: true))
-                                                                .foregroundColor(.white)
-                                                        }
-                                                        else{
-                                                            
-                                                            Text(msgs[i].msg)
-                                                                .padding()
-                                                                .background(Color.white)
-                                                                .clipShape(ChatBubble(mymsg: false))
-                                                                .foregroundColor(.gray)
-                                                            
-                                                            Spacer(minLength: 0)
-                                                        }
-                                                        
-                                                    }//.frame(height: 100)
+                                                                                                            if msgs[i].senderID == UserDefaults.standard.getUderId(){
+                                                                                                                
+                                                                                                                Spacer(minLength: 0)
+                                                                                                                VStack{
+                                                                                                                    Text(msgs[i].msg)
+                                                                                                                        .padding()
+                                                                                                                        .background(Color.blue)
+                                                                                                                        .clipShape(ChatBubble(mymsg: true))
+                                                                                                                        .foregroundColor(.white)
+                                                                                                                    
+                                                                                                                    Text(msgs[i].timeSent.addingTimeInterval(600), style: .time)
+                                                                                                                        .font(.footnote)
+                                                                                                                        .fontWeight(.light)
+                                                                                                                        .fontWeight(.regular)
+                                                                                                                        .foregroundColor(Color.black.opacity(0.5))
+                                                                                                                    Spacer(minLength: 0)
+                                                                                                                }
+                                                                                                                
+                                                                                                             
+                                                                                                                    
+                                                                                                            }
+                                                                                                            else{
+                                                                                                                VStack{
+                                                                                                                    Text(msgs[i].msg)
+                                                                                                                        .padding()
+                                                                                                                        .background(Color.white)
+                                                                                                                        .clipShape(ChatBubble(mymsg: false))
+                                                                                                                        .foregroundColor(.gray)
+                                                                                                                    Text(msgs[i].timeSent.addingTimeInterval(600), style: .time)
+                                                                                                                        .font(.footnote)
+                                                                                                                        .fontWeight(.light)
+                                                                                                                        .fontWeight(.regular)
+                                                                                                                        .foregroundColor(Color.black.opacity(0.5))
+                                                                                                                }
+                                                                                                                Spacer(minLength: 0)
+                                                                                                            }
+                                                                                                            
+                                                                                                            
+                                                                                                        }
                                                     .padding(.horizontal)
                                                     .contentShape(Rectangle())
                                                     .gesture(DragGesture(minimumDistance: 20))

@@ -290,7 +290,7 @@ class Order: ObservableObject{
     @Published var chat: [ChatMsg] = [] //for messages in chat
     
     @Published var liveStatus = "assigned"
-    
+    @Published var nameSender = ""
     var pickUP: CLLocationCoordinate2D!
     var pickUpBulding: Int
     var pickUpFloor: Int
@@ -1265,7 +1265,60 @@ class Order: ObservableObject{
         
     }
     
- 
+    func getMemberName(memberId : String, completion: @escaping (_ success: Bool) -> Void){
+            //var name = "No name"
+            /*let docRef = db.collection("Member").document(memberId)
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                    let data = document.data()
+                    name = data?["Name"] as? String ?? ""
+                    self.nameSender = name
+                    print("Document data: \(dataDescription)\(name)")
+                } else {
+                    print("Document does not exist")
+                }*/
+            db.collection("Member").document(memberId)
+                    .addSnapshotListener { documentSnapshot, error in
+                        guard let document = documentSnapshot else {
+                            print("Error fetching document: \(error!)")
+                            return
+                        }
+                        let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+                        print("\(source) data: \(document.data() ?? [:])")
+                        let data = document.data()
+                        self.nameSender = data?["Name"] as? String ?? ""
+                        
+                    
+            let success = true
+                DispatchQueue.main.async {
+                    print("inside getChatRoom in dispatch")
+                    completion(success)
+                }
+                
+            }
+        }
+        func getCourierName(courierId : String, completion: @escaping (_ success: Bool) -> Void){
+            db.collection("Courier").document(courierId)
+                    .addSnapshotListener { documentSnapshot, error in
+                        guard let document = documentSnapshot else {
+                            print("Error fetching document: \(error!)")
+                            return
+                        }
+                        let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+                        print("\(source) data: \(document.data() ?? [:])")
+                        let data = document.data()
+                        self.nameSender = data?["Name"] as? String ?? ""
+                        
+                    
+            let success = true
+                DispatchQueue.main.async {
+                    print("inside getChatRoom in dispatch")
+                    completion(success)
+                }
+                
+            }
+        }
 
 
     
