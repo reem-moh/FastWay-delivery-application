@@ -436,15 +436,16 @@ struct CurrentCardMView: View {
             .padding(20)
             .onAppear(){
                 model.getCards()
-                self.stat = model.orderPreview(c: card).status
-                /*model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
+                //self.stat = model.orderPreview(c: card).status
+                model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
                     print("Live status for cards")
                 }
-                self.stat = model.order.liveStatus*/
+                self.stat = model.order.liveStatus
             }
-            .onChange(of: model.orderPreview(c: card).status) { value in
+            .onChange(of: model.order.liveStatus) { value in
                 model.getCards()
-                self.stat = model.orderPreview(c: card).status
+                //self.stat = model.orderPreview(c: card).status
+                self.stat = model.order.liveStatus
                 
             }
             
@@ -538,9 +539,13 @@ struct CurrentCardMDetailes: View {
                     .edgesIgnoringSafeArea(.bottom)
                     .offset(y:hieght(num:  240))
                     .onAppear(){
-                        self.stat = model.selectedCard.orderD.status
+                        //self.stat = model.selectedCard.orderD.status
+                        model.order.getStatusNotAssigned(memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
+                            print("\(model.order.liveStatus)")
+                        }
+                        self.stat = model.order.liveStatus
                     }
-                    .onChange(of: model.selectedCard.orderD.status) { value in
+                    .onChange(of: model.order.liveStatus) { value in
                         self.model.getCards()
                         self.stat = value
                     }
@@ -657,7 +662,7 @@ struct CurrentCardMDetailes: View {
                             
                             HStack() {
                                 Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
-                                    .padding(.vertical, 4)
+                                    .padding(.vertical, hieght(num: 4))
                             }
                             
                         }.contentShape(RoundedRectangle(cornerRadius: 15))
@@ -667,29 +672,7 @@ struct CurrentCardMDetailes: View {
                         .shadow(radius: 1)
                         //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
                         
-                        /////
-                        /*
-                        //order price:
-                        ZStack(alignment: .top){
-                            if model.selectedCard.orderD.status == order.status[3]{
-                                Image(uiImage: #imageLiteral(resourceName: "money")).offset(x: width(num:-130), y: hieght(num: 4))
-                                //here Price
-                                HStack() {
-                                    Text("\(model.selectedCard.orderD.deliveryPrice)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
-                                        .padding(.vertical, 6)
-                                }
-                            }
-                            
-                        }.contentShape(RoundedRectangle(cornerRadius: 15))
-                        .frame(width: width(num:325))
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(radius: 1)
-                        .padding(.top, hieght(num: 10))
-                        .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
-                        ///
-                        //////
-                         */
+                        
                         
                         HStack {
                             if CancelButtonShow {
