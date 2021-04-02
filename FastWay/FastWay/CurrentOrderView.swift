@@ -436,16 +436,16 @@ struct CurrentCardMView: View {
             .padding(20)
             .onAppear(){
                 model.getCards()
-                //self.stat = model.orderPreview(c: card).status
-                model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
+                self.stat = model.orderPreview(c: card).status
+                /*model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
                     print("Live status for cards")
                 }
-                self.stat = model.order.liveStatus
+                self.stat = model.order.liveStatus*/
             }
-            .onChange(of: model.order.liveStatus) { value in
+            .onChange(of: model.orderPreview(c: card).status) { value in
                 model.getCards()
-                //self.stat = model.orderPreview(c: card).status
-                self.stat = model.order.liveStatus
+                self.stat = model.orderPreview(c: card).status
+                //self.stat = model.order.liveStatus
                 
             }
             
@@ -513,6 +513,7 @@ struct CurrentCardMDetailes: View {
                         .foregroundColor(Color(.white))
                     Button(action: {
                         withAnimation(.spring()){
+                            model.getCards()
                             model.showCard.toggle()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 withAnimation(.easeIn){
