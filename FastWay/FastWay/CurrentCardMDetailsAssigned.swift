@@ -12,7 +12,7 @@ import CoreLocation
 //Current card M details assigned
 
 struct CurrentCardMDetailsAssigned: View {
-    @ObservedObject var notify = Not()
+    @ObservedObject var courier = Courier(id: "", name: "", email: "", phN: "")
     @EnvironmentObject var model : CurrentCarouselMViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -122,6 +122,14 @@ struct CurrentCardMDetailsAssigned: View {
                             .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: width(num:50), y: hieght(num:50))
+                .onAppear(){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId)/*{ success in
+                            print("After getMemberToken in send \(self.courier.courier.token)")
+                            guard success else { return }
+                        }*/
+                    }
+                }
                 //white background
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
                     .resizable() //add resizable
@@ -414,17 +422,9 @@ struct CurrentCardMDetailsAssigned: View {
                     model.showCard = false
                     model.showContent = false
                     //send notification to courier
-                    /*addNotificationCourier(courierId: model.selectedCard.orderD.courierId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the member"){ success in
-                        print("after calling method add notification (cancel order)")
-                        
-                        guard success else { return }
-                    }*/
-                    notify.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
-                        print("After getMemberToken in send")
-                        guard success else { return }
-                    }
+                    
                     //change token
-                    sendMessageTouser(to: "fPMz7qGG6E8ql-2amzd_9C:APA91bH29DBzwK5N4lzXONElLt54BYOzBtJ2djz3gKoJvioSxMfuUPJUSS1KkfpPAtkBSuIcb5gB8e5EThhyejZm7JVBRoma5OGk2blBGt-RFBvnmo800HDSuWb7JjGD76ZGmlGwB-0H", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
+                    sendMessageTouser(to: self.courier.courier.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

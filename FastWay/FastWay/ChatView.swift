@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 
 struct ChatView : View {
-    @ObservedObject var notify = Not()
+    @ObservedObject var courier = Courier(id: "", name: "", email: "", phN: "")
     @StateObject var viewRouter: ViewRouter
     @StateObject var model: CurrentCarouselMViewModel
     @Namespace var animation
@@ -65,6 +65,12 @@ struct ChatView : View {
             .edgesIgnoringSafeArea(.all)
             .onAppear(){
                 self.getMsgs()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId)/*{ success in
+                        print("After getMemberToken in send \(self.courier.courier.token)")
+                        guard success else { return }
+                    }*/
+                }
             }
             
             VStack{
@@ -151,17 +157,9 @@ struct ChatView : View {
                                 model.order.sendChatRoom(orderId: model.selectedCard.orderD.id, sender_msg: self.txt)
                                 
                                 //send notification to member
-                                /*addNotificationCourier(courierId: model.selectedCard.orderD.courierId, title: "New Message ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has New Message from the courier"){ success in
-                                    print("after calling method add notification (New Message)")
-                                    
-                                    guard success else { return }
-                                }*/
-                                notify.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
-                                    print("After getMemberToken in send")
-                                    guard success else { return }
-                                }
+                               
                                 //change token
-                                sendMessageTouser(to: "fPMz7qGG6E8ql-2amzd_9C:APA91bH29DBzwK5N4lzXONElLt54BYOzBtJ2djz3gKoJvioSxMfuUPJUSS1KkfpPAtkBSuIcb5gB8e5EThhyejZm7JVBRoma5OGk2blBGt-RFBvnmo800HDSuWb7JjGD76ZGmlGwB-0H", title: "New Message", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new message from the member")
+                                sendMessageTouser(to: self.courier.courier.token, title: "New Message", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new message from the member")
                                 
                             }
                             self.txt = ""

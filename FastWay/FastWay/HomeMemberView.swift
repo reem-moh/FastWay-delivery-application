@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeMemberView: View {
     
-    @ObservedObject var notify = Not()
+    
     @StateObject var viewRouter: ViewRouter
     let abuotPage: Page = .AboutUs
     @State var show = false

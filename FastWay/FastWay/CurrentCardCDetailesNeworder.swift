@@ -10,7 +10,7 @@ import MapKit
 //courierrrrr
 //Current card c details New order
 struct CurrentCardCDetailesNeworder: View {
-    @ObservedObject var notify = Not()
+    @ObservedObject var member = Member(id: "", name: "", email: "", phN: "")
     @EnvironmentObject var model : CurrentCarouselCViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -51,33 +51,10 @@ struct CurrentCardCDetailesNeworder: View {
                 .offset(y: hieght(num:50))
                 .onAppear(){
                     self.manager.requestAlwaysAuthorization()
-                   // print("inside updateCourierLocation in HHHHHJHKHKUHHHHHHHHHHHHH")
-                  //  model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
-                 //    oneDouble = Double(model.order.traking.courierLocation.longitude)
-                   // self.oneDouble = value
-                //    tDouble = Double(model.order.traking.courierLocation.latitude)
-                  // self.tDouble = value
-                    //self.model.getCourierLocation
-                    
-                    //updateCourierLocation(CourierID: model.selectedCard.orderD.courierId, courierLocation: CLLocationCoordinate2D(latitude: riyadhCoordinatetracking.latitude, longitude: riyadhCoordinatetracking.longitude))
-                    
-                    /*riyadhCoordinatetracking
-                    model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: CLLocationCoordinate2D(latitude: model.order.traking.courierLocation.latitude, longitude: model.order.traking.courierLocation.longitude))
-               */
+                  
                 
                 }
-            /*    .onChange(of: model.order.traking.courierLocation.longitude) { value in
-                   // courierLocation = Float(courierLocation.longitude)
-                    print("inside updateCourierLocation in HHHHHJHKHKUHHHHHHHHHHHHH")
-
-                     oneDouble = Double(model.order.traking.courierLocation.longitude)
-                    self.oneDouble = value
-                    tDouble = Double(model.order.traking.courierLocation.latitude)
-                   self.tDouble = value
-                    //self.model.getCourierLocation
-                    model.order.updateCourierLocation(orderId: model.selectedCard.orderD.id, courierLocation: model.selectedCard.orderD.courierLocation)
-                
-                }*/
+            
             
             // VStack{
             
@@ -107,6 +84,14 @@ struct CurrentCardCDetailesNeworder: View {
                             .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: width(num:50), y: hieght(num:50))
+                .onAppear(){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId)/*{ success in
+                        print("After getMemberToken in send \(self.member.member.token)")
+                        guard success else { return }
+                    }*/
+                    }
+                }
                 
                 
                 //white background
@@ -411,19 +396,7 @@ struct CurrentCardCDetailesNeworder: View {
                 model.showCard = false
                 model.showContent = false
                 //send notification to member
-                /*addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order Canceled", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))... has been canceled by the courier"){ success in
-                    print("after calling method add notification (cancel order)")
-                    //viewRouter.currentPage = .HomePageC
-
-                    guard success else { return }
-                }*/
-                
-                notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
-                    print("After getMemberToken in send")
-                    guard success else { return }
-                }
-                //change token
-                sendMessageTouser(to: "fPMz7qGG6E8ql-2amzd_9C:APA91bH29DBzwK5N4lzXONElLt54BYOzBtJ2djz3gKoJvioSxMfuUPJUSS1KkfpPAtkBSuIcb5gB8e5EThhyejZm7JVBRoma5OGk2blBGt-RFBvnmo800HDSuWb7JjGD76ZGmlGwB-0H", title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
+                sendMessageTouser(to: self.member.member.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
             }
             else {
                 model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
@@ -438,17 +411,7 @@ struct CurrentCardCDetailesNeworder: View {
                 }
                 if(State == 6 ){
                     //send notification to member
-                    /*addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order  arrived  ", content: "The order \(model.selectedCard.orderD.orderDetails.suffix(20))...has been arrived by the courier"){ success in
-                        print("after calling method add notification (Order  arrived )")
-                        
-                        guard success else { return }
-                    }*/
-                    notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
-                        print("After getMemberToken in send")
-                        guard success else { return }
-                    }
-                    //change token
-                    sendMessageTouser(to: "fPMz7qGG6E8ql-2amzd_9C:APA91bH29DBzwK5N4lzXONElLt54BYOzBtJ2djz3gKoJvioSxMfuUPJUSS1KkfpPAtkBSuIcb5gB8e5EThhyejZm7JVBRoma5OGk2blBGt-RFBvnmo800HDSuWb7JjGD76ZGmlGwB-0H", title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
+                    sendMessageTouser(to: self.member.member.token, title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
                 }
             }
 

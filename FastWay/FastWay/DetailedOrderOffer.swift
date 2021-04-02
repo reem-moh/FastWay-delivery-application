@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 
 struct DetailedOrderOffer: View {
-    @ObservedObject var notify = Not()
+    @ObservedObject var member = Member(id: "", name: "", email: "", phN: "")
     @EnvironmentObject var model: CarouselViewModel
     @StateObject var viewRouter: ViewRouter
     var animation: Namespace.ID
@@ -76,6 +76,14 @@ struct DetailedOrderOffer: View {
                             .background(Color(.white))
                     }.padding(1.0)
                 }.position(x: width(num:50), y:hieght(num: 50))
+                .onAppear(){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId)/*{ success in
+                            print("After getMemberToken in send \(self.member.member.token)")
+                            guard success else { return }
+                        }*/
+                    }
+                }
                 
                 
                 //white background
@@ -216,17 +224,10 @@ struct DetailedOrderOffer: View {
                                 model.makeAnOffer = model.selectedCard.orderD.id
                                 
                                 //send notification to member
-                                /*addNotificationMember(memberId: model.selectedCard.orderD.memberId, title: "Order has an offer", content: "There is a new offer for This order \(model.selectedCard.orderD.orderDetails.suffix(20))"){ success in
-                                    print("after calling method add notification (make an offer)")
-                                    
-                                    guard success else { return }
-                                }*/
-                                notify.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
-                                    print("After getMemberToken in send")
-                                    guard success else { return }
-                                }
+                                
+                                
                                 //change token
-                                sendMessageTouser(to: "fPMz7qGG6E8ql-2amzd_9C:APA91bH29DBzwK5N4lzXONElLt54BYOzBtJ2djz3gKoJvioSxMfuUPJUSS1KkfpPAtkBSuIcb5gB8e5EThhyejZm7JVBRoma5OGk2blBGt-RFBvnmo800HDSuWb7JjGD76ZGmlGwB-0H", title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
+                                sendMessageTouser(to: self.member.member.token, title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
                                 
                             }
                        }) {

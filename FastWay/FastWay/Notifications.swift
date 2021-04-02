@@ -127,7 +127,7 @@ func registerTokenCourier(courierId: String, completion: @escaping (_ success: B
 
 
 
-struct n : Identifiable {
+/*struct n : Identifiable {
     var id = ""
     var token = ""
 }
@@ -158,13 +158,13 @@ class Not : ObservableObject{
             //assign values from db to variables
             let tM = data["Token"] as? String ?? ""
             self.tokenM = n(token: tM)
-            
+            print("tokenM inside \(self.tokenM.token)")
             
         } //listener
         let success = true
         DispatchQueue.main.async {
             print("tokenM \(self.tokenM.token)")
-            print("inside registerTokenMember in dispatch ")
+            print("inside getMemberToken in dispatch ")
             completion(success)
         }
         
@@ -202,7 +202,7 @@ class Not : ObservableObject{
         
             }
 
-}
+}*/
 
 
 

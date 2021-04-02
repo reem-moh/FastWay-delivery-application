@@ -82,6 +82,37 @@ class Member: ObservableObject {
         
     } //function
     
+    
+    func getMemberToken(memberId: String/*, completion: @escaping (_ success: Bool) -> Void*/) {
+        
+        //var tokenM = ""
+        db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                print("no member document")
+                return
+            }
+            guard let data = doc.data() else {
+                print("no member data")
+                return
+            }
+            //assign values from db to variables
+            let tM = data["Token"] as? String ?? ""
+            self.member.token = tM
+            print("tokenM inside \( self.member.token)")
+            
+        } //listener
+        /*let success = true
+        DispatchQueue.main.async {
+            print("tokenM \( self.member.token)")
+            print("inside getMemberToken in dispatch ")
+            completion(success)
+        }*/
+        
+        
+    }
+    
+    
+    
 }
 
 class Courier: ObservableObject {
@@ -149,6 +180,33 @@ class Courier: ObservableObject {
     } //function
     
     
+    func getCourierToken(courierId: String/*, completion: @escaping (_ success: Bool) -> Voi*/) {
+        
+        //var tokenC = ""
+        db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
+            guard let doc = querySnapshot else{
+                print("no courier document")
+                return
+            }
+            guard let data = doc.data() else {
+                print("no courier data")
+                return
+            }
+            //assign values from db to variables
+            let tC = data["Token"] as? String ?? ""
+            self.courier.token = tC
+            print("tokenC inside \(self.courier.token)")
+            
+        } //listener
+        /*let success = true
+        DispatchQueue.main.async {
+            print("tokenC \(self.courier.token)")
+            print("inside getCourierToken in dispatch ")
+            completion(success)
+        }*/
+        
+            }
+    
 }
 
 //member info
@@ -157,6 +215,7 @@ struct M: Identifiable {
     var name: String
     var email: String
     var phoneNo: String
+    var token = ""
 }
 //Courier info
 struct C: Identifiable {
@@ -164,6 +223,7 @@ struct C: Identifiable {
     var name: String
     var email: String
     var phoneNo: String
+    var token = ""
 }
 //order info
 struct OrderDetails: Identifiable {
