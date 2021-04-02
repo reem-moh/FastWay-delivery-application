@@ -59,7 +59,7 @@ struct ChatViewCourier: View {
                                             .padding(1.0)
                                             .position(y:hieght(num:70))
                                     }
-                                    Image("profileC")
+                                    Image("profileM")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 55,height:55)
