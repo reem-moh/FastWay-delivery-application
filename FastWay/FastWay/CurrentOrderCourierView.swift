@@ -739,6 +739,19 @@ class CurrentCarouselCViewModel: ObservableObject {
         
     }
     
+    //cancel order
+    func cancelOrder(Id: String){
+           cancelCardOrderId = Id
+            order.cancelOrder(OrderId: Id)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                //withAnimation(.easeIn){
+                self.getCards()
+                //self.showCancel.toggle()
+                //animateAndDelayWithSeconds(0.05) { self.showCancel = true }
+                //animateAndDelayWithSeconds(4) {self.showCancel = false }
+                //}//end with animation
+            }
+    }
 }
 
 //current card C info

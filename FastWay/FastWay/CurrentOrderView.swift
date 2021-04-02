@@ -832,7 +832,7 @@ class CurrentCarouselMViewModel: ObservableObject {
         cards.removeAll()
         for index in order.memberOrder {
             checkOrders(ID: UserDefaults.standard.getUderId())
-            if( index.status != "cancled" && index.status != "completed" && index.memberId != cancelCardOrderId){
+            if( index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId){
                 cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
             }
             

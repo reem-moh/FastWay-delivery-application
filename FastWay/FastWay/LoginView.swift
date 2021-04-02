@@ -59,8 +59,8 @@ struct LoginView: View {
                         
                         //Reset
                         if resetShow{
-                            Text("*\(self.descReset)").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
-                                .offset(x: width(num: -18), y: hieght(num: 30))
+                            Text("*\(self.descReset)").font(.custom("Roboto Regular", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)))
+                                .offset(x: width(num: -7), y: hieght(num: 30))
                         }
                         
                         //Email Group
