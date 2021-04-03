@@ -168,7 +168,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Assigned").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                     //pick up
@@ -179,7 +179,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
                                         
-                                        Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Pick up").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 4
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
@@ -204,7 +204,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
     
-                                        Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("On the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 5
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
@@ -231,7 +231,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("arrived at drop off location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 6
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
@@ -255,7 +255,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 7
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
