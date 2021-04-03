@@ -168,7 +168,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text(" Assigned  ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        
                                         Text("Assigned").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
@@ -181,7 +181,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .foregroundColor(Color("ButtonColor"))
                                         
                                         Text("Pick up ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
-                                        Text("Pick up").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                     
                                     }.onTapGesture {
                                         State = 4
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
@@ -233,7 +233,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("arrived at drop off ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                      
                                         Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 6
