@@ -599,7 +599,7 @@ struct CurrentCardMDetailes: View {
                             .padding(20)
                             .onTapGesture {
                                withAnimation(.spring()){
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
                                     print("inside getOrderForCourierCurrentOrder success")
                                     guard success else { return }
@@ -608,7 +608,7 @@ struct CurrentCardMDetailes: View {
                                 }
                             
                                 
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                     withAnimation(.easeIn){
                                      model.showOffers = true
                                     }//end with animation

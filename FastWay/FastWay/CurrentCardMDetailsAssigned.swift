@@ -223,7 +223,11 @@ struct CurrentCardMDetailsAssigned: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
                                         
+<<<<<<< HEAD
                                         Text("Pick up ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+=======
+                                        Text("Pick up").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+>>>>>>> 985449699007e0c1fe393a2044d71e931bc28c2e
                                     }
                                     Spacer()
                                     //on the way
@@ -247,7 +251,11 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
+<<<<<<< HEAD
                                         Text(" drop off ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+=======
+                                        Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+>>>>>>> 985449699007e0c1fe393a2044d71e931bc28c2e
                                     }
                                     Spacer()
                                     //delivered
@@ -257,7 +265,11 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
+<<<<<<< HEAD
                                         Text(" delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+=======
+                                        Text("Delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+>>>>>>> 985449699007e0c1fe393a2044d71e931bc28c2e
                                     }
                                     Spacer()
                                 }
