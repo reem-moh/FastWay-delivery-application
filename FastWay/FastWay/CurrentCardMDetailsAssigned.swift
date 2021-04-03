@@ -198,6 +198,7 @@ struct CurrentCardMDetailsAssigned: View {
                                     .shadow(radius: 1)
                             }
                             
+                          
                             //status of the order
                             VStack{
                                 Spacer()
@@ -211,7 +212,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("Order assigned to a courier").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Assigned").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                     //pick up
@@ -222,7 +223,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
                                         
-                                        Text("Arrived at pick up location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("Pick up ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                     //on the way
@@ -233,7 +234,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
     
-                                        Text("Order picked up and on the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text("On the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                 }
@@ -246,7 +247,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("arrived at drop off location").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text(" drop off ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                     //delivered
@@ -256,7 +257,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                        Text("Order delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
+                                        Text(" delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
                                 }
