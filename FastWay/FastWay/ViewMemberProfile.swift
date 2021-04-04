@@ -10,15 +10,17 @@ import Firebase
 import FirebaseFirestore
 
 struct ViewMemberProfile: View {
-    @ObservedObject var member = Member()
     
-     @State var name = ""
-     @State var email = ""
-     @State var phoneNum = ""
+    @ObservedObject var member = Member()
+    @StateObject var viewRouter: ViewRouter
+    //for edit Profile
+    @State var name = ""
+    @State var email = ""
+    @State var phoneNum = ""
     @State var password = ""
     @State var newPassword = ""
     @State var reNewPassword = ""
-    
+    //for the errors in edit Profile
     @State var error = false
     @State var nErr=""
     @State var eErr=""
@@ -27,15 +29,17 @@ struct ViewMemberProfile: View {
     @State var phErr=""
     @State var uErr=""
 
-    
-    @StateObject var viewRouter: ViewRouter
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
+    //alert cancel button
+    @State var alertCancel = false
+    //Show cancel and Done buttons
+    @State var show = false
     
     var body: some View {
         ZStack{
             
-            //Background+BarMenue
+            //Background+BarMenu
             ZStack{
                 
                 //background
@@ -46,7 +50,7 @@ struct ViewMemberProfile: View {
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
                     .resizable() //add resizable
                     .frame(width: width(num: 375)) //addframe
-                    .offset(y: hieght(num: 30))
+                    .offset(y: hieght(num: 50))
                 
                 
             }.onAppear(){
@@ -57,34 +61,51 @@ struct ViewMemberProfile: View {
             }
             
             VStack{
-                //Cancel and Done button
-                HStack{
-                    //Cancel button
-                    /*Button(action: {
-                        returnHomePage()
-                    }) {
-                        Text("Cancel").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
-                    }*/
-                    
-                    //save button
-                    /*Button(action: {
-                        //action here
-                    }) {
-                        Text("Done").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
-                    }*/
+                //Cancel and Done buttonspacing: 20
+                if show {
+                    HStack(){
+                        Spacer()
+                        //Cancel button
+                        Button(action: {
+                            alertCancel.toggle()
+                            //returnHomePage()
+                        }) {
+                            Text("Cancel")
+                                .font(.custom("Roboto Bold", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
+                                .offset(y: 10)
+                        }
+                        Spacer(minLength: 1)
+                        Spacer(minLength: 1)
+                        Spacer(minLength: 1)
+                        Spacer(minLength: 1)
+                        Spacer(minLength: 1)
+                        Spacer(minLength: 1)
+                        //save button
+                        Button(action: {
+                            //action here
+                        }) {
+                            Text("Done")
+                                .font(.custom("Roboto Bold", size: 18))
+                                .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
+                                .offset(y: 10)
+                        }
+                        Spacer()
+                    }
                 }
+                
                 HStack {
                     Spacer()
-                    
                     Spacer()
                     Spacer()
                     
-                    Image("profileM").font(.system(size: fontSize(num: 56.0))).padding(.bottom, hieght(num: 50) ).offset(x:width(num: -12) ,y:hieght(num: 45))
-                    
+                    Image("profileM").font(.system(size: fontSize(num: 56.0)))
+                        .padding(.bottom, hieght(num: 50) )
+                        .offset(y:hieght(num: 65))
+                    //add frame to image
+                    //x:width(num: -12) ,
                     Spacer()
                     Spacer()
-                    
-                    
                     Spacer()
                 }
                 
@@ -114,7 +135,10 @@ struct ViewMemberProfile: View {
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 8) ).padding(.horizontal,width(num: 16) )
+                                .onTapGesture {
+                                    self.show = true
+                                }
                             
                             //email field
                             Text(self.eErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
@@ -133,9 +157,12 @@ struct ViewMemberProfile: View {
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .onTapGesture {
+                                    self.show = true
+                                }
                             //print("email \((self.member.email))")
                             
                             //phone field
@@ -155,18 +182,36 @@ struct ViewMemberProfile: View {
                             })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .onTapGesture {
+                                    self.show = true
+                                }
                             //print("Phone number \(self.member.phoneNo)")
                             
                             //Password
                             Group {
-                                Text("Change the Password").font(.custom("Roboto Medium", size: fontSize(num: 18))).foregroundColor(Color(#colorLiteral(red: 0.38, green: 0.37, blue: 0.37, alpha: 1)))
-                                    .multilineTextAlignment(.center).offset(x: width(num: 18) ,y: hieght(num: 10)).padding(.bottom,hieght(num: -20) )
+                                HStack{
+                                    Rectangle()
+                                        .fill(Color.black.opacity(0.05))
+                                        .frame(width: width(num: 100), height: hieght(num: 5))
+                                    
+                                    Text("Change Password")//.font(.custom("Roboto Medium", size: fontSize(num: 18)))
+                                        .foregroundColor(Color.black.opacity(0.7))
+                                        .fontWeight(.bold)
+                                       // .multilineTextAlignment(.center)
+                                        //.offset(x: width(num: 18) ,y: hieght(num: 10))
+                                        //.padding(.bottom,hieght(num: -20) )
+                                    
+                                    Rectangle()
+                                        .fill(Color.black.opacity(0.05))
+                                        .frame(width: width(num: 100), height: hieght(num: 5))
+                                }.padding(.top , hieght(num: 10))
+                                
                                 
                                 //current password
-                                Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                               /* Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
                                 SecureField("Current Password", text: $password, onCommit: {
                                     //get pass from Auth and compare
@@ -176,6 +221,7 @@ struct ViewMemberProfile: View {
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                */
                                 //New Pass
                                 SecureField("New Password", text: $newPassword, onCommit: {
                                     self.error = false
@@ -185,16 +231,21 @@ struct ViewMemberProfile: View {
                                         self.error = true
                                     }
                                 })
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .onTapGesture {
+                                    self.show = true
+                                }
                                 
                                 //error for repeat pass
-                                Text(self.rpErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
-                                
+                                if  self.error{
+                                    Text(self.rpErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
+                                }
+
                                 //reNew pass
                                 SecureField("Repeat New Password", text: $reNewPassword, onCommit: {
                                     self.error = false
@@ -204,12 +255,14 @@ struct ViewMemberProfile: View {
                                         self.error = true
                                     }
                                 })
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
-                                
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                .onTapGesture {
+                                    self.show = true
+                                }
                             }// end group password
                             
                         }//end group field
@@ -273,7 +326,15 @@ struct ViewMemberProfile: View {
                 print("after calling method get notification")
                 guard success else { return }
             }*/
-        }
+        }.alert(isPresented: $alertCancel) {
+            Alert(
+                title: Text("undo Changes"),
+                message: Text("Do you want to undo this changes?"),
+                primaryButton: .default((Text("Yes")), action: {
+                    returnHomePage()
+                }) ,
+                secondaryButton: .cancel((Text("No")))
+            )}//end alert
     } //body
     
     
