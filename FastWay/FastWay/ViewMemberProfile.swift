@@ -12,13 +12,21 @@ import FirebaseFirestore
 struct ViewMemberProfile: View {
     @ObservedObject var member = Member()
     
-    /* @State var name = ""
+     @State var name = ""
      @State var email = ""
-     @State var phoneNum = ""*/
+     @State var phoneNum = ""
     @State var password = ""
     @State var newPassword = ""
     @State var reNewPassword = ""
     
+    @State var error = false
+    @State var nErr=""
+    @State var eErr=""
+    @State var pErr=""
+    @State var rpErr=""
+    @State var phErr=""
+    @State var uErr=""
+
     
     @StateObject var viewRouter: ViewRouter
     //for the in app notification
@@ -43,18 +51,31 @@ struct ViewMemberProfile: View {
                 
             }.onAppear(){
                 checkOrders(ID:  UserDefaults.standard.getUderId())
+                self.name = self.member.member.name
+                self.email = self.member.member.email
+                self.phoneNum = self.member.member.phoneNo
             }
             
             VStack{
                 //Cancel and Done button
-                HStack {
-                    Spacer()
+                HStack{
                     //Cancel button
                     /*Button(action: {
                         returnHomePage()
                     }) {
                         Text("Cancel").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
                     }*/
+                    
+                    //save button
+                    /*Button(action: {
+                        //action here
+                    }) {
+                        Text("Done").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
+                    }*/
+                }
+                HStack {
+                    Spacer()
+                    
                     Spacer()
                     Spacer()
                     
@@ -63,12 +84,7 @@ struct ViewMemberProfile: View {
                     Spacer()
                     Spacer()
                     
-                    //save button
-                    /*Button(action: {
-                        //action here
-                    }) {
-                        Text("Done").font(.custom("Roboto Bold", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.5045552254, green: 0.2118494511, blue: 0.6409354806, alpha: 1))).padding(1.0).textCase(.uppercase).offset(y: 10)
-                    }*/
+                    
                     Spacer()
                 }
                 
@@ -79,13 +95,21 @@ struct ViewMemberProfile: View {
                         Group {
                             
                             //name field
-                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            Text(self.nErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
                             Text("name:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x: 18,y: 10)
                             
-                            TextField(" \(self.member.member.name)", text: $member.member.name)
+                            TextField(" \(self.member.member.name)", text: $name, onCommit: {
+                                self.error = false
+                                self.nErr=""
+                                if self.name.count < 3 {
+                                    self.nErr="*Name must be more than 2 characters"
+                                    self.error = true
+                                }
+                                
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -93,13 +117,20 @@ struct ViewMemberProfile: View {
                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                             
                             //email field
-                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            Text(self.eErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
                             Text("email:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x:width(num: 18) ,y:hieght(num: 10))
                             
-                            TextField("\(self.member.member.email)", text: $member.member.email)
+                            TextField("\(self.member.member.email)", text: $email, onCommit: {
+                                self.error = false
+                                self.eErr=""
+                                if (self.email == "") || !(self.email.isEmail()){
+                                    self.eErr="*Valid email is required"
+                                    self.error = true
+                                }
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -108,13 +139,20 @@ struct ViewMemberProfile: View {
                             //print("email \((self.member.email))")
                             
                             //phone field
-                            Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            Text(self.phErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: 12) ,y:hieght(num: 10))
                             
                             Text("phone number:").font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).offset(x:width(num: 18) ,y:hieght(num: 10))
                             
-                            TextField("\(self.member.member.phoneNo)", text: $member.member.phoneNo)
+                            TextField("\(self.member.member.phoneNo)", text: $phoneNum, onCommit: {
+                                self.error = false
+                                self.phErr=""
+                                if !(self.phoneNum.isValidPhoneNumber()){
+                                    self.phErr="*Phone number must be 05********"
+                                    self.error = true
+                                }
+                            })
                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                 .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -128,23 +166,44 @@ struct ViewMemberProfile: View {
                                     .multilineTextAlignment(.center).offset(x: width(num: 18) ,y: hieght(num: 10)).padding(.bottom,hieght(num: -20) )
                                 
                                 //current password
-                                Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
-                                SecureField("Current Password", text: $password)
+                                SecureField("Current Password", text: $password, onCommit: {
+                                    //get pass from Auth and compare
+                                })
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
                                 //New Pass
-                                SecureField("New Password", text: $newPassword)
+                                SecureField("New Password", text: $newPassword, onCommit: {
+                                    self.error = false
+                                    self.pErr=""
+                                    if self.newPassword.count < 8 || !checkPass(pass: self.newPassword){
+                                        self.pErr="*Password must be 8 or more characters, conatins a capital letter, a small letter and a digit"
+                                        self.error = true
+                                    }
+                                })
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                
+                                //error for repeat pass
+                                Text(self.rpErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
+                                
                                 //reNew pass
-                                SecureField("Repeat New Password", text: $reNewPassword)
+                                SecureField("Repeat New Password", text: $reNewPassword, onCommit: {
+                                    self.error = false
+                                    self.rpErr=""
+                                    if self.reNewPassword != self.newPassword{
+                                        self.rpErr="*Password mismatch"
+                                        self.error = true
+                                    }
+                                })
                                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                                     .font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))

@@ -328,28 +328,26 @@ struct SignUPView: View {
         
     }
     
-    func checkPass(pass: String) -> Bool {
-        var digit = false
-        var cLetter = false
-        var sLetter = false
-        for char in pass {
-            if char.isLetter && char.isUppercase {
-                cLetter = true
+}
+func checkPass(pass: String) -> Bool {
+    var digit = false
+    var cLetter = false
+    var sLetter = false
+    for char in pass {
+        if char.isLetter && char.isUppercase {
+            cLetter = true
+        }else{
+            if char.isLetter && char.isLowercase {
+                sLetter = true
             }else{
-                if char.isLetter && char.isLowercase {
-                    sLetter = true
-                }else{
-                    if char.isNumber {
-                        digit = true
-                    }
+                if char.isNumber {
+                    digit = true
                 }
             }
         }
-        return digit && cLetter && sLetter
     }
-    
+    return digit && cLetter && sLetter
 }
-
 
 
 struct SignUPView_Previews: PreviewProvider {
