@@ -44,6 +44,7 @@ struct CurrentCardMDetailsAssigned: View {
     @State var liveS = ""
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
+    @State var token = ""
     
     var body: some View{
 
@@ -124,10 +125,11 @@ struct CurrentCardMDetailsAssigned: View {
                 }.position(x: width(num:50), y: hieght(num:50))
                 .onAppear(){
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId)/*{ success in
+                        self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
                             print("After getMemberToken in send \(self.courier.courier.token)")
+                            self.token = self.courier.courier.token
                             guard success else { return }
-                        }*/
+                        }
                     }
                 }
                 //white background
@@ -429,7 +431,7 @@ struct CurrentCardMDetailsAssigned: View {
                     //send notification to courier
                     
                     //change token
-                    sendMessageTouser(to: self.courier.courier.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
+                    sendMessageTouser(to: self.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
                 }) ,
                 secondaryButton: .cancel((Text("No")))
             )}//end alert

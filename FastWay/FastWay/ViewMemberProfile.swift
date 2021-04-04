@@ -55,9 +55,9 @@ struct ViewMemberProfile: View {
                 
             }.onAppear(){
                 checkOrders(ID:  UserDefaults.standard.getUderId())
-                self.name = self.member.member.name
-                self.email = self.member.member.email
-                self.phoneNum = self.member.member.phoneNo
+                self.name = "\(self.member.member.name)"
+                self.email = "\(self.member.member.email)"
+                self.phoneNum = "\(self.member.member.phoneNo)"
             }
             
             VStack{

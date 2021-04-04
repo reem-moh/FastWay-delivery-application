@@ -38,6 +38,7 @@ struct CurrentCardCDetailesNeworder: View {
     @State var liveS = ""
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
+    @State var token = ""
 
     var body: some View{
         
@@ -86,10 +87,11 @@ struct CurrentCardCDetailesNeworder: View {
                 }.position(x: width(num:50), y: hieght(num:50))
                 .onAppear(){
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId)/*{ success in
+                    self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
                         print("After getMemberToken in send \(self.member.member.token)")
+                        self.token = self.member.member.token
                         guard success else { return }
-                    }*/
+                    }
                     }
                 }
                 
@@ -399,7 +401,7 @@ struct CurrentCardCDetailesNeworder: View {
                 model.showCard = false
                 model.showContent = false
                 //send notification to member
-                sendMessageTouser(to: self.member.member.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
+                sendMessageTouser(to: self.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
             }
             else {
                 model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
@@ -414,7 +416,7 @@ struct CurrentCardCDetailesNeworder: View {
                 }
                 if(State == 6 ){
                     //send notification to member
-                    sendMessageTouser(to: self.member.member.token, title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
+                    sendMessageTouser(to: self.token, title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
                 }
             }
 

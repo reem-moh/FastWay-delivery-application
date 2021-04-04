@@ -20,6 +20,7 @@ struct ChatView : View {
     @State var nomsgs = false
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
+    @State var token = ""
     
     var body : some View{
         ZStack{
@@ -81,10 +82,11 @@ struct ChatView : View {
             .onAppear(){
                 self.getMsgs()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId)/*{ success in
+                    self.courier.getCourierToken(courierId: model.selectedCard.orderD.courierId){ success in
                         print("After getMemberToken in send \(self.courier.courier.token)")
+                        self.token = self.courier.courier.token
                         guard success else { return }
-                    }*/
+                    }
                 }
                 model.order.getCourierName(courierId: model.selectedCard.orderD.courierId) { success in
                     print("\n\n\n\n\n\n\n\nchange name in msg \(model.order.nameSender)")
@@ -194,7 +196,7 @@ struct ChatView : View {
                                 //send notification to member
                                
                                 //change token
-                                sendMessageTouser(to: self.courier.courier.token, title: "New Message", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new message from the member")
+                                sendMessageTouser(to: self.token, title: "New Message", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new message from the member")
                                 
                             }
                             self.txt = ""

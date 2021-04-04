@@ -52,7 +52,7 @@ let legacyServerKey = "AAAA6oq0MN0:APA91bGeP_sOn5foiNlseAZ1YDUef2OOA9g1kST7MHR3g
     }*/
 
 func sendMessageTouser(to token: String, title: String, body: String) {
-    print("sendMessageTouser()")
+    print("sendMessageTouser() \nToken: \(token)\n\n")
     let urlString = "https://fcm.googleapis.com/fcm/send"
     let url = NSURL(string: urlString)!
     let paramString: [String : Any] = ["to" : token,

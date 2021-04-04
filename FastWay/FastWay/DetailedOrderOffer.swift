@@ -29,6 +29,7 @@ struct DetailedOrderOffer: View {
     @State var checkCourierLocation : Bool = false
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
+    @State var token = ""
 
     var body: some View{
         
@@ -78,10 +79,11 @@ struct DetailedOrderOffer: View {
                 }.position(x: width(num:50), y:hieght(num: 50))
                 .onAppear(){
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId)/*{ success in
+                        self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
                             print("After getMemberToken in send \(self.member.member.token)")
+                            self.token = self.member.member.token
                             guard success else { return }
-                        }*/
+                        }
                     }
                 }
                 
@@ -225,9 +227,9 @@ struct DetailedOrderOffer: View {
                                 
                                 //send notification to member
                                 
-                                
+                                print("Before sendMessageTouser \(self.token)")
                                 //change token
-                                sendMessageTouser(to: self.member.member.token, title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
+                                sendMessageTouser(to: self.token, title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
                                 
                             }
                        }) {

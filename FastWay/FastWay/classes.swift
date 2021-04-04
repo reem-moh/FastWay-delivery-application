@@ -83,7 +83,7 @@ class Member: ObservableObject {
     } //function
     
     
-    func getMemberToken(memberId: String/*, completion: @escaping (_ success: Bool) -> Void*/) {
+    func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
         
         //var tokenM = ""
         db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
@@ -99,14 +99,14 @@ class Member: ObservableObject {
             let tM = data["Token"] as? String ?? ""
             self.member.token = tM
             print("tokenM inside \( self.member.token)")
-            
+            let success = true
+            DispatchQueue.main.async {
+                print("tokenM DispatchQueue \( self.member.token)")
+                print("inside getMemberToken in dispatch ")
+                completion(success)
+            }
         } //listener
-        /*let success = true
-        DispatchQueue.main.async {
-            print("tokenM \( self.member.token)")
-            print("inside getMemberToken in dispatch ")
-            completion(success)
-        }*/
+        
         
         
     }
@@ -202,7 +202,7 @@ class Courier: ObservableObject {
     } //function
     
     
-    func getCourierToken(courierId: String/*, completion: @escaping (_ success: Bool) -> Voi*/) {
+    func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) {
         
         //var tokenC = ""
         db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
@@ -218,14 +218,15 @@ class Courier: ObservableObject {
             let tC = data["Token"] as? String ?? ""
             self.courier.token = tC
             print("tokenC inside \(self.courier.token)")
-            
+            let success = true
+            DispatchQueue.main.async {
+                print("tokenC  DispatchQueue \(self.courier.token)")
+                print("inside getCourierToken in dispatch ")
+                completion(success)
+            }
         } //listener
-        /*let success = true
-        DispatchQueue.main.async {
-            print("tokenC \(self.courier.token)")
-            print("inside getCourierToken in dispatch ")
-            completion(success)
-        }*/
+        print("tokenC outside \(self.courier.token)")
+        
         
             }
     
