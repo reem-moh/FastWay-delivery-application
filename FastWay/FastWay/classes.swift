@@ -111,8 +111,30 @@ class Member: ObservableObject {
         
     }
     
+    func editProfileMember(memberId: String,email: String, name: String, phone: Int){
+        let doc = db.collection("Member").document(memberId)
+        doc.setData(["Name":name, "PhoneNo": phone, "Email": email], merge: true) { (error) in
+            if error != nil {
+                print("error in change profile")
+            }else {
+                print("Edit profile")
+            }
+        }
+    }
     
     
+    
+}
+
+//for both courier and member
+func changePass(ChangesPass: String){
+    Auth.auth().currentUser?.updatePassword(to: ChangesPass) { (error) in
+        if error != nil{
+            print("error in change password")
+        }else{
+            print("change password successfully")
+        }
+    }
 }
 
 class Courier: ObservableObject {
@@ -206,6 +228,17 @@ class Courier: ObservableObject {
         }*/
         
             }
+    
+    func editProfileCourier(courierId: String,email: String, name: String, phone: Int){
+        let doc = db.collection("Courier").document(courierId)
+        doc.setData(["Name":name, "PhoneNo": phone, "Email": email], merge: true) { (error) in
+            if error != nil {
+                print("error in change profile")
+            }else {
+                print("Edit profile")
+            }
+        }
+    }
     
 }
 
@@ -1024,7 +1057,6 @@ class Order: ObservableObject{
     
     //get all member orders where member id equals the id sent
     func getMemberOrder(Id: String){
-        //self.memberOrder.removeAll()
         print("\n*******GetMemberOrder*********")
         db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
@@ -1074,114 +1106,7 @@ class Order: ObservableObject{
               
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
-            //self.memberOrder.removeAll()
-            /*for i in querySnapshot!.documentChanges {
-                print("inside for loop getStatus getMemberOrder")
-                if i.type == .modified{
-                    let data = i.document
-                    let uid = i.document.documentID
-                    //pickUp location
-                    let PickUpLatitude = data.get("PickUpLatitude") as? Double ?? 0.0
-                    let PickUpLongitude = data.get("PickUpLongitude") as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = data.get("pickUpBulding") as? Int ?? 0
-                    let pickupFloor = data.get("pickUpFloor") as? Int ?? 0
-                    let pickupRoom = data.get("pickUpRoom") as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = data.get("DropOffLatitude") as? Double ?? 0.0
-                    let DropOffLongitude = data.get("DropOffLongitude") as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = data.get("dropOffBulding") as? Int ?? 0
-                    let dropoffFloor = data.get("dropOffFloor") as? Int ?? 0
-                    let dropoffRoom = data.get("dropOffRoom") as? String ?? ""
-                    let orderDetails = data.get("orderDetails") as? String ?? ""
-                    //when converting to Bool we need to do this
-                    let assigned = (data.get("Assigned") as? String ?? "" == "true" ? true : false)
-                    let MemberID = data.get("MemberID") as? String ?? ""
-                    let state = data.get("Status") as? String ?? ""
-                    let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
-                    var deliveryPrice = 0
-                    var courierId = ""
-                    
-                    if assigned{ // if the order is assigned and both value are created in db
-                        deliveryPrice = data.get("DeliveryPrice") as? Int ?? 0
-                        courierId = data.get("CourierID") as? String ?? ""
-                        print("\n\n !!!!!!!!!!!!!!!!!!!!!! pric \(deliveryPrice) \n\n")
-                    }
-                    
-                    
-                    print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                    db.collection("Tracking").document(uid)
-                    let courierLocationLatitude = data.get("courierLatitude") as? Double ?? 0.0
-                    let courierLocationLongitude = data.get("courierLongitude") as? Double ?? 0.0
-                    let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
-                  
-                    let orderChange =  OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                        
-                    let index = self.memberOrder.firstIndex{$0.id == orderChange.id}
-                        if index != nil || index ?? 0 < self.memberOrder.count{
-                            self.memberOrder[index ?? 0] = orderChange
-                            print("\n\nORDER INDEX \(index ?? 0 )\n\n\(self.memberOrder[index ?? 0].orderDetails)")
-                        }
-                    
-                    //print("\n\nORDER INDEX \(index )\n\n\(self.memberOrder[index ?? 0].orderDetails)")
-                    
-                }
-                /*if i.type == .added{
-                    let data = i.document
-                    let uid = i.document.documentID
-                    //pickUp location
-                    let PickUpLatitude = data.get("PickUpLatitude") as? Double ?? 0.0
-                    let PickUpLongitude = data.get("PickUpLongitude") as? Double ?? 0.0
-                    let pickup = CLLocationCoordinate2D(latitude: PickUpLatitude, longitude: PickUpLongitude)
-                    let pickupBuilding = data.get("pickUpBulding") as? Int ?? 0
-                    let pickupFloor = data.get("pickUpFloor") as? Int ?? 0
-                    let pickupRoom = data.get("pickUpRoom") as? String ?? ""
-                    //DropOff Location
-                    let DropOffLatitude = data.get("DropOffLatitude") as? Double ?? 0.0
-                    let DropOffLongitude = data.get("DropOffLongitude") as? Double ?? 0.0
-                    let dropoff = CLLocationCoordinate2D(latitude: DropOffLatitude, longitude: DropOffLongitude)
-                    let dropoffBuilding = data.get("dropOffBulding") as? Int ?? 0
-                    let dropoffFloor = data.get("dropOffFloor") as? Int ?? 0
-                    let dropoffRoom = data.get("dropOffRoom") as? String ?? ""
-                    let orderDetails = data.get("orderDetails") as? String ?? ""
-                    //when converting to Bool we need to do this
-                    let assigned = (data.get("Assigned") as? String ?? "" == "true" ? true : false)
-                    let MemberID = data.get("MemberID") as? String ?? ""
-                    let state = data.get("Status") as? String ?? ""
-                    let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
-                    var deliveryPrice = 0
-                    var courierId = ""
-                    
-                    if assigned{ // if the order is assigned and both value are created in db
-                        deliveryPrice = data.get("DeliveryPrice") as? Int ?? 0
-                        courierId = data.get("CourierID") as? String ?? ""
-                        print("\n\n !!!!!!!!!!!!!!!!!!!!!! pric \(deliveryPrice) \n\n")
-                    }
-                    
-                    
-                    print("order :\(uid) + \(pickup) + \(dropoff) + assigned: \(assigned)")
-                    print("in get order member current and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-                    db.collection("Tracking").document(uid)
-                    let courierLocationLatitude = data.get("courierLatitude") as? Double ?? 0.0
-                    let courierLocationLongitude = data.get("courierLongitude") as? Double ?? 0.0
-                    let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
-                  
-                    let orderChange =  OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                    self.memberOrder.append(orderChange)
-                }
-                if i.type == .removed {
-                    let uid = i.document.documentID
-                    
-                        let index = self.memberOrder.firstIndex{$0.id == uid}
-                        if index != nil || index ?? 0 < self.memberOrder.count{
-                            self.memberOrder.remove(at: index ?? 0)
-                            print("\n\nORDER INDEX \(index ?? 0 )\n\n\(self.memberOrder[index ?? 0].orderDetails)")
-                        }
-                }*/
-                
-            }*/
+            
             
         }
     }
@@ -1239,18 +1164,7 @@ class Order: ObservableObject{
     }
     
     func getMemberName(memberId : String, completion: @escaping (_ success: Bool) -> Void){
-            //var name = "No name"
-            /*let docRef = db.collection("Member").document(memberId)
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                    let data = document.data()
-                    name = data?["Name"] as? String ?? ""
-                    self.nameSender = name
-                    print("Document data: \(dataDescription)\(name)")
-                } else {
-                    print("Document does not exist")
-                }*/
+
             db.collection("Member").document(memberId)
                     .addSnapshotListener { documentSnapshot, error in
                         guard let document = documentSnapshot else {
@@ -1342,23 +1256,15 @@ class Order: ObservableObject{
                 return
             }
             for i in querySnapshot!.documentChanges {
-                //|| .modified
                 if i.type == .added || i.type == .modified {
-                    let orderID = i.document.get("orderId") as? String ?? ""
                     let courierlat = i.document.get("courierLatitude") as? Double ?? 0.0
                     let courierlong = i.document.get("courierLongitude")as? Double ?? 0.0
                     //print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
-riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong)
-                  //  self.traking = Tracking(id: orderID, courierLocation: CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong))
+                    riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong)
+
                 
                 }
             }
-          //  let success = true
-         //   DispatchQueue.main.async {
-           //     print("inside getCourierLocation in dispatch")
-               // completion(success)
-         //   }
-            
         }
     }
 
