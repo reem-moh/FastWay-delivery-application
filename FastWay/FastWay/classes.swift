@@ -40,22 +40,23 @@ class Member: ObservableObject {
     }
     
     func addMember(member: Member) -> Bool {
-        let doc = db.collection("Member").document(id)
         var flag = true
+        if id != nil && id != "" {
+        let doc = db.collection("Member").document(id)
         doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email]) { (error) in
             
             if error != nil {
                 flag = false
             }
         }
-        
+    }
         return flag
     }
     
     //retrieve from database
     func getMember(id: String){
         
-        
+        if id != nil && id != "" {
         db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
             guard let doc = querySnapshot else{
                 print("no member document")
@@ -79,12 +80,12 @@ class Member: ObservableObject {
             print("----------")
             
         } //listener
-        
+    }
     } //function
     
     
     func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
-        
+        if memberId != nil && memberId != "" {
         //var tokenM = ""
         db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
             guard let doc = querySnapshot else{
@@ -107,11 +108,12 @@ class Member: ObservableObject {
             }
         } //listener
         
-        
+    }
         
     }
     
     func editProfileMember(memberId: String,email: String, name: String, phone: Int){
+        if memberId != nil && memberId != "" {
         let doc = db.collection("Member").document(memberId)
         doc.setData(["Name":name, "PhoneNo": phone, "Email": email], merge: true) { (error) in
             if error != nil {
@@ -120,6 +122,7 @@ class Member: ObservableObject {
                 print("Edit profile")
             }
         }
+    }
     }
     
     
