@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
             endingLineNumber = "211"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "login()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -96,8 +96,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
             endingLineNumber = "45"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,9 +110,9 @@
             filePath = "FastWay/classes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
-            landmarkName = "getStatus(courierId:memberId:order:completion:)"
+            startingLineNumber = "896"
+            endingLineNumber = "896"
+            landmarkName = "getOrderForCourierCurrentOrder(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +174,9 @@
             filePath = "FastWay/classes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1136"
-            endingLineNumber = "1136"
-            landmarkName = "cancelOrder(OrderId:)"
+            startingLineNumber = "1153"
+            endingLineNumber = "1153"
+            landmarkName = "getChatRoom(orderId:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,8 +190,8 @@
             filePath = "FastWay/ViewMemberProfile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

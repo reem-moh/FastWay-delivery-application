@@ -112,17 +112,34 @@ class Member: ObservableObject {
         
     }
     
-    func editProfileMember(memberId: String,email: String, name: String, phone: Int){
+    func editProfileMember(memberId: String,email: String, name: String, phone: String,changeEmail: Bool){
         if memberId != nil && memberId != "" {
         let doc = db.collection("Member").document(memberId)
-        doc.setData(["Name":name, "PhoneNo": phone, "Email": email], merge: true) { (error) in
+        doc.setData(["Name":name, "PhoneNo": phone], merge: true) { (error) in
             if error != nil {
                 print("error in change profile")
             }else {
                 print("Edit profile")
             }
         }
-    }
+            if changeEmail {
+
+                Auth.auth().currentUser?.updateEmail(to: email){ (error) in
+                    if error != nil{
+                        print("error in change email inside auth \(error)")
+                    }else{
+                        print("change email successfully inside auth")
+                        doc.setData(["Email": email], merge: true) { (error) in
+                            if error != nil {
+                                print("error in change email inside cloud")
+                            }else {
+                                print("change email inside cloud")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     
@@ -233,7 +250,7 @@ class Courier: ObservableObject {
         
             }
     
-    func editProfileCourier(courierId: String,email: String, name: String, phone: Int){
+    func editProfileCourier(courierId: String,email: String, name: String, phone: String){
         let doc = db.collection("Courier").document(courierId)
         doc.setData(["Name":name, "PhoneNo": phone, "Email": email], merge: true) { (error) in
             if error != nil {

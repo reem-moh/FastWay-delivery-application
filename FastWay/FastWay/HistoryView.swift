@@ -22,8 +22,10 @@ struct HistoryView: View {
 
     
     var body: some View {
-        
-        ZStack {
+        ZStack{
+            
+        }
+        /*ZStack {
             //Background
             HStack{
                 GeometryReader{ geometry in
@@ -276,7 +278,7 @@ struct HistoryView: View {
                 print("after calling method get notification")
                 guard success else { return }
             }*/
-        }
+        }*/
     }
     
 }
