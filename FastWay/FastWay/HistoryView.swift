@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct HistoryView: View {
     
@@ -103,7 +104,7 @@ struct HistoryView: View {
                                 ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
                                     HStack{
                                         if(index < model.cards.count){
-                                       HistoryCardMView(card: model.cards[index], animation: animation)
+                                            HistoryCardMView(card: model.cards[index], animation: animation)
                                         Spacer(minLength: 0)
                                         }
                                     }//.frame(height: 100)
@@ -284,7 +285,7 @@ struct HistoryView: View {
 //Current card M View/ Taif
 struct HistoryCardMView: View {
     @EnvironmentObject var model : HistoryCarouselMViewModel
-    var card: Card
+    var card: HistoryCardM
     var animation: Namespace.ID
     @State var stat = ""
     //for the in app notification
@@ -753,10 +754,10 @@ class HistoryCarouselMViewModel: ObservableObject {
     @StateObject var OfferModel = OfferCarousel()
     
     //each order has card
-    @Published var cards: [Card] = []
+    @Published var cards: [HistoryCardM] = []
     
     // Detail Content....
-    @Published var selectedCard = Card(cardColor: .clear)
+    @Published var selectedCard = HistoryCardM(cardColor: .clear)
 
     //Display all cards in current page
     @Published var showCard = false
@@ -783,7 +784,7 @@ class HistoryCarouselMViewModel: ObservableObject {
     }
     
     //return order details
-    func orderPreview(c: Card) -> OrderDetails {
+    func orderPreview(c: HistoryCardM) -> OrderDetails {
         return c.orderD
     }
     
@@ -797,7 +798,7 @@ class HistoryCarouselMViewModel: ObservableObject {
         for index in order.memberOrder {
             checkOrders(ID: UserDefaults.standard.getUderId())
             if( index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId){
-                cards.append(contentsOf: [ Card( cardColor: Color(.white), orderD : index )])
+                cards.append(contentsOf: [ HistoryCardM( cardColor: Color(.white), orderD : index )])
             }
             
             
@@ -821,15 +822,15 @@ class HistoryCarouselMViewModel: ObservableObject {
 }
 
 
-
-//current card M info
+//Card info
 struct HistoryCardM: Identifiable {
+    
     var id = UUID().uuidString
     var cardColor: Color
     var offset: CGFloat = 0
-    var state : Int = 0
-    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, status: "")
+    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", isAdded: false, status: "")
 }
+
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
