@@ -10,7 +10,7 @@ import MapKit
 
 struct HistoryCourierView: View {
     
-    /*
+    
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: HistoryCarouselCViewModel
    // @StateObject var courierOrderModel = CarouselViewModel()
@@ -34,7 +34,7 @@ struct HistoryCourierView: View {
                         .frame(width: width(num: 375)) //addframe
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
                     //CurrentOrderView
-                    Text("Current Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    Text("History").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
@@ -81,7 +81,7 @@ struct HistoryCourierView: View {
             VStack{
                 Spacer()
                 if model.cards.count == 0 {
-                    Text("you do not have any current order yet")
+                    Text("you do not have any  order yet")
                 }else{
                 ZStack{
                     GeometryReader{ geometry in
@@ -116,13 +116,13 @@ struct HistoryCourierView: View {
             
             //Press details
             if model.showCard && model.assigned == false{
-                CurrentCardCDetailes(viewRouter: viewRouter, animation: animation)
-            }else{
+                HistoryCardCDetailes(viewRouter: viewRouter, animation: animation)
+            }/*else{
                 if model.showCard && model.assigned == true{
                     //change to the assigned order view
                     CurrentCardCDetailesNeworder(viewRouter: viewRouter, animation: animation)
                 }
-            }
+            }*/
                         
             //notification
             VStack{
@@ -130,11 +130,6 @@ struct HistoryCourierView: View {
                     Notifications(type: notificationT, imageName: self.imgName)
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-            }.onAppear(){
-                if notificationT == .SendOffer || notificationT == .CancelOffer {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
                 }
             }
             
@@ -232,29 +227,7 @@ struct HistoryCourierView: View {
             
            
 
-            //notification here
-            VStack{
-                if show{
-                    Notifications(type: notificationT, imageName: self.imgName)
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
-                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-                
-                
-                
-                
-            }.onAppear(){
-                if notificationT == .SendOffer  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
-                }
-                if notificationT == .CancelOffer  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
-                }
-
-            }
-
+     
             
         }//end ZStack
         .onAppear(){
@@ -266,76 +239,11 @@ struct HistoryCourierView: View {
                 guard success else { return }
             }*/
         }
-    } */
+    }
   
     
     
         
-        @StateObject var viewRouter: ViewRouter
-        let abuotPage: Page = .AboutUs
-        //for the in app notification
-        @StateObject var delegate = NotificationDelegate()
-        
-        var body: some View {
-            
-            ZStack{
-                ZStack{
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 49"))
-                        .resizable() //add resizable
-                        .frame(width: width(num: 375)) //addframe
-                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y: hieght(num: -100))
-                    Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
-                        .resizable() //add resizable
-                        .frame(width: width(num: 375)) //addframe
-                        .offset(y: hieght(num: 30))
-                }.onAppear(){
-                    checkOrders(ID:  UserDefaults.standard.getUderId())
-                }
-                //background
-               
-                GeometryReader { geometry in
-                    // if UserDefaults.standard.getUderType() == "M"{
-                    VStack {
-                        Spacer()
-                        Text("Hello,History View!")
-                        Spacer()
-                        HStack {
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
-                                    .shadow(radius: 4)
-                                VStack {
-                                    Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, width(num: 14)).onTapGesture {
-                                    notificationT = .None
-                                    viewRouter.currentPage = abuotPage
-                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
-                            }.offset(y: -geometry.size.height/8/2)
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileC ,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
-                        }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
-                        .background(Color("TabBarBackground").shadow(radius: 2))
-                    }
-                    // }
-                    
-                }
-                
-            }.edgesIgnoringSafeArea(.all)//zstack
-            .onAppear(){
-                //for the in app notification
-                //call it before get notification
-                /*UNUserNotificationCenter.current().delegate = delegate
-               getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                    print("after calling method get notification")
-                    guard success else { return }
-                }*/
-            }
-        }
     
     
     
@@ -344,11 +252,11 @@ struct HistoryCourierView: View {
 
 
 
-/*
+
 //Current card c View
 struct HistoryCardCView: View {
     @EnvironmentObject var model : HistoryCarouselCViewModel
-    var card: currentCardC
+    var card: HistoryCardC
     var animation: Namespace.ID
     //@State var StateACCEPT = false
     @State var StateWaiting = true
@@ -421,12 +329,12 @@ struct HistoryCardCView: View {
                 Spacer(minLength: 0)
                 if !model.showContent{
                     //have an offer
-                    if self.stat == "have an offer"{
-                        Text("Waiting for accept")
+                    if self.stat == "completed"{
+                        Text("completed")
                             .bold()
                             .foregroundColor(.white)
                             .frame(width: width(num:170),height: hieght(num:25))
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -440,28 +348,14 @@ struct HistoryCardCView: View {
                     }else
                 
     
-                    if self.stat == "assigned"
+                    if self.stat == "cancled"
                     {
-                        Text("assigned")
+                        Text("cancled")
                         .bold()
                         .foregroundColor(.white)
                         .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.red))
                             //.background(Color.purple)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-                        Spacer(minLength: 0)
-
-                        
-                    }else{
-                        
-                        Text("Details")
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -510,7 +404,201 @@ struct HistoryCardCView: View {
         }//end on tap gesture
     }
 }
+//Current card c details
+struct HistoryCardCDetailes: View {
+    @EnvironmentObject var model :  HistoryCarouselCViewModel
+    @StateObject var viewRouter: ViewRouter
+    var animation: Namespace.ID
+    @State var map = MKMapView()
+    @State var manager = CLLocationManager()
+    @State var alert = false
+    @State var distance = ""
+    @State var time = ""
+    @State var expandOffer = false
+    @State var expand = false
+    @State private var showingPaymentAlert = false
+    @State var stat = ""
+    //for the in app notification
+    @StateObject var delegate = NotificationDelegate()
+    
+    var body: some View{
+        
+        ZStack{
+            
+            //map
+            MapView(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time)
+                .cornerRadius(35)
+                .frame(width: width(num:390), height: hieght(num:300)).padding(.bottom, 0)
+                .clipped().position(x: width(num:188),y: hieght(num:100))
+                .offset(y: hieght(num:50))
+                .onAppear {
+                    
+                    self.manager.requestAlwaysAuthorization()
+                }
+            ZStack {
+                //go back button
+                //arrow_back image
+                Group{
+                    RoundedRectangle(cornerRadius: 10).frame(width: width(num:45), height: hieght(num:35)).foregroundColor(Color(.white))
+                    Button(action: {
+                        withAnimation(.spring()){
+                            model.showCard.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.easeIn){
+                                    model.showContent = false
+                                    
+                                }
+                            }
+                            
+                        }
+                    }) {
+                        Image("arrow_back")
+                            .resizable()
+                            .colorInvert()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width(num:30), height: hieght(num:30))
+                            .clipped()
+                            .background(Color(.white))
+                    }.padding(1.0)
+                }.position(x: width(num:50), y: hieght(num:50))
+                //white background
+                Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
+                    .resizable() //add resizable
+                    .frame(width: width(num: 375)) //addframe
+                    .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num:240)).shadow(radius: 2)
+                
+                VStack{
+                    
+                    ScrollView{
+                        HStack{
+                            Image(systemName: "clock")
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: width(num:10), y: hieght(num:10))
+                                .padding(.leading)
+                            Text("\(model.selectedCard.orderD.createdAt.calenderTimeSinceNow())")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
 
+                            
+                            
+                            Image(uiImage: #imageLiteral(resourceName: "money"))
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .offset(x: width(num:10), y: hieght(num:10))
+                                .padding(.leading)
+                            
+                            
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))
+                            Spacer(minLength: 0)
+                        }
+                        /*
+                        if model.selectedCard.orderD.status == "have an offer"{
+                            HStack{
+                                Text("Waiting for accept")
+                                    .foregroundColor(.purple)
+                                    .bold()
+                                    .padding(.leading, width(num:20))
+                                DotView(frame: 15)
+                                DotView(delay: 0.2, frame: 15)
+                                DotView(delay: 0.4, frame: 15)
+        
+                            Spacer(minLength: 0)
+                            }
+                        }
+                        else {
+                        Text("Details")
+                        Spacer(minLength: 0)
+                        }
+                        */
+                        //pick up
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 1")).offset(x: width(num:-125))
+                            HStack {
+                                
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.pickUpBulding)), \nfloor \(model.selectedCard.orderD.pickUpFloor),  \(model.selectedCard.orderD.pickUpRoom)").multilineTextAlignment(.leading).frame(minWidth: width(num:0), maxWidth: width(num:200), alignment: .leading)
+                            }
+                            
+                        }
+                        //drop off
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 3")).offset(x: width(num:-125))
+                            HStack{
+                                
+                                Text("Building \(self.getBuilding(id: model.selectedCard.orderD.dropOffBulding)), \nfloor \(model.selectedCard.orderD.dropOffFloor),  \(model.selectedCard.orderD.dropOffRoom)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:200), alignment: .leading)
+                            }
+                            
+                        }
+                        //order items
+                        ZStack{
+                           
+                            Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
+                            HStack() {
+                                
+                                Text("\(model.selectedCard.orderD.orderDetails)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
+                            }
+                        }
+                        .contentShape(RoundedRectangle(cornerRadius: 15))
+                        .frame(width: width(num:325))
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
+                     
+                        
+                    }
+                }.position(x: width(num:188),y: hieght(num:700))
+            }
+        }
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+       
+        
+    }// end body
+
+ 
+    //name of building
+    func getBuilding(id: Int) -> String {
+        var building = ""
+        switch id {
+        case 5:
+            building = "no.5 College Of Sciences"
+        case 6:
+            building = "no.6 College Of Computer and Information Sciences"
+        case 8:
+            building = "no.8 College Of Pharmacy"
+        case 9:
+            building = "no.9 College Of Medicine"
+        case 10:
+            building = "no.10 College Of Dentistry"
+        case 11:
+            building = "no.11 College Of Applied Medical Science"
+        case 2:
+            building = "no.12 College Of Education"
+        case 13:
+            building = "no.13 College Of Arts"
+        case 4:
+            building = "no.14 College Of Languages And Translation"
+        case 3:
+            building = "no.15 College Of Business Administration"
+        case 16:
+            building = "no.16 College of Sports Sciences and Physical Activity"
+        case 7:
+            building = "no.17 College of Law and Political Sciences"
+        default:
+            building = ""
+        }
+        return building
+    }
+}
 
 //HistoryCarouselCViewModel
 class HistoryCarouselCViewModel: ObservableObject {
@@ -519,10 +607,10 @@ class HistoryCarouselCViewModel: ObservableObject {
     @ObservedObject var order = Order()
     
     //each order has card
-    @Published var cards: [currentCardC] = []
+    @Published var cards: [HistoryCardC] = []
     
     // Detail Content....
-    @Published var selectedCard = currentCardC(cardColor: .clear)
+    @Published var selectedCard = HistoryCardC(cardColor: .clear)
     //user press details
     @Published var showCard = false
     @Published var showContent = false
@@ -536,7 +624,7 @@ class HistoryCarouselCViewModel: ObservableObject {
     
     
     //return order details
-    func orderPreview(c: currentCardC) -> OrderDetails {
+    func orderPreview(c: HistoryCardC) -> OrderDetails {
         return c.orderD
     }
     
@@ -555,14 +643,14 @@ class HistoryCarouselCViewModel: ObservableObject {
         for index in order.CourierOrderOfferedWaiting {
             print("index in loop waiting \(index.orderDetails)")
             if ( index.id != "") {
-                cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+                cards.append(contentsOf: [ HistoryCardC( cardColor: Color(.white),state : 0, orderD : index )])
             }
         }
         
         for index in order.CourierOrderOfferedAssign {
             print("index in loop assign \(index.orderDetails)")
             if index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId{
-                cards.append(contentsOf: [ currentCardC( cardColor: Color(.white),state : 0, orderD : index )])
+                cards.append(contentsOf: [ HistoryCardC( cardColor: Color(.white),state : 0, orderD : index )])
             }
             
         }
@@ -588,7 +676,15 @@ class HistoryCarouselCViewModel: ObservableObject {
 }
 
 
-*/
+
+//current card C info
+struct HistoryCardC: Identifiable {
+    var id = UUID().uuidString
+    var cardColor: Color
+    var offset: CGFloat = 0
+    var state : Int = 0
+    var orderD = OrderDetails(id: "", pickUP: CLLocationCoordinate2D (latitude: 0.0, longitude: 0.0), pickUpBulding: 0, pickUpFloor: 0, pickUpRoom: "", dropOff: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), dropOffBulding: 0, dropOffFloor: 0, dropOffRoom: "", orderDetails: "", memberId: "", courierId: "" ,deliveryPrice: 0, isAdded: false, status: "")
+}
 
 struct HistoryCourierView_Previews: PreviewProvider {
     static var previews: some View {
