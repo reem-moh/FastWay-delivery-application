@@ -217,18 +217,29 @@ struct LoginView: View {
                             notificationT = .LogIn
                             viewRouter.currentPage = .HomePageM
                         } else {
-                            print("Courier")
-                            UserDefaults.standard.setUserType(Type: "C")
-                            //call setToken
-                            DispatchQueue.main.async {
-                                registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                                    print("in success registerTokenCourier")
-                                    
-                                    guard success else { return }
-                                }
-                            }
-                            notificationT = .LogIn
-                            viewRouter.currentPage = .HomePageC
+                            
+                            let docRef = db.collection("Courier").document(id)
+                                                        docRef.getDocument { (document, error) in
+                                                            if let document = document, document.exists {
+                                                                print("Courier")
+                                                                UserDefaults.standard.setUserType(Type: "C")
+                                                                //call setToken
+                                                                DispatchQueue.main.async {
+                                                                    registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                                                                        print("in success registerTokenCourier")
+                                                                        
+                                                                        guard success else { return }
+                                                                    }
+                                                                }
+                                                                notificationT = .LogIn
+                                                                viewRouter.currentPage = .HomePageC
+
+                                                            }else{
+                                                                self.showErrorMessageEmail = true
+                                                            }
+                                                            
+                                                        }
+                            
                         }
                     }
                 }//end loginuser
