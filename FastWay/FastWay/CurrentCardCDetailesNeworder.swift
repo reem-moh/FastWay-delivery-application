@@ -346,8 +346,8 @@ struct CurrentCardCDetailesNeworder: View {
                             Button(action: {
                                 alertTitle = "Order confirmed"
                                 alertMessage = "Are you sure you want cancel this order"
-                                showingAlert.toggle()
-                               
+                                //showingAlert.toggle()
+                                showingAlert = true
                                
                             }) {
                                 Text("Cancel order")
@@ -399,7 +399,7 @@ struct CurrentCardCDetailesNeworder: View {
   
        }.edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showingAlert) {Alert(title: Text(alertTitle), message: Text(alertMessage), primaryButton: .default((Text("YES")), action: {
-            if alertTitle == "Confirm Cancel"{
+            if alertTitle == "Order confirmed"{
                 model.cancelOrder(Id:  model.selectedCard.orderD.id)
                 notificationT =  .CancelOrder
                 model.notificationCancel = true
