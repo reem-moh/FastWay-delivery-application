@@ -334,6 +334,7 @@ class Order: ObservableObject{
     @Published var WaitingOrders: [OrderDetails] = [] //for delivery requests waiting
     @Published var CourierOrderOfferedAssign: [OrderDetails] = [] // for current order
     @Published var CourierOrderCancelled: [OrderDetails] = [] // for current order
+    @Published var MemberOrderCancelled: [OrderDetails] = [] // for current order
     @Published var CourierOrderOfferedWaiting: [OrderDetails] = []  //for current order
     @Published var offers: [Offer] = [] // retrieve offer for specific order
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
@@ -640,13 +641,13 @@ class Order: ObservableObject{
     
     func getMemberOrderCancelledAndCompleted(Id: String) {
         print(" CCCC documents")
-        self.CourierOrderCancelled.removeAll()
+        self.MemberOrderCancelled.removeAll()
         db.collection("Order").whereField("MemberID", isEqualTo: Id).order(by: "CreatedAt", descending: false).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No order CCCC documents")
                 return
             }
-            self.CourierOrderCancelled = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
+            self.MemberOrderCancelled = documents.map({ (queryDocumentSnapshot) -> OrderDetails in
                 
                 let data = queryDocumentSnapshot.data()
                 let orderId = queryDocumentSnapshot.documentID
@@ -680,7 +681,7 @@ class Order: ObservableObject{
             })
             
             for i in querySnapshot!.documentChanges {
-                print("inside for loop getCourierOrderCancelled")
+                print("inside for loop getMemberOrderCancelled")
                 if i.type == .modified{
                     let data = i.document
                     let orderId = i.document.documentID
@@ -716,8 +717,8 @@ class Order: ObservableObject{
 
                     let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                    
-                    let index = self.CourierOrderCancelled.firstIndex{$0.id == OrderChanges.id}
-                    self.CourierOrderCancelled[index ?? 0] = OrderChanges
+                    let index = self.MemberOrderCancelled.firstIndex{$0.id == OrderChanges.id}
+                    self.MemberOrderCancelled[index ?? 0] = OrderChanges
                     
                     
                 }

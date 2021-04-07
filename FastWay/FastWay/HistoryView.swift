@@ -47,14 +47,8 @@ struct HistoryView: View {
                 
             }.onAppear(){
                 //retrieve ordered assigned to the user
-                model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+                model.order.getMemberOrderCancelledAndCompleted(Id: UserDefaults.standard.getUderId())
                 //retrieve order waiting for accept
-                model.order.getAllOffersFromCourierInCurrentOrder(){ success in
-                    print("inside Delivery order view success ")
-                    //if success false return
-                    guard success else { return }
-                    model.getCards()
-                }
                 //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     //withAnimation(.easeIn){
@@ -627,13 +621,13 @@ class HistoryCarouselMViewModel: ObservableObject {
     }
     
     func getCards(){
-        print("number of cards inside getCards: \(order.memberOrder.count)")
-        if order.memberOrder.isEmpty{
+        print("number of cards inside getCards: \(order.MemberOrderCancelled.count)")
+        if order.MemberOrderCancelled.isEmpty{
             print("there is no order")
         }
         
         cards.removeAll()
-        for index in order.memberOrder {
+        for index in order.MemberOrderCancelled {
             checkOrders(ID: UserDefaults.standard.getUderId())
             if( index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId){
                 cards.append(contentsOf: [ HistoryCardM( cardColor: Color(.white), orderD : index )])
