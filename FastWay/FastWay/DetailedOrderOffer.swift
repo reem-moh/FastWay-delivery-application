@@ -167,6 +167,7 @@ struct DetailedOrderOffer: View {
                             Text("*You must specify a price").font(.custom("Roboto Regular", size: fontSize(num:18))).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
                                 .offset(x: width(num:-50))
                             
+                            
                         }
                         if(checkCourierLocation){
                             Text("*Your current location\'s out of the campus ").font(.custom("Roboto Regular", size: fontSize(num:18)))
