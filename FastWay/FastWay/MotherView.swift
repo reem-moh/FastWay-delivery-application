@@ -12,6 +12,8 @@ struct MotherView: View {
     @StateObject var CurrentMModel = CurrentCarouselMViewModel()
     @StateObject var CurrentCModel = CurrentCarouselCViewModel()
     @StateObject var HistoryCModel = HistoryCarouselCViewModel()
+    @StateObject var HistoryMModel = HistoryCarouselMViewModel()
+
    // @StateObject var OfferModel = OfferCarousel()
     @StateObject var viewRouter: ViewRouter
     @Namespace var animation
@@ -37,7 +39,7 @@ struct MotherView: View {
         case .CurrentOrder :
             CurrentOrderView(viewRouter : viewRouter) .environmentObject(CurrentMModel)
         case .HistoryView :
-            HistoryView(viewRouter : viewRouter)
+            HistoryView(viewRouter : viewRouter).environmentObject(HistoryMModel)
         case .DeliverOrder :
             DeliverOrderView(viewRouter : viewRouter) .environmentObject(courierOrderModel)
         case .ViewProfileC:
@@ -48,6 +50,7 @@ struct MotherView: View {
             CurrentOrderCourierView(viewRouter: viewRouter).environmentObject(CurrentCModel)
         case .HistoryCourierView:
             HistoryCourierView(viewRouter: viewRouter).environmentObject(HistoryCModel)
+            
         case .DetailedOrderOffer:
             DetailedOrderOffer(viewRouter: viewRouter, animation: animation)
         }

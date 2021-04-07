@@ -12,7 +12,7 @@ struct HistoryView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: HistoryCarouselMViewModel
-   // @StateObject var courierOrderModel = CarouselViewModel()
+    @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
     @State var show = false
@@ -35,7 +35,7 @@ struct HistoryView: View {
                         .frame(width: width(num: 375)) //addframe
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-100))
                     //CurrentOrderView
-                    Text("Current Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    Text("History").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:50)).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
@@ -75,62 +75,47 @@ struct HistoryView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }
-            //Cancel offer
-            .onChange(of: model.notificationMSG, perform: { value in
-                if value {
-                    if notificationT == .CancelOffer  {
-                        animateAndDelayWithSeconds(0.05) {
-                            self.imgName = "cancelTick"
-                            self.show = true }
-                        animateAndDelayWithSeconds(4) {
-                            self.show = false
-                            model.notificationMSG = false
-                            notificationT = .None
-                        }
-                    }
-                }
-            })
+      
 
             // Carousel...
             
             VStack{
+                // Carousel....
                 Spacer()
                 if model.cards.count == 0 {
-                    Text("you do not have any  order yet")
+                    Text("you do not have any  Past order yet ")
                 }else{
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        if(index < model.cards.count){
+                    ZStack{
+                        GeometryReader{ geometry in
+                            HStack {
+                                ScrollView {
+                                    
+                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                        HStack{
                                             HistoryCardMView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
-                                        }
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, 5)
-                                    .shadow(radius: 1)
+                                            Spacer(minLength: 0)
+                                        }//.frame(height: 100)
+                                        .padding(.horizontal)
+                                        .contentShape(Rectangle())
+                                        .gesture(DragGesture(minimumDistance: 20))
+                                        .padding(.vertical, 5)
+                                        .shadow(radius: 1)
+                                        
+                                        
+                                    }.padding(.bottom,25)//end of for each
                                     
                                     
-                                }.padding(.bottom,25)//end of for each
-                                
+                                }
                                 
                             }
-                            
                         }
-                    }
-                }.padding(.top,80)
+                    }.padding(.top,80)
                 }
                 Spacer()
             }.padding(.bottom,80)
             
             //Press details
-            if model.showCard && model.assigned == false{
+            if model.showCard {
                 HistoryCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
                         
@@ -141,13 +126,7 @@ struct HistoryView: View {
                         .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
-            }.onAppear(){
-                if notificationT == .SendOffer || notificationT == .CancelOffer {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
-                }
             }
-            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -311,7 +290,7 @@ struct HistoryCardMView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
 
-                if(model.orderPreview(c: card).deliveryPrice != 0){
+                if(model.orderPreview(c: card).deliveryPrice != 0 && self.stat == "completed" ){
                 //price
                     Image(uiImage: #imageLiteral(resourceName: "money"))
                         .foregroundColor(Color.black.opacity(0.5))
@@ -357,40 +336,46 @@ struct HistoryCardMView: View {
             HStack{
 
                 if !model.showContent{
-                    //Text("\(model.selectedCard.orderD.status)")
-                    //to let an arrow in the right of the card
-                    
-                    if self.stat == "waiting for offer"{
-                        Text("Waiting for offers")
+                    //have an offer
+                    if self.stat == "completed"{
+                        Text("completed")
                             .bold()
                             .foregroundColor(.white)
                             .frame(width: width(num:170),height: hieght(num:25))
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
                         Spacer(minLength: 0)
-                        //HStack{
-                            
-                            //DotView(frame: 10)
-                            //DotView(delay: 0.2, frame: 10)
-                            //DotView(delay: 0.4, frame: 10)
-                        //}
-                    }else if self.stat == "have an offer"{
-                        //model.order.offers "\(model.order.offers.count) offers"
-                        
-                            Text("New offers")
-                                .bold()
-                                .foregroundColor(.white)
-                                .frame(width: width(num:100),height: hieght(num:25))
-                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                      
+                    }else
+                
+    
+                    if self.stat == "cancled"
+                    {
+                        Text("cancled")
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(width: width(num:100),height: hieght(num:25))
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.red))
                             //.background(Color.purple)
-                            Spacer(minLength: 0)
-                        
-                        
-                    }else {
-                        
-                        Text("Details")
                         Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+                        Spacer(minLength: 0)
+
+                        
                     }
-                    
                     
                     Image(systemName: "arrow.right")
                 }
@@ -676,36 +661,6 @@ struct HistoryCardMDetailes: View {
             }
             // }
         }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        .alert(isPresented: $CancelOrder) {
-            Alert(
-                title: Text("Order confirmed"),
-                message: Text("Are you sure you want cancel this order"),
-                primaryButton: .default((Text("Yes")), action: {
-                    model.cancelOrder(Id: model.selectedCard.orderD.id)
-                    notificationT = .CancelOrder
-                    model.notificationMSG = true
-                    //viewRouter.currentPage = .CurrentOrder
-                    model.showCard = false
-                    model.showContent = false
-                    
-                }) ,
-                secondaryButton: .cancel((Text("No")))
-            )}//end alert
-        .onAppear(){
-            //assigned
-            if model.selectedCard.orderD.status == order.status[3]{
-            CancelButtonShow = true
-             let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
-                //60 * (60+30)
-                print("timeInterval: \(timeInterval)")
-                if timeInterval >= 5400 {
-                    self.CancelButtonShow.toggle()
-                    CancelButtonShow = true
-                }else {
-                    CancelButtonShow = false
-                }
-            }
-        }
         
     }// end body
     
@@ -804,19 +759,7 @@ class HistoryCarouselMViewModel: ObservableObject {
         }
     }
     
-    //cancel order
-    func cancelOrder(Id: String){
-           cancelCardOrderId = Id
-            order.cancelOrder(OrderId: Id)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //withAnimation(.easeIn){
-                self.getCards()
-                self.showCancel.toggle()
-                animateAndDelayWithSeconds(0.05) { self.showCancel = true }
-                animateAndDelayWithSeconds(4) {self.showCancel = false }
-                //}//end with animation
-            }
-    }
+ 
   
 }
 
