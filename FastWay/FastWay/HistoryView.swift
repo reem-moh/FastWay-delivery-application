@@ -11,7 +11,7 @@ import MapKit
 struct HistoryView: View {
     
     @StateObject var viewRouter: ViewRouter
-    @EnvironmentObject var model: CurrentCarouselCViewModel
+    @EnvironmentObject var model: HistoryCarouselMViewModel
    // @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
@@ -25,7 +25,7 @@ struct HistoryView: View {
         ZStack{
             
         }
-        /*ZStack {
+        ZStack {
             //Background
             HStack{
                 GeometryReader{ geometry in
@@ -240,10 +240,7 @@ struct HistoryView: View {
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
-            //press chat
-            if model.showChat {
-                ChatViewCourier(viewRouter: viewRouter, model: model)
-            }
+          
 
             //notification here
             VStack{
@@ -278,7 +275,7 @@ struct HistoryView: View {
                 print("after calling method get notification")
                 guard success else { return }
             }*/
-        }*/
+        }
     }
     
 }
