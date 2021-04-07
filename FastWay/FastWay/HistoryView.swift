@@ -591,9 +591,10 @@ class HistoryCarouselMViewModel: ObservableObject {
         }
         
         cards.removeAll()
+        //&& index.id != cancelCardOrderId
         for index in order.MemberOrderCancelled {
             checkOrders(ID: UserDefaults.standard.getUderId())
-            if( index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId){
+            if( index.status == "cancled" || index.status == "completed" ){
                 cards.append(contentsOf: [ HistoryCardM( cardColor: Color(.white), orderD : index )])
             }
             
