@@ -52,7 +52,6 @@ struct AboutUs: View {
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
-                        
                         Spacer()
                         HStack {
                             //Home
@@ -62,13 +61,13 @@ struct AboutUs: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
-                                    .frame(width:width(num: geometry.size.width/7), height:width(num: geometry.size.width/7))
+                                    .frame(width:width(num: geometry.size.width/7), height:hieght(num: geometry.size.width/7))
                                     .shadow(radius: 4)
                                 VStack {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width:width(num: geometry.size.width/7-6 ), height:width(num: geometry.size.width/7-6))
+                                        .frame(width:width(num: geometry.size.width/7-6 ), height:hieght(num: geometry.size.width/7-6))
                                 }.padding(.horizontal, width(num:  14)).onTapGesture {
                                     notificationT = .None
                                     viewRouter.currentPage = .AboutUs

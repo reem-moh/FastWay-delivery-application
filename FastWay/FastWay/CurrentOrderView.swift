@@ -218,7 +218,6 @@ struct CurrentOrderView: View {
                     VStack {
                         Spacer()
                         Spacer()
-                        Spacer()
                         HStack {
                             //Home icon
                             VStack {
@@ -248,14 +247,15 @@ struct CurrentOrderView: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
-                                    .frame(width: width(num:geometry.size.width/7), height: width(num:geometry.size.width/7))
+                                    .frame(width: width(num:geometry.size.width/7), height: hieght(num:geometry.size.width/7))
                                     .shadow(radius: 4)
                                 VStack {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: width(num:geometry.size.width/7-6) , height: width(num:geometry.size.width/7-6))
-                                }.padding(.horizontal, width(num:14)).onTapGesture {
+                                        .frame(width: width(num:geometry.size.width/7-6) , height: hieght(num:geometry.size.width/7-6))
+                                }.padding(.horizontal, width(num:14))
+                                .onTapGesture {
                                     withAnimation(.spring()){
                                         model.showCard.toggle()
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -281,7 +281,8 @@ struct CurrentOrderView: View {
                                 Text("Profile")
                                     .font(.footnote)
                                 Spacer()
-                            }.padding(.horizontal, width(num:14)).onTapGesture {
+                            }.padding(.horizontal, width(num:14))
+                            .onTapGesture {
                                 withAnimation(.spring()){
                                     model.showCard.toggle()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

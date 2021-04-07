@@ -60,15 +60,7 @@ struct HistoryView: View {
                 model.showChat = false
             }
             
-            //Notification
-            VStack{
-                
-                if show{
-                    Notifications(type: notificationT, imageName: self.imgName)
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
-                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-            }
+            
       
 
             // Carousel...
@@ -113,14 +105,7 @@ struct HistoryView: View {
                 HistoryCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
                         
-            //notification
-            VStack{
-                if show{
-                    Notifications(type: notificationT, imageName: self.imgName)
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
-                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-            }
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -134,13 +119,13 @@ struct HistoryView: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
-                                    .frame(width: width(num:geometry.size.width/7), height: width(num:geometry.size.width/7))
+                                    .frame(width: width(num:geometry.size.width/7), height: hieght(num:geometry.size.width/7))
                                     .shadow(radius: 4)
                                 VStack {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: width(num:geometry.size.width/7-6 ), height: width(num:geometry.size.width/7-6))
+                                        .frame(width: width(num:geometry.size.width/7-6 ), height: hieght(num:geometry.size.width/7-6))
                                 }.padding(.horizontal, width(num:14))
                                 .onTapGesture {
                                     notificationT = .None
@@ -160,28 +145,7 @@ struct HistoryView: View {
             
           
 
-            //notification here
-            VStack{
-                if show{
-                    Notifications(type: notificationT, imageName: self.imgName)
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
-                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-                
-                
-                
-                
-            }.onAppear(){
-                if notificationT == .SendOffer  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
-                }
-                if notificationT == .CancelOffer  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) { self.show = false }
-                }
-
-            }
+            
 
             
         }//end ZStack
