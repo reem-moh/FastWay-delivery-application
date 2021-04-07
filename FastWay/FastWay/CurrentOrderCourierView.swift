@@ -89,6 +89,20 @@ struct CurrentOrderCourierView: View {
                     }
                 }
             })
+            .onChange(of: model.notificationCancel, perform: { value in
+                if value {
+                    if notificationT == .CancelOrder  {
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            model.notificationMSG = false
+                            notificationT = .None
+                        }
+                    }
+                }
+            })
 
             // Carousel...
             
@@ -146,7 +160,7 @@ struct CurrentOrderCourierView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }.onAppear(){
-                if notificationT == .SendOffer || notificationT == .CancelOffer {
+                if notificationT == .SendOffer{
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
@@ -696,6 +710,7 @@ class CurrentCarouselCViewModel: ObservableObject {
     
     @Published var cancelCardOrderId : String = ""
     @Published var notificationMSG =  false
+    @Published var notificationCancel = false
     @Published var assigned = false
     //Toggle to show chat
     @Published var showChat = false
