@@ -238,6 +238,10 @@ struct HistoryCourierView: View {
                 print("after calling method get notification")
                 guard success else { return }
             }*/
+           // model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
+
+            model.order.getCourierOrderCancelledAndCompleted(Id: UserDefaults.standard.getUderId())
+            
         }
     }
   
@@ -491,13 +495,13 @@ struct HistoryCardCDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                                 .padding(.leading)
                             
-                            
+                            if model.selectedCard.orderD.deliveryPrice != 0{
                             Text("\(model.selectedCard.orderD.deliveryPrice) SR")
                                 .font(.body)
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
-                                .offset(x: width(num:10), y: hieght(num:10))
+                                .offset(x: width(num:10), y: hieght(num:10))}
                             Spacer(minLength: 0)
                         }
                         /*
@@ -629,27 +633,19 @@ class HistoryCarouselCViewModel: ObservableObject {
     }
     
     func getCards(){//update CourierOrderOffered
-        print("number of cards inside get couerier Cards: \(order.CourierOrderOfferedAssign.count + order.CourierOrderOfferedWaiting.count)")
+        print("number of cards inside get couerier Cards: \(order.CourierOrderCancelled.count)")
         
-        if order.CourierOrderOfferedAssign.isEmpty{
-            print("there is no order in Assign")
+        if order.CourierOrderCancelled.isEmpty{
+            print("there is no order in hostory")
         }
-        if order.CourierOrderOfferedWaiting.isEmpty{
-            print("there is no order in waiting")
-        }
+        
         
         cards.removeAll()
         print("number of cards after remove the cards:\(cards.count)")
-        for index in order.CourierOrderOfferedWaiting {
-            print("index in loop waiting \(index.orderDetails)")
-            if ( index.id != "") {
-                cards.append(contentsOf: [ HistoryCardC( cardColor: Color(.white),state : 0, orderD : index )])
-            }
-        }
-        
-        for index in order.CourierOrderOfferedAssign {
+        for index in order.CourierOrderCancelled {
             print("index in loop assign \(index.orderDetails)")
-            if index.status != "cancled" && index.status != "completed" && index.id != cancelCardOrderId{
+            //&& index.id == cancelCardOrderId
+            if index.status == "cancled" || index.status == "completed" {
                 cards.append(contentsOf: [ HistoryCardC( cardColor: Color(.white),state : 0, orderD : index )])
             }
             
@@ -658,20 +654,6 @@ class HistoryCarouselCViewModel: ObservableObject {
             $0.orderD.createdAt < $1.orderD.createdAt
         }
         
-    }
-    
-    //cancel order
-    func cancelOrder(Id: String){
-           cancelCardOrderId = Id
-            order.cancelOrder(OrderId: Id)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //withAnimation(.easeIn){
-                self.getCards()
-                //self.showCancel.toggle()
-                //animateAndDelayWithSeconds(0.05) { self.showCancel = true }
-                //animateAndDelayWithSeconds(4) {self.showCancel = false }
-                //}//end with animation
-            }
     }
 }
 
