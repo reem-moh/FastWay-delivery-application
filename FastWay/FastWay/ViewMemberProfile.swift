@@ -30,7 +30,7 @@ struct ViewMemberProfile: View {
     @State var phErr=""
     @State var uErr=""
     
-
+    
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
     //alert cancel button
@@ -77,62 +77,63 @@ struct ViewMemberProfile: View {
                 print("inside on appear \(self.name)\n \(self.email)\n\(self.phoneNum)\n\(self.oldEmail)")
             }
             
-            
-            VStack{
-                //Cancel and Done buttonspacing: 20
-                if show {
-                    HStack(){
-                        Spacer()
-                        //Cancel button
-                        Button(action: {
-                            alertCancel.toggle()
-                            //returnHomePage()
-                        }) {
-                            Text("Cancel")
-                                .font(.custom("Roboto Bold", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
-                                .offset(y: 10)
-                        }
-                        Spacer(minLength: 1)
-                        Spacer(minLength: 1)
-                        Spacer(minLength: 1)
-                        Spacer(minLength: 1)
-                        Spacer(minLength: 1)
-                        Spacer(minLength: 1)
-                        //save button
-                        Button(action: {
-                            //action here
-                           // if self.email != "" &&
-                            if self.name == "" || self.email == "" || self.phoneNum == "" {
-                                print(self.name + self.email + self.phoneNum)
-                                self.nErr="*All fields are required"
-                                self.error = true
-                            }
-                            if !error{
-                                if self.email == self.oldEmail {
-                                    self.changeEmail = false
-                                }else{
-                                    self.changeEmail = true
-                                }
-                                self.member.editProfileMember(memberId: self.member.member.id, email: self.email, name: self.name , phone: self.phoneNum, changeEmail: self.changeEmail)
-                                if self.newPassword != "" && (self.newPassword == self.reNewPassword){
-                                    changePass(ChangesPass: newPassword)
-                                }
-                                self.show = false
-                                notificationT = .updateProfile
-                            }
-                            
-                            
-                        }) {
-                            Text("Done")
-                                .font(.custom("Roboto Bold", size: 18))
-                                .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
-                                .offset(y: 10)
-                        }
-                        Spacer()
+            //Cancel and Done buttonspacing: 20
+            if show {
+                HStack(){
+                    Spacer()
+                    //Cancel button
+                    Button(action: {
+                        alertCancel.toggle()
+                        //returnHomePage()
+                    }) {
+                        Text("Cancel")
+                            .font(.custom("Roboto Bold", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
+                            .offset(y: 10)
                     }
-                }
+                    Spacer(minLength: 1)
+                    Spacer(minLength: 1)
+                    Spacer(minLength: 1)
+                    Spacer(minLength: 1)
+                    Spacer(minLength: 1)
+                    Spacer(minLength: 1)
+                    //save button
+                    Button(action: {
+                        //action here
+                        // if self.email != "" &&
+                        if self.name == "" || self.email == "" || self.phoneNum == "" {
+                            print(self.name + self.email + self.phoneNum)
+                            self.nErr="*All fields are required"
+                            self.error = true
+                        }
+                        if !error{
+                            if self.email == self.oldEmail {
+                                self.changeEmail = false
+                            }else{
+                                self.changeEmail = true
+                            }
+                            self.member.editProfileMember(memberId: self.member.member.id, email: self.email, name: self.name , phone: self.phoneNum, changeEmail: self.changeEmail)
+                            if self.newPassword != "" && (self.newPassword == self.reNewPassword){
+                                changePass(ChangesPass: newPassword)
+                            }
+                            self.show = false
+                            notificationT = .updateProfile
+                        }
+                        
+                        
+                    }) {
+                        Text("Done")
+                            .font(.custom("Roboto Bold", size: 18))
+                            .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).padding(1.0)
+                            .offset(y: 10)
+                    }
+                    Spacer()
+                }.position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/50)
                 
+            }
+
+            VStack{
+                                
                 
                 HStack {
                     Spacer()
@@ -175,14 +176,14 @@ struct ViewMemberProfile: View {
                                 }
                                 
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 8) ).padding(.horizontal,width(num: 16) )
-                                .onTapGesture {
-                                    self.show = true
-                                }
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top,hieght(num: 8) ).padding(.horizontal,width(num: 16) )
+                            .onTapGesture {
+                                self.show = true
+                            }
                             
                             //email field
                             Text(self.eErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
@@ -201,15 +202,15 @@ struct ViewMemberProfile: View {
                                     self.email = self.member.member.email
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
-                                .onTapGesture {
-                                    self.show = true
-                                }
-                            //print("email \((self.member.email))")
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                            .onTapGesture {
+                                self.show = true
+                            }
+                            
                             
                             //phone field
                             Text(self.phErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
@@ -228,15 +229,15 @@ struct ViewMemberProfile: View {
                                     self.phoneNum = self.member.member.phoneNo
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
-                                .onTapGesture {
-                                    self.show = true
-                                }
-                            //print("Phone number \(self.member.phoneNo)")
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                            .onTapGesture {
+                                self.show = true
+                            }
+                            
                             
                             //Password
                             Group {
@@ -248,9 +249,9 @@ struct ViewMemberProfile: View {
                                     Text("Change Password")//.font(.custom("Roboto Medium", size: fontSize(num: 18)))
                                         .foregroundColor(Color.black.opacity(0.7))
                                         .fontWeight(.bold)
-                                       // .multilineTextAlignment(.center)
-                                        //.offset(x: width(num: 18) ,y: hieght(num: 10))
-                                        //.padding(.bottom,hieght(num: -20) )
+                                    // .multilineTextAlignment(.center)
+                                    //.offset(x: width(num: 18) ,y: hieght(num: 10))
+                                    //.padding(.bottom,hieght(num: -20) )
                                     
                                     Rectangle()
                                         .fill(Color.black.opacity(0.05))
@@ -259,17 +260,19 @@ struct ViewMemberProfile: View {
                                 
                                 
                                 //current password
-                               /* Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                /* Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
+                                 SecureField("Current Password", text: $password, onCommit: {
+                                 //get pass from Auth and compare
+                                 })
+                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                 .padding()
+                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
+                                 */
+                                Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
-                                SecureField("Current Password", text: $password, onCommit: {
-                                    //get pass from Auth and compare
-                                })
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
-                                */
                                 //New Pass
                                 SecureField("New Password", text: $newPassword, onCommit: {
                                     self.error = false
@@ -293,7 +296,7 @@ struct ViewMemberProfile: View {
                                     Text(self.rpErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
                                         .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12), y: hieght(num: 10))
                                 }
-
+                                
                                 //reNew pass
                                 SecureField("Repeat New Password", text: $reNewPassword, onCommit: {
                                     self.error = false
@@ -324,7 +327,7 @@ struct ViewMemberProfile: View {
                             }else{
                                 logout()
                             }
-
+                            
                         }) {
                             Text("Log out").font(.custom("Roboto Bold", size: fontSize(num: 22))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
                         }
@@ -356,6 +359,7 @@ struct ViewMemberProfile: View {
                     print("inside noti ")
                 }
             }
+            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -366,42 +370,17 @@ struct ViewMemberProfile: View {
                         HStack {
                             //Home icon
                             VStack {
-
-
-
-                                                            Image(systemName: "homekit")
-
-
-
-                                                                .resizable()
-
-
-
-                                                                .aspectRatio(contentMode: .fit)
-
-
-
-                                                                .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-
-
-
-                                                                .padding(.top, hieght(num: 10))
-
-
-
-                                                            Text("Home")
-
-
-
-                                                                .font(.footnote)
-
-
-
-                                                            Spacer()
-
-
-
-                                                        }.padding(.horizontal, UIScreen.main.bounds.width/(375/14))
+                                Image(systemName: "homekit")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
+                                    .padding(.top, hieght(num: 10))
+                                Text("Home")
+                                    .font(.footnote)
+                                
+                                Spacer()
+                                
+                            }.padding(.horizontal, UIScreen.main.bounds.width/(375/14))
                             .onTapGesture {
                                 
                                 if self.show {
@@ -412,17 +391,14 @@ struct ViewMemberProfile: View {
                                     notificationT = .None
                                     viewRouter.currentPage = .HomePageM
                                 }
-                                                            
-
-
-
-                                                        }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
+                                 
+                            }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
                             /*TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                                
-                                .onTapGesture{
-                                    self.changePageHome = true
-                                    
-                                }*/
+                             
+                             .onTapGesture{
+                             self.changePageHome = true
+                             
+                             }*/
                             ZStack {
                                 //about us icon
                                 Circle()
@@ -461,17 +437,17 @@ struct ViewMemberProfile: View {
             //for the in app notification
             //call it before get notification
             /*UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
+             getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+             print("after calling method get notification")
+             guard success else { return }
+             }*/
         }.alert(isPresented: $alertCancel) {
             Alert(
                 title: Text("undo Changes"),
                 message: Text("Do you want to undo these changes?"),
                 primaryButton: .default((Text("Yes")), action: {
                     if self.showLogOut{
-                       logout()
+                        logout()
                     }else if self.changePageAbout {
                         notificationT = .None
                         viewRouter.currentPage = .AboutUs
