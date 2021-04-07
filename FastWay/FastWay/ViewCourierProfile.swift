@@ -108,6 +108,12 @@ struct ViewCourierProfile: View {
                             self.nErr="*All fields are required"
                             self.error = true
                         }
+                        if self.newPassword != "" && (self.newPassword != self.reNewPassword){
+                            self.rpErr="*Password mismatch"
+                            self.error = true
+                        }else{
+                            self.rpErr=""
+                        }
                         if !error{
                             if self.email == self.oldEmail {
                                 self.changeEmail = false
