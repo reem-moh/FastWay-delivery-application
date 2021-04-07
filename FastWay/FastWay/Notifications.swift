@@ -287,6 +287,8 @@ struct Notifications: View {
                 self.message = "Your order has been assigned to a courier."
             case .DeclineOffer:
                 self.message = "The offer has been declined successfully"
+            case .updateProfile:
+                self.message = "Your profile has been updated successfully"
             }
         }
     }
@@ -315,6 +317,7 @@ enum NotificationType {
     case CancelByDefault
     case AcceptOffer
     case DeclineOffer
+    case updateProfile
 }
 
 
