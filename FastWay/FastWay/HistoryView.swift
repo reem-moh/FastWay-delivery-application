@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct HistoryView: View {
-    
+    let abuotPage: Page = .AboutUs
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: HistoryCarouselMViewModel
     @StateObject var courierOrderModel = CarouselViewModel()
@@ -133,89 +133,34 @@ struct HistoryView: View {
                     VStack {
                         Spacer()
                         Spacer()
-                        Spacer()
                         HStack {
-                            //Home icon
-                            VStack {
-                                Image(systemName: "homekit")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
-                                Text("Home")
-                                    .font(.footnote)
-                                Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
-                                withAnimation(.spring()){
-                                    model.showCard.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        withAnimation(.easeIn){
-                                            model.showContent = false
-                                            
-                                        }
-                                    }
-                                    
-                                }
-                                notificationT = .None
-                                viewRouter.currentPage = .HomePageC
-                            }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
-                            //about us icon
+                            //Home
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "homekit", tabName: "Home")
+                           //about us
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
-                                    .frame(width: geometry.size.width/7, height: geometry.size.width/7)
+                                    .frame(width: width(num:geometry.size.width/7), height: width(num:geometry.size.width/7))
                                     .shadow(radius: 4)
                                 VStack {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: geometry.size.width/7-6 , height: geometry.size.width/7-6)
-                                }.padding(.horizontal, 14).onTapGesture {
-                                    withAnimation(.spring()){
-                                        model.showCard.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            withAnimation(.easeIn){
-                                                model.showContent = false
-                                                
-                                            }
-                                        }
-                                        
-                                    }
+                                        .frame(width: width(num:geometry.size.width/7-6 ), height: width(num:geometry.size.width/7-6))
+                                }.padding(.horizontal, width(num:14))
+                                .onTapGesture {
                                     notificationT = .None
-                                    viewRouter.currentPage = .AboutUs
-                                    
-                                }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
-                            }.offset(y: -geometry.size.height/8/2)
-                            //profile icon
-                            VStack {
-                                Image(systemName: "person.crop.circle")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: geometry.size.width/5, height: geometry.size.height/28)
-                                    .padding(.top, 10)
-                                Text("Profile")
-                                    .font(.footnote)
-                                Spacer()
-                            }.padding(.horizontal, 14).onTapGesture {
-                                withAnimation(.spring()){
-                                    model.showCard.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        withAnimation(.easeIn){
-                                            model.showContent = false
-                                            
-                                        }
-                                    }
-                                    
-                                }
-                                notificationT = .None
-                                viewRouter.currentPage = .ViewProfileC
-                            }.foregroundColor(viewRouter.currentPage == .ViewProfileC ? Color("TabBarHighlight") : .gray)
-                            
+                                    viewRouter.currentPage = abuotPage
+                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
+                            }.offset(y:hieght(num: -geometry.size.height/8/2))
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        //.frame(width: width(num:geometry.size.width), height: hieght(num:geometry.size.height/8))
                         .background(Color("TabBarBackground").shadow(radius: 2))
-                        
                     }
+                    // }
+                    
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
