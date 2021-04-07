@@ -360,7 +360,7 @@ struct HistoryCardMView: View {
                     {
                         Text("cancled")
                         .bold()
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                         .frame(width: width(num:100),height: hieght(num:25))
                         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.red))
                             //.background(Color.purple)
@@ -513,68 +513,33 @@ struct HistoryCardMDetailes: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
+                            Spacer(minLength: 0)
+                            Spacer(minLength: 0)
+
                             
                             
-                            Spacer(minLength: 0)
-                            Spacer(minLength: 0)
-                            Spacer(minLength: 0)
-                            Spacer(minLength: 0)
-                            Spacer(minLength: 0)
-                            Spacer(minLength: 0)
+                          
                             
-                           
+                            if (model.selectedCard.orderD.deliveryPrice != 0 && self.stat == "completed" ){
+                                
+                                Image(uiImage: #imageLiteral(resourceName: "money"))
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .offset(x: width(num:10), y: hieght(num:10))
+                                    .padding(.leading)
+                                
+                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                .font(.body)
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.black.opacity(0.5))
+                                .animation(.easeIn)
+                                .offset(x: width(num:10), y: hieght(num:10))}
+                            Spacer(minLength: 0)
                         }
                         
                         
                         
                  
-                        //Offers page
-                        if self.stat == "have an offer"{
-                            HStack{
-                                
-                                    Text("Delivery offers")
-                                        .foregroundColor(Color("ButtonColor"))
-                                        .bold()
-                                
-                                
-                                Spacer(minLength: 0)
-                                Image(systemName: "arrow.right")
-                            }
-                            .foregroundColor(Color.gray.opacity(0.9))
-                            .padding(20)
-                            .onTapGesture {
-                               withAnimation(.spring()){
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
-                                    print("inside getOrderForCourierCurrentOrder success")
-                                    guard success else { return }
-                                    model.getCards()
-                                }
-                                }
-                            
-                                
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    withAnimation(.easeIn){
-                                     model.showOffers = true
-                                    }//end with animation
-                                   }//end dispatch
-                                 }
-                            }
-                        }else{
-                            if self.stat == "waiting for offer"{
-                                HStack{
-                                    Text("Waiting for offers")
-                                        .foregroundColor(.purple)
-                                        .bold()
-                                        .padding(.leading, width(num:20))
-                                    DotView(frame: 15)
-                                    DotView(delay: 0.2, frame: 15)
-                                    DotView(delay: 0.4, frame: 15)
-            
-                                Spacer(minLength: 0)
-                                }
-                            }
-                        }
+                    
                         
                         //pick up
                         ZStack{
@@ -625,33 +590,7 @@ struct HistoryCardMDetailes: View {
                         
                         
                         
-                        HStack {
-                            if CancelButtonShow {
-                            //Cancel button
-                             Button(action: {
-                                CancelOrder.toggle()
-                            }) {
-                                Text("Cancel Order")
-                                    .font(.custom("Roboto Bold", size: fontSize(num:22)))
-                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                    .multilineTextAlignment(.center)
-                                    .padding(1.0)
-                                    .frame(width: UIScreen.main.bounds.width - 50)
-                                    .textCase(.none)
-                            }
-                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                            .padding(.top,hieght(num:25))
-                            .offset(x: width(num:0))
-                            .padding(.bottom,hieght(num:450))
-                            /*.onTapGesture {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    withAnimation(.easeIn){
-                                        
-                                    }//end with animation
-                                }
-                            }*/
-                        }
-                        }
+                        
                         
                         
                     }

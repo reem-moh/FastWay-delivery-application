@@ -81,7 +81,7 @@ struct HistoryCourierView: View {
             VStack{
                 Spacer()
                 if model.cards.count == 0 {
-                    Text("you do not have any  order yet")
+                    Text("you do not have any  past order yet")
                 }else{
                 ZStack{
                     GeometryReader{ geometry in
@@ -115,7 +115,7 @@ struct HistoryCourierView: View {
             }.padding(.bottom,80)
             
             //Press details
-            if model.showCard && model.assigned == false{
+            if model.showCard {
                 HistoryCardCDetailes(viewRouter: viewRouter, animation: animation)
             }/*else{
                 if model.showCard && model.assigned == true{
@@ -286,6 +286,7 @@ struct HistoryCardCView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
 
+                if(model.orderPreview(c: card).deliveryPrice != 0 && self.stat == "completed" ){
             //price
                 Image(uiImage: #imageLiteral(resourceName: "money"))
                     .foregroundColor(Color.black.opacity(0.5))
@@ -300,6 +301,7 @@ struct HistoryCardCView: View {
                 
                 
                 Spacer(minLength: 0)
+            }
             }.padding(.top,15)
             
             //orderDetailes
@@ -358,7 +360,7 @@ struct HistoryCardCView: View {
                         .bold()
                         .foregroundColor(.white)
                         .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.red))
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
                             //.background(Color.purple)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -490,12 +492,15 @@ struct HistoryCardCDetailes: View {
 
                             
                             
-                            Image(uiImage: #imageLiteral(resourceName: "money"))
-                                .foregroundColor(Color.black.opacity(0.5))
-                                .offset(x: width(num:10), y: hieght(num:10))
-                                .padding(.leading)
                             
-                            if model.selectedCard.orderD.deliveryPrice != 0{
+                            
+                            if (model.selectedCard.orderD.deliveryPrice != 0 && self.stat == "completed" ){
+                                
+                                Image(uiImage: #imageLiteral(resourceName: "money"))
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .offset(x: width(num:10), y: hieght(num:10))
+                                    .padding(.leading)
+                                
                             Text("\(model.selectedCard.orderD.deliveryPrice) SR")
                                 .font(.body)
                                 .fontWeight(.regular)
