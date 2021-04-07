@@ -545,7 +545,7 @@ struct HistoryCardMDetailes: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
-                        //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
+                        .padding(.bottom, hieght(num:450))
                         
                         
                         

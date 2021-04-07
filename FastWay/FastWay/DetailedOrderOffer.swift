@@ -242,9 +242,9 @@ struct DetailedOrderOffer: View {
                                 .textCase(.none)
                         }
                         .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                        .padding(.top,25)
+                        .padding(.top,hieght(num: 25))
                         .offset(x: 0)
-                        .padding(.bottom,450)
+                        .padding(.bottom,hieght(num: 450))
                         
                     }
                 }.position(x: width(num:188),y: hieght(num:700))

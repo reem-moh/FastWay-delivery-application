@@ -562,6 +562,7 @@ struct HistoryCardCDetailes: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
+                        .padding(.bottom, hieght(num: 450))
                      
                         
                     }
