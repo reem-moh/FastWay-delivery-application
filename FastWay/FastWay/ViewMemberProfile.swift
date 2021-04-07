@@ -44,6 +44,10 @@ struct ViewMemberProfile: View {
     //check if the user press other pages without save changes
     @State var changePageHome = false
     @State var changePageAbout = false
+    //display confirmation msg
+    @State var imgName = "Tick"
+    @State var showNoti = false
+    
     var body: some View {
         ZStack{
             
@@ -72,6 +76,7 @@ struct ViewMemberProfile: View {
                 }
                 print("inside on appear \(self.name)\n \(self.email)\n\(self.phoneNum)\n\(self.oldEmail)")
             }
+            
             
             VStack{
                 //Cancel and Done buttonspacing: 20
@@ -114,6 +119,7 @@ struct ViewMemberProfile: View {
                                     changePass(ChangesPass: newPassword)
                                 }
                                 self.show = false
+                                notificationT = .updateProfile
                             }
                             
                             
@@ -126,6 +132,7 @@ struct ViewMemberProfile: View {
                         Spacer()
                     }
                 }
+                
                 
                 HStack {
                     Spacer()
@@ -330,6 +337,25 @@ struct ViewMemberProfile: View {
                 
             }//vstack
             
+            //notification
+            VStack{
+                if showNoti{
+                    Notifications(type: notificationT, imageName: self.imgName)
+                        .offset(y: self.showNoti ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
+                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
+                }
+            }.onChange(of: notificationT){ value in
+                if notificationT == .updateProfile {
+                    self.imgName = "Tick"
+                    animateAndDelayWithSeconds(0.05) { self.showNoti = true }
+                    animateAndDelayWithSeconds(4) {
+                        self.showNoti = false
+                        notificationT = .None
+                    }
+                }else {
+                    print("inside noti ")
+                }
+            }
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
