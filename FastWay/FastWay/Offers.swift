@@ -13,7 +13,7 @@ struct Offers: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: OfferCarousel
-    @StateObject var CurrentOrdersModel: CurrentCarouselMViewModel
+    @ObservedObject var CurrentOrdersModel: CurrentCarouselMViewModel
     @Namespace var animation
     @State var orderID : String
     @State var status : String
