@@ -113,9 +113,31 @@ struct HistoryView: View {
                         Spacer()
                         Spacer()
                         HStack {
-                            //Home
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "homekit", tabName: "Home")
-                           //about us
+                            //Home icon
+                            VStack {
+                                Image(systemName: "homekit")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28))
+                                    .padding(.top, hieght(num:10))
+                                Text("Home")
+                                    .font(.footnote)
+                                Spacer()
+                            }.padding(.horizontal, width(num:14)).onTapGesture {
+                                withAnimation(.spring()){
+                                    model.showCard.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation(.easeIn){
+                                            model.showContent = false
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                notificationT = .None
+                                viewRouter.currentPage = .HomePageM
+                            }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
+                            //about us icon
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
@@ -125,21 +147,55 @@ struct HistoryView: View {
                                     Image(uiImage:  #imageLiteral(resourceName: "FastWay")) //logo
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: width(num:geometry.size.width/7-6 ), height: hieght(num:geometry.size.width/7-6))
+                                        .frame(width: width(num:geometry.size.width/7-6) , height: hieght(num:geometry.size.width/7-6))
                                 }.padding(.horizontal, width(num:14))
                                 .onTapGesture {
+                                    withAnimation(.spring()){
+                                        model.showCard.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            withAnimation(.easeIn){
+                                                model.showContent = false
+                                                
+                                            }
+                                        }
+                                        
+                                    }
                                     notificationT = .None
-                                    viewRouter.currentPage = abuotPage
-                                }.foregroundColor(viewRouter.currentPage == abuotPage ? Color("TabBarHighlight") : .gray)
-                            }.offset(y:hieght(num: -geometry.size.height/8/2))
-                            TabBarIcon(viewRouter: viewRouter, assignedPage: .ViewProfileM ,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "person.crop.circle", tabName: "Profile") //change assigned page
+                                    viewRouter.currentPage = .AboutUs
+                                    
+                                }.foregroundColor(viewRouter.currentPage == .AboutUs ? Color("TabBarHighlight") : .gray)
+                            }.offset(y: hieght(num:-geometry.size.height/8/2))
+                            //profile icon
+                            VStack {
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28))
+                                    .padding(.top, hieght(num:10))
+                                Text("Profile")
+                                    .font(.footnote)
+                                Spacer()
+                            }.padding(.horizontal, width(num:14))
+                            .onTapGesture {
+                                withAnimation(.spring()){
+                                    model.showCard.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation(.easeIn){
+                                            model.showContent = false
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                notificationT = .None
+                                viewRouter.currentPage = .ViewProfileM
+                            }.foregroundColor(viewRouter.currentPage == .ViewProfileM ? Color("TabBarHighlight") : .gray)
+                            
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
-                        //.frame(width: width(num:geometry.size.width), height: hieght(num:geometry.size.height/8))
+                        .frame(width:width(num: geometry.size.width), height: hieght(num:geometry.size.height/8))
                         .background(Color("TabBarBackground").shadow(radius: 2))
+                        
                     }
-                    // }
-                    
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
             
