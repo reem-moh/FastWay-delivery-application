@@ -1042,8 +1042,8 @@ class Order: ObservableObject{
     }
     }
     //change state of order
-    func changeState(OrderId: String, Status: Int, completion: @escaping (_ success: Bool) -> Void){ //index of status array
-        db.collection("Order").document(OrderId).setData([ "Status": status[Status] ], merge: true)
+    func changeState(OrderId: String, Status: String , completion: @escaping (_ success: Bool) -> Void){ //index of status array
+        db.collection("Order").document(OrderId).setData([ "Status": Status ], merge: true)
         let success = true
         DispatchQueue.main.async {
             print("inside getStatus in dispatch changeState")

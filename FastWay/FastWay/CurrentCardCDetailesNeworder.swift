@@ -35,6 +35,7 @@ struct CurrentCardCDetailesNeworder: View {
     @State var showComplete = false
     @State private var changeState = false
     @State private var State = -1
+    @State private var StateString = ""
     @State var liveS = ""
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
@@ -186,6 +187,7 @@ struct CurrentCardCDetailesNeworder: View {
                                      
                                     }.onTapGesture {
                                         State = 4
+                                        StateString = "pick Up"
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
@@ -211,6 +213,7 @@ struct CurrentCardCDetailesNeworder: View {
                                         Text("On the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 5
+                                        StateString = "on The Way"
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
@@ -239,6 +242,7 @@ struct CurrentCardCDetailesNeworder: View {
                                         Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 6
+                                        StateString = "drop off"
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
@@ -263,6 +267,7 @@ struct CurrentCardCDetailesNeworder: View {
                                         Text("Delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 7
+                                        StateString = "completed"
                                         //[0, 1,2,"assigned","pick Up","on The Way" , "drop off", "completed"]
                                         if let row = model.order.status.firstIndex(where: {$0 == model.order.liveStatus}){
                                             if row < State {
@@ -394,17 +399,17 @@ struct CurrentCardCDetailesNeworder: View {
   
        }.edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showingAlert) {Alert(title: Text(alertTitle), message: Text(alertMessage), primaryButton: .default((Text("YES")), action: {
-            if alertTitle == "Order confirmed"{
+            if alertTitle == "Confirm Cancel"{
                 model.cancelOrder(Id:  model.selectedCard.orderD.id)
                 notificationT =  .CancelOrder
-                model.notificationMSG = true
+                model.notificationCancel = true
                 model.showCard = false
                 model.showContent = false
                 //send notification to member
                 sendMessageTouser(to: self.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the courier")
             }
             else {
-                model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: State){ success in
+                model.order.changeState(OrderId: model.selectedCard.orderD.id, Status: StateString){ success in
                     print("after calling method changeState in success")
                     guard success else { return }
                     model.order.getStatus(courierId: UserDefaults.standard.getUderId(), memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
