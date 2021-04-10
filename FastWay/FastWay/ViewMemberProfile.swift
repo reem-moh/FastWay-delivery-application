@@ -279,6 +279,7 @@ struct ViewMemberProfile: View {
                                  */
                                 Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
+                                    .frame(maxWidth: width(num: UIScreen.main.bounds.width-24))
                                 //New Pass
                                 SecureField("New Password", text: $newPassword, onCommit: {
                                     self.error = false
