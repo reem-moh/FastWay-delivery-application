@@ -509,7 +509,25 @@ struct HistoryCardCDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))}
                             Spacer(minLength: 0)
                         }
-                       
+                        /*
+                        if model.selectedCard.orderD.status == "have an offer"{
+                            HStack{
+                                Text("Waiting for accept")
+                                    .foregroundColor(.purple)
+                                    .bold()
+                                    .padding(.leading, width(num:20))
+                                DotView(frame: 15)
+                                DotView(delay: 0.2, frame: 15)
+                                DotView(delay: 0.4, frame: 15)
+        
+                            Spacer(minLength: 0)
+                            }
+                        }
+                        else {
+                        Text("Details")
+                        Spacer(minLength: 0)
+                        }
+                        */
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)

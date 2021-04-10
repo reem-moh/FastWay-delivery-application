@@ -321,7 +321,7 @@ struct HistoryCardMView: View {
                         .bold()
                         .foregroundColor(.gray)
                         .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.red))
                             //.background(Color.purple)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
