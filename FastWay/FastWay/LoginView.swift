@@ -12,7 +12,7 @@ import FirebaseFirestore
 struct LoginView: View {
     //
     @State var email = "reem989@gmail.com"
-    @State var pass = "12345678aB"
+    @State var pass = "12345678Ab"
     @State var descReset = ""
     @State var errMsg = ""
     

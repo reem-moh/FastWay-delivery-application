@@ -35,7 +35,7 @@ struct HistoryView: View {
                         .frame(width: width(num: 375)) //addframe
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).offset(y:hieght(num:-70))
                     //CurrentOrderView
-                    Text("History").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    Text("Past Orders").font(.custom("Roboto Medium", size: fontSize(num:25))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .multilineTextAlignment(.center).position(x:width(num:170) ,y:hieght(num:10)).offset(x:width(num:20),y:hieght(num:20))
                     //white rectangle
                     Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
