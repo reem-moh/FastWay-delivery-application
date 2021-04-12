@@ -5,4 +5,3 @@ The goal of FastWay application is to make the user more convenient. We hope our
 The user of the system will be Member: the one who requests orders .
 Courier: the one who delivers the order.
 
-some snapshot of FastWay application
