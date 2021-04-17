@@ -13,14 +13,13 @@ struct CurrentOrderCourierView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: CurrentCarouselCViewModel
-   // @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
     @State var show = false
     @State var imgName = "shoppingCart"
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
-
+    
     
     var body: some View {
         
@@ -56,9 +55,7 @@ struct CurrentOrderCourierView: View {
                 }
                 //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    //withAnimation(.easeIn){
                     model.getCards()
-                    //}//end with animation
                 }
                 model.showCard = false
                 model.showContent = false
@@ -103,7 +100,7 @@ struct CurrentOrderCourierView: View {
                     }
                 }
             })
-
+            
             // Carousel...
             
             VStack{
@@ -111,33 +108,33 @@ struct CurrentOrderCourierView: View {
                 if model.cards.count == 0 {
                     Text("you do not have any current order yet")
                 }else{
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        if(index < model.cards.count){
-                                        CurrentCardCView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
-                                        }
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, 5)
-                                    .shadow(radius: 1)
+                    ZStack{
+                        GeometryReader{ geometry in
+                            HStack {
+                                ScrollView {
+                                    
+                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                        HStack{
+                                            if(index < model.cards.count){
+                                                CurrentCardCView(card: model.cards[index], animation: animation)
+                                                Spacer(minLength: 0)
+                                            }
+                                        }//.frame(height: 100)
+                                        .padding(.horizontal)
+                                        .contentShape(Rectangle())
+                                        .gesture(DragGesture(minimumDistance: 20))
+                                        .padding(.vertical, 5)
+                                        .shadow(radius: 1)
+                                        
+                                        
+                                    }.padding(.bottom,25)//end of for each
                                     
                                     
-                                }.padding(.bottom,25)//end of for each
-                                
+                                }
                                 
                             }
-                            
                         }
-                    }
-                }.padding(.top,80)
+                    }.padding(.top,80)
                 }
                 Spacer()
             }.padding(.bottom,80)
@@ -151,7 +148,7 @@ struct CurrentOrderCourierView: View {
                     CurrentCardCDetailesNeworder(viewRouter: viewRouter, animation: animation)
                 }
             }
-                        
+            
             //notification
             VStack{
                 if show{
@@ -262,7 +259,7 @@ struct CurrentOrderCourierView: View {
             if model.showChat {
                 ChatViewCourier(viewRouter: viewRouter, model: model)
             }
-
+            
             //notification here
             VStack{
                 if show{
@@ -283,20 +280,12 @@ struct CurrentOrderCourierView: View {
                     animateAndDelayWithSeconds(0.05) { self.show = true }
                     animateAndDelayWithSeconds(4) { self.show = false }
                 }
-
+                
             }
-
+            
             
         }//end ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
+        
     }
     
 }
@@ -329,12 +318,12 @@ struct CurrentCardCView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
-
-            //price
+                
+                //price
                 Image(uiImage: #imageLiteral(resourceName: "money"))
                     .foregroundColor(Color.black.opacity(0.5))
                     .padding(.leading)
-                    
+                
                 Text("\(model.orderPreview(c: card).deliveryPrice) SR")
                     
                     .font(.body)
@@ -392,18 +381,18 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-                      
+                        
                     }else
-                
-    
+                    
+                    
                     if self.stat == "assigned"
                     {
                         Text("assigned")
-                        .bold()
-                        .foregroundColor(.white)
-                        .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
-                            //.background(Color.purple)
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:100),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                        
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -413,7 +402,7 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-
+                        
                         
                     }else{
                         
@@ -427,7 +416,7 @@ struct CurrentCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-
+                        
                         
                     }
                     
@@ -546,7 +535,7 @@ struct CurrentCardCDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
-
+                            
                             
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
@@ -572,13 +561,13 @@ struct CurrentCardCDetailes: View {
                                 DotView(frame: 15)
                                 DotView(delay: 0.2, frame: 15)
                                 DotView(delay: 0.4, frame: 15)
-        
-                            Spacer(minLength: 0)
+                                
+                                Spacer(minLength: 0)
                             }
                         }
                         else {
-                        Text("Details")
-                        Spacer(minLength: 0)
+                            Text("Details")
+                            Spacer(minLength: 0)
                         }
                         
                         //pick up
@@ -603,7 +592,7 @@ struct CurrentCardCDetailes: View {
                         }
                         //order items
                         ZStack{
-                           
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
                             HStack() {
                                 
@@ -638,24 +627,22 @@ struct CurrentCardCDetailes: View {
         }
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .alert(isPresented: $showingPaymentAlert) {Alert(title: Text("Order confirmed"), message: Text("Are you sure you want cancel this offer"), primaryButton: .default((Text("YES")), action: {
-                    notificationT =  .CancelOffer
-                    canelOffer()
-                    model.notificationMSG = true
-                    model.showCard = false
-                    model.showContent = false
-            }) , secondaryButton: .cancel((Text("NO"))))
+            notificationT =  .CancelOffer
+            canelOffer()
+            model.notificationMSG = true
+            model.showCard = false
+            model.showContent = false
+        }) , secondaryButton: .cancel((Text("NO"))))
         }
         
     }// end body
-
+    
     func canelOffer(){
         
         model.cancelCardOrderId = model.selectedCard.orderD.id
         model.order.cancelOffer(CourierID: model.selectedCard.orderD.courierId, OrderId: model.selectedCard.orderD.id, MemberID: model.selectedCard.orderD.memberId, Price: model.selectedCard.orderD.deliveryPrice)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            //withAnimation(.easeIn){
             model.getCards()
-            //}//end with animation
         }
     }
     //name of building
@@ -756,16 +743,16 @@ class CurrentCarouselCViewModel: ObservableObject {
     
     //cancel order
     func cancelOrder(Id: String){
-           cancelCardOrderId = Id
-            order.cancelOrder(OrderId: Id)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //withAnimation(.easeIn){
-                self.getCards()
-                //self.showCancel.toggle()
-                //animateAndDelayWithSeconds(0.05) { self.showCancel = true }
-                //animateAndDelayWithSeconds(4) {self.showCancel = false }
-                //}//end with animation
-            }
+        cancelCardOrderId = Id
+        order.cancelOrder(OrderId: Id)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            //withAnimation(.easeIn){
+            self.getCards()
+            //self.showCancel.toggle()
+            //animateAndDelayWithSeconds(0.05) { self.showCancel = true }
+            //animateAndDelayWithSeconds(4) {self.showCancel = false }
+            //}//end with animation
+        }
     }
 }
 

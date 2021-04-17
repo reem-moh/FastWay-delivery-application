@@ -16,40 +16,12 @@ import FirebaseInstanceID
 
 //REMOTE NOTIFCATION FIREBASE
 
-// Please change it your physical phone device FCM Token
-// To get it, touch the handleLogTokenTouch button and see log
+// physical phone device FCM Token
 let ReceiverFCMToken = "Physical_Phone_Receiver_FCMToken_String"
 
-// Please change it your Firebase Legacy server key
+// Firebase Legacy server key
 // Firebase -> Project settings -> Cloud messaging -> Legacy server key
 let legacyServerKey = "AAAA6oq0MN0:APA91bGeP_sOn5foiNlseAZ1YDUef2OOA9g1kST7MHR3gxjM2wyhHhpvxOmm03vuMRebZN56C6KuYJP-7RhaPlQ0yGh1ZICJ2rQ03-NYAiUwR1BXA8X3H6_LOybm2_VPNqYGdQdmaHPb"
-
-/*struct ContentView: View {
-    @State private var fcmTokenMessage = "fcmTokenMessage"
-    @State private var instanceIDTokenMessage = "instanceIDTokenMessage"
-    
-    @State private var notificationTitle: String = ""
-    @State private var notificationContent: String = ""
-    var body: some View {
-        VStack {
-            Text(fcmTokenMessage).padding(20)
-            Text(instanceIDTokenMessage).padding(20)
-            Button(action: {handleLogTokenTouch()}) {
-                Text("Get user FCM Token String").font(.title)
-            }.padding(20)
-            
-            TextField("Add Notification Title", text: $notificationTitle).textFieldStyle(RoundedBorderTextFieldStyle()).padding(20)
-            TextField("Add Notification Content", text: $notificationContent).textFieldStyle(RoundedBorderTextFieldStyle()).padding(20)
-            Button(action: {sendMessageTouser(to: ReceiverFCMToken, title: self.notificationTitle, body: self.notificationContent)
-                self.notificationTitle = ""
-                self.notificationContent = ""
-            }) {
-                Text("Send message to User").font(.title)
-            }.padding(20)
-        }
-    }
-    
-    }*/
 
 func sendMessageTouser(to token: String, title: String, body: String) {
     print("sendMessageTouser() \nToken: \(token)\n\n")
@@ -78,27 +50,6 @@ func sendMessageTouser(to token: String, title: String, body: String) {
     task.resume()
 }
 
-/*func handleLogTokenTouch(){
-    // [START log_fcm_reg_token]
-    let token = Messaging.messaging().fcmToken
-    print("FCM token: \(token ?? "")")
-    // [END log_fcm_reg_token]
-    //fcmTokenMessage  = "Logged FCM token: \(token ?? "")"
-
-    // [START log_iid_reg_token]
-    
-    
-    
-    InstanceID.instanceID().instanceID { (result, error) in
-      if let error = error {
-        print("Error fetching remote instance ID: \(error)")
-      } else if let result = result {
-        print("Remote instance ID token: \(result.token)")
-        //instanceIDTokenMessage  = "Remote InstanceID token: \(result.token)"
-      }
-    }
-    // [END log_iid_reg_token]
-}*/
 
 func registerTokenMember(memberId: String, completion: @escaping (_ success: Bool) -> Void){ //index of status array
     let token = Messaging.messaging().fcmToken
@@ -123,114 +74,6 @@ func registerTokenCourier(courierId: String, completion: @escaping (_ success: B
         completion(success)
     }
 }
-
-
-
-
-/*struct n : Identifiable {
-    var id = ""
-    var token = ""
-}
-
-
-
-
-class Not : ObservableObject{
-    @Published var tokenM = n()
-    @Published var tokenC = n()
-    
-    
-    init() {
-        //
-    }
-    func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
-        
-        //var tokenM = ""
-        db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
-            guard let doc = querySnapshot else{
-                print("no member document")
-                return
-            }
-            guard let data = doc.data() else {
-                print("no member data")
-                return
-            }
-            //assign values from db to variables
-            let tM = data["Token"] as? String ?? ""
-            self.tokenM = n(token: tM)
-            print("tokenM inside \(self.tokenM.token)")
-            
-        } //listener
-        let success = true
-        DispatchQueue.main.async {
-            print("tokenM \(self.tokenM.token)")
-            print("inside getMemberToken in dispatch ")
-            completion(success)
-        }
-        
-        
-    }
-    
-    
-    
-    
-    
-    func getCourierToken(courierId: String, completion: @escaping (_ success: Bool) -> Void) {
-        
-        //var tokenC = ""
-        db.collection("Courier").document(courierId).addSnapshotListener { (querySnapshot, error) in
-            guard let doc = querySnapshot else{
-                print("no courier document")
-                return
-            }
-            guard let data = doc.data() else {
-                print("no courier data")
-                return
-            }
-            //assign values from db to variables
-            let tC = data["Token"] as? String ?? ""
-            self.tokenC = n(token: tC)
-            
-            
-        } //listener
-        let success = true
-        DispatchQueue.main.async {
-            print("tokenC \(self.tokenC.token)")
-            print("inside registerTokenMember in dispatch ")
-            completion(success)
-        }
-        
-            }
-
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var notificationT : NotificationType = .None
 extension AnyTransition {
@@ -302,8 +145,6 @@ func animateAndDelayWithSeconds(_ seconds: TimeInterval, action: @escaping () ->
     }
 }
 
-
-
 // to identify each notificatio or confirmation message when transitioning from one
 // view to the other
 enum NotificationType {
@@ -319,8 +160,3 @@ enum NotificationType {
     case DeclineOffer
     case updateProfile
 }
-
-
-
-
-

@@ -15,18 +15,14 @@ var order = Order()
 
 struct AddNewOrderView: View {
     
-    
-    
     @State var map = MKMapView()
     @State var manager = CLLocationManager()
-    
     
     @State var bulding = 0
     @State var floorNum = -1
     //@State var room = ""
     @State var Floor = "Floor"
     @ObservedObject var room = TextfieldManager(limit: 40)
-    
     
     @State var location = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
@@ -55,17 +51,8 @@ struct AddNewOrderView: View {
     
     
     var body: some View {
-        
-        
-        
         ZStack{
-            
-            
-            
-            
             ZStack{
-                
-                
                 VStack{
                     //background image
                     Image("Rectangle 49")
@@ -76,9 +63,6 @@ struct AddNewOrderView: View {
                 }.onAppear(){
                     checkOrders(ID:  UserDefaults.standard.getUderId())
                 }//END VStack
-                
-                
-                
                 VStack{
                     //arrow_back image
                     Button(action: {
@@ -93,14 +77,8 @@ struct AddNewOrderView: View {
                             .frame(width: width(num: 30) , height: hieght(num: 30))
                             .clipped()
                     }.position(x:width(num: 30)  ,y:hieght(num: 20))
-                    
-                    
-                    
                     Text("Pick up location ").font(.custom("Roboto Medium", size: fontSize(num: 25) )).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                         .tracking(-0.01).multilineTextAlignment(.center) .padding(.leading, width(num: 12.0) ).offset(x:width(num: 0) ,y:hieght(num: -735))
-                    
-                    
-                    
                 }//END VStack
                 
                 //white background
@@ -111,82 +89,40 @@ struct AddNewOrderView: View {
                     .frame(width: width(num: UIImage(named: "progressBar1")!.size.width ), height: hieght(num: UIImage(named: "progressBar1")!.size.height))
                     .position(x: UIScreen.main.bounds.width/2, y: hieght(num: 80))
                     .offset(x: width(num: 10))
-
-                
-                
                 //MAP
-                
                 ZStack{
-                    
-                    
-                    
-                    
                     EntireMapView(map: self.$map, manager: self.$manager)
                         .frame(width: width(num: 380), height: hieght(num: 350), alignment: .center)
                         .clipped().offset(y: hieght(num: 90))
-                    
-                    
                     Text("Select location:")
                         .font(.custom("Roboto Medium", size: fontSize(num: 18)))
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
                         .frame(width: width(num: 295), height:  hieght(num: 6))
                         .offset(x: width(num: -115),y:hieght(num: -75))
-                    
-                    
-                    
                     if errorlocation1{
                         Text(lErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -10),y:hieght(num: -55)) }
-                    
-                    
                     if(errorlocation2)&&(errorlocation==false)&&(errorlocation1==false){
                         Text(lErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -65),y: hieght(num: -55)) }
-                    
-                    
-                    
                     if (errorlocation)&&(errorlocation1==false){
                         Text(lErr).font(.custom("Roboto Regular", size:  fontSize(num: 18)))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -65),y: hieght(num: -55)) }
-                    
-                    
-                    
                 }.offset(x:width(num: 0),y: hieght(num: -180))
-                
-                
             }
-            
-            
-            
             //white rectangle
             Spacer(minLength: 100)
             Image("Rectangle 48").resizable().aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/).offset(x:width(num: 0),y: hieght(num: 450))
-            
             VStack(spacing: 10){
-                
-                
-                
-                
-                
-                
-                
                 // Bulding
                 VStack(spacing: -10){
-                    
-                    
-                    
                     //Show Error message if no bulding selected
                     if errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2 {
                         Text(bErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x:width(num: -95),y: hieght(num: -10))
                     }
-                    
-                    
-                    
                     VStack(spacing: 0){
-                        
-                        
                         HStack() {
                             Button(action: {
                                 
@@ -199,15 +135,10 @@ struct AddNewOrderView: View {
                                 self.expand.toggle()
                                 self.expandFloor = false
                             }
-                        }/*.onTapGesture {
-                            self.expand.toggle()
-                            self.expandFloor = false
-                        }*/
+                        }
                         if (expand && !expandFloor) {
                             Group {
                                 ScrollView {
-                                    
-                                    
                                     LazyVGrid(columns: columns, spacing: 10){
                                         ForEach(fData.filter({ "\($0)".contains(text) || text.isEmpty})){ Bulding in
                                             ZStack(){
@@ -227,22 +158,9 @@ struct AddNewOrderView: View {
                                                             
                                                         }.foregroundColor(.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))}
                                                 }
-                                                
-                                                
-                                                
                                             }
-                                            
-                                            
-                                            
-                                            
-                                            
                                         }
                                     }
-                                    
-                                    
-                                    
-                                    
-                                    
                                 }.frame(width:width(num: 300) , height:hieght(num: 70))
                             }.offset(x:width(num: -5) , y:hieght(num: 10.0))
                         }
@@ -252,29 +170,15 @@ struct AddNewOrderView: View {
                         self.expand.toggle()
                         self.expandFloor = false
                     }
-                    
-                    
-                    
-                    
-                    
                 }// END Bulding
-                
-                
-                
-                
                 
                 //Floor
                 VStack(spacing: -10){
-                    
-                    
                     //Show Error message if no floor selected
                     if errorFloorPick && !errorBuldingPick && !errorlocation && !errorlocation1 && !errorlocation2{
                         Text(fErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                             .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: -105),y:hieght(num: -10))
                     }
-                    
-                    
-                    
                     VStack(spacing: 0){
                         HStack() {
                             Button(action: {
@@ -345,9 +249,6 @@ struct AddNewOrderView: View {
                     
                     
                 }//END Floor
-                
-                
-                
                 VStack(spacing: -10){
                     
                     //Show Error message if the ROOM feild empty
@@ -366,9 +267,6 @@ struct AddNewOrderView: View {
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 1)).keyboardType(.default).padding(.horizontal, width(num: 14) ).offset(x: width(num: 0),y:hieght(num: 0))
                         
                     }} //end details
-                
-                
-                
                 VStack(spacing: -10){
                     
                     //NEXT
@@ -408,35 +306,15 @@ struct AddNewOrderView: View {
                     
                     
                 }  //END NEXT
-                
-                
-                
-                
-                
-                
-                
-                
             }.offset(x: width(num: 0) ,y: hieght(num: 215))
-            
-            
-            
-            
-            
-            
         }//END ZStack
         
     }//END BODY
     
-    
     func PICKUPlocation(){
-        
         self.errorlocation = false
         self.errorlocation1 = false
         self.errorlocation2 = false
-        
-        
-        
-        
         if(!isInRegion(map: map, coordinate: map.userLocation.coordinate)){
             print(location)
             self.lErr="*Your current location\'s out of the campus "
@@ -449,51 +327,27 @@ struct AddNewOrderView: View {
             self.lErr="*The region out of our service "
             self.errorlocation2 = true
         }
-        
-        
-        
-        
-        
-        
-        
         if ((errorlocation1==false)&&(self.location.latitude == 0 && self.location.longitude == 0) ) {
             print(location)
             self.lErr="*must enter Pick up location"
             self.errorlocation = true
         }
-        
-        
-        
-        
-        
-        
     }
     
     
     
     func PICKUPlocationBuilding(){
-        
-        
-        
-        
         self.errorBuldingPick = false
         
         if self.bulding == 0 {
             self.bErr="*must select building"
             self.errorBuldingPick = true
         }
-        
-        
-        
     }
     
     
     
     func PICKUPlocationFloor(){
-        
-        
-        
-        
         self.errorFloorPick = false
         
         if self.floorNum == -1 {
@@ -505,22 +359,13 @@ struct AddNewOrderView: View {
     
     
     func PICKUPlocationRoom(){
-        
-        
-        
         self.errorRoomPick = false
         
         if self.room.text.count == 0 {
             self.rErr="*must enter more details"
             self.errorRoomPick = true
         }
-        
-        
-        
     }
-    
-    
-    
     
     
     struct Bulding: Identifiable {
@@ -528,8 +373,6 @@ struct AddNewOrderView: View {
         var id: Int
         
     }
-    
-    
     var fData = [
         Bulding(title: "College Of Sciences 5", id: 5),
         Bulding(title: "College Of Computer and Information Sciences 6", id: 6),
@@ -553,20 +396,20 @@ func isInRegion (map: MKMapView ,coordinate : CLLocationCoordinate2D) -> Bool {
     //campus region
     // let region = map.region
     //let center = region.center
- let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
-let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
+    let northWestCorner = CLLocationCoordinate2D(latitude: 24.721403088472876, longitude: 46.63310307596481)
+    let southEastCorner = CLLocationCoordinate2D(latitude: 24.731403088473066, longitude: 46.64356199669078)
     
     //ghaida region
-  // let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
-  //  let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
+    // let northWestCorner = CLLocationCoordinate2D(latitude: 24.82206099999995, longitude:  46.649935497370215)
+    //  let southEastCorner = CLLocationCoordinate2D(latitude:   24.832061000000028, longitude:  46.66040290262989)
     
     
-     //let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
- //      let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
+    //let northWestCorner = CLLocationCoordinate2D(latitude: center.latitude  - (region.span.latitudeDelta  / 2.0), longitude: center.longitude - (region.span.longitudeDelta / 2.0))
+    //      let southEastCorner = CLLocationCoordinate2D(latitude: center.latitude  + (region.span.latitudeDelta  / 2.0), longitude: center.longitude + (region.span.longitudeDelta / 2.0))
     
-  
+    
     print(northWestCorner)
-
+    
     print(southEastCorner)
     return (
         ( coordinate.latitude  >= northWestCorner.latitude &&

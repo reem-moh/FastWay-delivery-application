@@ -55,7 +55,7 @@ struct CurrentOrderView: View {
                 checkOrders(ID:  UserDefaults.standard.getUderId())
                 model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        model.getCards()
+                    model.getCards()
                 }
                 model.showCard = false
                 model.showContent = false
@@ -106,29 +106,29 @@ struct CurrentOrderView: View {
                             notificationT = .None
                         }
                     }else if notificationT == .AcceptOffer {
-                            checkOrders(ID:  UserDefaults.standard.getUderId())
+                        checkOrders(ID:  UserDefaults.standard.getUderId())
+                        model.getCards()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             model.getCards()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    model.getCards()
-                            }
-                            animateAndDelayWithSeconds(0.05) {
-                                self.imgName = "Tick"
-                                self.show = true }
-                            animateAndDelayWithSeconds(4) {
-                                self.show = false
-                                model.notificationMSG = false
-                                notificationT = .None
-                            }
+                        }
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "Tick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            model.notificationMSG = false
+                            notificationT = .None
+                        }
                         
                     }else  if notificationT == .CancelByDefault{
-                         
-                            animateAndDelayWithSeconds(0.05) {
-                                self.imgName = "cancelTick"
-                                self.show = true }
-                            animateAndDelayWithSeconds(4) {
-                                self.show = false
-                                notificationT = .None
-                            }
+                        
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            notificationT = .None
+                        }
                         
                     }
                 }
@@ -137,19 +137,19 @@ struct CurrentOrderView: View {
                 if value {
                     notificationT = .CancelByDefault
                     if notificationT == .CancelByDefault{
-                         
-                            animateAndDelayWithSeconds(0.05) {
-                                self.imgName = "cancelTick"
-                                self.show = true }
-                            animateAndDelayWithSeconds(4) {
-                                self.show = false
-                                notificationT = .None
-                            }
+                        
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            notificationT = .None
+                        }
                         
                     }
                 }
             })
-           
+            
             // Carousel....
             VStack{
                 Spacer()
@@ -157,33 +157,33 @@ struct CurrentOrderView: View {
                     Text("there are no current order")
                 }
                 else{
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        if(index < model.cards.count){
-                                            CurrentCardMView(card: model.cards[index], animation: animation)
-                                            Spacer(minLength: 0)
-                                        }
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, hieght(num:5))
-                                    .shadow(radius: 1)
+                    ZStack{
+                        GeometryReader{ geometry in
+                            HStack {
+                                ScrollView {
+                                    
+                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                        HStack{
+                                            if(index < model.cards.count){
+                                                CurrentCardMView(card: model.cards[index], animation: animation)
+                                                Spacer(minLength: 0)
+                                            }
+                                        }//.frame(height: 100)
+                                        .padding(.horizontal)
+                                        .contentShape(Rectangle())
+                                        .gesture(DragGesture(minimumDistance: 20))
+                                        .padding(.vertical, hieght(num:5))
+                                        .shadow(radius: 1)
+                                        
+                                        
+                                    }.padding(.bottom,hieght(num:25))//end of for each
                                     
                                     
-                                }.padding(.bottom,hieght(num:25))//end of for each
-                                
+                                }
                                 
                             }
-                            
                         }
-                    }
-                }.padding(.top,hieght(num:80))
+                    }.padding(.top,hieght(num:80))
                 }
                 Spacer()
             }
@@ -193,7 +193,7 @@ struct CurrentOrderView: View {
                 checkOrders(ID:  UserDefaults.standard.getUderId())
                 model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        model.getCards()
+                    model.getCards()
                 }
             }
             
@@ -309,15 +309,7 @@ struct CurrentOrderView: View {
                 ChatView(viewRouter: viewRouter, model: model)
             }
         }//end ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
+        
     }
     
 }
@@ -335,7 +327,7 @@ struct CurrentCardMView: View {
         
         //Card
         VStack{
-
+            
             //Time
             HStack{
                 Image(systemName: "clock")
@@ -351,13 +343,13 @@ struct CurrentCardMView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
-
+                
                 if(model.orderPreview(c: card).deliveryPrice != 0){
-                //price
+                    //price
                     Image(uiImage: #imageLiteral(resourceName: "money"))
                         .foregroundColor(Color.black.opacity(0.5))
                         .padding(.leading)
-                        
+                    
                     Text("\(model.orderPreview(c: card).deliveryPrice) SR")
                         
                         .font(.body)
@@ -367,7 +359,7 @@ struct CurrentCardMView: View {
                     
                     
                     Spacer(minLength: 0)
-            }
+                }
             }.padding(.top,hieght(num:15))
             //orderDetailes
             HStack {
@@ -396,11 +388,8 @@ struct CurrentCardMView: View {
             }.padding(15)
             //Detailes Button
             HStack{
-
+                
                 if !model.showContent{
-                    //Text("\(model.selectedCard.orderD.status)")
-                    //to let an arrow in the right of the card
-                    
                     if self.stat == "waiting for offer"{
                         Text("Waiting for offers")
                             .bold()
@@ -408,31 +397,18 @@ struct CurrentCardMView: View {
                             .frame(width: width(num:170),height: hieght(num:25))
                             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color("ButtonColor")))
                         Spacer(minLength: 0)
-                        //HStack{
-                            
-                            //DotView(frame: 10)
-                            //DotView(delay: 0.2, frame: 10)
-                            //DotView(delay: 0.4, frame: 10)
-                        //}
+                        
                     }else if self.stat == "have an offer"{
-                        //model.order.offers "\(model.order.offers.count) offers"
-                        
-                            Text("New offers")
-                                .bold()
-                                .foregroundColor(.white)
-                                .frame(width: width(num:100),height: hieght(num:25))
-                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
-                            //.background(Color.purple)
-                            Spacer(minLength: 0)
-                        
-                        
+                        Text("New offers")
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:100),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.green))
+                        Spacer(minLength: 0)
                     }else {
-                        
                         Text("Details")
                         Spacer(minLength: 0)
                     }
-                    
-                    
                     Image(systemName: "arrow.right")
                 }
             }
@@ -441,16 +417,10 @@ struct CurrentCardMView: View {
             .onAppear(){
                 model.getCards()
                 self.stat = model.orderPreview(c: card).status
-                /*model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
-                    print("Live status for cards")
-                }
-                self.stat = model.order.liveStatus*/
             }
             .onChange(of: model.orderPreview(c: card).status) { value in
                 model.getCards()
                 self.stat = model.orderPreview(c: card).status
-                //self.stat = model.order.liveStatus
-                
             }
             
         }//end vStack
@@ -544,7 +514,6 @@ struct CurrentCardMDetailes: View {
                     .edgesIgnoringSafeArea(.bottom)
                     .offset(y:hieght(num:  240))
                     .onAppear(){
-                        //self.stat = model.selectedCard.orderD.status
                         model.order.getStatusNotAssigned(memberId: model.selectedCard.orderD.memberId, order: model.selectedCard.orderD.orderDetails){ success in
                             print("\(model.order.liveStatus)")
                         }
@@ -578,19 +547,19 @@ struct CurrentCardMDetailes: View {
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
                             
-                           
+                            
                         }
                         
                         
                         
-                 
+                        
                         //Offers page
                         if self.stat == "have an offer"{
                             HStack{
                                 
-                                    Text("Delivery offers")
-                                        .foregroundColor(Color("ButtonColor"))
-                                        .bold()
+                                Text("Delivery offers")
+                                    .foregroundColor(Color("ButtonColor"))
+                                    .bold()
                                 
                                 
                                 Spacer(minLength: 0)
@@ -599,22 +568,22 @@ struct CurrentCardMDetailes: View {
                             .foregroundColor(Color.gray.opacity(0.9))
                             .padding(20)
                             .onTapGesture {
-                               withAnimation(.spring()){
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
-                                    print("inside getOrderForCourierCurrentOrder success")
-                                    guard success else { return }
-                                    model.getCards()
+                                withAnimation(.spring()){
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        model.order.getOffers(OrderId: model.selectedCard.orderD.id){ success in
+                                            print("inside getOrderForCourierCurrentOrder success")
+                                            guard success else { return }
+                                            model.getCards()
+                                        }
+                                    }
+                                    
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                        withAnimation(.easeIn){
+                                            model.showOffers = true
+                                        }//end with animation
+                                    }//end dispatch
                                 }
-                                }
-                            
-                                
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                    withAnimation(.easeIn){
-                                     model.showOffers = true
-                                    }//end with animation
-                                   }//end dispatch
-                                 }
                             }
                         }else{
                             if self.stat == "waiting for offer"{
@@ -626,8 +595,8 @@ struct CurrentCardMDetailes: View {
                                     DotView(frame: 15)
                                     DotView(delay: 0.2, frame: 15)
                                     DotView(delay: 0.4, frame: 15)
-            
-                                Spacer(minLength: 0)
+                                    
+                                    Spacer(minLength: 0)
                                 }
                             }
                         }
@@ -664,7 +633,7 @@ struct CurrentCardMDetailes: View {
                         }
                         //order items
                         ZStack(alignment: .top){
-            
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-130))
                             
                             HStack() {
@@ -683,30 +652,30 @@ struct CurrentCardMDetailes: View {
                         
                         HStack {
                             if CancelButtonShow {
-                            //Cancel button
-                             Button(action: {
-                                CancelOrder.toggle()
-                            }) {
-                                Text("Cancel Order")
-                                    .font(.custom("Roboto Bold", size: fontSize(num:22)))
-                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                    .multilineTextAlignment(.center)
-                                    .padding(1.0)
-                                    .frame(width: UIScreen.main.bounds.width - 50)
-                                    .textCase(.none)
-                            }
-                            .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
-                            .padding(.top,hieght(num:25))
-                            .offset(x: width(num:0))
-                            .padding(.bottom,hieght(num:450))
-                            /*.onTapGesture {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    withAnimation(.easeIn){
-                                        
-                                    }//end with animation
+                                //Cancel button
+                                Button(action: {
+                                    CancelOrder.toggle()
+                                }) {
+                                    Text("Cancel Order")
+                                        .font(.custom("Roboto Bold", size: fontSize(num:22)))
+                                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                        .multilineTextAlignment(.center)
+                                        .padding(1.0)
+                                        .frame(width: UIScreen.main.bounds.width - 50)
+                                        .textCase(.none)
                                 }
-                            }*/
-                        }
+                                .background(Image(uiImage: #imageLiteral(resourceName: "LogInFeild")))
+                                .padding(.top,hieght(num:25))
+                                .offset(x: width(num:0))
+                                .padding(.bottom,hieght(num:450))
+                                /*.onTapGesture {
+                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                 withAnimation(.easeIn){
+                                 
+                                 }//end with animation
+                                 }
+                                 }*/
+                            }
                         }
                         
                         
@@ -735,8 +704,8 @@ struct CurrentCardMDetailes: View {
         .onAppear(){
             //assigned
             if model.selectedCard.orderD.status == order.status[3]{
-            CancelButtonShow = true
-             let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
+                CancelButtonShow = true
+                let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
                 //60 * (60+30)
                 print("timeInterval: \(timeInterval)")
                 if timeInterval >= 5400 {
@@ -797,7 +766,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     // Detail Content....
     @Published var selectedCard = Card(cardColor: .clear)
-
+    
     //Display all cards in current page
     @Published var showCard = false
     //Display details page of a card
@@ -814,13 +783,7 @@ class CurrentCarouselMViewModel: ObservableObject {
     //Toggle to show chat
     @Published var showChat = false
     
-    init(){
-        //from this ID get all the cards
-        //order.getMemberOrder(Id: UserDefaults.standard.getUderId())
-        //print("number of oreders inside init: \(order.memberOrder.count)")
-        //getCards()
-        
-    }
+    init(){}
     
     //return order details
     func orderPreview(c: Card) -> OrderDetails {
@@ -846,18 +809,18 @@ class CurrentCarouselMViewModel: ObservableObject {
     
     //cancel order
     func cancelOrder(Id: String){
-           cancelCardOrderId = Id
-            order.cancelOrder(OrderId: Id)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //withAnimation(.easeIn){
-                self.getCards()
-                self.showCancel.toggle()
-                animateAndDelayWithSeconds(0.05) { self.showCancel = true }
-                animateAndDelayWithSeconds(4) {self.showCancel = false }
-                //}//end with animation
-            }
+        cancelCardOrderId = Id
+        order.cancelOrder(OrderId: Id)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            //withAnimation(.easeIn){
+            self.getCards()
+            self.showCancel.toggle()
+            animateAndDelayWithSeconds(0.05) { self.showCancel = true }
+            animateAndDelayWithSeconds(4) {self.showCancel = false }
+            //}//end with animation
+        }
     }
-  
+    
 }
 
 //check if order exceeds the 15 min limit
@@ -866,28 +829,26 @@ func checkOrders(ID : String){
         order.getMemberOrder(Id: ID)
     }
     cancelNoti = false
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-     
-            for index in order.memberOrder {
-                
-                //convert time to double
-                let timeInterval = -1*index.createdAt.timeIntervalSinceNow
-                if( index.status != "cancled" && index.status != "completed" ){
-                    //60 sec * 15 minutes
-                    if timeInterval >= 900  && index.status == order.status[0]{
-                        order.cancelOrder(OrderId: index.id)
-                        //notification
-                        notificationT = .CancelByDefault
-                        //cancelNoti = true
-                        cancelNoti.toggle()
-                        //ViewRouter.currentPage = .HomePageM
-                    }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        
+        for index in order.memberOrder {
+            
+            //convert time to double
+            let timeInterval = -1*index.createdAt.timeIntervalSinceNow
+            if( index.status != "cancled" && index.status != "completed" ){
+                //60 sec * 15 minutes
+                if timeInterval >= 900  && index.status == order.status[0]{
+                    order.cancelOrder(OrderId: index.id)
+                    //notification
+                    notificationT = .CancelByDefault
+                    cancelNoti.toggle()
                 }
-                
             }
+            
+        }
         
         
-      }
+    }
     
 }
 

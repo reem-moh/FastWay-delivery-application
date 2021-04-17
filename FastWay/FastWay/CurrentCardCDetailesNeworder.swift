@@ -40,7 +40,7 @@ struct CurrentCardCDetailesNeworder: View {
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
     @State var token = ""
-
+    
     var body: some View{
         
         ZStack{
@@ -53,13 +53,9 @@ struct CurrentCardCDetailesNeworder: View {
                 .offset(y: hieght(num:50))
                 .onAppear(){
                     self.manager.requestAlwaysAuthorization()
-                  
-                
+                    
+                    
                 }
-            
-            
-            // VStack{
-            
             ZStack {
                 //go back button
                 //arrow_back image
@@ -88,11 +84,11 @@ struct CurrentCardCDetailesNeworder: View {
                 }.position(x: width(num:50), y: hieght(num:50))
                 .onAppear(){
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
-                        print("After getMemberToken in send \(self.member.member.token)")
-                        self.token = self.member.member.token
-                        guard success else { return }
-                    }
+                        self.member.getMemberToken(memberId: model.selectedCard.orderD.memberId){ success in
+                            print("After getMemberToken in send \(self.member.member.token)")
+                            self.token = self.member.member.token
+                            guard success else { return }
+                        }
                     }
                 }
                 
@@ -118,10 +114,10 @@ struct CurrentCardCDetailesNeworder: View {
                                 .foregroundColor(Color.black.opacity(0.5))
                                 .animation(.easeIn)
                                 .offset(x: width(num:10), y: hieght(num:10))
-                          
+                            
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
-
+                            
                             
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
@@ -184,7 +180,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .foregroundColor(Color("ButtonColor"))
                                         
                                         Text("Pick up ").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
-                                     
+                                        
                                     }.onTapGesture {
                                         State = 4
                                         StateString = "pick Up"
@@ -209,7 +205,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-    
+                                        
                                         Text("On the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 5
@@ -238,7 +234,7 @@ struct CurrentCardCDetailesNeworder: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                      
+                                        
                                         Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }.onTapGesture {
                                         State = 6
@@ -327,7 +323,7 @@ struct CurrentCardCDetailesNeworder: View {
                         }
                         //order items
                         ZStack{
-                           
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
                             HStack() {
                                 
@@ -338,8 +334,8 @@ struct CurrentCardCDetailesNeworder: View {
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(radius: 1)
-                      
-                       
+                        
+                        
                         //cancel button
                         HStack{
                             Spacer(minLength: 0)
@@ -348,7 +344,7 @@ struct CurrentCardCDetailesNeworder: View {
                                 alertMessage = "Are you sure you want cancel this order"
                                 //showingAlert.toggle()
                                 showingAlert = true
-                               
+                                
                             }) {
                                 Text("Cancel order")
                                     .font(.custom("Roboto Bold", size: fontSize(num:22)))
@@ -378,10 +374,10 @@ struct CurrentCardCDetailesNeworder: View {
                     Button(action: {
                         model.showChat.toggle()
                         
-                   }) {
+                    }) {
                         ZStack{
                             Circle()
-                            .frame(width: width(num:60), height:hieght(num: 60))
+                                .frame(width: width(num:60), height:hieght(num: 60))
                                 .foregroundColor(Color(.white))
                                 .shadow(radius: 1)
                             Image(systemName: "message.circle.fill")
@@ -389,15 +385,12 @@ struct CurrentCardCDetailesNeworder: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: width(num:50), height: hieght(num:50))
                                 .foregroundColor(Color("ButtonColor"))
-                                //.clipped()
                         }
-                       
-                           //.background(Color(.white))
-                   }.padding(1.0)
-               }.position(x: width(num:35), y: hieght(num:650))
+                    }.padding(1.0)
+                }.position(x: width(num:35), y: hieght(num:650))
             }
-  
-       }.edgesIgnoringSafeArea(.all)
+            
+        }.edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showingAlert) {Alert(title: Text(alertTitle), message: Text(alertMessage), primaryButton: .default((Text("YES")), action: {
             if alertTitle == "Order confirmed"{
                 model.cancelOrder(Id:  model.selectedCard.orderD.id)
@@ -424,10 +417,10 @@ struct CurrentCardCDetailesNeworder: View {
                     sendMessageTouser(to: self.token, title: "Order Arrived", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. is at the drop off location")
                 }
             }
-
             
-                   }) , secondaryButton: .cancel((Text("NO"))))
-
+            
+        }) , secondaryButton: .cancel((Text("NO"))))
+        
         }
         
     }// end body

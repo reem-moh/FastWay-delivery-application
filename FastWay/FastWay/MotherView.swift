@@ -13,8 +13,8 @@ struct MotherView: View {
     @StateObject var CurrentCModel = CurrentCarouselCViewModel()
     @StateObject var HistoryCModel = HistoryCarouselCViewModel()
     @StateObject var HistoryMModel = HistoryCarouselMViewModel()
-
-   // @StateObject var OfferModel = OfferCarousel()
+    
+    // @StateObject var OfferModel = OfferCarousel()
     @StateObject var viewRouter: ViewRouter
     @Namespace var animation
     var body: some View {
@@ -64,4 +64,3 @@ struct MotherView_Previews: PreviewProvider {
         MotherView(viewRouter: ViewRouter())//.environmentObject(SessionStore())
     }
 }
-

@@ -121,10 +121,10 @@ struct SignUPView: View {
                                 }
                                 
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                             .font(.custom("Roboto Regular", size: fontSize(num:18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
                             .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for email
@@ -140,11 +140,11 @@ struct SignUPView: View {
                                     self.error = true
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for phone number
                             Text(self.phErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
@@ -159,11 +159,11 @@ struct SignUPView: View {
                                     self.error = true
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                             
                             //error for password
                             Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num:18)))
@@ -178,11 +178,11 @@ struct SignUPView: View {
                                     self.error = true
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num:18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                         }//end group
                         
                         //error for repeat pass
@@ -198,11 +198,11 @@ struct SignUPView: View {
                                 self.error = true
                             }
                         })
-                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .font(.custom("Roboto Regular", size: fontSize(num:18)))
-                            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .font(.custom("Roboto Regular", size: fontSize(num:18)))
+                        .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num:10)).padding(.horizontal, width(num: 16))
                         
                         VStack(alignment: .leading){
                             

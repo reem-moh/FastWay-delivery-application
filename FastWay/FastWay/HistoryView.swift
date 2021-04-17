@@ -19,7 +19,7 @@ struct HistoryView: View {
     @State var imgName = "shoppingCart"
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
-
+    
     
     var body: some View {
         ZStack{
@@ -49,22 +49,14 @@ struct HistoryView: View {
                 //retrieve ordered assigned to the user
                 model.order.getMemberOrderCancelledAndCompleted(Id: UserDefaults.standard.getUderId())
                 //retrieve order waiting for accept
-                //model.getCards()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    //withAnimation(.easeIn){
                     model.getCards()
-                    //}//end with animation
                 }
                 model.showCard = false
                 model.showContent = false
                 model.showChat = false
             }
-            
-            
-      
-
             // Carousel...
-            
             VStack{
                 // Carousel....
                 Spacer()
@@ -104,7 +96,7 @@ struct HistoryView: View {
             if model.showCard {
                 HistoryCardMDetailes(viewRouter: viewRouter, animation: animation)
             }
-                        
+            
             
             //BarMenue
             ZStack{
@@ -198,22 +190,7 @@ struct HistoryView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
-            
-          
-
-            
-
-            
         }//end ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
     }
     
 }
@@ -232,7 +209,7 @@ struct HistoryCardMView: View {
         
         //Card
         VStack{
-
+            
             //Time
             HStack{
                 Image(systemName: "clock")
@@ -248,13 +225,13 @@ struct HistoryCardMView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
-
+                
                 if(model.orderPreview(c: card).deliveryPrice != 0 && self.stat == "completed" ){
-                //price
+                    //price
                     Image(uiImage: #imageLiteral(resourceName: "money"))
                         .foregroundColor(Color.black.opacity(0.5))
                         .padding(.leading)
-                        
+                    
                     Text("\(model.orderPreview(c: card).deliveryPrice) SR")
                         
                         .font(.body)
@@ -264,7 +241,7 @@ struct HistoryCardMView: View {
                     
                     
                     Spacer(minLength: 0)
-            }
+                }
             }.padding(.top,hieght(num:15))
             //orderDetailes
             HStack {
@@ -293,7 +270,7 @@ struct HistoryCardMView: View {
             }.padding(15)
             //Detailes Button
             HStack{
-
+                
                 if !model.showContent{
                     //have an offer
                     if self.stat == "completed"{
@@ -311,18 +288,18 @@ struct HistoryCardMView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-                      
+                        
                     }else
-                
-    
+                    
+                    
                     if self.stat == "cancled"
                     {
                         Text("cancled")
-                        .bold()
-                        .foregroundColor(.white)
-                        .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
-                            //.background(Color.purple)
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:100),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
+                        //.background(Color.purple)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -332,7 +309,7 @@ struct HistoryCardMView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-
+                        
                         
                     }
                     
@@ -344,16 +321,10 @@ struct HistoryCardMView: View {
             .onAppear(){
                 model.getCards()
                 self.stat = model.orderPreview(c: card).status
-                /*model.order.getStatusNotAssigned(memberId: model.orderPreview(c: card).memberId, order: model.orderPreview(c: card).orderDetails){ success in
-                    print("Live status for cards")
-                }
-                self.stat = model.order.liveStatus*/
             }
             .onChange(of: model.orderPreview(c: card).status) { value in
                 model.getCards()
                 self.stat = model.orderPreview(c: card).status
-                //self.stat = model.order.liveStatus
-                
             }
             
         }//end vStack
@@ -474,11 +445,6 @@ struct HistoryCardMDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
-
-                            
-                            
-                          
-                            
                             if (model.selectedCard.orderD.deliveryPrice != 0 && self.stat == "completed" ){
                                 
                                 Image(uiImage: #imageLiteral(resourceName: "money"))
@@ -486,20 +452,14 @@ struct HistoryCardMDetailes: View {
                                     .offset(x: width(num:10), y: hieght(num:10))
                                     .padding(.leading)
                                 
-                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
-                                .font(.body)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.black.opacity(0.5))
-                                .animation(.easeIn)
-                                .offset(x: width(num:10), y: hieght(num:10))}
+                                Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .animation(.easeIn)
+                                    .offset(x: width(num:10), y: hieght(num:10))}
                             Spacer(minLength: 0)
                         }
-                        
-                        
-                        
-                 
-                    
-                        
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15)
@@ -532,7 +492,7 @@ struct HistoryCardMDetailes: View {
                         }
                         //order items
                         ZStack(alignment: .top){
-            
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-130))
                             
                             HStack() {
@@ -546,12 +506,6 @@ struct HistoryCardMDetailes: View {
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         .padding(.bottom, hieght(num:450))
-                        
-                        
-                        
-                        
-                        
-                        
                     }
                 }.position(x: width(num:188),y: hieght(num:700))
                 
@@ -610,7 +564,7 @@ class HistoryCarouselMViewModel: ObservableObject {
     
     // Detail Content....
     @Published var selectedCard = HistoryCardM(cardColor: .clear)
-
+    
     //Display all cards in current page
     @Published var showCard = false
     //Display details page of a card
@@ -627,13 +581,7 @@ class HistoryCarouselMViewModel: ObservableObject {
     //Toggle to show chat
     @Published var showChat = false
     
-    init(){
-        //from this ID get all the cards
-        //order.getMemberOrder(Id: UserDefaults.standard.getUderId())
-        //print("number of oreders inside init: \(order.memberOrder.count)")
-        //getCards()
-        
-    }
+    init(){}
     
     //return order details
     func orderPreview(c: HistoryCardM) -> OrderDetails {
@@ -658,8 +606,8 @@ class HistoryCarouselMViewModel: ObservableObject {
         }
     }
     
- 
-  
+    
+    
 }
 
 

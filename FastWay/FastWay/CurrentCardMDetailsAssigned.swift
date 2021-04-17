@@ -21,9 +21,6 @@ struct CurrentCardMDetailsAssigned: View {
     @State var alert = false
     @State var distance = ""
     @State var time = ""
- //   @State var courierLocationtracking  = ""
-   // var courierLocation = riyadhCoordinatetracking
-   // @State var courierLocation : CLLocationCoordinate2D! = riyadhCoordinatetracking
     @State private var CancelOrder = false
     @State var CancelButtonShow = true
     @State var stat = ""
@@ -32,7 +29,6 @@ struct CurrentCardMDetailsAssigned: View {
     @State var chat = false
     @State var oneDouble = 0.0
     @State var tDouble = 0.0
-   // var courierLocation = riyadhCoordinatetracking
     //for status
     @State var showAssign = false
     @State var showPickUp = false
@@ -47,16 +43,10 @@ struct CurrentCardMDetailsAssigned: View {
     @State var token = ""
     
     var body: some View{
-
+        
         ZStack{
-           
-            
-
-          //  courierLocation
+            //courierLocation
             //map
-            
-           // getCourierLocation(CourierID: model.selectedCard.orderD.courierId)
-
             MapViewTracking(map: self.$map, manager: self.$manager, alert: self.$alert, source: self.$model.selectedCard.orderD.pickUP, destination: self.$model.selectedCard.orderD.dropOff, distance: self.$distance, time: self.$time, CourierID: self.$model.selectedCard.orderD.courierId )
                 .cornerRadius(35)
                 .frame(width: width(num:390), height: hieght(num:300))
@@ -67,34 +57,8 @@ struct CurrentCardMDetailsAssigned: View {
                 .onAppear(){
                     self.manager.requestAlwaysAuthorization()
                     getCourierLocation(CourierID: model.selectedCard.orderD.courierId)
-
+                    
                 }
-            /*    .onChange(of: model.order.traking.courierLocation.longitude) { value in
-                   // courierLocation = Float(courierLocation.longitude)
-                     oneDouble = Double(model.order.traking.courierLocation.longitude)
-                    self.oneDouble = value
-                    tDouble = Double(model.order.traking.courierLocation.latitude)
-                   self.tDouble = value
-                    //self.model.getCourierLocation
-                    model.order.getCourierLocation(orderId: model.selectedCard.orderD.id)
-                }*/
-            
-              /*
-                .onChange(of: model.selectedCard.orderD.courierLocation, perform: { value in
-             if value {
-                 if notificationT == .CancelOffer  {
-                     animateAndDelayWithSeconds(0.05) {
-                         self.imgName = "cancelTick"
-                         self.show = true }
-                     animateAndDelayWithSeconds(4) {
-                         self.show = false
-                         model.notificationMSG = false
-                         notificationT = .None
-                     }
-                 }
-             }
-         }
-           */
             
             ZStack {
                 //back button
@@ -163,7 +127,7 @@ struct CurrentCardMDetailsAssigned: View {
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
-                           
+                            
                             
                             Image(uiImage: #imageLiteral(resourceName: "money"))
                                 .foregroundColor(Color.black.opacity(0.5))
@@ -200,7 +164,7 @@ struct CurrentCardMDetailsAssigned: View {
                                     .shadow(radius: 1)
                             }
                             
-                          
+                            
                             //status of the order
                             VStack{
                                 Spacer()
@@ -225,7 +189,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
                                         
-                                
+                                        
                                         
                                         Text("Pick up").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
@@ -237,7 +201,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-    
+                                        
                                         Text("On the way").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
@@ -251,7 +215,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                      
+                                        
                                         Text("Drop off").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
@@ -262,7 +226,7 @@ struct CurrentCardMDetailsAssigned: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: width(num:30), height: hieght(num:30))
                                             .foregroundColor(Color("ButtonColor"))
-                                  
+                                        
                                         Text("Delivered").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:230), alignment: .leading)
                                     }
                                     Spacer()
@@ -313,7 +277,7 @@ struct CurrentCardMDetailsAssigned: View {
                         }
                         //order items
                         ZStack(alignment: .top){
-            
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-130))
                             
                             HStack() {
@@ -327,76 +291,43 @@ struct CurrentCardMDetailsAssigned: View {
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         .padding(.bottom,hieght(num:CancelButtonShow ? 4 : 450))
-                        //.padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
-                        //order price:
-                        /*
-                        ZStack(alignment: .top){
-                            if model.selectedCard.orderD.status == order.status[3]{
-                                Image(uiImage: #imageLiteral(resourceName: "money")).offset(x: width(num:-130), y: hieght(num: 4))
-                                //here Price
-                                HStack() {
-                                    Text("\(model.selectedCard.orderD.deliveryPrice)").multilineTextAlignment(.leading).frame(minWidth: 0, maxWidth: width(num:220), alignment: .leading)
-                                        .padding(.vertical, 6)
-                                }
-                            }
-                            
-                        }
-                        .contentShape(RoundedRectangle(cornerRadius: 15))
-                        .frame(width: width(num:325))
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(radius: 1)
-                        .padding(.top, hieght(num: 10))
-                        .padding(.bottom, CancelButtonShow ? hieght(num:4) : hieght(num:450))
-                        
-                        */
                         //CancelButton
                         HStack {
                             if CancelButtonShow {
                                 Spacer(minLength: 0)
-                            //Cancel button
-                             Button(action: {
-                                CancelOrder.toggle()
-                            }) {
-                                Text("Cancel Order")
-                                    .font(.custom("Roboto Bold", size: fontSize(num:22)))
-                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                                    .multilineTextAlignment(.center)
-                                    .padding(1.0)
-                                    .frame(width: UIScreen.main.bounds.width - 50)
-                                    .textCase(.none)
-                            }
-                             .background(
-                                Image(uiImage: #imageLiteral(resourceName: "LogInFeild"))
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width - 84, height: hieght(num: 50)))
-                            .padding(.top,hieght(num:25))
-                            .offset(x: width(num:0))
-                            .padding(.bottom,hieght(num:450))
-                            /*.onTapGesture {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    withAnimation(.easeIn){
-                                        
-                                    }//end with animation
+                                //Cancel button
+                                Button(action: {
+                                    CancelOrder.toggle()
+                                }) {
+                                    Text("Cancel Order")
+                                        .font(.custom("Roboto Bold", size: fontSize(num:22)))
+                                        .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                                        .multilineTextAlignment(.center)
+                                        .padding(1.0)
+                                        .frame(width: UIScreen.main.bounds.width - 50)
+                                        .textCase(.none)
                                 }
-                            }*/
-                        }
+                                .background(
+                                    Image(uiImage: #imageLiteral(resourceName: "LogInFeild"))
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width - 84, height: hieght(num: 50)))
+                                .padding(.top,hieght(num:25))
+                                .offset(x: width(num:0))
+                                .padding(.bottom,hieght(num:450))
+                                
+                            }
                         }
                     }
                 }.position(x: width(num:188),y: hieght(num:700))
                 //Chat
                 Group{
-                    //RoundedRectangle(cornerRadius: 15)
-                    // .frame(width: width(num:45), height:hieght(num: 45))
-                    //.foregroundColor(Color(.lightGray))
-                    
                     Button(action: {
                         model.showChat.toggle()
                         
-                   }) {
+                    }) {
                         ZStack{
                             Circle()
-                            .frame(width: width(num:60), height:hieght(num: 60))
+                                .frame(width: width(num:60), height:hieght(num: 60))
                                 .foregroundColor(Color(.white))
                                 .shadow(radius: 1)
                             Image(systemName: "message.circle.fill")
@@ -404,14 +335,11 @@ struct CurrentCardMDetailsAssigned: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: width(num:50), height: hieght(num:50))
                                 .foregroundColor(Color("ButtonColor"))
-                                //.clipped()
                         }
-                       
-                           //.background(Color(.white))
-                   }.padding(1.0)
-               }.position(x: width(num:35), y: hieght(num:650))
-
-
+                    }.padding(1.0)
+                }.position(x: width(num:35), y: hieght(num:650))
+                
+                
                 
             }
             
@@ -425,11 +353,8 @@ struct CurrentCardMDetailsAssigned: View {
                     model.cancelOrder(Id: model.selectedCard.orderD.id)
                     notificationT = .CancelOrder
                     model.notificationMSG = true
-                    //viewRouter.currentPage = .CurrentOrder
                     model.showCard = false
                     model.showContent = false
-                    //send notification to courier
-                    
                     //change token
                     sendMessageTouser(to: self.token, title: "Order Canceled", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has been canceled by the member")
                 }) ,
@@ -438,8 +363,8 @@ struct CurrentCardMDetailsAssigned: View {
         .onAppear(){
             //assigned
             if model.selectedCard.orderD.status == order.status[3]{
-            CancelButtonShow = true
-             let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
+                CancelButtonShow = true
+                let timeInterval = Int( -1 * model.selectedCard.orderD.createdAt.timeIntervalSinceNow)
                 //60 * (60+30)
                 print("timeInterval: \(timeInterval)")
                 if timeInterval >= 5400 {
@@ -449,14 +374,6 @@ struct CurrentCardMDetailsAssigned: View {
                     CancelButtonShow = false
                 }
             }
-            /*
-            //for the in app notification
-            //call it before get notification
-            UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
         }
         
         

@@ -58,10 +58,6 @@ struct CardView: View {
                 }.padding(5)
                 
             }.padding(15)//end v stack for pickup&dropOff image
-            
-            
-            
-            
             HStack{
                 
                 //to let an arrow in the right of the card

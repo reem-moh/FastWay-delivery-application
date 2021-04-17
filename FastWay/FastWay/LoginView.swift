@@ -10,9 +10,9 @@ import Firebase
 import FirebaseFirestore
 
 struct LoginView: View {
-    //
-    @State var email = "reem989@gmail.com"
-    @State var pass = "12345678aB"
+    
+    @State var email = ""
+    @State var pass = ""
     @State var descReset = ""
     @State var errMsg = ""
     
@@ -83,9 +83,9 @@ struct LoginView: View {
                         Group {
                             //Show Error message if the pass feild empty
                             /*if showErrorMessagePass {
-                                Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
-                                    .offset(x: -60, y: 30)
-                            }*/
+                             Text("Error, please enter value").font(.custom("Roboto Regular", size: 18)).foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)))
+                             .offset(x: -60, y: 30)
+                             }*/
                             
                             //password feild
                             SecureField("Password", text: $pass).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -219,26 +219,26 @@ struct LoginView: View {
                         } else {
                             
                             let docRef = db.collection("Courier").document(id)
-                                                        docRef.getDocument { (document, error) in
-                                                            if let document = document, document.exists {
-                                                                print("Courier")
-                                                                UserDefaults.standard.setUserType(Type: "C")
-                                                                //call setToken
-                                                                DispatchQueue.main.async {
-                                                                    registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                                                                        print("in success registerTokenCourier")
-                                                                        
-                                                                        guard success else { return }
-                                                                    }
-                                                                }
-                                                                notificationT = .LogIn
-                                                                viewRouter.currentPage = .HomePageC
-
-                                                            }else{
-                                                                self.showErrorMessageEmail = true
-                                                            }
-                                                            
-                                                        }
+                            docRef.getDocument { (document, error) in
+                                if let document = document, document.exists {
+                                    print("Courier")
+                                    UserDefaults.standard.setUserType(Type: "C")
+                                    //call setToken
+                                    DispatchQueue.main.async {
+                                        registerTokenCourier(courierId: UserDefaults.standard.getUderId()){ success in
+                                            print("in success registerTokenCourier")
+                                            
+                                            guard success else { return }
+                                        }
+                                    }
+                                    notificationT = .LogIn
+                                    viewRouter.currentPage = .HomePageC
+                                    
+                                }else{
+                                    self.showErrorMessageEmail = true
+                                }
+                                
+                            }
                             
                         }
                     }

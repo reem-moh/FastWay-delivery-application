@@ -86,8 +86,8 @@ struct HomeMemberView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .clipped().shadow(radius: 2)
                     
-                    }
-
+                }
+                
             }.position(x:width(num:189) ,y:hieght(num:370))
             //notification
             VStack{
@@ -116,23 +116,6 @@ struct HomeMemberView: View {
                     }
                 }
             }
-            // canceled order after 15 min
-            /*VStack{
-                if show{
-                    Notifications(type: notificationT, imageName: "shoppingCart")
-                        .offset(y: self.show ? -UIScreen.main.bounds.height/2.47 : -UIScreen.main.bounds.height)
-                        .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
-                }
-            }.onAppear(){
-                if notificationT == .CancelByDefault  {
-                    animateAndDelayWithSeconds(0.05) { self.show = true }
-                    animateAndDelayWithSeconds(4) {
-                        self.show = false
-                        notificationT = .None
-                    }
-                }
-            }*/
-            
             //BarMenue
             ZStack{
                 GeometryReader { geometry in
@@ -142,7 +125,7 @@ struct HomeMemberView: View {
                         HStack {
                             //Home
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: width(num:geometry.size.width/5), height: hieght(num:geometry.size.height/28), systemIconName: "homekit", tabName: "Home")
-                           //about us
+                            //about us
                             ZStack {
                                 Circle()
                                     .foregroundColor(.white)
@@ -169,17 +152,8 @@ struct HomeMemberView: View {
                     
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
-        }.onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-            
         }
-    
+        
     }
     
 }

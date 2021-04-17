@@ -26,8 +26,5 @@ enum Page{
     case SendOrder
     case CurrentOrder
     case HistoryView
-
+    
 }
-
-
-

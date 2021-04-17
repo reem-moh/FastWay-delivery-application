@@ -49,7 +49,7 @@ struct Offers: View {
                         .edgesIgnoringSafeArea(.bottom).offset(y: hieght(num: 100))
                     
                 }.edgesIgnoringSafeArea(.all)
-               //back
+                //back
                 HStack{
                     Button(action: {
                         withAnimation(.spring()){
@@ -76,7 +76,7 @@ struct Offers: View {
                     print("*************************")
                     print("*******Offers view*********")
                     print("the order id inside offer view\(orderID)")
-                   //model.haveOffers = true
+                    //model.haveOffers = true
                     model.OrderId = self.orderID
                     model.status = self.status
                     model.order.offers = self.Offers
@@ -90,20 +90,20 @@ struct Offers: View {
                 }
                 
             }.onChange(of: model.updatePage, perform: { value in
-                    if value {
-                        model.getCards()
-                        if notificationT == .DeclineOffer  {
-                            animateAndDelayWithSeconds(0.05) {
-                                self.imgName = "cancelTick"
-                                self.show = true }
-                            animateAndDelayWithSeconds(4) {
-                                self.show = false
-                                model.updatePage = false
-                                notificationT = .None
-                            }
+                if value {
+                    model.getCards()
+                    if notificationT == .DeclineOffer  {
+                        animateAndDelayWithSeconds(0.05) {
+                            self.imgName = "cancelTick"
+                            self.show = true }
+                        animateAndDelayWithSeconds(4) {
+                            self.show = false
+                            model.updatePage = false
+                            notificationT = .None
                         }
-                        model.updatePage = false
                     }
+                    model.updatePage = false
+                }
             })
             
             
@@ -142,18 +142,9 @@ struct Offers: View {
             }else{
                 Text("You haven\'t recieved any offers yet")
             }
-           
+            
             
         }//end ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-           // UNUserNotificationCenter.current().delegate = delegate
-                /*getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
         
     }
     
@@ -163,7 +154,7 @@ struct Offers: View {
 struct OfferCard: View {
     @EnvironmentObject var model : OfferCarousel
     @StateObject var viewRouter: ViewRouter
-   // @EnvironmentObject var Environment: CurrentCarouselMViewModel
+    // @EnvironmentObject var Environment: CurrentCarouselMViewModel
     var card: OfferCardInfo
     var animation: Namespace.ID
     @StateObject var Env : CurrentCarouselMViewModel
@@ -179,7 +170,7 @@ struct OfferCard: View {
                     .resizable()
                     .frame(width: width(num: 30), height: hieght(num: 30))
                     .padding(.leading)
-                    
+                
                 Text("\(model.orderPreview(c: card).courier.courier.name)")
                     .font(.body)
                     .fontWeight(.regular)
@@ -198,10 +189,10 @@ struct OfferCard: View {
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             }.padding(.top, hieght(num: 7))
             
-
+            
             HStack{
                 
-               
+                
                 
                 Image("money")
                     .resizable()
@@ -214,9 +205,9 @@ struct OfferCard: View {
                     .animation(.easeIn)
                 
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
-
-
-
+                
+                
+                
             }.padding(.top, hieght(num: 15))
             
             HStack{
@@ -266,7 +257,7 @@ struct OfferCard: View {
                             model.getCards()
                             
                         }
-                    
+                        
                     }
                     //model.Offers = model.order.offers
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -286,14 +277,14 @@ struct OfferCard: View {
                         .multilineTextAlignment(.center)
                         .padding(1.0)
                         .textCase(.none)
-                        
+                    
                 })
                 .frame(width: width(num: 130), height: hieght(num: 40))
                 .background(Color("ButtonWhite"))
                 .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color("ButtonColor"), lineWidth: 2)
-                        )
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color("ButtonColor"), lineWidth: 2)
+                )
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 
                 Spacer()

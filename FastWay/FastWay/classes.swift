@@ -42,14 +42,14 @@ class Member: ObservableObject {
     func addMember(member: Member) -> Bool {
         var flag = true
         if id != nil && id != "" {
-        let doc = db.collection("Member").document(id)
-        doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email]) { (error) in
-            
-            if error != nil {
-                flag = false
+            let doc = db.collection("Member").document(id)
+            doc.setData(["ID":self.id, "Name":self.name, "PhoneNo": self.phoneNo, "Email": self.email]) { (error) in
+                
+                if error != nil {
+                    flag = false
+                }
             }
         }
-    }
         return flag
     }
     
@@ -57,73 +57,73 @@ class Member: ObservableObject {
     func getMember(id: String){
         
         if id != nil && id != "" {
-        db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
-            guard let doc = querySnapshot else{
-                print("no member document")
-                return
-            }
-            guard let data = doc.data() else {
-                print("no member data")
-                return
-            }
-            //assign values from db to variables
-            self.member.id = id
-            self.member.name = data["Name"] as? String ?? ""
-            self.member.email = data["Email"] as? String ?? ""
-            self.member.phoneNo = data["PhoneNo"] as? String ?? ""
-            
-            print("----------")
-            print("inside class Member")
-            print("got member data  \(self.member.name)")
-            print("got member data  \(self.member.email)")
-            print("got member data  \(self.member.phoneNo)")
-            print("----------")
-            
-        } //listener
-    }
+            db.collection("Member").document(id).addSnapshotListener { (querySnapshot, error) in
+                guard let doc = querySnapshot else{
+                    print("no member document")
+                    return
+                }
+                guard let data = doc.data() else {
+                    print("no member data")
+                    return
+                }
+                //assign values from db to variables
+                self.member.id = id
+                self.member.name = data["Name"] as? String ?? ""
+                self.member.email = data["Email"] as? String ?? ""
+                self.member.phoneNo = data["PhoneNo"] as? String ?? ""
+                
+                print("----------")
+                print("inside class Member")
+                print("got member data  \(self.member.name)")
+                print("got member data  \(self.member.email)")
+                print("got member data  \(self.member.phoneNo)")
+                print("----------")
+                
+            } //listener
+        }
     } //function
     
     
     func getMemberToken(memberId: String, completion: @escaping (_ success: Bool) -> Void) {
         if memberId != nil && memberId != "" {
-        //var tokenM = ""
-        db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
-            guard let doc = querySnapshot else{
-                print("no member document")
-                return
-            }
-            guard let data = doc.data() else {
-                print("no member data")
-                return
-            }
-            //assign values from db to variables
-            let tM = data["Token"] as? String ?? ""
-            self.member.token = tM
-            print("tokenM inside \( self.member.token)")
-            let success = true
-            DispatchQueue.main.async {
-                print("tokenM DispatchQueue \( self.member.token)")
-                print("inside getMemberToken in dispatch ")
-                completion(success)
-            }
-        } //listener
-        
-    }
+            //var tokenM = ""
+            db.collection("Member").document(memberId).addSnapshotListener { (querySnapshot, error) in
+                guard let doc = querySnapshot else{
+                    print("no member document")
+                    return
+                }
+                guard let data = doc.data() else {
+                    print("no member data")
+                    return
+                }
+                //assign values from db to variables
+                let tM = data["Token"] as? String ?? ""
+                self.member.token = tM
+                print("tokenM inside \( self.member.token)")
+                let success = true
+                DispatchQueue.main.async {
+                    print("tokenM DispatchQueue \( self.member.token)")
+                    print("inside getMemberToken in dispatch ")
+                    completion(success)
+                }
+            } //listener
+            
+        }
         
     }
     
     func editProfileMember(memberId: String,email: String, name: String, phone: String,changeEmail: Bool){
         if memberId != nil && memberId != "" {
-        let doc = db.collection("Member").document(memberId)
-        doc.setData(["Name":name, "PhoneNo": phone], merge: true) { (error) in
-            if error != nil {
-                print("error in change profile")
-            }else {
-                print("Edit profile")
+            let doc = db.collection("Member").document(memberId)
+            doc.setData(["Name":name, "PhoneNo": phone], merge: true) { (error) in
+                if error != nil {
+                    print("error in change profile")
+                }else {
+                    print("Edit profile")
+                }
             }
-        }
             if changeEmail {
-
+                
                 Auth.auth().currentUser?.updateEmail(to: email){ (error) in
                     if error != nil{
                         print("error in change email inside auth \(error)")
@@ -248,7 +248,7 @@ class Courier: ObservableObject {
         print("tokenC outside \(self.courier.token)")
         
         
-            }
+    }
     
     func editProfileCourier(courierId: String,email: String, name: String, phone: String){
         let doc = db.collection("Courier").document(courierId)
@@ -339,8 +339,8 @@ class Order: ObservableObject{
     @Published var offers: [Offer] = [] // retrieve offer for specific order
     @Published var collectAllOffersForCourier: [Offer] = [] //get data from offer collection
     @Published var orderID: [String] = [] //calculate all order who have state have an offer
-   // @Published var riyadhCoordinatetracking = CLLocationCoordinate2D()
-
+    // @Published var riyadhCoordinatetracking = CLLocationCoordinate2D()
+    
     @Published var traking: Tracking = Tracking(id: "", courierLocation: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
     
     @Published var chat: [ChatMsg] = [] //for messages in chat
@@ -524,7 +524,7 @@ class Order: ObservableObject{
                 
             })
             
-       
+            
         }
     }
     //add offer for specific order in Delivery request
@@ -584,12 +584,12 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 let price = data["DeliveryPrice"] as? Int ?? 0
-              
-             
+                
+                
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-              
+                
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
@@ -623,13 +623,13 @@ class Order: ObservableObject{
                     
                     let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
                     let price = data.get("DeliveryPrice") as? Int ?? 0
-                  
-                 
+                    
+                    
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
+                    
                     let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                   
+                    
                     let index = self.CourierOrderCancelled.firstIndex{$0.id == OrderChanges.id}
                     self.CourierOrderCancelled[index ?? 0] = OrderChanges
                     
@@ -671,12 +671,12 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 let price = data["DeliveryPrice"] as? Int ?? 0
-              
-             
+                
+                
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-              
+                
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
@@ -710,13 +710,13 @@ class Order: ObservableObject{
                     
                     let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
                     let price = data.get("DeliveryPrice") as? Int ?? 0
-                  
-                 
+                    
+                    
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
+                    
                     let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                   
+                    
                     let index = self.MemberOrderCancelled.firstIndex{$0.id == OrderChanges.id}
                     self.MemberOrderCancelled[index ?? 0] = OrderChanges
                     
@@ -725,7 +725,7 @@ class Order: ObservableObject{
             }
         }
     }
-
+    
     //current order for courier [state = assign]
     func getCourierOrderAssign(Id: String){
         print(" CCCC documents")
@@ -759,12 +759,12 @@ class Order: ObservableObject{
                 let state = data["Status"] as? String ?? ""
                 let createdAt = data["CreatedAt"] as? Timestamp ?? Timestamp(date: Date())
                 let price = data["DeliveryPrice"] as? Int ?? 0
-              
-             
+                
+                
                 print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                 print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
                 
-              
+                
                 return OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
@@ -793,13 +793,13 @@ class Order: ObservableObject{
                     let state = data.get("Status") as? String ?? ""
                     let createdAt = data.get("CreatedAt") as? Timestamp ?? Timestamp(date: Date())
                     let price = data.get("DeliveryPrice") as? Int ?? 0
-                  
-                 
+                    
+                    
                     print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                     print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
+                    
                     let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID, courierId:Id ,deliveryPrice:price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
-                   
+                    
                     let index = self.CourierOrderOfferedAssign.firstIndex{$0.id == OrderChanges.id}
                     self.CourierOrderOfferedAssign[index ?? 0] = OrderChanges
                     
@@ -925,14 +925,14 @@ class Order: ObservableObject{
                         
                         let price = offerDetails[0].price
                         let courierId = UserDefaults.standard.getUderId()
-                      
-                     
+                        
+                        
                         print("order :\(orderId) + \(pickup) + \(dropoff) + assigned: \(assigned)")
                         print("in get order COURIER OFFER and date finc is \(createdAt.dateValue().calenderTimeSinceNow())")
-
+                        
                         let OrderChanges = OrderDetails(id: orderId, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId ,deliveryPrice: price, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
                         
-                  
+                        
                         let index = self.CourierOrderOfferedWaiting.firstIndex{$0.id == OrderChanges.id}
                         self.CourierOrderOfferedWaiting[index ?? 0] = OrderChanges
                         
@@ -958,23 +958,9 @@ class Order: ObservableObject{
             if(documents.isEmpty){
                 print("no offer documents")
             }
-            /*self.offers = documents.map({ (queryDocumentSnapshot) -> Offer in
-                print(queryDocumentSnapshot.data())
-                let data = queryDocumentSnapshot.data()
-                let offerId = queryDocumentSnapshot.documentID
-                let orderId = data["OrderID"] as? String ?? ""
-                let memberID = data["MemberID"] as? String ?? ""
-                let courierID = data["CourierID"] as? String ?? ""
-                let courierLatitude = data["CourierLatitude"] as? Double ?? 0.0
-                let courierLongitude = data["CourierLongitude"] as? Double ?? 0.0
-                let Price = data["Price"] as? Int ?? 0
-                let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
-                print("order :\(offerId) + \(memberID) ")
-                return Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: courierID), price: Price, courierLocation: courierLocation)
-            })*/
             self.offers.removeAll()
             for i in querySnapshot!.documentChanges {
-               
+                
                 print("inside for loop getStatus")
                 if i.type == .added{
                     let data = i.document
@@ -987,7 +973,7 @@ class Order: ObservableObject{
                     let Price = data.get("Price") as? Int ?? 0
                     let courierLocation = CLLocationCoordinate2D(latitude: courierLatitude, longitude: courierLongitude)
                     print("order :\(offerId) + \(memberID) ")
-                  
+                    
                     let OfferChanges = Offer( id: offerId, OrderId: orderId , memberId: memberID ,courierId: courierID, courier: Courier(id: courierID), price: Price, courierLocation: courierLocation)
                     
                     self.offers.append(OfferChanges)
@@ -1030,17 +1016,17 @@ class Order: ObservableObject{
                     print("\(document.documentID) => \(document.data())")
                     db.collection("Offers").document(document.documentID).delete(){ err in
                         if let err = err {
-                        print("Error removing offer inside cancelOffer: \(err)")
+                            print("Error removing offer inside cancelOffer: \(err)")
                         } else {
-                        print("offer successfully delete inside cancelOffer!")
+                            print("offer successfully delete inside cancelOffer!")
                             
                         }
+                        
+                    }
                     
-                }
-                
-            }}
-        
-    }
+                }}
+            
+        }
     }
     //change state of order
     func changeState(OrderId: String, Status: String , completion: @escaping (_ success: Bool) -> Void){ //index of status array
@@ -1133,8 +1119,8 @@ class Order: ObservableObject{
     //send chat
     func sendChatRoom(orderId : String, sender_msg: String){
         let sender_id = UserDefaults.standard.getUderId()
-    db.collection("Order").document(orderId).collection("Chat").addDocument(data: ["timeSent":FieldValue.serverTimestamp(),"senderId":sender_id,"orderId": orderId,"msg":sender_msg])
-    { err in
+        db.collection("Order").document(orderId).collection("Chat").addDocument(data: ["timeSent":FieldValue.serverTimestamp(),"senderId":sender_id,"orderId": orderId,"msg":sender_msg])
+        { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
@@ -1175,7 +1161,7 @@ class Order: ObservableObject{
             
         }
     }
-     
+    
     //****************************
     //For Member user
     //****************************
@@ -1301,14 +1287,14 @@ class Order: ObservableObject{
                 let courierLocationLatitude = data["courierLatitude"] as? Double ?? 0.0
                 let courierLocationLongitude = data["courierLongitude"] as? Double ?? 0.0
                 let courierLocation = CLLocationCoordinate2D(latitude: courierLocationLatitude, longitude: courierLocationLongitude)
-              
+                
                 return OrderDetails(id: uid, pickUP: pickup, pickUpBulding: pickupBuilding, pickUpFloor: pickupFloor, pickUpRoom: pickupRoom, dropOff: dropoff, dropOffBulding: dropoffBuilding, dropOffFloor: dropoffFloor, dropOffRoom: dropoffRoom, orderDetails: orderDetails, memberId: MemberID,courierId: courierId, deliveryPrice: deliveryPrice , courierLocation: courierLocation, isAdded: assigned, createdAt: createdAt.dateValue(), status: state)
             })
             
             
         }
     }
-
+    
     //cancels an order based on order id and deletes all offers if any
     func cancelOrder(OrderId: String){
         print("\n*******CancelOrder*********")
@@ -1334,7 +1320,7 @@ class Order: ObservableObject{
         }//get documents
         
     }
-
+    
     //function accept offer adds courier id and delivery price to order and deletes offer subcollection
     //add document to Tracking collection
     func acceptOffer(orderID: String, courierID: String, deliveryPrice: Double, courierLocation: CLLocationCoordinate2D){
@@ -1362,109 +1348,109 @@ class Order: ObservableObject{
     }
     
     func getMemberName(memberId : String, completion: @escaping (_ success: Bool) -> Void){
-
-            db.collection("Member").document(memberId)
-                    .addSnapshotListener { documentSnapshot, error in
-                        guard let document = documentSnapshot else {
-                            print("Error fetching document: \(error!)")
-                            return
-                        }
-                        let source = document.metadata.hasPendingWrites ? "Local" : "Server"
-                        print("\(source) data: \(document.data() ?? [:])")
-                        let data = document.data()
-                        self.nameSender = data?["Name"] as? String ?? ""
-                        
-                    
-            let success = true
+        
+        db.collection("Member").document(memberId)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+                print("\(source) data: \(document.data() ?? [:])")
+                let data = document.data()
+                self.nameSender = data?["Name"] as? String ?? ""
+                
+                
+                let success = true
                 DispatchQueue.main.async {
                     print("inside getChatRoom in dispatch")
                     completion(success)
                 }
                 
             }
-        }
-        func getCourierName(courierId : String, completion: @escaping (_ success: Bool) -> Void){
-            db.collection("Courier").document(courierId)
-                    .addSnapshotListener { documentSnapshot, error in
-                        guard let document = documentSnapshot else {
-                            print("Error fetching document: \(error!)")
-                            return
-                        }
-                        let source = document.metadata.hasPendingWrites ? "Local" : "Server"
-                        print("\(source) data: \(document.data() ?? [:])")
-                        let data = document.data()
-                        self.nameSender = data?["Name"] as? String ?? ""
-                        
-                    
-            let success = true
+    }
+    func getCourierName(courierId : String, completion: @escaping (_ success: Bool) -> Void){
+        db.collection("Courier").document(courierId)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+                print("\(source) data: \(document.data() ?? [:])")
+                let data = document.data()
+                self.nameSender = data?["Name"] as? String ?? ""
+                
+                
+                let success = true
                 DispatchQueue.main.async {
                     print("inside getChatRoom in dispatch")
                     completion(success)
                 }
                 
             }
-        }
-
-
+    }
     
     
-
+    
+    
+    
 }
 
 //get the updated courier location
 //updated courier location
-    func updateCourierLocation(CourierID : String, courierLocation: CLLocationCoordinate2D ) {
-        print("inside updateCourierLocation in dispatch")
-            print(courierLocation.latitude)
-            print(courierLocation.longitude)
-        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    db.collection("Tracking").document(document.documentID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
-                    { err in
-                        if let err = err {
+func updateCourierLocation(CourierID : String, courierLocation: CLLocationCoordinate2D ) {
+    print("inside updateCourierLocation in dispatch")
+    print(courierLocation.latitude)
+    print(courierLocation.longitude)
+    db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).getDocuments() { (querySnapshot, err) in
+        if let err = err {
+            print("Error getting documents: \(err)")
+            
+        } else {
+            for document in querySnapshot!.documents {
+                print("\(document.documentID) => \(document.data())")
+                db.collection("Tracking").document(document.documentID).setData(["CourierID": CourierID, "courierLatitude":courierLocation.latitude,"courierLongitude":courierLocation.longitude],merge: true)
+                { err in
+                    if let err = err {
                         print("Error updating courier location updateCourierLocation: \(err)")
-                        } else {
+                    } else {
                         print("courier location successfully updated inside updateCourierLocation!")
-                            
-                        }
+                        
+                    }
                     
                 }
                 
             }}
         
     }
-        
-        
-        
-   
-    }
+    
+    
+    
+    
+}
 
 
 
-    func getCourierLocation(CourierID : String){
-
-        db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).addSnapshotListener { (querySnapshot, error) in
-            if error != nil {
-                print("error getting courier location")
-                return
-            }
-            for i in querySnapshot!.documentChanges {
-                if i.type == .added || i.type == .modified {
-                    let courierlat = i.document.get("courierLatitude") as? Double ?? 0.0
-                    let courierlong = i.document.get("courierLongitude")as? Double ?? 0.0
-                    //print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
-                    riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong)
-
+func getCourierLocation(CourierID : String){
+    
+    db.collection("Tracking").whereField("CourierID", isEqualTo: CourierID).addSnapshotListener { (querySnapshot, error) in
+        if error != nil {
+            print("error getting courier location")
+            return
+        }
+        for i in querySnapshot!.documentChanges {
+            if i.type == .added || i.type == .modified {
+                let courierlat = i.document.get("courierLatitude") as? Double ?? 0.0
+                let courierlong = i.document.get("courierLongitude")as? Double ?? 0.0
+                //print("traking :\(orderID) + \(courierlat) + \(courierlong) ")
+                riyadhCoordinatetracking = CLLocationCoordinate2D(latitude: courierlat, longitude: courierlong)
                 
-                }
+                
             }
         }
     }
+}
 
 
 //add notification to DB
@@ -1472,37 +1458,37 @@ class Order: ObservableObject{
 func addNotificationMember (memberId: String, title: String, content: String, completion: @escaping (_ success: Bool) -> Void){
     db.collection("Member").document(memberId).collection("Notification").addDocument(data: ["Title": title, "Content": content])
     { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("\n\nNOTIFICATIOM successfully written!\n\n")
-            }
+        if let err = err {
+            print("Error writing document: \(err)")
+        } else {
+            print("\n\nNOTIFICATIOM successfully written!\n\n")
+        }
         let success = true
         DispatchQueue.main.async {
             print("inside NOTIFICATION M in dispatch")
             completion(success)
         }
-        }
+    }
     
 }
 
 //call this function when you want to send a notification to courier
 func addNotificationCourier (courierId: String, title: String, content: String, completion: @escaping (_ success: Bool) -> Void){
-
+    
     db.collection("Courier").document(courierId).collection("Notification").addDocument(data: ["Title": title, "Content": content])
     { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("\n\nNOTIFICATION C successfully written!\n\n")
-            }
+        if let err = err {
+            print("Error writing document: \(err)")
+        } else {
+            print("\n\nNOTIFICATION C successfully written!\n\n")
+        }
         let success = true
         DispatchQueue.main.async {
             print("inside NOTIFICATION C in dispatch")
             completion(success)
         }
-        }
-
+    }
+    
 }
 
 
@@ -1521,19 +1507,19 @@ func getNotificationMember(memberId: String, completion: @escaping (_ success: B
                 print("\(nContent) notification M")
                 
                 let center = UNUserNotificationCenter.current()
-
-                    let addRequest = {
-                        let content = UNMutableNotificationContent()
-                        content.title = title
-                        content.subtitle = nContent
-                        content.sound = UNNotificationSound.default
-
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
-                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                        print("\n\nin addRequest M\n\n")
-                        center.add(request)
-                    }
+                
+                let addRequest = {
+                    let content = UNMutableNotificationContent()
+                    content.title = title
+                    content.subtitle = nContent
+                    content.sound = UNNotificationSound.default
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                    
+                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                    print("\n\nin addRequest M\n\n")
+                    center.add(request)
+                }
                 center.getNotificationSettings { settings in
                     if settings.authorizationStatus == .authorized {
                         addRequest()
@@ -1574,7 +1560,7 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
             print("error getting msg")
             return
         }
-
+        
         for i in querySnapshot!.documentChanges {
             if i.type == .added {
                 
@@ -1582,19 +1568,19 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                 let nContent = i.document.get("Content")as? String ?? ""
                 print("\(nContent) notification C")
                 let center = UNUserNotificationCenter.current()
-
-                    let addRequest = {
-                        let content = UNMutableNotificationContent()
-                        content.title = title
-                        content.body = nContent
-                        content.sound = UNNotificationSound.default
-
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-
-                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                        print("\n\nin addRequest C\n\n")
-                        center.add(request)
-                    }
+                
+                let addRequest = {
+                    let content = UNMutableNotificationContent()
+                    content.title = title
+                    content.body = nContent
+                    content.sound = UNNotificationSound.default
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+                    
+                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                    print("\n\nin addRequest C\n\n")
+                    center.add(request)
+                }
                 center.getNotificationSettings { settings in
                     if settings.authorizationStatus == .authorized {
                         addRequest()
@@ -1610,7 +1596,7 @@ func getNotificationCourier(courierId: String, completion: @escaping (_ success:
                         }
                     }
                 }
-              
+                
                 
             }
             

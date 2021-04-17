@@ -30,7 +30,7 @@ struct DetailedOrderOffer: View {
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
     @State var token = ""
-
+    
     var body: some View{
         
         ZStack{
@@ -86,8 +86,6 @@ struct DetailedOrderOffer: View {
                         }
                     }
                 }
-                
-                
                 //white background
                 Image(uiImage: #imageLiteral(resourceName: "Rectangle 48"))
                     .resizable() //add resizable
@@ -114,19 +112,19 @@ struct DetailedOrderOffer: View {
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
                             if (model.selectedCard.orderD.deliveryPrice != 0){
-                            Image(uiImage: #imageLiteral(resourceName: "money"))
-                                .foregroundColor(Color.black.opacity(0.5))
-                                .offset(x: width(num:10), y: hieght(num:10))
-                                .padding(.leading)
-                            
-                            
-                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
-                                .font(.body)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.black.opacity(0.5))
-                                .animation(.easeIn)
-                                .offset(x: width(num:10), y: hieght(num:10))
-                            Spacer(minLength: 0)
+                                Image(uiImage: #imageLiteral(resourceName: "money"))
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .offset(x: width(num:10), y: hieght(num:10))
+                                    .padding(.leading)
+                                
+                                
+                                Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .animation(.easeIn)
+                                    .offset(x: width(num:10), y: hieght(num:10))
+                                Spacer(minLength: 0)
                             }
                         }
                         //pick up
@@ -151,7 +149,7 @@ struct DetailedOrderOffer: View {
                         }
                         //order items
                         ZStack{
-                          
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
                             HStack() {
                                 
@@ -233,7 +231,7 @@ struct DetailedOrderOffer: View {
                                 sendMessageTouser(to: self.token, title: "New Offers", body: "The order \(model.selectedCard.orderD.orderDetails.suffix(20)).. has new offers")
                                 
                             }
-                       }) {
+                        }) {
                             Text("Make an Offer")
                                 .font(.custom("Roboto Bold", size: fontSize(num:22)))
                                 .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))

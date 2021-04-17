@@ -109,7 +109,6 @@ struct DeliverOrderView: View{
                         Spacer()
                         HStack {
                             //Home icon
-                            // TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
                             VStack {
                                 Image(systemName: "homekit")
                                     .resizable()
@@ -198,15 +197,7 @@ struct DeliverOrderView: View{
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//end ZStack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }
+        
     }//end Body
     
 }
@@ -216,23 +207,23 @@ func checkOrdersForCourier(){
     if order.ordersCanceled.isEmpty{
         order.getOrderForCancel()
     }
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-     
-            for index in order.ordersCanceled {
-                
-                //convert time to double
-                let timeInterval = -1*index.createdAt.timeIntervalSinceNow
-                if( index.status != "cancled" && index.status != "completed" ){
-                    //60 sec * 15 minutes
-                    if timeInterval >= 900  && index.status == order.status[0]{
-                        order.cancelOrder(OrderId: index.id)
-                    }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        
+        for index in order.ordersCanceled {
+            
+            //convert time to double
+            let timeInterval = -1*index.createdAt.timeIntervalSinceNow
+            if( index.status != "cancled" && index.status != "completed" ){
+                //60 sec * 15 minutes
+                if timeInterval >= 900  && index.status == order.status[0]{
+                    order.cancelOrder(OrderId: index.id)
                 }
-                
             }
+            
+        }
         
         
-      }
+    }
     
 }
 

@@ -14,29 +14,22 @@ var CheckPinInRegion = true
 
 struct EntireMapView: UIViewRepresentable {
     
-    
-    
-    
-    
     @Binding var map : MKMapView
     @Binding var manager : CLLocationManager
-    
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
         
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         var riyadhCoordinate = CLLocationCoordinate2D()
         
-        
         //ghaida location
-       // riyadhCoordinate.latitude = 24.8270610
-       // riyadhCoordinate.longitude = 46.6551692
+        // riyadhCoordinate.latitude = 24.8270610
+        // riyadhCoordinate.longitude = 46.6551692
         
         //campus  location
-              riyadhCoordinate.latitude = 24.72640308847297
-         riyadhCoordinate.longitude = 46.638332536327816
+        riyadhCoordinate.latitude = 24.72640308847297
+        riyadhCoordinate.longitude = 46.638332536327816
         
-    
         let region = MKCoordinateRegion(center: riyadhCoordinate, span: span)
         mapView.setRegion(region, animated: true)
         
@@ -55,17 +48,11 @@ struct EntireMapView: UIViewRepresentable {
         return map
     }
     
-    
     func makeCoordinator() -> EntireMapViewCoordinator {
         return EntireMapViewCoordinator(self)
     }
     
-    
-    
     class EntireMapViewCoordinator: NSObject, MKMapViewDelegate {
-        
-        
-        
         var entireMapViewController: EntireMapView
         
         init(_ control: EntireMapView) {

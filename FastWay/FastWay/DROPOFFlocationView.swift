@@ -48,21 +48,12 @@ struct DROPOFFlocationView: View {
     @State var buldingNum = 0
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
-    
     var columns = Array(repeating: GridItem(.flexible()), count: 1)
     @State var text = ""
-    
-    
     var body: some View {
-
+        
         ZStack{
-            
-            
-            
-            
             ZStack{
-                
-                
                 VStack{
                     //background image
                     Image("Rectangle 49")
@@ -424,12 +415,12 @@ struct DROPOFFlocationView: View {
             //for the in app notification
             //call it before get notification
             /*UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
+             getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
+             print("after calling method get notification")
+             guard success else { return }
+             }*/
         }
-  
+        
     }//END BODY
     
     

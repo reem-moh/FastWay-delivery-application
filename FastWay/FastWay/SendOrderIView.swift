@@ -117,18 +117,12 @@ struct SendOrderIView: View {
                                     print("order details saved")
                                 }
                                 ADDORDER.toggle()
-                                //notificationT = .SendOrder
-                                //viewRouter.currentPage = .CurrentOrder
+                                
                             }
                             if order.addOrder(){
                                 print("order added")
                             }
-                            /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                if ADDORDER {
-                                    notificationT = .SendOrder
-                                    viewRouter.currentPage = .CurrentOrder
-                                }
-                            }*/
+                            
                             
                             
                         })  {
@@ -152,18 +146,10 @@ struct SendOrderIView: View {
                     viewRouter.currentPage = .CurrentOrder
                   })
             )
-         }
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-           getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
         }
-       
-           
+        
+        
+        
     }
     
     

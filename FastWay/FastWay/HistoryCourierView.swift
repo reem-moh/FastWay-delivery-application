@@ -13,14 +13,13 @@ struct HistoryCourierView: View {
     
     @StateObject var viewRouter: ViewRouter
     @EnvironmentObject var model: HistoryCarouselCViewModel
-   // @StateObject var courierOrderModel = CarouselViewModel()
     @Namespace var animation
     //for notification
     @State var show = false
     @State var imgName = "shoppingCart"
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
-
+    
     
     var body: some View {
         
@@ -64,7 +63,6 @@ struct HistoryCourierView: View {
                 model.showContent = false
                 model.showChat = false
             }
-            
             //Notification
             VStack{
                 
@@ -74,42 +72,39 @@ struct HistoryCourierView: View {
                         .transition(.asymmetric(insertion: .fadeAndSlide, removal: .fadeAndSlide))
                 }
             }
-          
-
             // Carousel...
-            
             VStack{
                 Spacer()
                 if model.cards.count == 0 {
                     Text("you do not have any  past order yet")
                 }else{
-                ZStack{
-                    GeometryReader{ geometry in
-                        HStack {
-                            ScrollView {
-                                
-                                ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
-                                    HStack{
-                                        if(index < model.cards.count){
-                                            HistoryCardCView(card: model.cards[index], animation: animation)
-                                        Spacer(minLength: 0)
-                                        }
-                                    }//.frame(height: 100)
-                                    .padding(.horizontal)
-                                    .contentShape(Rectangle())
-                                    .gesture(DragGesture(minimumDistance: 20))
-                                    .padding(.vertical, 5)
-                                    .shadow(radius: 1)
+                    ZStack{
+                        GeometryReader{ geometry in
+                            HStack {
+                                ScrollView {
+                                    
+                                    ForEach(model.cards.lazy.indices.reversed(),id: \.self) { index in
+                                        HStack{
+                                            if(index < model.cards.count){
+                                                HistoryCardCView(card: model.cards[index], animation: animation)
+                                                Spacer(minLength: 0)
+                                            }
+                                        }//.frame(height: 100)
+                                        .padding(.horizontal)
+                                        .contentShape(Rectangle())
+                                        .gesture(DragGesture(minimumDistance: 20))
+                                        .padding(.vertical, 5)
+                                        .shadow(radius: 1)
+                                        
+                                        
+                                    }.padding(.bottom,25)//end of for each
                                     
                                     
-                                }.padding(.bottom,25)//end of for each
-                                
+                                }
                                 
                             }
-                            
                         }
-                    }
-                }.padding(.top,80)
+                    }.padding(.top,80)
                 }
                 Spacer()
             }.padding(.bottom,80)
@@ -117,13 +112,7 @@ struct HistoryCourierView: View {
             //Press details
             if model.showCard {
                 HistoryCardCDetailes(viewRouter: viewRouter, animation: animation)
-            }/*else{
-                if model.showCard && model.assigned == true{
-                    //change to the assigned order view
-                    CurrentCardCDetailesNeworder(viewRouter: viewRouter, animation: animation)
-                }
-            }*/
-                        
+            }
             //notification
             VStack{
                 if show{
@@ -224,39 +213,12 @@ struct HistoryCourierView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)//zstack
-            
-           
-
-     
-            
         }//end ZStack
         .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-           // model.order.getCourierOrderAssign(Id: UserDefaults.standard.getUderId())
-
             model.order.getCourierOrderCancelledAndCompleted(Id: UserDefaults.standard.getUderId())
-            
         }
     }
-  
-    
-    
-        
-    
-    
-    
 }
-    
-
-
-
-
 //Current card c View
 struct HistoryCardCView: View {
     @EnvironmentObject var model : HistoryCarouselCViewModel
@@ -285,23 +247,23 @@ struct HistoryCardCView: View {
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
                 Spacer(minLength: 0)
-
+                
                 if(model.orderPreview(c: card).deliveryPrice != 0 && self.stat == "completed" ){
-            //price
-                Image(uiImage: #imageLiteral(resourceName: "money"))
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .padding(.leading)
+                    //price
+                    Image(uiImage: #imageLiteral(resourceName: "money"))
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .padding(.leading)
                     
-                Text("\(model.orderPreview(c: card).deliveryPrice) SR")
+                    Text("\(model.orderPreview(c: card).deliveryPrice) SR")
+                        
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .animation(.easeIn)
                     
-                    .font(.body)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.black.opacity(0.5))
-                    .animation(.easeIn)
-                
-                
-                Spacer(minLength: 0)
-            }
+                    
+                    Spacer(minLength: 0)
+                }
             }.padding(.top,15)
             
             //orderDetailes
@@ -350,18 +312,18 @@ struct HistoryCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-                      
+                        
                     }else
-                
-    
+                    
+                    
                     if self.stat == "cancled"
                     {
                         Text("cancled")
-                        .bold()
-                        .foregroundColor(.white)
-                        .frame(width: width(num:100),height: hieght(num:25))
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
-                            //.background(Color.purple)
+                            .bold()
+                            .foregroundColor(.white)
+                            .frame(width: width(num:100),height: hieght(num:25))
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.gray))
+                        //.background(Color.purple)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
@@ -371,7 +333,7 @@ struct HistoryCardCView: View {
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
                         Spacer(minLength: 0)
-
+                        
                         
                     }
                     
@@ -489,11 +451,6 @@ struct HistoryCardCDetailes: View {
                                 .offset(x: width(num:10), y: hieght(num:10))
                             Spacer(minLength: 0)
                             Spacer(minLength: 0)
-
-                            
-                            
-                            
-                            
                             if (model.selectedCard.orderD.deliveryPrice != 0 && self.stat == "completed" ){
                                 
                                 Image(uiImage: #imageLiteral(resourceName: "money"))
@@ -501,33 +458,14 @@ struct HistoryCardCDetailes: View {
                                     .offset(x: width(num:10), y: hieght(num:10))
                                     .padding(.leading)
                                 
-                            Text("\(model.selectedCard.orderD.deliveryPrice) SR")
-                                .font(.body)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.black.opacity(0.5))
-                                .animation(.easeIn)
-                                .offset(x: width(num:10), y: hieght(num:10))}
+                                Text("\(model.selectedCard.orderD.deliveryPrice) SR")
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black.opacity(0.5))
+                                    .animation(.easeIn)
+                                    .offset(x: width(num:10), y: hieght(num:10))}
                             Spacer(minLength: 0)
                         }
-                        /*
-                        if model.selectedCard.orderD.status == "have an offer"{
-                            HStack{
-                                Text("Waiting for accept")
-                                    .foregroundColor(.purple)
-                                    .bold()
-                                    .padding(.leading, width(num:20))
-                                DotView(frame: 15)
-                                DotView(delay: 0.2, frame: 15)
-                                DotView(delay: 0.4, frame: 15)
-        
-                            Spacer(minLength: 0)
-                            }
-                        }
-                        else {
-                        Text("Details")
-                        Spacer(minLength: 0)
-                        }
-                        */
                         //pick up
                         ZStack{
                             RoundedRectangle(cornerRadius: 15).padding().frame(width: width(num:350), height: hieght(num:160)).foregroundColor(.white).shadow(radius: 1)
@@ -550,7 +488,7 @@ struct HistoryCardCDetailes: View {
                         }
                         //order items
                         ZStack{
-                           
+                            
                             Image(uiImage: #imageLiteral(resourceName: "IMG_0528 copy 2 1")).offset(x: width(num:-125))
                             HStack() {
                                 
@@ -563,18 +501,18 @@ struct HistoryCardCDetailes: View {
                         .cornerRadius(15)
                         .shadow(radius: 1)
                         .padding(.bottom, hieght(num: 450))
-                     
+                        
                         
                     }
                 }.position(x: width(num:188),y: hieght(num:700))
             }
         }
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-       
+        
         
     }// end body
-
- 
+    
+    
     //name of building
     func getBuilding(id: Int) -> String {
         var building = ""

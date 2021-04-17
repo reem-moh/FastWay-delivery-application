@@ -161,20 +161,7 @@ struct HomeCourierView: View {
                         .background(Color("TabBarBackground").shadow(radius: 2))
                     }
                 }
-            }.edgesIgnoringSafeArea(.all)//zstack bar menu
-            .onAppear() {
-                
-                //for the in app notification
-                //call it before get notification
-                /*UNUserNotificationCenter.current().delegate = delegate
-                
-                getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                    print("after calling method get notification")
-                    
-                    guard success else { return }
-                }*/
-                
-            }
+            }.edgesIgnoringSafeArea(.all)
             
         }//end ZStack
         

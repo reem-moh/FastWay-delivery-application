@@ -137,9 +137,9 @@ struct ViewMemberProfile: View {
                 }.position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/50)
                 
             }
-
+            
             VStack{
-                                
+                
                 
                 HStack {
                     Spacer()
@@ -255,28 +255,10 @@ struct ViewMemberProfile: View {
                                     Text("Change Password")//.font(.custom("Roboto Medium", size: fontSize(num: 18)))
                                         .foregroundColor(Color.black.opacity(0.7))
                                         .fontWeight(.bold)
-                                    // .multilineTextAlignment(.center)
-                                    //.offset(x: width(num: 18) ,y: hieght(num: 10))
-                                    //.padding(.bottom,hieght(num: -20) )
-                                    
                                     Rectangle()
                                         .fill(Color.black.opacity(0.05))
                                         .frame(width: width(num: 100), height: hieght(num: 5))
                                 }.padding(.top , hieght(num: 10))
-                                
-                                
-                                //current password
-                                /* Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                 .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
-                                 SecureField("Current Password", text: $password, onCommit: {
-                                 //get pass from Auth and compare
-                                 })
-                                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                 .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                 .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                 .padding()
-                                 .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10) ).padding(.horizontal,width(num: 16) )
-                                 */
                                 Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
                                     .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
                                     .frame(maxWidth: width(num: UIScreen.main.bounds.width-24))
@@ -397,14 +379,8 @@ struct ViewMemberProfile: View {
                                     notificationT = .None
                                     viewRouter.currentPage = .HomePageM
                                 }
-                                 
+                                
                             }.foregroundColor(viewRouter.currentPage == .HomePageM ? Color("TabBarHighlight") : .gray)
-                            /*TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageM,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                             
-                             .onTapGesture{
-                             self.changePageHome = true
-                             
-                             }*/
                             ZStack {
                                 //about us icon
                                 Circle()
@@ -439,15 +415,7 @@ struct ViewMemberProfile: View {
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//zstack
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-             getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-             print("after calling method get notification")
-             guard success else { return }
-             }*/
-        }.alert(isPresented: $alertCancel) {
+        .alert(isPresented: $alertCancel) {
             Alert(
                 title: Text("undo Changes"),
                 message: Text("Do you want to undo these changes?"),

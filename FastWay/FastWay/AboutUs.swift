@@ -11,7 +11,6 @@ struct AboutUs: View {
     @StateObject var viewRouter: ViewRouter
     //for the in app notification
     @StateObject var delegate = NotificationDelegate()
-    //let abuotPage: Page = .AboutUs
     var body: some View {
         ZStack{
             
@@ -35,14 +34,14 @@ struct AboutUs: View {
                     checkOrders(ID:  UserDefaults.standard.getUderId())
                 }
             }//END VStack
-
+            
             VStack{
                 ScrollView{
                     VStack(alignment: .leading){
-                       Image("aboutUs")
-                        .resizable()
-                        .frame(width: width(num: UIImage(named: "aboutUs")!.size.width ), height: hieght(num: UIImage(named: "aboutUs")!.size.height))
-                        .offset(y: hieght(num: 170))
+                        Image("aboutUs")
+                            .resizable()
+                            .frame(width: width(num: UIImage(named: "aboutUs")!.size.width ), height: hieght(num: UIImage(named: "aboutUs")!.size.height))
+                            .offset(y: hieght(num: 170))
                     }.padding(.bottom, hieght(num: 60)) //VStack
                 }//scrollview
             }
@@ -89,16 +88,16 @@ struct AboutUs: View {
             UNUserNotificationCenter.current().delegate = delegate
             if UserDefaults.standard.getUderType() == "C"{
                 /*getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                    print("after calling method get notification")
-                    guard success else { return }
-                }*/
+                 print("after calling method get notification")
+                 guard success else { return }
+                 }*/
             }else if UserDefaults.standard.getUderType() == "M"{
                 getNotificationMember(memberId: UserDefaults.standard.getUderId()){ success in
-                     print("after calling method get notification")
-                     guard success else { return }
-                 }
+                    print("after calling method get notification")
+                    guard success else { return }
+                }
             }
-
+            
         }
         
     }//body

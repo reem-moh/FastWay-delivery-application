@@ -28,7 +28,7 @@ struct ViewCourierProfile: View {
     @State var rpErr=""
     @State var phErr=""
     @State var uErr=""
-
+    
     
     
     //for the in app notification
@@ -50,10 +50,6 @@ struct ViewCourierProfile: View {
     
     var body: some View {
         ZStack{
-            
-            
-            
-            
             ZStack{
                 
                 //background
@@ -102,7 +98,7 @@ struct ViewCourierProfile: View {
                     //save button
                     Button(action: {
                         //action here
-                       // if self.email != "" &&
+                        // if self.email != "" &&
                         if self.name == "" || self.email == "" || self.phoneNum == "" {
                             print(self.name + self.email + self.phoneNum)
                             self.nErr="*All fields are required"
@@ -184,11 +180,11 @@ struct ViewCourierProfile: View {
                                 }
                                 
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
                             .onTapGesture {
                                 self.show = true
                             }
@@ -210,11 +206,11 @@ struct ViewCourierProfile: View {
                                     self.email = self.courier.courier.email
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal,width(num: 16) )
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, 10).padding(.horizontal,width(num: 16) )
                             .onTapGesture {
                                 self.show = true
                             }
@@ -237,11 +233,11 @@ struct ViewCourierProfile: View {
                                     self.phoneNum = self.courier.courier.phoneNo
                                 }
                             })
-                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
+                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                            .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
                             .onTapGesture {
                                 self.show = true
                             }
@@ -256,29 +252,18 @@ struct ViewCourierProfile: View {
                                     Text("Change Password")//.font(.custom("Roboto Medium", size: fontSize(num: 18)))
                                         .foregroundColor(Color.black.opacity(0.7))
                                         .fontWeight(.bold)
-                                       // .multilineTextAlignment(.center)
-                                        //.offset(x: width(num: 18) ,y: hieght(num: 10))
-                                        //.padding(.bottom,hieght(num: -20) )
+                                    // .multilineTextAlignment(.center)
+                                    //.offset(x: width(num: 18) ,y: hieght(num: 10))
+                                    //.padding(.bottom,hieght(num: -20) )
                                     
                                     Rectangle()
                                         .fill(Color.black.opacity(0.05))
                                         .frame(width: width(num: 100), height: hieght(num: 5))
                                 }.padding(.top , hieght(num: 10))
-                                /*
-                                //current password
-                                Text("").font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
-                                SecureField("Current Password", text: $password)
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
-                                */
                                 if  self.error{
-                                Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
-                            }
+                                    Text(self.pErr).font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                        .foregroundColor(Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1))).offset(x: width(num: 12) ,y: hieght(num: 10))
+                                }
                                 //New Pass
                                 SecureField("New Password", text: $newPassword, onCommit: {
                                     self.error = false
@@ -288,11 +273,11 @@ struct ViewCourierProfile: View {
                                         self.error = true
                                     }
                                 })
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
                                 .onTapGesture {
                                     self.show = true
                                 }
@@ -310,28 +295,28 @@ struct ViewCourierProfile: View {
                                         self.error = true
                                     }
                                 })
-                                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                                    .font(.custom("Roboto Regular", size: fontSize(num: 18)))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                                .font(.custom("Roboto Regular", size: fontSize(num: 18)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.73, green: 0.72, blue: 0.72, alpha: 1)))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color(.gray), lineWidth: 2)).padding(.top, hieght(num: 10)).padding(.horizontal, width(num: 16))
                                 .onTapGesture {
                                     self.show = true
                                 }
-
+                                
                             }// end group password
                             
                         }//end group field
                         
                         //logout button
                         Button(action: {
-                                if self.show {
-                                    self.showLogOut = true
-                                    self.alertCancel.toggle()
-                                    self.alertCancel = true
-                                }else{
-                                    logout()
-                                }
+                            if self.show {
+                                self.showLogOut = true
+                                self.alertCancel.toggle()
+                                self.alertCancel = true
+                            }else{
+                                logout()
+                            }
                             
                         }) {
                             Text("Log out").font(.custom("Roboto Bold", size: fontSize(num: 22))).foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))).multilineTextAlignment(.center).padding(1.0).frame(width: UIScreen.main.bounds.width - 50).textCase(.none)
@@ -365,7 +350,7 @@ struct ViewCourierProfile: View {
                     print("inside noti ")
                 }
             }
-
+            
             
             //BarMenue
             ZStack{
@@ -398,10 +383,8 @@ struct ViewCourierProfile: View {
                                     notificationT = .None
                                     viewRouter.currentPage = .HomePageC
                                 }
-                                 
+                                
                             }.foregroundColor(viewRouter.currentPage == .HomePageC ? Color("TabBarHighlight") : .gray)
-                            /*TabBarIcon(viewRouter: viewRouter, assignedPage: .HomePageC,width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")*/
-                            
                             ZStack {
                                 //about us icon
                                 Circle()
@@ -434,15 +417,7 @@ struct ViewCourierProfile: View {
             }.edgesIgnoringSafeArea(.all)//zstack
             
         }//zstack.
-        .onAppear(){
-            //for the in app notification
-            //call it before get notification
-            /*UNUserNotificationCenter.current().delegate = delegate
-            getNotificationCourier(courierId: UserDefaults.standard.getUderId()){ success in
-                print("after calling method get notification")
-                guard success else { return }
-            }*/
-        }.alert(isPresented: $alertCancel) {
+        .alert(isPresented: $alertCancel) {
             Alert(
                 title: Text("undo Changes"),
                 message: Text("Do you want to undo these changes?"),

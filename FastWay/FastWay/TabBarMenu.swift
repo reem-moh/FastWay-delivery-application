@@ -82,13 +82,11 @@ struct TabBarMenuC {
     }
 }
 
-
 struct TabBarIcon: View {
     @StateObject var viewRouter: ViewRouter
     let assignedPage: Page
     let width, height: CGFloat
     let systemIconName, tabName: String
-    
     
     var body: some View {
         VStack {
@@ -106,7 +104,6 @@ struct TabBarIcon: View {
         }.foregroundColor(viewRouter.currentPage == assignedPage ? Color("TabBarHighlight") : .gray)
     }
 }
-
 
 struct TabBarMenu_Previews: PreviewProvider {
     static var previews: some View {

@@ -102,12 +102,6 @@ struct RadioButtonGroupT: View {
     }
 }
 
-
-
-
-
-
-
 struct DotView: View {
     @State var delay: Double = 0 // 1.
     @State var scale: CGFloat = 0.5
@@ -128,11 +122,3 @@ struct DotView: View {
             }
     }
 }
-
-
-
-/*
- DotView()
- DotView(delay: 0.2)
- DotView(delay: 0.4)
-*/
