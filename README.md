@@ -1,1 +1,1 @@
-# SWE444_Project
+# FastWay application
